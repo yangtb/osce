@@ -21,54 +21,50 @@ public class SysOrg implements Serializable {
     private static final long serialVersionUID = 1537428265775L;
 
     /**
-     * 机构id
+     * 主键
+     * 机构ID
      */
     private Long idOrg;
 
     /**
      * 机构名称
      */
-    private String name;
+    private String naOrg;
 
     /**
-     * 描述
+     * 机构描述
      */
-    private String des;
+    private String desOrg;
 
     /**
-     * 联系地址
+     * 机构地址
      */
-    private String addr;
+    private String address;
 
     /**
-     * 联系电话
+     * 电话
      */
-    private String phone;
+    private String tell;
 
     /**
-     * 电邮
+     * 邮箱
      */
     private String email;
 
     /**
-     * 0=机构，1=平台
+     * 上级机构
      */
-    private String fgPlat;
+    private Long idOrgPar;
 
     /**
-     * 0=未激活，1=已激活
+     * 0 未激活 1 已激活
      */
     private String fgActive;
 
     /**
-     * isNullAble:1
+     * 0 正常 1 删除
      */
     private String fgValid;
-
-    /**
-     * NULL 为不限期
-     */
-    private String gmtValid;
 
     /**
      * 排序
@@ -76,19 +72,19 @@ public class SysOrg implements Serializable {
     private Integer sort;
 
     /**
-     * 创建人
+     * 创建人员
      */
     private String creator;
-
-    /**
-     * 最后修改人
-     */
-    private String operator;
 
     /**
      * 创建时间
      */
     private Date gmtCreate;
+
+    /**
+     * 修改人员
+     */
+    private String operator;
 
     /**
      * 修改时间

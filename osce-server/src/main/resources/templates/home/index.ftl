@@ -16,9 +16,6 @@
         var basePath = '${basePath!}';
         var isAnonymousUser = '${homeInfo.anonymousUser? string ("true","false")!}';
         var fgActive = '<#if (homeInfo.sysOrg)??>${homeInfo.sysOrg.fgActive!}</#if>';
-        var gmtValid = '<#if (homeInfo.sysOrg)??>${homeInfo.sysOrg.gmtValid!}</#if>';
-        var orgExpiryNoticeDay = '${orgExpiryNoticeDay!}';
-        var expireNotice = '${homeInfo.expireNotice!}';
     </script>
 
 </head>

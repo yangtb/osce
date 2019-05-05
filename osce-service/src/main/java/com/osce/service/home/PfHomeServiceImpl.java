@@ -3,12 +3,10 @@ package com.osce.service.home;
 import com.osce.api.home.PfHomeService;
 import com.osce.api.system.org.PfOrgService;
 import com.osce.api.user.menu.PfMenuService;
-import com.osce.api.user.role.PfRoleService;
 import com.osce.dto.home.PfHomeDto;
 import com.osce.entity.SysOrg;
 import com.osce.vo.home.PfHomeVo;
 import com.osce.vo.user.menu.PfMenuVo;
-import com.sm.open.care.core.enums.YesOrNoNum;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +27,6 @@ public class PfHomeServiceImpl implements PfHomeService {
     @Resource
     private PfOrgService pfOrgService;
 
-    @Resource
-    private PfRoleService pfRoleService;
-
     @Override
     public PfHomeVo selectHomeInfo(PfHomeDto dto) {
         PfHomeVo result = new PfHomeVo();
@@ -46,10 +41,6 @@ public class PfHomeServiceImpl implements PfHomeService {
         if (dto.getIdOrg() != null) {
             SysOrg sysOrg = pfOrgService.selectOrgInfoById(dto.getIdOrg());
             result.setSysOrg(sysOrg);
-            if (sysOrg.getGmtValid() != null) {
-                result.setExpireNotice(pfRoleService.needExpireNotice(dto.getUserId()) ?
-                        YesOrNoNum.YES.getCode() : YesOrNoNum.NO.getCode());
-            }
         }
         return result;
     }

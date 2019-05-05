@@ -76,11 +76,13 @@
 </script>
 
 <script type="text/html" id="bizModuleTpl">
+    <#if modelList?? && (modelList?size > 0)>
     <#list modelList as param>
         {{#  if(d.bizModule == '${param.dictCode}'){ }}
         <span class="label label-info">${param.dictName}</span>
         {{#  } }}
     </#list>
+    </#if>
 </script>
 
 <script type="text/html" id="statusTpl">

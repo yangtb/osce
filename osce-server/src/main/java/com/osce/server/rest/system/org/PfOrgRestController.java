@@ -46,7 +46,7 @@ public class PfOrgRestController {
     @ResponseBody
     public ResultObject addOrg(@RequestBody SysOrg dto) {
         /* 参数校验 */
-        Assert.isTrue(StringUtils.isNotBlank(dto.getName()), "name");
+        Assert.isTrue(StringUtils.isNotBlank(dto.getNaOrg()), "name");
         dto.setCreator(CurrentUserUtils.getCurrentUsername());
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
         return  ResultObject.createSuccess("addOrg", ResultObject.DATA_TYPE_OBJECT, pfOrgService.addOrg(dto));
@@ -64,7 +64,7 @@ public class PfOrgRestController {
     public ResultObject editOrg(@RequestBody SysOrg dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdOrg() != null, "idOrg");
-        Assert.isTrue(StringUtils.isNotBlank(dto.getName()), "name");
+        Assert.isTrue(StringUtils.isNotBlank(dto.getNaOrg()), "name");
         return pfOrgService.editOrg(dto) ? ResultObject.createSuccess("editOrg", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("editOrg", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
 

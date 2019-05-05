@@ -138,9 +138,9 @@
     <select id="selectUser" resultType="com.osce.entity.UserInfo">
         SELECT
             ui.user_id, ui.username, ui.password, ui.salt, ui.email, ui.phone_no, ui.enabled,
-            ui.is_first, ui.role_type, ui.role_desc,ui.id_org ,
+            ui.is_first, ui.role_type, ui.role_desc, ui.id_org ,
             ui.real_name, ui.remark, ui.last_login_time, ui.is_deleted, ui.gmt_create, ui.gmt_modify,
-            so.fg_active, so.fg_plat
+            so.fg_active
         FROM user_info ui left join sys_org so on ui.id_org = so.id_org
         WHERE ui.username = #{userName}
         and ui.is_deleted = 'N'
@@ -269,7 +269,7 @@
     <select id="selectStudentInfo" resultType="com.osce.vo.user.login.PfStudentVo">
         SELECT
             a.user_id as studentId, a.real_name, a.sex, a.email, a.phone_no, 
-            b.name as orgName, d.name as className
+            b.na_org as orgName, d.name as className
         FROM
             user_info a
         LEFT JOIN sys_org b on a.id_org = b.id_org

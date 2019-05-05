@@ -180,7 +180,7 @@
 
     <select id="listAllOrg" resultType="com.osce.entity.SysOrg">
         SELECT
-            id_org, name , phone , email , fg_active
+            id_org, na_org , tell , email , fg_active
         FROM
             sys_org
         ORDER BY sort, fg_active
@@ -188,8 +188,9 @@
 
     <select id="selectOrgInfoById" resultType="com.osce.entity.SysOrg">
         SELECT
-            id_org, name , des , addr , phone , email ,
-            fg_plat , fg_active , fg_valid , gmt_valid , sort ,
+            id_org, na_org , des_org , address ,
+            tell , email , id_org_par ,
+            fg_active , fg_valid , sort ,
             creator , operator , gmt_create , gmt_modify
         FROM
             sys_org

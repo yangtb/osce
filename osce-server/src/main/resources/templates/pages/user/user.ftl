@@ -42,7 +42,7 @@
             <select name="idOrg">
                 <option value="">请选择</option>
                 <#list allOrg as element>
-                    <option value="${element.idOrg}">${element.name}</option>
+                    <option value="${element.idOrg}">${element.naOrg}</option>
                 </#list>
             </select>
         </div>

@@ -10,7 +10,6 @@ import com.osce.server.security.SecurityContext;
 import com.osce.server.utils.ParamUtil;
 import com.osce.vo.home.PfHomeVo;
 import com.sm.open.care.core.enums.YesOrNo;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -79,11 +78,6 @@ public class PfHomeController extends BaseController {
         pfHomeVo.setWebsiteCopyright(websiteCopyright);
         model.addAttribute("homeInfo", pfHomeVo);
         model.addAttribute("showOrgPage", SecurityContext.hasRole("ROLE_OM"));
-        SysParam sysParam = paramUtil.getParamInfo(SysParamEnum.EXPIRE_NOTICE_DAY.getCode());
-        if (sysParam != null) {
-            model.addAttribute("orgExpiryNoticeDay",
-                    StringUtils.isBlank(sysParam.getParamValue()) ? ORG_EXPIRY_NOTICE_DEFAULT_DAY : sysParam.getParamValue());
-        }
         model.addAttribute("showMessage", SecurityContext.isAnonymousUser() ? false : true);
         return "home/index";
     }

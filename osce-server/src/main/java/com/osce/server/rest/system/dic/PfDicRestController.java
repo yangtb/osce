@@ -132,13 +132,13 @@ public class PfDicRestController {
      *
      * @return
      */
-    /*@PreAuthorize("hasAnyRole('ROLE_DIC_REFRESHCACHE','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_DIC_REFRESHCACHE','ROLE_SUPER')")
     @RequestMapping(value = "/refreshCache", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject refreshCache() {
         enumUtil.init();
         return ResultObject.create("refreshCache", ResultObject.SUCCESS_CODE, ResultObject.MSG_SUCCESS,
                 ResultObject.DATA_TYPE_OBJECT, true);
-    }*/
+    }
 
 }
