@@ -24,14 +24,14 @@
 <div class="wrapper-content">
     <form class="layui-form" id="userform">
         <div hidden>
-            <input name="user_id" hidden>
+            <input name="userId" hidden>
         </div>
         <div class="layui-form-item form-item-my">
             <div class="layui-inline">
                 <label class="layui-form-label">登录账号<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <input type="text" name="user_name" lay-verify="required|username" lay-vertype="tips" autocomplete="off"
+                    <input type="text" name="userName" lay-verify="required|username" lay-vertype="tips" autocomplete="off"
                            class="layui-input <#if (formType == 'edit')>layui-disabled</#if>"
                            <#if (formType == 'edit')>disabled</#if>>
                 </div>
@@ -88,7 +88,7 @@
                 <label class="layui-form-label">真实姓名<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <input type="text" name="real_name" lay-verify="required" lay-vertype="tips"
+                    <input type="text" name="realName" lay-verify="required" lay-vertype="tips"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -110,7 +110,7 @@
                 <label class="layui-form-label">联系手机<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <input type="text" name="phone_no" lay-verify="required|phone" lay-vertype="tips"
+                    <input type="text" name="phoneNo" lay-verify="required|phone" lay-vertype="tips"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -145,7 +145,7 @@
                 <button class="layui-btn" lay-submit="" lay-filter="addUser">
                     <i class="iconfont icon-save-copy"></i> 保存
                 </button>
-                <#if(formType == 'add')>
+                <#if (formType == 'add')>
                     <button type="reset" class="layui-btn layui-btn-danger">
                         <i class="iconfont icon-reset"></i> 重新填写
                     </button>
@@ -162,7 +162,7 @@
 <script src="${contextPath}/biz/js/user/userFormController.js"></script>
 <script src="${contextPath}/biz/js/user/register/registerController.js"></script>
 <script>
-    #if(${formType} == 'edit')
+    <#if (formType == 'edit')>
     function fullForm(data) {
         $(document).ready(function () {
             $("#userform").autofill(data);
@@ -171,7 +171,7 @@
             });
         });
     };
-    #end
+    </#if>
 
     $(function () {
         var registerController = new RegisterController();

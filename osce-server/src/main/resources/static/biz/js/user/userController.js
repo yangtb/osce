@@ -162,7 +162,7 @@ layui.config({
         if (formType == 'add') {
             common.open('新增用户', 'form?formType=' + formType, 700, 420);
         } else {
-            common.open('编辑用户', 'form?formType=' + formType + "&userId=" + currentEditData.user_id, 700, 360, _successFunction(currentEditData));
+            common.open('编辑用户', 'form?formType=' + formType + "&userId=" + currentEditData.userId, 700, 360, _successFunction(currentEditData));
         }
     };
 
@@ -182,8 +182,8 @@ layui.config({
             if (username) {
                 username += ', ';
             }
-            username += content.user_name;
-            reqData.push(content.user_id);
+            username += content.userName;
+            reqData.push(content.userId);
         });
         var data = {};
         data.list = reqData;
@@ -206,8 +206,8 @@ layui.config({
             if (username) {
                 username += ', ';
             }
-            username += content.user_name;
-            reqData.push(content.user_id);
+            username += content.userName;
+            reqData.push(content.userId);
         });
         var data = {};
         data.list = reqData;
