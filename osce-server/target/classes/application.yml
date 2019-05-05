@@ -1,0 +1,62 @@
+server:
+  port: 8099
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /osce
+
+# dubbo消费者配置
+dubbo:
+  application:
+    name: osce-server
+    id: osce-server
+  registry:
+    address: zookeeper://127.0.0.1:2181
+    port: 2181
+    file: /Users/yangtongbin/work/cache/osce-server.cache
+  protocol:
+    name: dubbo
+    port: -1
+    accesslog: true
+  config-center:
+    timeout: 60000
+  scan:
+    base-packages: com.osce
+
+# 验证码配置
+imageCode:
+  width: 116
+  height: 40
+  codeLength: 4
+  randomString: ABCDEFGHIJKLMNPQRSTUVWXYZ1234567890abcdefghijkmnpqrstuvwxyz
+  sessionKey: SESSION_VCODE
+  font:
+    name: Times New Roman
+    style: 0
+    size: 36
+  expireTime: 600
+
+# 网站配置
+website: 
+  name: OSCE考试管理系统
+  pic:
+    uploadType: jpg,jpeg,png
+    maxUploadValue: 5120
+  audio:
+    uploadType: mp3,wav,ogg
+    maxUploadValue: 10240
+  video:
+    uploadType: mp4,avi,wmv,3gp,mkv,f4v,rmvb
+    maxUploadValue: 51200
+  approve:
+  logSwitch: Y
+  copyright: \u7248\u6743\u6240\u6709 Copyright \u00A9 Since2018 ******\u79D1\u6280\u6709\u9650\u516C\u53F8
+  ipBlacklist:
+
+logging:
+  config: classpath:log4j2-spring.xml
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8

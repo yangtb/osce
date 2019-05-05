@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.user.login.PfUserDao">
+
+    <sql id="Base_Column_List" >
+         user_id, username, password, salt, email, phone_no, enabled, is_first, role_type, role_desc,id_org ,
+         real_name, remark, last_login_time, is_deleted, gmt_create, gmt_modify
+    </sql>
+
+    <!-- 保存用户信息 -->
+    <insert id="saveUser"
+            keyColumn="user_id" keyProperty="userId">
+        INSERT INTO user_info(
+            username , password , salt , email , phone_no ,
+            enabled , real_name , id_org ,
+            <if test="sex!=0">
+                sex,
+            </if>
+            remark , gmt_create , gmt_modify , operator
+        )
+        VALUES
+            (
+              #{username} , #{password} , #{salt} ,  #{email} ,  #{phoneNo} ,
+              #{enabled} , #{realName} , #{idOrg} ,
+              <if test="sex!=0">
+                #{sex} ,
+              </if>
+              #{remark} , now() , now() , #{operator}
+            );
+    </insert>
+
+    <!-- 新增用户角色 -->
+    <insert id="saveUserRole">
+        INSERT INTO user_role(
+            user_id , role_id , is_deleted , gmt_create , gmt_modify
+        )
+        VALUES
+        <foreach collection="list" item="item" separator="," >
+            (#{userId}, #{item}, 'N' , NOW(), NOW())
+        </foreach>
+    </insert>
+
+    <!-- 删除用户角色 -->
+    <delete id="delUserRole">
+        update user_role set is_deleted = 'Y' where user_id = #{userId}
+    </delete>
+
+    <!-- 获取用户所在机构集合 -->
+    <select id="selectOrgId" resultType="java.lang.Long">
+        SELECT id_org
+        FROM  user_info
+        WHERE
+        user_id in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </select>
+
+    <!-- 删除用户 -->
+    <update id="delUser" parameterType="java.util.List">
+        UPDATE user_info SET is_deleted = 'Y', gmt_modify = now()
+        WHERE
+        user_id in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+
+    <!-- 冻结用户 -->
+    <update id="freezeUser" parameterType="java.util.List">
+        UPDATE user_info SET enabled = 0, gmt_modify = now()
+        WHERE
+        user_id in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+
+    <!-- 修改用户信息 -->
+    <update id="updateUser" >
+        UPDATE user_info
+        SET
+            <if test="username != null">
+                username = #{username} ,
+            </if>
+            <if test="email != null">
+                email = #{email} ,
+            </if>
+            <if test="phoneNo != null">
+                phone_no = #{phoneNo} ,
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled} ,
+            </if>
+            <if test="isFirst != null">
+                is_first = #{isFirst} ,
+            </if>
+            <if test="roleType != null">
+                role_type = #{roleType} ,
+            </if>
+            <if test="roleDesc != null">
+                role_desc = #{roleDesc} ,
+            </if>
+            <if test="realName != null">
+                real_name = #{realName} ,
+            </if>
+            <if test="sex != null">
+                sex = #{sex} ,
+            </if>
+            <if test="remark != null">
+                remark = #{remark} ,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted} ,
+            </if>
+            <if test="operator != null and operator != ''">
+                operator = #{operator},
+            </if>
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            gmt_modify = NOW()
+        WHERE
+            user_id = #{userId};
+    </update>
+
+    <!-- 修改密码 -->
+    <update id="updatePsw" >
+        UPDATE user_info
+        SET password = #{password}, salt = #{salt}, gmt_modify = NOW()
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 根据用户获取用户信息 -->
+    <select id="selectUser" resultType="com.osce.entity.UserInfo">
+        SELECT
+            ui.user_id, ui.username, ui.password, ui.salt, ui.email, ui.phone_no, ui.enabled,
+            ui.is_first, ui.role_type, ui.role_desc,ui.id_org ,
+            ui.real_name, ui.remark, ui.last_login_time, ui.is_deleted, ui.gmt_create, ui.gmt_modify,
+            so.fg_active, so.fg_plat
+        FROM user_info ui left join sys_org so on ui.id_org = so.id_org
+        WHERE ui.username = #{userName}
+        and ui.is_deleted = 'N'
+    </select>
+
+    <!-- 根据用户id获取用户信息 -->
+    <select id="selectUserById" resultType="com.osce.entity.UserInfo">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user_info
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 获取用户列表 -->
+    <select id="listUsers"
+            resultType="com.osce.vo.user.login.PfUsersVo">
+        SELECT
+            ui.user_id ,
+            ui.username ,
+            ui.email ,
+            ui.sex ,
+            ui.phone_no ,
+            ui.enabled ,
+            ui.is_first ,
+            ui.real_name ,
+            ui.last_login_time ,
+            ui.is_deleted ,
+            ui.role_type ,
+            ui.gmt_create ,
+            ui.gmt_modify ,
+            ui.operator ,
+            ui.id_org
+        FROM
+          user_info ui
+        <if test='isSuper == false'>
+            LEFT JOIN(
+                SELECT
+                    a.user_id ,
+                    min(b.level) as level
+                FROM
+                    user_role a
+                LEFT JOIN sys_role b ON a.role_id = b.role_id
+                WHERE
+                    a.is_deleted = 'N'
+                group by a.user_id
+                ORDER BY
+                    b.level DESC
+            ) temp ON ui.user_id = temp.user_id
+        </if>
+        WHERE
+          is_deleted = 'N'
+        <if test='isSuper == false'>
+            AND temp.level > #{level}
+        </if>
+        <if test="conditionValue != null and conditionValue !=''">
+            <choose>
+                <when test="type != null and type == '1'.toString()">
+                    and ui.username like concat(#{conditionValue},'%')
+                </when>
+                <when test="type != null and type == '2'.toString()">
+                    and ui.real_name like concat(#{conditionValue},'%')
+                </when>
+                <when test="type != null and type == '3'.toString()">
+                    and ui.phone_no like concat(#{conditionValue},'%')
+                </when>
+            </choose>
+        </if>
+        <if test="idOrg != null">
+            and ui.id_org = #{idOrg}
+        </if>
+        and ui.username != 'super'
+        limit #{offset}, #{limit}
+    </select>
+
+    <!-- 获取用户列表总数 -->
+    <select id="countUsers" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            user_info ui
+        <if test='isSuper == false'>
+        LEFT JOIN(
+            SELECT
+                a.user_id ,
+                min(b.level) as level
+            FROM
+                user_role a
+            LEFT JOIN sys_role b ON a.role_id = b.role_id
+            WHERE
+                a.is_deleted = 'N'
+            group by a.user_id
+            ORDER BY
+                b.level DESC
+        ) temp ON ui.user_id = temp.user_id
+        </if>
+        WHERE
+            is_deleted = 'N'
+        <if test='isSuper == false'>
+        AND temp.level > #{level}
+        </if>
+        <if test="conditionValue != null and conditionValue !=''">
+            <choose>
+                <when test="type != null and type == '1'.toString()">
+                    and ui.username like concat(#{conditionValue},'%')
+                </when>
+                <when test="type != null and type == '2'.toString()">
+                    and ui.real_name like concat(#{conditionValue},'%')
+                </when>
+                <when test="type != null and type == '3'.toString()">
+                    and ui.phone_no like concat(#{conditionValue},'%')
+                </when>
+            </choose>
+        </if>
+        <if test="idOrg != null">
+            and ui.id_org = #{idOrg}
+        </if>
+        and ui.username != 'super'
+    </select>
+
+    <!-- 判断是否存在相同的用户名 -->
+    <select id="isExistUser" resultType="java.lang.Boolean">
+         SELECT COUNT(1) FROM user_info WHERE username = #{userName} and is_deleted = 'N'
+    </select>
+
+    <!-- 查询学生信息 -->
+    <select id="selectStudentInfo" resultType="com.osce.vo.user.login.PfStudentVo">
+        SELECT
+            a.user_id as studentId, a.real_name, a.sex, a.email, a.phone_no, 
+            b.name as orgName, d.name as className
+        FROM
+            user_info a
+        LEFT JOIN sys_org b on a.id_org = b.id_org
+        LEFT JOIN id_class_memo c ON a.user_id = c.id_user
+        LEFT JOIN sys_class d on c.id_class = d.id_class
+        WHERE
+            a.user_id = #{idStudent}
+    </select>
+
+</mapper>

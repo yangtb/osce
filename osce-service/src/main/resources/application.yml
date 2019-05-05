@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    #url: ${jdbc.url}
+    #username: ${jdbc.username}
+    #password: ${jdbc.password}
+    url: jdbc:mysql://localhost:3306/osce?zeroDateTimeBehavior=convertToNull&amp
+    username: root
+    password: Yangtb0424
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    max-idle: 10
+    max-wait: 10000
+    min-idle: 5
+    initial-size: 5
+
+# dubbo 服务提供者配置
+dubbo:
+  application:
+    name: osce-service
+    id: osce-service
+  registry:
+    address: zookeeper://127.0.0.1:2181
+    port: 2181
+    file: /Users/yangtongbin/work/cache/osce-service.cache
+  protocol:
+    name: dubbo
+    port: -1
+    accesslog: true
+  scan:
+    base-packages: com.osce
+  config-center:
+    timeout: 60000
+
+mybatis:
+  mapper-locations: classpath:com/osce/orm/*Dao.xml
+  configuration:
+    map-underscore-to-camel-case: true

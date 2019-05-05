@@ -1,0 +1,40 @@
+<assembly>
+
+	<id>bin</id>
+
+	<formats>
+		<format>zip</format>
+	</formats>
+
+	<dependencySets>
+		<dependencySet>
+			<useProjectArtifact>false</useProjectArtifact>
+			<outputDirectory>lib</outputDirectory>
+		</dependencySet>
+	</dependencySets>
+
+	<fileSets>
+		<fileSet>
+			<directory>${project.build.directory}/${project.artifactId}
+			</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>**/*.*</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>${project.build.directory}</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>*.jar</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>temp</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>bin/*.*</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</assembly>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.training.structure.grade.PfGradeDao">
+
+
+    <select id="listGrades" resultType="com.osce.vo.biz.training.structure.grade.GradeVo">
+        SELECT
+            id_grade ,
+            na_grade ,
+            des_grade ,
+            gmt_create
+        FROM
+            org_grade
+        WHERE
+            fg_valid = '0'
+        AND id_org = #{idOrg}
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countGrade" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            org_grade
+        WHERE
+            fg_valid = '0'
+        AND id_org = #{idOrg}
+    </select>
+
+</mapper>
