@@ -1,6 +1,8 @@
 package com.osce.orm.biz.training.structure.grade;
 
 import com.osce.dto.biz.training.structure.grade.GradeDto;
+import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.entity.OrgGrade;
 import com.osce.vo.biz.training.structure.grade.GradeVo;
 import org.springframework.stereotype.Repository;
 
@@ -30,5 +32,29 @@ public interface PfGradeDao {
      * @return
      */
     Long countGrade(GradeDto dto);
+
+    /**
+     * 新增
+     *
+     * @param dto
+     * @return
+     */
+    Long addGrade(OrgGrade dto);
+
+    /**
+     * 编辑
+     *
+     * @param dto
+     * @return
+     */
+    int editGrade(OrgGrade dto);
+
+    /**
+     * 删除
+     *
+     * @param dto
+     * @return
+     */
+    int delGrade(PfBachChangeStatusDto dto);
 
 }

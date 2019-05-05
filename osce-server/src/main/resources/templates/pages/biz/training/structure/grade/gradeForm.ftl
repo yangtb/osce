@@ -21,26 +21,26 @@
 <div class="wrapper-content">
     <form class="layui-form" id="gradeForm">
         <div hidden>
-            <input name="id" hidden>
+            <input name="idGrade" hidden>
         </div>
 
         <div class="layui-form-item form-item-my5">
             <label class="layui-form-label">学届名称<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
             <div class="layui-input-block">
-                <input type="text" name="naGrade" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="naGrade" lay-verify="required|naGrade" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item layui-form-text form-item-my5">
             <label class="layui-form-label">描述</label>
             <div class="layui-input-block">
-                <textarea name="desGrade" class="layui-textarea"></textarea>
+                <textarea name="desGrade" class="layui-textarea" lay-verify="desGrade"></textarea>
             </div>
         </div>
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="addParam">
+                <button class="layui-btn" lay-submit="" lay-filter="addGrade">
                     <i class="iconfont icon-save-copy"></i> 保存
                 </button>
                 <#if (formType == 'add')>

@@ -27,6 +27,11 @@ public class OrgGrade implements Serializable {
     private Long idGrade;
 
     /**
+     * 机构id
+     */
+    private Long idOrg;
+
+    /**
      * 学届名称
      */
     private String naGrade;

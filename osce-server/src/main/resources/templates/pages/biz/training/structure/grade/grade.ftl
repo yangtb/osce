@@ -29,11 +29,11 @@
                     <i class="iconfont icon-edit"></i> 编辑
                 </button>
                 <button type="button" class="layui-btn layui-btn-danger" id="del">
-                    <i class="iconfont icon-delete"></i> 删除
+                    <i class="layui-icon layui-icon-delete"></i>删除
                 </button>
             </div>
             <div class="layui-input-inline">
-                <input type="text" name="naGrade" class="layui-input"
+                <input type="text" name="naGrade" class="layui-input" autocomplete="off"
                        placeholder="请输入学届名称">
             </div>
         </div>
@@ -57,9 +57,21 @@
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/training/structure/grade/gradeController.js"></script>
 
+<script type="text/html" id="fgActiveTpl">
+    <input type="checkbox" name="fgActive" value="{{d.idGrade}}"
+           lay-skin="switch" lay-text="启用|停用" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
+</script>
+
+<script type="text/html" id="currentGradeTpl">
+    {{#  if(d.currentGrade == true){ }}
+    <i class="iconfont icon-gou" style="color: #5FB878"></i>
+    {{#  } else { }}
+    <i class="iconfont icon-chacha" style="color: #FF5722"></i>
+    {{#  } }}
+</script>
+
 <script type="text/html" id="gradeBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 
 </body>

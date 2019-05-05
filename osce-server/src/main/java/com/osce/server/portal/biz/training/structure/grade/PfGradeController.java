@@ -24,20 +24,20 @@ public class PfGradeController extends BaseController {
     @Reference
     private PfGradeService pfGradeService;
 
-    @PreAuthorize("hasAnyRole('ROLE_PARAM_MG','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/grade/page")
     public String page(Model model) {
         return "pages/biz/training/structure/grade/grade";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_PARAM_MG','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/grade/form")
     public String form(String formType, Model model) {
         model.addAttribute("formType", formType);
-        return "pages/system/param/paramForm";
+        return "pages/biz/training/structure/grade/gradeForm";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_PARAM_MG','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/grade/list")
     @ResponseBody
     public PageResult listGrade(GradeDto dto) {

@@ -55,4 +55,9 @@ public class GradeVo implements Serializable {
      */
     private Date gmtCreate;
 
+    /**
+     * 激活标志
+     */
+    private String fgActive;
+
 }
