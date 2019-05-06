@@ -87,7 +87,7 @@
 </script>
 
 <script type="text/html" id="viewTreeBar">
-    <a class="layui-btn layui-btn-xs" lay-event="editAuth">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="editAuth">
         <i class="iconfont icon-quanxian"></i> 查看权限
     </a>
 </script>

@@ -67,7 +67,7 @@
 <script src="${contextPath}/biz/js/system/param/paramController.js"></script>
 
 <script type="text/html" id="paramBar">
-    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
     {{#  if(d.status == 'enabled'){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stop"><i class="iconfont icon-stop"></i> 停用</a>
     {{#  } else { }}

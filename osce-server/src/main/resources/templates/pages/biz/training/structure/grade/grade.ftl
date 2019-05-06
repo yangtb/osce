@@ -71,7 +71,7 @@
 </script>
 
 <script type="text/html" id="gradeBar">
-    <a class="layui-btn layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
 </script>
 
 </body>
