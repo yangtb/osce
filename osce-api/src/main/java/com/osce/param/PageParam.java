@@ -16,16 +16,19 @@ import java.io.Serializable;
 @Getter
 @ToString
 public class PageParam implements Serializable {
+
     private static final long serialVersionUID = 3938095740389970783L;
 
     /**
      * 页码
      */
     private Integer page;
+
     /**
      * 数据偏移量，从当前这个数目开始查询
      */
     private Long offset = 0L;
+
     /**
      * 每页数据量
      */
