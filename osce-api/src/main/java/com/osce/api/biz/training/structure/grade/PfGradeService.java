@@ -4,6 +4,9 @@ import com.osce.dto.biz.training.structure.grade.GradeDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgGrade;
 import com.osce.result.PageResult;
+import com.osce.vo.biz.training.structure.grade.GradeVo;
+
+import java.util.List;
 
 /**
  * @ClassName: PfGradeService
@@ -36,4 +39,12 @@ public interface PfGradeService {
      * @return
      */
     boolean delGrade(PfBachChangeStatusDto dto);
+
+    /**
+     * 获取当前机构所有学届
+     *
+     * @param idOrg 机构id
+     * @return
+     */
+    List<GradeVo> listAllGrades(Long idOrg);
 }

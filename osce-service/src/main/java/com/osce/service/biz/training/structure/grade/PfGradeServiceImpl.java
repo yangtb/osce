@@ -9,11 +9,13 @@ import com.osce.orm.biz.training.structure.grade.PfGradeDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
+import com.osce.vo.biz.training.structure.grade.GradeVo;
 import com.sm.open.care.core.enums.YesOrNoNum;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName: PfGradeService
@@ -55,5 +57,10 @@ public class PfGradeServiceImpl implements PfGradeService {
             }
         }
         return num >= 1 ? true : false;
+    }
+
+    @Override
+    public List<GradeVo> listAllGrades(Long idOrg) {
+        return pfGradeDao.listAllGrades(idOrg);
     }
 }

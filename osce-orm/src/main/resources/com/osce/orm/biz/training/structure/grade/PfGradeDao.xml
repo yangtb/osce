@@ -176,6 +176,7 @@
         <if test="naGrade != null and naGrade != '' ">
             and na_grade like concat('%',#{naGrade},'%')
         </if>
+        order by gmt_create desc
         limit #{offset}, #{limit}
     </select>
 
@@ -192,6 +193,17 @@
         </if>
     </select>
 
+    <select id="listAllGrades" resultType="com.osce.vo.biz.training.structure.grade.GradeVo">
+        SELECT
+            id_grade ,
+            na_grade ,
+            fg_active
+        FROM
+            org_grade
+        WHERE
+            fg_valid = '0'
+        AND id_org = #{idOrg}
+    </select>
 
 
 </mapper>

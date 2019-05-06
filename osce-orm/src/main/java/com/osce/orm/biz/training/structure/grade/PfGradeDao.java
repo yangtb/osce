@@ -68,4 +68,12 @@ public interface PfGradeDao {
     int updateOtherGrade(@Param("idOrg") Long idOrg,
                          @Param("idGrade") Long idGrade);
 
+    /**
+     * 获取当前机构所有学届
+     *
+     * @param idOrg 机构id
+     * @return
+     */
+    List<GradeVo> listAllGrades(@Param("idOrg") Long idOrg);
+
 }
