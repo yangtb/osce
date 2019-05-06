@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.training.structure.dept.PfDeptDao">
+    <insert id="addDept" useGeneratedKeys="true" keyProperty="idDepart">
+        INSERT INTO org_depart
+        (
+        <trim suffixOverrides=",">
+            <if test="idDepart!=null">
+                id_depart,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="idGrade!=null">
+                id_grade,
+            </if>
+            <if test="naDepart!=null">
+                na_depart,
+            </if>
+            <if test="desDepart!=null">
+                des_depart,
+            </if>
+            <if test="sdDepartCa!=null">
+                sd_depart_ca,
+            </if>
+            <if test="idDepartPar!=null">
+                id_depart_par,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+                creator,
+                gmt_create,
+                operator,
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idDepart!=null">
+                #{idDepart},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="idGrade!=null">
+                #{idGrade},
+            </if>
+            <if test="naDepart!=null">
+                #{naDepart},
+            </if>
+            <if test="desDepart!=null">
+                #{desDepart},
+            </if>
+            <if test="sdDepartCa!=null">
+                #{sdDepartCa},
+            </if>
+            <if test="idDepartPar!=null">
+                #{idDepartPar},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+                #{creator},
+                now(),
+                #{operator},
+                now(),
+        </trim>
+        )
+    </insert>
+    <update id="editDept">
+        UPDATE org_depart
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="idGrade != null">
+                id_grade = #{idGrade},
+            </if>
+            <if test="naDepart != null and naDepart!=''">
+                na_depart = #{naDepart},
+            </if>
+            <if test="desDepart != null and desDepart!=''">
+                des_depart = #{desDepart},
+            </if>
+            <if test="sdDepartCa != null and sdDepartCa!=''">
+                sd_depart_ca = #{sdDepartCa},
+            </if>
+            <if test="idDepartPar != null">
+                id_depart_par = #{idDepartPar},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id_depart = #{idDepart}
+    </update>
+    <update id="delDept">
+        UPDATE org_depart
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id_depart in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+
+
+    <select id="selectDeptTree" resultType="com.osce.vo.biz.training.structure.dept.PfDeptZtreeVo">
+        SELECT
+            id_depart ,
+            id_depart AS id ,
+            id_depart_par AS pId ,
+            na_depart as name,
+            fg_active,
+            true as open
+        FROM
+            org_depart
+        WHERE
+            fg_valid = '0'
+    </select>
+    <select id="selectDeptDetail" resultType="com.osce.entity.OrgDepart">
+        SELECT
+            id_depart, id_org, id_grade, na_depart, des_depart, sd_depart_ca, 
+            id_depart_par, fg_active, fg_valid, sort, 
+            creator, gmt_create, operator, gmt_modify
+        FROM
+            org_depart
+        WHERE id_depart = #{idDepart}
+    </select>
+    <select id="listAllDept" resultType="com.osce.entity.OrgDepart">
+        SELECT
+            id_depart, na_depart , fg_active
+        FROM
+            org_depart
+        ORDER BY
+            sort, fg_active
+    </select>
+</mapper>
