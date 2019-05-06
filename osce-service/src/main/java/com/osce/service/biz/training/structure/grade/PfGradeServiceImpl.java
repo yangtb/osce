@@ -4,11 +4,14 @@ import com.osce.api.biz.training.structure.grade.PfGradeService;
 import com.osce.dto.biz.training.structure.grade.GradeDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgGrade;
+import com.osce.enums.OperationTypeEnum;
 import com.osce.orm.biz.training.structure.grade.PfGradeDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
+import com.sm.open.care.core.enums.YesOrNoNum;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -41,8 +44,16 @@ public class PfGradeServiceImpl implements PfGradeService {
         return dto.getIdGrade();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean delGrade(PfBachChangeStatusDto dto) {
-        return pfGradeDao.delGrade(dto) >= 1 ? true : false;
+        int num = pfGradeDao.delGrade(dto);
+        if (dto.getOperationType().equals(OperationTypeEnum.UPDATE_STATUS.getCode())) {
+            if (dto.getStatus().equals(YesOrNoNum.YES.getCode())) {
+                // 更新其他状态
+                pfGradeDao.updateOtherGrade(dto.getExtId(), dto.getList().get(0));
+            }
+        }
+        return num >= 1 ? true : false;
     }
 }

@@ -130,6 +130,15 @@
         </foreach>
         )
     </update>
+    <update id="updateOtherGrade">
+        UPDATE
+            org_grade
+        SET
+            fg_active = '0'
+        WHERE
+            id_org = #{idOrg}
+        and id_grade != #{idGrade}
+    </update>
 
 
     <select id="listGrades" resultType="com.osce.vo.biz.training.structure.grade.GradeVo">
@@ -138,9 +147,29 @@
             na_grade ,
             des_grade ,
             gmt_create ,
-            fg_active
+            fg_active ,
+            (
+                SELECT
+                    COUNT(1)
+                FROM
+                    org_depart od
+                WHERE
+                    og.id_grade = od.id_grade
+                AND od.sd_depart_ca = '3'
+                AND od.fg_active = '1'
+                AND od.fg_valid = '0'
+            ) AS gradeNum ,
+            (
+                SELECT
+                    COUNT(1)
+                FROM
+                    org_student_depart osd
+                INNER JOIN user_info ui ON ui.user_id = osd.id_user
+                WHERE
+                    og.id_grade = osd.id_grade
+            ) AS studentNum
         FROM
-            org_grade
+            org_grade og
         WHERE
             fg_valid = '0'
         AND id_org = #{idOrg}
@@ -162,5 +191,7 @@
             and na_grade like concat('%',#{naGrade},'%')
         </if>
     </select>
+
+
 
 </mapper>

@@ -4,6 +4,7 @@ import com.osce.dto.biz.training.structure.grade.GradeDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgGrade;
 import com.osce.vo.biz.training.structure.grade.GradeVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -56,5 +57,15 @@ public interface PfGradeDao {
      * @return
      */
     int delGrade(PfBachChangeStatusDto dto);
+
+    /**
+     * 保证当前学届只有一个
+     *
+     * @param idOrg   机构id
+     * @param idGrade 学届id
+     * @return
+     */
+    int updateOtherGrade(@Param("idOrg") Long idOrg,
+                         @Param("idGrade") Long idGrade);
 
 }

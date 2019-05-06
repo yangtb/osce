@@ -27,7 +27,8 @@
         <div class="layui-form-item form-item-my5">
             <label class="layui-form-label">学届名称<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
             <div class="layui-input-block">
-                <input type="text" name="naGrade" lay-verify="required|naGrade" autocomplete="off" class="layui-input">
+                <input type="text" name="naGrade" lay-verify="required|naGrade" lay-vertype="tips"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
 

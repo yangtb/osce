@@ -59,16 +59,16 @@
 
 <script type="text/html" id="fgActiveTpl">
     <input type="checkbox" name="fgActive" value="{{d.idGrade}}"
-           lay-skin="switch" lay-text="启用|停用" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
+           lay-skin="switch" lay-text="是|否" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
 </script>
-
+<#--
 <script type="text/html" id="currentGradeTpl">
     {{#  if(d.currentGrade == true){ }}
     <i class="iconfont icon-gou" style="color: #5FB878"></i>
     {{#  } else { }}
     <i class="iconfont icon-chacha" style="color: #FF5722"></i>
     {{#  } }}
-</script>
+</script>-->
 
 <script type="text/html" id="gradeBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>

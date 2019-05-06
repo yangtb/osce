@@ -92,6 +92,7 @@ public class PfGradeRestController extends BaseController {
         Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
         dto.setOperationType(OperationTypeEnum.UPDATE_STATUS.getCode());
+        dto.setExtId(CurrentUserUtils.getCurrentUserIdOrg());
         return pfGradeService.delGrade(dto) ? ResultObject.createSuccess("updateGradeStatus", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("updateGradeStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }

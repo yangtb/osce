@@ -13,12 +13,11 @@ layui.config({
         , height: 'full-68' //容器高度
         , cols: [[
             {checkbox: true, fixed: true},
-            {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
+            {field: 'fgActive', width: 100, title: '当前学届',fixed: true, templet: '#fgActiveTpl'},
             {field: 'naGrade', minWidth: 170, title: '学届名称', fixed: true},
             {field: 'desGrade', minWidth: 200, title: '学届描述'},
             {field: 'gradeNum', minWidth: 100, title: '班级数'},
             {field: 'studentNum', minWidth: 100, title: '学员数'},
-            {field: 'currentGrade', minWidth: 100, title: '当前学届', templet: '#currentGradeTpl'},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#gradeBar'}
         ]] //设置表头
@@ -73,9 +72,9 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            common.open('新增学届', basePath + '/pf/p/grade/form?formType=' + formType, 430, 270);
+            common.open('新增学届', basePath + '/pf/p/grade/form?formType=' + formType, 430, 255);
         } else {
-            common.open('编辑学届', basePath + '/pf/p/grade/form?formType=' + formType, 430, 270, _successFunction(currentEditData));
+            common.open('编辑学届', basePath + '/pf/p/grade/form?formType=' + formType, 430, 255, _successFunction(currentEditData));
         }
     };
 
@@ -106,13 +105,29 @@ layui.config({
         var url = basePath + '/pf/r/grade/del';
         var reqData = new Array();
         var messageTitle = '';
+        var delFlag = false, delMsg = '';
         $.each(currentData, function (index, content) {
             if (messageTitle) {
                 messageTitle += ', ';
             }
             messageTitle += '【' + content.naGrade + '】';
             reqData.push(content.idGrade);
+
+            if (content.gradeNum > 0) {
+                delFlag = true;
+                delMsg += '【' + content.naGrade + '】';
+            }
         });
+
+        if(delFlag) {
+            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">学届下已有班级，不允许删除，请重新选择操作</span>', {
+                title: '删除学届提示',
+                resize: false,
+                btn: ['确定']
+            });
+            return false;
+        }
+
         var data = {};
         data.list = reqData;
         data.status = '1';
@@ -169,17 +184,15 @@ layui.config({
     //监听删除操作
     form.on('switch(fgActiveCheckFilter)', function (obj) {
         var reqData = new Array();
-        var data = {}, msg;
+        var data = {};
         reqData.push(this.value);
         data.list = reqData;
         if (obj.elem.checked) {
             data.status = '1';
-            msg = '启用';
         } else {
             data.status = '0';
-            msg = '停用';
         }
-        common.commonPost(basePath + '/pf/r/grade/updateStatus', data, msg, obj.othis);
+        common.commonPost(basePath + '/pf/r/grade/updateStatus', data, '设置', obj.othis);
     });
 
 });
