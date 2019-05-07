@@ -190,4 +190,18 @@
         ORDER BY
             sort, fg_active
     </select>
+    <select id="countDeptByIds" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            org_student_depart a
+        INNER JOIN user_info b ON a.id_user = b.user_id
+        WHERE
+            b.is_deleted = 'N'
+        AND id_depart IN (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </select>
 </mapper>

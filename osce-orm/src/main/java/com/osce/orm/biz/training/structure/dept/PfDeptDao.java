@@ -18,9 +18,8 @@ public interface PfDeptDao {
     /**
      * 部门tree
      *
-     * @param idOrg 机构id
+     * @param idOrg   机构id
      * @param idGrade 当前学届
-     *
      * @return
      */
     List<PfDeptZtreeVo> selectDeptTree(@Param("idOrg") Long idOrg,
@@ -66,5 +65,12 @@ public interface PfDeptDao {
      */
     int delDept(PfBachChangeStatusDto dto);
 
+    /**
+     * 获取部门下维护学员数目
+     *
+     * @param dto
+     * @return
+     */
+    Integer countDeptByIds(PfBachChangeStatusDto dto);
 
 }

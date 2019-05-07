@@ -3,6 +3,8 @@ package com.osce.service.biz.training.structure.dept;
 import com.osce.api.biz.training.structure.dept.PfDeptService;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgDepart;
+import com.osce.exception.RestErrorCode;
+import com.osce.exception.RestException;
 import com.osce.orm.biz.training.structure.dept.PfDeptDao;
 import com.osce.vo.biz.training.structure.dept.PfDeptZtreeVo;
 import org.apache.dubbo.config.annotation.Service;
@@ -51,6 +53,10 @@ public class PfDeptServiceImpl implements PfDeptService {
 
     @Override
     public boolean delDept(PfBachChangeStatusDto dto) {
+        //部门下如果有学员，则不允许删除
+        if (pfDeptDao.countDeptByIds(dto) > 0) {
+           throw new RestException(RestErrorCode.DEPT_DEL_LIMIT);
+        }
         return pfDeptDao.delDept(dto) >= 1 ? true : false;
     }
 
