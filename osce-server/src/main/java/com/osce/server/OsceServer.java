@@ -14,10 +14,10 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAut
  */
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class})
 @EnableDubbo
-public class OsceServerBoot {
+public class OsceServer {
 
     public static void main(String[] args) {
-        SpringApplication.run(OsceServerBoot.class, args);
+        SpringApplication.run(OsceServer.class, args);
     }
 
 }

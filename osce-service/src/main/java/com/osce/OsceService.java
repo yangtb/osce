@@ -14,10 +14,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableDubbo
 @SpringBootApplication(scanBasePackages = { "com.osce.*"})
 @MapperScan(value = "com.osce.orm.*")
-public class OsceServiceBoot {
+public class OsceService {
 
     public static void main(String[] args) {
-        SpringApplication.run(OsceServiceBoot.class, args);
+        SpringApplication.run(OsceService.class, args);
     }
 
 }
