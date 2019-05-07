@@ -177,7 +177,7 @@
                             <!-- 定义可执行jar所依赖的第三方jar包的路径lib/为classpath路径 -->
                             <classpathPrefix>lib/</classpathPrefix>
                             <!-- 定义可执行Jar的启动main函数入口类 -->
-                            <mainClass>com.osce.OsceServiceBoot</mainClass>
+                            <mainClass>com.osce.OsceService</mainClass>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
