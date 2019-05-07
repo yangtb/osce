@@ -176,7 +176,7 @@
         <if test="naGrade != null and naGrade != '' ">
             and na_grade like concat('%',#{naGrade},'%')
         </if>
-        order by gmt_create desc
+        order by id_grade desc
         limit #{offset}, #{limit}
     </select>
 
@@ -203,6 +203,7 @@
         WHERE
             fg_valid = '0'
         AND id_org = #{idOrg}
+        order by id_grade desc
     </select>
 
 
