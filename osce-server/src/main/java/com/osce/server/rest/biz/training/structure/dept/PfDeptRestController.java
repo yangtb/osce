@@ -36,7 +36,7 @@ public class PfDeptRestController {
      *
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_01_01_003','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/dept/tree")
     public ResultObject selectDeptTree(@RequestBody OrgDepart dto) {
         return ResultObject.createSuccess("selectDeptTree", ResultObject.DATA_TYPE_LIST,
