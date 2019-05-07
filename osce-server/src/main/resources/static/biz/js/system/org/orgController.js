@@ -5,6 +5,16 @@ layui.config({
         form = layui.form,
         common = layui.common;
 
+    if (!common.readLocalStorage('tip-org-mg')) {
+        layer.msg('左侧区域鼠标点击右键可新增分类', {
+            time: 20000, //20s后自动关闭
+            btnAlign: 'c', //按钮居中
+            btn: ['知道了']
+        }, function () {
+            common.writeLocalStorage("tip-org-mg", true);
+        });
+    }
+
     form.verify({
         commonLength: function (value) {
             if (value.length > 64) {
