@@ -1,6 +1,6 @@
 package com.osce.server.security.rsa;
 
-import com.osce.server.exception.RestErrorCode;
+import com.osce.exception.RestErrorCode;
 import com.sm.open.care.core.exception.BizRuntimeException;
 import com.sm.open.care.core.utils.rsa.RsaKeyPair;
 import org.slf4j.Logger;

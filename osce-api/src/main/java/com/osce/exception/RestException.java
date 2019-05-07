@@ -1,4 +1,4 @@
-package com.osce.server.exception;
+package com.osce.exception;
 
 import java.text.MessageFormat;
 

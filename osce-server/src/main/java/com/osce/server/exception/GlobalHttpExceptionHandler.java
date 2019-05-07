@@ -1,6 +1,7 @@
 package com.osce.server.exception;
 
 import com.osce.ResultObject;
+import com.osce.exception.RestErrorCode;
 import com.sm.open.care.core.exception.BizRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

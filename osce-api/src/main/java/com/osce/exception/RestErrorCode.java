@@ -1,4 +1,4 @@
-package com.osce.server.exception;
+package com.osce.exception;
 
 import com.alibaba.fastjson.JSON;
 
@@ -17,6 +17,9 @@ public enum RestErrorCode {
 
 	/** 接口入参不为空校验 */
 	INTERFACE_ENTRY_NOT_NULL("4000", "接口入参不能为空"),
+
+	/** 部门管理 */
+	DEPT_DEL_LIMIT("0101002001", "部门下已维护学员，不允许删除"),
 
 
 	// ========== end 业务具体错误编码 end ==========
