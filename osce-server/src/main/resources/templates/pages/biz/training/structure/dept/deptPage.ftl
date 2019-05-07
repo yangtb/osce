@@ -20,6 +20,7 @@
 <script>
     var basePath = '${basePath}';
     var contextPath = '${contextPath}';
+    var currentGrade = '${currentGrade!}';
 </script>
 
 <body>
@@ -45,7 +46,7 @@
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn" lay-submit lay-filter="gradeSearchFilter">
+                <button id="queryDept" type="button" class="layui-btn" lay-submit lay-filter="deptSearchFilter">
                     <i class="iconfont icon-query"></i> 查询
                 </button>
             </div>

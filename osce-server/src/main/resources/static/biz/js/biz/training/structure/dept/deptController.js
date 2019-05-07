@@ -5,6 +5,16 @@ layui.config({
         form = layui.form,
         common = layui.common;
 
+    if (!common.readLocalStorage('tip-dept-mg')) {
+        layer.msg('左侧区域鼠标点击右键可新增分类', {
+            time: 20000, //20s后自动关闭
+            btnAlign: 'c', //按钮居中
+            btn: ['知道了']
+        }, function () {
+            common.writeLocalStorage("tip-dept-mg", true);
+        });
+    }
+
     form.verify({
         commonLength: function (value) {
             if (value.length > 64) {
@@ -50,12 +60,15 @@ layui.config({
 
     var zNodes = [], zTree, rMenu;
     $(document).ready(function () {
-        layer.load(2);
+        var bizData = {
+            idGrade : currentGrade
+        }
         $.ajax({
             url: basePath + '/pf/r/dept/tree',
             type: 'post',
             dataType: 'json',
             contentType: "application/json",
+            data: JSON.stringify(bizData),
             success: function (data) {
                 layer.closeAll('loading');
                 zNodes = data.data;
@@ -195,8 +208,11 @@ layui.config({
         $('#save').trigger('click');
         var nodes = zTree.getSelectedNodes(),
             selectedTreeNode = nodes[0];
-        $('#idDepartPar').val(selectedTreeNode.id);
-        $('#idDepartParName').val(selectedTreeNode.name);
+        if (selectedTreeNode) {
+            $('#idDepartPar').val(selectedTreeNode.id);
+            $('#idDepartParName').val(selectedTreeNode.name);
+        }
+
     });
 
     $("#m_del").on('click', function () {
@@ -312,6 +328,30 @@ layui.config({
             }
         });
         return false;
+    });
+
+    //监听提交
+    form.on('submit(deptSearchFilter)', function (data) {
+        var bizData = {
+            idGrade : data.field.idGrade
+        }
+        $.ajax({
+            url: basePath + '/pf/r/dept/tree',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                zNodes = data.data;
+                $.fn.zTree.init($("#departTree"), setting, zNodes);
+                return true;
+            },
+            error: function () {
+                layer.closeAll('loading');
+                return false;
+            }
+        });
     });
 
     var _successFunction = function (data) {

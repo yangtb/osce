@@ -38,9 +38,9 @@ public class PfDeptRestController {
      */
     @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/dept/tree")
-    public ResultObject selectDeptTree() {
+    public ResultObject selectDeptTree(@RequestBody OrgDepart dto) {
         return ResultObject.createSuccess("selectDeptTree", ResultObject.DATA_TYPE_LIST,
-                pfDeptService.selectDeptTree());
+                pfDeptService.selectDeptTree(dto.getIdOrg(), dto.getIdGrade()));
     }
 
     /**

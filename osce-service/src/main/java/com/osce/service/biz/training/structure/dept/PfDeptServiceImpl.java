@@ -24,8 +24,8 @@ public class PfDeptServiceImpl implements PfDeptService {
     private PfDeptDao pfDeptDao;
 
     @Override
-    public List<PfDeptZtreeVo> selectDeptTree() {
-        return pfDeptDao.selectDeptTree();
+    public List<PfDeptZtreeVo> selectDeptTree(Long idOrg, Long idGrade) {
+        return pfDeptDao.selectDeptTree(idOrg, idGrade);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class PfDeptServiceImpl implements PfDeptService {
     }
 
     @Override
-    public List<OrgDepart> listAllDept() {
-        return pfDeptDao.listAllDept();
+    public List<OrgDepart> listAllDept(Long idOrg) {
+        return pfDeptDao.listAllDept(idOrg);
     }
 
     @Override

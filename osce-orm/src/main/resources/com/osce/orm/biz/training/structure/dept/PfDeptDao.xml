@@ -161,6 +161,12 @@
             org_depart
         WHERE
             fg_valid = '0'
+        <if test="idOrg != null">
+        and id_org = #{idOrg}
+        </if>
+        <if test="idGrade != null">
+        and id_grade = #{idGrade}
+        </if>
     </select>
     <select id="selectDeptDetail" resultType="com.osce.entity.OrgDepart">
         SELECT
@@ -176,6 +182,11 @@
             id_depart, na_depart , fg_active
         FROM
             org_depart
+        WHERE
+            fg_valid = '0'
+        <if test="idOrg != null">
+            id_org = #{idOrg},
+        </if>
         ORDER BY
             sort, fg_active
     </select>

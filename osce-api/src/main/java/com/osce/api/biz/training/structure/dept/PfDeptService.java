@@ -17,9 +17,11 @@ public interface PfDeptService {
     /**
      * 部门树
      *
+     * @param idOrg   机构id
+     * @param idGrade 当前学届
      * @return
      */
-    List<PfDeptZtreeVo> selectDeptTree();
+    List<PfDeptZtreeVo> selectDeptTree(Long idOrg, Long idGrade);
 
     /**
      * 部门详情
@@ -32,9 +34,10 @@ public interface PfDeptService {
     /**
      * 查询所有部门
      *
+     * @param idOrg 机构id
      * @return
      */
-    List<OrgDepart> listAllDept();
+    List<OrgDepart> listAllDept(Long idOrg);
 
     /**
      * 保存部门

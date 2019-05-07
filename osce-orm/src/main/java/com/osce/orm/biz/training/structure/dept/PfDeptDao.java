@@ -18,9 +18,13 @@ public interface PfDeptDao {
     /**
      * 部门tree
      *
+     * @param idOrg 机构id
+     * @param idGrade 当前学届
+     *
      * @return
      */
-    List<PfDeptZtreeVo> selectDeptTree();
+    List<PfDeptZtreeVo> selectDeptTree(@Param("idOrg") Long idOrg,
+                                       @Param("idGrade") Long idGrade);
 
     /**
      * 部门详情
@@ -33,9 +37,10 @@ public interface PfDeptDao {
     /**
      * 查询所有部门
      *
+     * @param idOrg 机构id
      * @return
      */
-    List<OrgDepart> listAllDept();
+    List<OrgDepart> listAllDept(@Param("idOrg") Long idOrg);
 
     /**
      * 新增部门
