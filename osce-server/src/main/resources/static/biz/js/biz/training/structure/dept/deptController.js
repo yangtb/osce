@@ -60,6 +60,7 @@ layui.config({
 
     var zNodes = [], zTree, rMenu;
     $(document).ready(function () {
+        layer.load(2);
         var bizData = {
             idGrade : currentGrade
         }
@@ -332,6 +333,7 @@ layui.config({
 
     //监听提交
     form.on('submit(deptSearchFilter)', function (data) {
+        layer.load(2);
         var bizData = {
             idGrade : data.field.idGrade
         }
