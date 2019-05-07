@@ -76,8 +76,6 @@ layui.config({
                 $.fn.zTree.init($("#departTree"), setting, zNodes);
                 zTree = $.fn.zTree.getZTreeObj("departTree");
                 rMenu = $("#rMenu");
-                //初始化模糊搜索方法
-                fuzzySearch('departTree', '#key', null, true);
                 return true;
             },
             error: function () {

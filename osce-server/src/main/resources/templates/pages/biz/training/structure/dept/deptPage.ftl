@@ -186,9 +186,7 @@
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/common/js/jquery.min.js"></script>
 <script src="${contextPath}/ztree/js/jquery.ztree.core.js"></script>
-<script src="${contextPath}/ztree/js/jquery.ztree.exhide.js"></script>
 <script src="${contextPath}/ztree/js/jquery.ztree.exedit.js"></script>
-<script src="${contextPath}/ztree/js/fuzzysearch.js"></script>
 <script src="${contextPath}/common/js/jquery.formautofill.js"></script>
 <script src="${contextPath}/biz/js/biz/training/structure/dept/deptController.js"></script>
 
