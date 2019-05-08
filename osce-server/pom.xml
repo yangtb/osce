@@ -22,7 +22,7 @@
         <zkclient.version>0.11</zkclient.version>
         <dubbo.version>2.7.1</dubbo.version>
 
-        <spring.security.version>4.2.8.RELEASE</spring.security.version>
+        <spring.security.version>4.2.12.RELEASE</spring.security.version>
         <spring.security.core.tiger>2.0.8.RELEASE</spring.security.core.tiger>
 
         <velocity.version>1.6.2</velocity.version>

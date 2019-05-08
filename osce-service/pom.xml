@@ -21,6 +21,8 @@
         <zookeeper.version>3.4.14</zookeeper.version>
         <zkclient.version>0.11</zkclient.version>
         <dubbo.version>2.7.1</dubbo.version>
+
+        <spring.security.version>4.2.12.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>
@@ -110,6 +112,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
 
     </dependencies>
