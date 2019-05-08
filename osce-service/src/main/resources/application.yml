@@ -34,3 +34,6 @@ mybatis:
   mapper-locations: classpath:com/osce/orm/*Dao.xml
   configuration:
     map-underscore-to-camel-case: true
+
+logging:
+  config: classpath:log4j2-spring.xml
