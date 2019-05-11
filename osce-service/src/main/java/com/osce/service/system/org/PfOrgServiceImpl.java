@@ -4,6 +4,7 @@ import com.osce.api.system.org.PfOrgService;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.SysOrg;
 import com.osce.orm.system.org.PfOrgDao;
+import com.osce.vo.PfTreeSelectVo;
 import com.osce.vo.system.org.PfOrgZtreeVo;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.stereotype.Component;
@@ -64,6 +65,11 @@ public class PfOrgServiceImpl implements PfOrgService {
     @Override
     public SysOrg selectOrgInfoById(Long idOrg) {
         return pfOrgDao.selectOrgInfoById(idOrg);
+    }
+
+    @Override
+    public List<PfTreeSelectVo> selectOrgTreeSelect() {
+        return pfOrgDao.selectOrgTreeSelect();
     }
 
 }

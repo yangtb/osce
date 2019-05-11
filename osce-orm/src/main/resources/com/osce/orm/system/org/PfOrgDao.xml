@@ -189,7 +189,7 @@
         FROM
             sys_org
         WHERE
-        fg_valid = '0'
+            fg_valid = '0'
     </select>
     
     <select id="selectOrgDetail" resultType="com.osce.entity.SysOrg">
@@ -200,6 +200,39 @@
             sys_org
         WHERE
             id_org = #{idOrg}
+    </select>
+
+    <resultMap id="orgTreeResultMap" type="com.osce.vo.PfTreeSelectVo">
+        <id property="id" column="id_org"/>
+        <id property="name" column="na_org"/>
+        <id property="open" column="open"/>
+        <collection property="children" column="id_org"
+                    select="selectChildOrg" ofType="com.osce.vo.PfTreeSelectVo" />
+    </resultMap>
+
+    <cache eviction="LRU" flushInterval="600000" readOnly="true" size="1024"/>
+
+    <select id="selectOrgTreeSelect" resultMap="orgTreeResultMap" useCache="true">
+        SELECT
+            id_org ,
+            na_org ,
+            true as open
+        FROM
+            sys_org
+        WHERE
+            fg_active = '1'
+        and id_org_par is null
+    </select>
+    <select id="selectChildOrg" resultMap="orgTreeResultMap">
+        SELECT
+            id_org ,
+            na_org ,
+            true as open
+        FROM
+            sys_org
+        WHERE
+            id_org_par = #{id}
+        and fg_active = '1'
     </select>
 
 

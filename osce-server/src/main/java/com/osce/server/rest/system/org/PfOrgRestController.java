@@ -5,6 +5,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.SysOrg;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.vo.PfTreeSelectVo;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.ResultObject;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @ClassName: PfOrgRestController
  * @Description: 机构rest服务
@@ -33,7 +36,7 @@ public class PfOrgRestController {
     private PfOrgService pfOrgService;
 
     /**
-     * 机构树
+     * 机构zTree树
      *
      * @return
      */
@@ -108,4 +111,15 @@ public class PfOrgRestController {
                 : ResultObject.create("updateOrgStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
+
+    /**
+     * 机构treeSelect
+     *
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/org/tree/select")
+    public List<PfTreeSelectVo> selectOrgTreeSelect() {
+        return pfOrgService.selectOrgTreeSelect();
+    }
 }

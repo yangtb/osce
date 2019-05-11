@@ -22,27 +22,27 @@
     <form class="layui-form">
         <div class="layui-inline">
             <div class="layui-btn-group">
-                <button type="button" class="layui-btn" id="add">
+                <button type="button" class="layui-btn layui-btn-sm" id="add">
                     <i class="iconfont icon-add"></i> 增加
                 </button>
-                <button type="button" class="layui-btn" id="edit">
+                <button type="button" class="layui-btn layui-btn-sm" id="edit">
                     <i class="iconfont icon-edit"></i> 编辑
                 </button>
-                <button type="button" class="layui-btn layui-btn-danger" id="del">
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
                     <i class="layui-icon layui-icon-delete"></i>删除
                 </button>
             </div>
             <div class="layui-input-inline">
-                <input type="text" name="naGrade" class="layui-input" autocomplete="off"
+                <input type="text" name="naGrade" class="layui-input btn-sm-my" autocomplete="off"
                        placeholder="请输入学届名称">
             </div>
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn" lay-submit lay-filter="gradeSearchFilter">
+                <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="gradeSearchFilter">
                     <i class="iconfont icon-query"></i> 查询
                 </button>
-                <button type="reset" class="layui-btn layui-btn-primary">
+                <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">
                     <i class="iconfont icon-reset"></i> 重新填写
                 </button>
             </div>

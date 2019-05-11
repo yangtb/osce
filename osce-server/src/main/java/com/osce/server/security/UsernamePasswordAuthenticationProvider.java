@@ -5,13 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.Assert;
 
 /**
@@ -23,8 +21,6 @@ import org.springframework.util.Assert;
 public class UsernamePasswordAuthenticationProvider extends PfAbstractUserDetailsAuthenticationProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(UsernamePasswordAuthenticationProvider.class);
-
-    private SaltSource saltSource;
 
     private UserDetailsService userDetailsService;
 
@@ -44,10 +40,6 @@ public class UsernamePasswordAuthenticationProvider extends PfAbstractUserDetail
     protected void additionalAuthenticationChecks(UserDetails userDetails,
                                                   UsernamePasswordAuthenticationToken authentication)
             throws AuthenticationException {
-        Object salt = null;
-        if (this.saltSource != null) {
-            salt = this.saltSource.getSalt(userDetails);
-        }
         if (authentication.getCredentials() == null) {
             logger.debug("认证失败: 没有提供密码");
             throw new BadCredentialsException(
@@ -55,7 +47,7 @@ public class UsernamePasswordAuthenticationProvider extends PfAbstractUserDetail
         }
         //当前待认证的密码
         String presentedPassword = authentication.getCredentials().toString();
-        PasswordEncoder passwordEncoder = new StandardPasswordEncoder(salt.toString());
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (!passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
             logger.debug("认证失败: 当前密码与存储用户中的密码值不能匹配");
             throw new BadCredentialsException(
@@ -95,14 +87,6 @@ public class UsernamePasswordAuthenticationProvider extends PfAbstractUserDetail
                     "认证内部异常：UserDetailsService中接口返回空用户, UserDetailsService接口编码存在问题");
         }
         return loadedUser;
-    }
-
-    public void setSaltSource(SaltSource saltSource) {
-        this.saltSource = saltSource;
-    }
-
-    protected SaltSource getSaltSource() {
-        return saltSource;
     }
 
     public void setUserDetailsService(UserDetailsService userDetailsService) {

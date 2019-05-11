@@ -21,7 +21,6 @@ public class UserInfo implements Serializable {
     private Long        userId;         // 管理员ID
     private String      username;       // 管理员用户名
     private String      password;       // 密码
-    private String      salt;           // 密码盐值
     private String      email;          // 电邮
     private String      phoneNo;        // 联系电话
     private boolean     enabled;        // 是否启用,1启用 0停用

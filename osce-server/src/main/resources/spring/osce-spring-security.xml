@@ -114,16 +114,12 @@
 
     <beans:bean id="usernameAuthenticationProvider"
                 class="com.osce.server.security.UsernamePasswordAuthenticationProvider">
-        <beans:property name="saltSource" ref="saltSource"/>
         <beans:property name="userDetailsService" ref="userDetailsService"/>
     </beans:bean>
     <beans:bean id="userDetailsService" class="com.osce.server.security.PfUserDetailsService">
         <!--<beans:property name="authorityService" ref="authorityService"/>
         <beans:property name="userService" ref="pfUserService"/>-->
         <beans:property name="customUsers" ref="customUserList"/>
-    </beans:bean>
-    <beans:bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
-        <beans:property name="userPropertyToUse" value="salt"/>
     </beans:bean>
 
     <!-- 自定义认证用户，username可以与数据库中相同。当username与数据库中一样时，其Authorities将会把自定义的增加进去，其它属性以数据库为准 -->

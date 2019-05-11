@@ -3,7 +3,7 @@
 <mapper namespace="com.osce.orm.user.login.PfUserDao">
 
     <sql id="Base_Column_List" >
-         user_id, username, password, salt, email, phone_no, enabled, is_first, role_type, role_desc,id_org ,
+         user_id, username, password,email, phone_no, enabled, is_first, role_type, role_desc,id_org ,
          real_name, remark, last_login_time, is_deleted, gmt_create, gmt_modify
     </sql>
 
@@ -11,7 +11,7 @@
     <insert id="saveUser"
             keyColumn="user_id" keyProperty="userId">
         INSERT INTO user_info(
-            username , password , salt , email , phone_no ,
+            username , password , email , phone_no ,
             enabled , real_name , id_org ,
             <if test="sex!=0">
                 sex,
@@ -20,7 +20,7 @@
         )
         VALUES
             (
-              #{username} , #{password} , #{salt} ,  #{email} ,  #{phoneNo} ,
+              #{username} , #{password} , #{email} ,  #{phoneNo} ,
               #{enabled} , #{realName} , #{idOrg} ,
               <if test="sex!=0">
                 #{sex} ,
@@ -130,14 +130,14 @@
     <!-- 修改密码 -->
     <update id="updatePsw" >
         UPDATE user_info
-        SET password = #{password}, salt = #{salt}, gmt_modify = NOW()
+        SET password = #{password}, gmt_modify = NOW()
         WHERE user_id = #{userId}
     </update>
 
     <!-- 根据用户获取用户信息 -->
     <select id="selectUser" resultType="com.osce.entity.UserInfo">
         SELECT
-            ui.user_id, ui.username, ui.password, ui.salt, ui.email, ui.phone_no, ui.enabled,
+            ui.user_id, ui.username, ui.password, ui.email, ui.phone_no, ui.enabled,
             ui.is_first, ui.role_type, ui.role_desc, ui.id_org ,
             ui.real_name, ui.remark, ui.last_login_time, ui.is_deleted, ui.gmt_create, ui.gmt_modify,
             so.fg_active

@@ -2,6 +2,7 @@ package com.osce.api.system.org;
 
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.SysOrg;
+import com.osce.vo.PfTreeSelectVo;
 import com.osce.vo.system.org.PfOrgZtreeVo;
 
 import java.util.List;
@@ -69,5 +70,11 @@ public interface PfOrgService {
      */
     SysOrg selectOrgInfoById(Long idOrg);
 
+    /**
+     * 机构treeSelect
+     *
+     * @return
+     */
+    List<PfTreeSelectVo> selectOrgTreeSelect();
 
 }

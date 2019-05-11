@@ -125,11 +125,19 @@
     <insert id="addDic" >
         INSERT INTO sys_dictionary (
             group_name , group_code , dict_name , dict_code ,
-            ext_value , gmt_create , gmt_modify , status , sort_num , operator , remark , sys_type
+            ext_value , gmt_create , gmt_modify , status ,
+            <if test="sortNum != null">
+                sort_num ,
+            </if>
+            operator , remark , sys_type
         )
         VALUES(
             #{groupName} , #{groupCode}, #{dictName} , #{dictCode} ,
-            #{extValue} , NOW() , NOW() , 'enabled', #{sortNum} , #{operator}, #{remark}, 'all'
+            #{extValue} , NOW() , NOW() , 'enabled',
+            <if test="sortNum != null">
+                #{sortNum} ,
+            </if>
+            #{operator}, #{remark}, 'all'
         )
     </insert>
 

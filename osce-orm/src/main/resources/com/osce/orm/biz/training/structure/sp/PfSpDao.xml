@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.training.structure.sp.PfSpDao">
+
+    <insert id="addSpTag" useGeneratedKeys="true" keyProperty="idSpTag">
+        INSERT INTO org_sp_define
+        (
+        <trim suffixOverrides=",">
+            <if test="idSpTag!=null">
+                id_sp_tag,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="descript!=null">
+                descript,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idSpTag!=null">
+                #{idSpTag},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="descript!=null">
+                #{descript},
+            </if>
+        </trim>
+        )
+    </insert>
+    <delete id="delSpTag">
+        DELETE FROM org_sp_define
+        WHERE
+            id_sp_tag in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+
+    <select id="listSpTag" resultType="com.osce.entity.OrgSpDefine">
+        SELECT
+            id_sp_tag ,
+            id_org ,
+            descript
+        FROM
+            org_sp_define
+        where
+            id_org = #{idOrg}
+    </select>
+
+</mapper>

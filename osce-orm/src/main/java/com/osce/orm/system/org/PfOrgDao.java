@@ -2,6 +2,7 @@ package com.osce.orm.system.org;
 
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.SysOrg;
+import com.osce.vo.PfTreeSelectVo;
 import com.osce.vo.system.org.PfOrgZtreeVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -64,5 +65,12 @@ public interface PfOrgDao {
      * @return
      */
     SysOrg selectOrgInfoById(@Param("idOrg") Long idOrg);
+
+    /**
+     * 机构treeSelect
+     *
+     * @return
+     */
+    List<PfTreeSelectVo> selectOrgTreeSelect();
 
 }

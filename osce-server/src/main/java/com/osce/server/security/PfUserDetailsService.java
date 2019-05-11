@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.support.MessageSourceAccessor;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,7 +44,7 @@ public class PfUserDetailsService implements UserDetailsService, InitializingBea
     protected List<PfGrantedAuthority> customAuthorities = Arrays.asList(new PfGrantedAuthority("ROLE_USER"));
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Validate.notEmpty(username);
         UserInfo user = pfUserService.selectUser(username);
         CustomUser customUser = customUserMap != null ? customUserMap.get(username) : null;

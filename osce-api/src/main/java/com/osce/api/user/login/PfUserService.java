@@ -40,7 +40,7 @@ public interface PfUserService {
      * @param dto
      * @return
      */
-    boolean saveUser(RegisterDto dto);
+    Long saveUser(RegisterDto dto);
 
 
     /**
@@ -103,20 +103,18 @@ public interface PfUserService {
      * 密码加密
      *
      * @param rawPwd 原始密码
-     * @param salt   盐值
      * @return
      */
-    String genEncriptPwd(String rawPwd, String salt);
+    String genEncriptPwd(String rawPwd);
 
     /**
      * 验证密码
      *
      * @param rawPwd     原密码
-     * @param salt       盐值
      * @param encriptPwd 加密密码
      * @return
      */
-    boolean matchPassword(String rawPwd, String salt, String encriptPwd);
+    boolean matchPassword(String rawPwd, String encriptPwd);
 
     /**
      * 查询学生信息

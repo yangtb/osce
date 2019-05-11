@@ -28,6 +28,12 @@
 					比如，modulate=true，interval=4hours，那么假设上次封存日志的时间为03:00，则下次封存日志的时间为04:00，之后的封存时间依次为08:00，12:00，16:00，。。。-->
 				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
 			</Policies>
+			<DefaultRolloverStrategy max="100">
+				<Delete basePath="./logs/service" maxDepth="2">
+					<IfFileName glob="*/osce-service-*.log"/>
+					<IfLastModified age="2d" />
+				</Delete>
+			</DefaultRolloverStrategy>
 		</RollingRandomAccessFile>
 
 		<!-- 失败日志 -->
@@ -41,6 +47,12 @@
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
 			</Policies>
+			<DefaultRolloverStrategy max="100">
+				<Delete basePath="./logs/service" maxDepth="2">
+					<IfFileName glob="*/error-*.log"/>
+					<IfLastModified age="2d" />
+				</Delete>
+			</DefaultRolloverStrategy>
 		</RollingRandomAccessFile>
 
 		<!-- 监控日志 -->
@@ -51,6 +63,12 @@
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
 			</Policies>
+			<DefaultRolloverStrategy max="100">
+				<Delete basePath="./logs/service" maxDepth="2">
+					<IfFileName glob="*/monitor-*.log"/>
+					<IfLastModified age="2d" />
+				</Delete>
+			</DefaultRolloverStrategy>
 		</RollingRandomAccessFile>
 
 	</Appenders>

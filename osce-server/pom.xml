@@ -22,12 +22,6 @@
         <zkclient.version>0.11</zkclient.version>
         <dubbo.version>2.7.1</dubbo.version>
 
-        <spring.security.version>4.2.12.RELEASE</spring.security.version>
-        <spring.security.core.tiger>2.0.8.RELEASE</spring.security.core.tiger>
-
-        <velocity.version>1.6.2</velocity.version>
-        <velocity.tools.version>2.0</velocity.tools.version>
-
     </properties>
 
     <dependencies>
@@ -110,34 +104,10 @@
             <version>${zookeeper.version}</version>
         </dependency>
 
-
-
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-crypto</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-
-        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>-->
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
     </dependencies>
 

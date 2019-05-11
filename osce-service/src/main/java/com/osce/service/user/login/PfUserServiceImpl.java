@@ -12,16 +12,15 @@ import com.osce.vo.user.login.PfUsersVo;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.exception.BizRuntimeException;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component("pfUserService")
@@ -43,18 +42,16 @@ public class PfUserServiceImpl implements PfUserService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean saveUser(RegisterDto dto) {
+    public Long saveUser(RegisterDto dto) {
         UserInfo user = new UserInfo();
         BeanUtils.copyProperties(dto, user);
         // 密码加密
-        String salt = UUID.randomUUID().toString().replace("-", "");
-        user.setSalt(salt);
-        user.setPassword(genEncriptPwd(dto.getPassword(), salt));
+        user.setPassword(genEncriptPwd(dto.getPassword()));
         // 新增用户
         pfUserDao.saveUser(user);
         // 插入用户角色
         pfUserDao.saveUserRole(dto.getRoles(), user.getUserId());
-        return true;
+        return dto.getUserId();
     }
 
     @Override
@@ -116,18 +113,15 @@ public class PfUserServiceImpl implements PfUserService {
     public boolean updatePsw(UpdatePswDto dto) {
         // 密码加密
         UserInfo userInfo = new UserInfo();
-        String salt = UUID.randomUUID().toString().replace("-", "");
-        userInfo.setSalt(salt);
         userInfo.setUserId(dto.getUserId());
-        userInfo.setPassword(genEncriptPwd(dto.getNewPassword(), salt));
+        userInfo.setPassword(genEncriptPwd(dto.getNewPassword()));
         return pfUserDao.updatePsw(userInfo) == 1 ? true : false;
     }
 
     @Override
-    public boolean matchPassword(String rawPwd, String salt, String encriptPwd) {
-        /*PasswordEncoder passwordEncoder = new StandardPasswordEncoder(salt);
-        return passwordEncoder.matches(rawPwd, encriptPwd);*/
-        return false;
+    public boolean matchPassword(String rawPwd, String encriptPwd) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.matches(rawPwd, encriptPwd);
     }
 
     @Override
@@ -136,14 +130,10 @@ public class PfUserServiceImpl implements PfUserService {
     }
 
     @Override
-    public String genEncriptPwd(String rawPwd, String salt) {
-        if (StringUtils.isBlank(salt)) {
-            salt = "";
-        }
-        /*PasswordEncoder passwordEncoder = new StandardPasswordEncoder(salt);
-        String encodedPassword = passwordEncoder.encode(rawPwd);
-        return encodedPassword;*/
-        return "";
+    public String genEncriptPwd(String rawPwd) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(rawPwd);
+        return encodedPassword;
     }
 
 }

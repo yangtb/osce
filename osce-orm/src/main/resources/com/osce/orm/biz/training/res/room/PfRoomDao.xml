@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.training.res.room.PfRoomDao">
+
+    <select id="listRooms" resultType="com.osce.entity.ErpRoom">
+        SELECT
+            a.id_room ,
+            a.id_org ,
+            a.na_room ,
+            a.des_room ,
+            a.pic_room ,
+            a.fg_active ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify ,
+            count(1) AS deviceNum
+        FROM
+            erp_room a
+        LEFT JOIN erp_room_device b ON a.id_room = b.id_room
+        WHERE
+            a.id_org = #{idOrg}
+        GROUP BY
+            a.id_room ,
+            a.id_org ,
+            a.na_room ,
+            a.des_room ,
+            a.pic_room ,
+            a.fg_active ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="countRoom" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            erp_room
+        WHERE
+            id_org = #{idOrg}
+    </select>
+
+</mapper>

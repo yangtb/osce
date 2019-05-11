@@ -63,7 +63,7 @@
     height: 190px;
 }
 
-.my-input-width{
+.my-input-width {
     width: 440px;
 }
 
@@ -83,6 +83,15 @@
     background: #9dcdf6;
 }
 
-.display-my{
+.display-my {
     display: none;
+}
+
+.btn-sm-my {
+    height: 30px;
+}
+
+.btn-sm-my1 {
+    height: 25px;
+    width: 150px;
 }

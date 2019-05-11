@@ -185,7 +185,7 @@
         WHERE
             fg_valid = '0'
         <if test="idOrg != null">
-            id_org = #{idOrg},
+            and id_org = #{idOrg}
         </if>
         ORDER BY
             sort, fg_active
