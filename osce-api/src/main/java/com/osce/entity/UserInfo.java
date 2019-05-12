@@ -9,7 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 用户表
+ * @ClassName: UserInfo
+ * @Description: 用户表
+ * @Author yangtongbin
+ * @Date 2019-05-12
  */
 @Setter
 @Getter
@@ -36,6 +39,7 @@ public class UserInfo implements Serializable {
     private String      operator;       // 操作人员
     private Date        gmtCreate;      // 创建时间
     private Date        gmtModify;      // 更新时间
+
     /** 当前用户所在机构级别 */
     private String fgPlat;
 
@@ -46,4 +50,9 @@ public class UserInfo implements Serializable {
      * 用户拥有角色编辑集合
      */
     private List<String> roleCodes;
+
+    /**
+     * 身份证号
+     */
+    private String idcard;
 }

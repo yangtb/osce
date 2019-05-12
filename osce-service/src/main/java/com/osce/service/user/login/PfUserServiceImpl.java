@@ -6,6 +6,8 @@ import com.osce.dto.user.PfUserDto;
 import com.osce.dto.user.login.RegisterDto;
 import com.osce.dto.user.login.UpdatePswDto;
 import com.osce.entity.UserInfo;
+import com.osce.exception.RestErrorCode;
+import com.osce.exception.RestException;
 import com.osce.orm.user.login.PfUserDao;
 import com.osce.vo.user.login.PfStudentVo;
 import com.osce.vo.user.login.PfUsersVo;
@@ -43,6 +45,10 @@ public class PfUserServiceImpl implements PfUserService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Long saveUser(RegisterDto dto) {
+        // 校验用户名是否已经注册
+        if (pfUserDao.isExistUser(dto.getUsername())) {
+            throw new RestException(RestErrorCode.USER_NAME_USED);
+        }
         UserInfo user = new UserInfo();
         BeanUtils.copyProperties(dto, user);
         // 密码加密
@@ -51,7 +57,7 @@ public class PfUserServiceImpl implements PfUserService {
         pfUserDao.saveUser(user);
         // 插入用户角色
         pfUserDao.saveUserRole(dto.getRoles(), user.getUserId());
-        return dto.getUserId();
+        return user.getUserId();
     }
 
     @Override

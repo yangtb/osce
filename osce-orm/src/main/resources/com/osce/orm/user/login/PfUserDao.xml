@@ -9,12 +9,15 @@
 
     <!-- 保存用户信息 -->
     <insert id="saveUser"
-            keyColumn="user_id" keyProperty="userId">
+            useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO user_info(
             username , password , email , phone_no ,
             enabled , real_name , id_org ,
             <if test="sex!=0">
                 sex,
+            </if>
+            <if test="idcard != null and idcard != ''">
+                idcard ,
             </if>
             remark , gmt_create , gmt_modify , operator
         )
@@ -25,6 +28,9 @@
               <if test="sex!=0">
                 #{sex} ,
               </if>
+            <if test="idcard != null and idcard != ''">
+                #{idcard},
+            </if>
               #{remark} , now() , now() , #{operator}
             );
     </insert>
@@ -121,6 +127,9 @@
             </if>
             <if test="idOrg != null">
                 id_org = #{idOrg},
+            </if>
+            <if test="idcard != null and idcard != ''">
+                idcard = #{idcard},
             </if>
             gmt_modify = NOW()
         WHERE

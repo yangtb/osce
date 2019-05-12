@@ -13,6 +13,7 @@ import com.osce.server.security.CurrentUserUtils;
 import com.osce.server.security.User;
 import com.osce.server.security.rsa.RsaKeyPairQueue;
 import com.osce.server.utils.SysUserAuthUtils;
+import com.osce.vo.PfTreeSelectVo;
 import com.osce.vo.biz.training.structure.grade.GradeVo;
 import com.sm.open.care.core.enums.YesOrNoNum;
 import com.sm.open.care.core.utils.rsa.RsaKeyPair;
@@ -76,10 +77,10 @@ public class PfStudentController extends BaseController {
         // 机构处理
         User user = CurrentUserUtils.getCurrentUser();
         if (SysUserAuthUtils.isPlatOrSuper()) {
-            model.addAttribute("allOrg", pfOrgService.listAllOrg());
+            model.addAttribute("allOrg", pfOrgService.selectOrgTreeSelect());
         } else {
-            List<SysOrg> myOrgList = pfOrgService.listAllOrg().stream()
-                    .filter(sysOrg -> sysOrg.getIdOrg().equals(user.getIdOrg())).collect(Collectors.toList());
+            List<PfTreeSelectVo> myOrgList = pfOrgService.selectOrgTreeSelect().stream()
+                    .filter(sysOrg -> sysOrg.getId().equals(user.getIdOrg())).collect(Collectors.toList());
             model.addAttribute("allOrg", myOrgList);
         }
         model.addAttribute("userOrgId", user.getIdOrg());

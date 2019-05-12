@@ -30,4 +30,10 @@ public class StudentDto extends PageParam implements Serializable {
      */
     private Long idOrg;
 
+    /**
+     * 部门ID
+     */
+    private Long idDepart;
+
+
 }

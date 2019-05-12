@@ -81,7 +81,15 @@ layui.config({
 
     // 选中tree
     function onClick(e, treeId, treeNode) {
-
+        table.reload('studentTableId', {
+            where: {
+                idDepart: treeNode.id
+            }
+            , height: 'full-110'
+            , page: {
+                curr: 1 //重新从第 1 页开始
+            }
+        });
     };
 
     //监听提交
@@ -168,6 +176,80 @@ layui.config({
     table.on('rowDouble(studentTableFilter)', function (obj) {
         _addOrEdit("edit", obj.data);
     });
+
+    $("#del").on('click', function () {
+        var checkStatus = table.checkStatus('studentTableId')
+            , data = checkStatus.data;
+        if (data.length == 0) {
+            layer.tips('请先选中一行记录', '#del', {tips: 1});
+            return;
+        }
+        _delStudent(data);
+    });
+
+    var _delStudent = function (currentData) {
+        var url = basePath + '/pf/r/student/del';
+        var reqData = new Array();
+        var messageTitle = '';
+        $.each(currentData, function (index, content) {
+            if (messageTitle) {
+                messageTitle += ', ';
+            }
+            messageTitle += '【' + content.realName + '】';
+            reqData.push(content.idStudentDepart);
+        });
+        var data = {};
+        data.list = reqData;
+        data.status = '1';
+        layer.confirm('确定学员' + messageTitle + '么？', {
+            title: '删除学员提示',
+            resize: false,
+            btn: ['确定', '取消'],
+            btnAlign: 'c',
+            icon: 3
+        }, function (index) {
+            _commonAjax(index, url, data, "删除");
+        })
+    }
+
+    var _commonAjax = function (index, url, reqData, msg) {
+        layer.load(2);
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    common.errorMsg(data.msg);
+                    return false;
+                } else {
+                    common.sucChildMsg(msg + "成功");
+                    if (index) {
+                        layer.close(index);
+                    }
+                    _studentReload();
+                    return true;
+                }
+            },
+            error: function () {
+                layer.closeAll('loading');
+                common.errorMsg(msg + "失败");
+                return false;
+            }
+        });
+    }
+
+    var _studentReload = function () {
+        table.reload('studentTableId', {
+            where: {
+                //type: type
+            },
+            height: 'full-110'
+        });
+    }
 
 });
 

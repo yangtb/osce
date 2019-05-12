@@ -100,8 +100,8 @@
 
     <select id="listStudents" resultType="com.osce.vo.biz.training.structure.student.StudentVo">
         SELECT
-            a.id_student_depart, b.user_id, c.na_grade,
-            b.username, b.real_name, b.sex, b.phone_no,
+            a.id_student_depart, a.id_depart, b.user_id, c.na_grade,
+            b.username, b.real_name, b.sex, b.phone_no, b.id_org, b.email ,
             b.idcard, b.enabled, b.gmt_create
         FROM
             org_student_depart a
@@ -110,6 +110,9 @@
         WHERE
             b.id_org = #{idOrg}
         AND b.is_deleted = 'N'
+        <if test="idDepart != null ">
+            and a.id_depart = #{idDepart}
+        </if>
         <if test="keywords != null and keywords != '' ">
             and (phone_no like concat('%',#{keywords},'%')
             or real_name like concat('%',#{keywords},'%'))
@@ -127,6 +130,9 @@
         WHERE
             b.id_org = #{idOrg}
         AND b.is_deleted = 'N'
+        <if test="idDepart != null ">
+            and a.id_depart = #{idDepart}
+        </if>
         <if test="keywords != null and keywords != '' ">
             and (phone_no like concat('%',#{keywords},'%')
             or real_name like concat('%',#{keywords},'%'))

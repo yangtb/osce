@@ -40,7 +40,7 @@
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
                     <div class="layui-input-inline">
-                        <input id="idOrg" type="text" lay-filter="tree" class="layui-input">
+                        <input id="idOrg" name="idOrg" type="text" lay-filter="tree" class="layui-input">
                     </div>
 
                 </div>

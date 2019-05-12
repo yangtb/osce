@@ -25,6 +25,7 @@
     <form class="layui-form" id="userform">
         <div hidden>
             <input name="userId" hidden>
+            <input name="idStudentDepart" hidden>
         </div>
         <div class="layui-form-item form-item-my">
             <div class="layui-inline">
@@ -44,12 +45,7 @@
                 <label class="layui-form-label">班级<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <select name="idOrg" lay-verify="required" lay-vertype="tips">
-                        <option value="">请选择</option>
-                        <#list allOrg as element>
-                            <option value="${element.idOrg}" <#if (formType=='add' && userOrgId==element.idOrg)>selected</#if>>${element.naOrg}</option>
-                        </#list>
-                    </select>
+                    <input id="idDepart" name="idDepart" type="text" lay-filter="departTree" class="layui-input"/>
                 </div>
             </div>
         </div>
@@ -66,12 +62,7 @@
                 <label class="layui-form-label">所属机构<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <select name="idOrg" lay-verify="required" lay-vertype="tips">
-                        <option value="">请选择</option>
-                        <#list allOrg as element>
-                            <option value="${element.idOrg}" <#if (formType=='add' && userOrgId==element.idOrg)>selected</#if>>${element.naOrg}</option>
-                        </#list>
-                    </select>
+                    <input type="text" id="idOrg" name="idOrg" lay-filter="orgTree" class="layui-input"/>
                 </div>
             </div>
         </div>
@@ -92,7 +83,7 @@
                 <label class="layui-form-label">身份证号<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <input type="text" name="idcard" lay-verify="required" lay-vertype="tips"
+                    <input type="text" name="idcard" lay-verify="required|identity" lay-vertype="tips"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -131,12 +122,10 @@
 
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
-                    <label class="layui-form-label">登录密码<i class="iconfont icon-required"
-                                                           style="color: #f03f2d"></i></label>
+                    <label class="layui-form-label">登录密码</label>
                     <div class="layui-input-inline">
                         <input type="hidden" name="password" id="encryptPassword">
-                        <input type="password" id="clearPassword" lay-verify="required|pass"
-                               lay-vertype="tips" autocomplete="off" placeholder="请输入密码"
+                        <input type="password" id="clearPassword" lay-verify="passMy" autocomplete="off" placeholder="请输入密码"
                                class="layui-input layui-disabled" disabled>
                     </div>
                     <div class="layui-form-mid layui-word-aux">8-16位，至少包含1个大写字母、小写字母、数字</div>
@@ -144,10 +133,9 @@
             </div>
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
-                    <label class="layui-form-label">确认密码<i class="iconfont icon-required"
-                                                           style="color: #f03f2d"></i></label>
+                    <label class="layui-form-label">确认密码</label>
                     <div class="layui-input-inline">
-                        <input type="password" id="clearPassword2" lay-verify="required|pass" lay-vertype="tips" autocomplete="off" placeholder="请确认密码"
+                        <input type="password" id="clearPassword2" lay-verify="passMy" autocomplete="off" placeholder="请确认密码"
                                class="layui-input layui-disabled" disabled>
                     </div>
                     <div class="layui-form-mid layui-word-aux">2次输入密码必须一致</div>
@@ -181,8 +169,32 @@
     function fullForm(data) {
         $(document).ready(function () {
             $("#userform").autofill(data);
-            layui.use('form', function () {
+            layui.use(['form', 'jquery', 'treeSelect'], function () {
                 layui.form.render();
+                var treeSelect= layui.treeSelect
+                treeSelect.render({
+                    elem: '#idOrg',
+                    data: basePath + '/pf/r/org/tree/select',
+                    type: 'post',
+                    placeholder: '请选择机构',
+                    // 加载完成后的回调函数
+                    success: function (d) {
+                        treeSelect.checkNode('orgTree', data.idOrg);
+                    }
+                });
+
+                treeSelect.render({
+                    elem: '#idDepart',
+                    data: basePath + '/pf/r/dept/tree/select',
+                    type: 'post',
+                    placeholder: '请选择班级',
+                    click: function(d){
+                    },
+                    // 加载完成后的回调函数
+                    success: function (d) {
+                        treeSelect.checkNode('departTree', data.idDepart);
+                    }
+                });
             });
         });
     };

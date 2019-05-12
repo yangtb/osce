@@ -148,6 +148,7 @@
         WHERE
             sr.is_deleted = 'N'
         AND sr.code = #{code}
+        limit 1
     </select>
     <select id="selectRoleLevel" resultType="com.osce.vo.user.role.PfRoleVo">
         SELECT

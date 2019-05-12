@@ -5,6 +5,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgDepart;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.vo.PfTreeSelectVo;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.ResultObject;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @ClassName: PfDeptRestController
@@ -36,7 +39,7 @@ public class PfDeptRestController {
      *
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_01_01_003','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_002','ROLE_01_01_003','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/dept/tree")
     public ResultObject selectDeptTree(@RequestBody OrgDepart dto) {
         return ResultObject.createSuccess("selectDeptTree", ResultObject.DATA_TYPE_LIST,
@@ -48,7 +51,7 @@ public class PfDeptRestController {
      *
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_002','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/dept/detail")
     public ResultObject selectDeptDetail(@RequestBody OrgDepart dto) {
         return ResultObject.createSuccess("selectDeptDetail", ResultObject.DATA_TYPE_LIST,
@@ -61,7 +64,7 @@ public class PfDeptRestController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_002','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/dept/save")
     public ResultObject saveDept(@RequestBody OrgDepart dto) {
         /* 参数校验 */
@@ -80,7 +83,7 @@ public class PfDeptRestController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_002','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/dept/del")
     public ResultObject delDept(@RequestBody PfBachChangeStatusDto dto) {
         /* 参数校验 */
@@ -97,7 +100,7 @@ public class PfDeptRestController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_002','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/dept/updateStatus")
     public ResultObject updateDeptStatus(@RequestBody PfBachChangeStatusDto dto) {
         /* 参数校验 */
@@ -106,6 +109,17 @@ public class PfDeptRestController {
         dto.setOperationType(OperationTypeEnum.UPDATE_STATUS.getCode());
         return pfDeptService.delDept(dto) ? ResultObject.createSuccess("updateDeptStatus", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("updateDeptStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+    /**
+     * treeSelect
+     *
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_01_002','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/dept/tree/select")
+    public List<PfTreeSelectVo> selectOrgTreeSelect() {
+        return pfDeptService.selectDeptTreeSelect(CurrentUserUtils.getCurrentUserIdOrg());
     }
 
 }

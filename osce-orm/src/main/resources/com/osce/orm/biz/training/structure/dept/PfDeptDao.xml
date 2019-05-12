@@ -204,4 +204,40 @@
         </foreach>
         )
     </select>
+
+    <resultMap id="orgTreeResultMap" type="com.osce.vo.PfTreeSelectVo">
+        <id property="id" column="id_depart"/>
+        <id property="name" column="na_depart"/>
+        <id property="open" column="open"/>
+        <collection property="children" column="id_depart"
+                    select="selectChildDept" ofType="com.osce.vo.PfTreeSelectVo" />
+    </resultMap>
+
+    <cache eviction="LRU" flushInterval="600000" readOnly="true" size="1024"/>
+
+    <select id="selectDeptTreeSelect" resultMap="orgTreeResultMap" useCache="true">
+        SELECT
+            id_depart ,
+            na_depart ,
+            true as open
+        FROM
+            org_depart
+        WHERE
+            fg_active = '1'
+        and id_depart_par is null
+        <if test="idOrg != null">
+            and id_org = #{idOrg}
+        </if>
+    </select>
+    <select id="selectChildDept" resultMap="orgTreeResultMap">
+        SELECT
+            id_depart ,
+            na_depart ,
+            true as open
+        FROM
+            org_depart
+        WHERE
+            id_depart_par = #{id}
+        and fg_active = '1'
+    </select>
 </mapper>

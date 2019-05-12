@@ -6,6 +6,7 @@ import com.osce.entity.OrgDepart;
 import com.osce.exception.RestErrorCode;
 import com.osce.exception.RestException;
 import com.osce.orm.biz.training.structure.dept.PfDeptDao;
+import com.osce.vo.PfTreeSelectVo;
 import com.osce.vo.biz.training.structure.dept.PfDeptZtreeVo;
 import org.apache.dubbo.config.annotation.Service;
 
@@ -58,6 +59,11 @@ public class PfDeptServiceImpl implements PfDeptService {
            throw new RestException(RestErrorCode.DEPT_DEL_LIMIT);
         }
         return pfDeptDao.delDept(dto) >= 1 ? true : false;
+    }
+
+    @Override
+    public List<PfTreeSelectVo> selectDeptTreeSelect(Long idOrg) {
+        return pfDeptDao.selectDeptTreeSelect(idOrg);
     }
 
 }

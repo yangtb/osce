@@ -2,6 +2,7 @@ package com.osce.orm.biz.training.structure.dept;
 
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgDepart;
+import com.osce.vo.PfTreeSelectVo;
 import com.osce.vo.biz.training.structure.dept.PfDeptZtreeVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -73,4 +74,11 @@ public interface PfDeptDao {
      */
     Integer countDeptByIds(PfBachChangeStatusDto dto);
 
+    /**
+     * treeSelect
+     *
+     * @param idOrg 机构id
+     * @return
+     */
+    List<PfTreeSelectVo> selectDeptTreeSelect(@Param("idOrg") Long idOrg);
 }

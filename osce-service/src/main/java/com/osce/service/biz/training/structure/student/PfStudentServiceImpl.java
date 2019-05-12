@@ -5,6 +5,7 @@ import com.osce.dto.biz.training.structure.student.StudentDepartDto;
 import com.osce.dto.biz.training.structure.student.StudentDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.dto.user.login.RegisterDto;
+import com.osce.enums.PfRoleEnum;
 import com.osce.orm.biz.training.structure.student.PfStudentDao;
 import com.osce.orm.user.role.PfRoleDao;
 import com.osce.param.PageParam;
@@ -12,6 +13,8 @@ import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.service.user.login.PfUserServiceImpl;
 import com.osce.vo.biz.training.structure.student.StudentDepartVo;
+import com.osce.vo.user.role.PfRoleVo;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +34,7 @@ public class PfStudentServiceImpl implements PfStudentService {
     @Resource
     private PfUserServiceImpl pfUserService;
 
+    @Resource
     private PfRoleDao pfRoleDao;
 
     @Resource
@@ -49,16 +53,24 @@ public class PfStudentServiceImpl implements PfStudentService {
     public StudentDepartVo addStudent(StudentDepartDto dto) {
         StudentDepartVo studentDepartVo = new StudentDepartVo();
         RegisterDto registerDto = dto.getRegisterInfo();
+        registerDto.setEnabled(true);
         if (registerDto != null) {
             List<Long> roles = new ArrayList<>(1);
             // 默认角色
-            roles.add(1L);
+            PfRoleVo pfRoleVo = pfRoleDao.selectRoleInfoByCode(PfRoleEnum.MCST.getCode());
+            roles.add(pfRoleVo != null ? pfRoleVo.getRoleId() : null);
             registerDto.setRoles(roles);
         }
         if (dto.getIdStudentDepart() == null) {
+            // 密码为空，默认身份证后4位
+            if (StringUtils.isBlank(registerDto.getPassword()) && StringUtils.isNotBlank(registerDto.getIdcard())) {
+                registerDto.setPassword(StringUtils.rightPad(registerDto.getIdcard(), 6));
+            }
+            registerDto.setUsername(registerDto.getPhoneNo());
             Long usId = pfUserService.saveUser(registerDto);
             studentDepartVo.setIdUser(usId);
             // 增加学员部门关系
+            dto.setIdUser(usId);
             pfStudentDao.addStudent(dto);
             studentDepartVo.setIdStudentDepart(dto.getIdStudentDepart());
         } else {

@@ -70,5 +70,19 @@ public class StudentVo implements Serializable {
      */
     private Date gmtCreate;
 
+    /**
+     * 机构id
+     */
+    private Long idOrg;
+
+    /**
+     * 部门id
+     */
+    private Long idDepart;
+
+    /**
+     * 邮箱
+     */
+    private String email;
 
 }
