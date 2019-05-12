@@ -3,7 +3,7 @@ spring:
     #url: ${jdbc.url}
     #username: ${jdbc.username}
     #password: ${jdbc.password}
-    url: jdbc:mysql://localhost:3306/osce?zeroDateTimeBehavior=convertToNull&amp
+    url: jdbc:mysql://localhost:3306/osce?zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
     username: root
     password: Yangtb0424
     driver-class-name: com.mysql.cj.jdbc.Driver
