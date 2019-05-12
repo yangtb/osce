@@ -1,6 +1,291 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.osce.orm.biz.training.res.room.PfRoomDao">
+    <insert id="addRoom" useGeneratedKeys="true" keyProperty="idRoom">
+        INSERT INTO erp_room
+        (
+        <trim suffixOverrides=",">
+            <if test="idRoom!=null">
+                id_room,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="naRoom!=null">
+                na_room,
+            </if>
+            <if test="desRoom!=null">
+                des_room,
+            </if>
+            <if test="picRoom!=null">
+                pic_room,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idRoom!=null">
+                #{idRoom},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="naRoom!=null">
+                #{naRoom},
+            </if>
+            <if test="desRoom!=null">
+                #{desRoom},
+            </if>
+            <if test="picRoom!=null">
+                #{picRoom},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
+    <insert id="addDevice" useGeneratedKeys="true" keyProperty="idRoomDevice">
+        INSERT INTO erp_room_device
+        (
+        <trim suffixOverrides=",">
+            <if test="idRoomDevice!=null">
+                id_room_device,
+            </if>
+            <if test="idRoom!=null">
+                id_room,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="sdRoomDeviceCa!=null">
+                sd_room_device_ca,
+            </if>
+            <if test="cdRoomDevice!=null">
+                cd_room_device,
+            </if>
+            <if test="desRoomDevice!=null">
+                des_room_device,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idRoomDevice!=null">
+                #{idRoomDevice},
+            </if>
+            <if test="idRoom!=null">
+                #{idRoom},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="sdRoomDeviceCa!=null">
+                #{sdRoomDeviceCa},
+            </if>
+            <if test="cdRoomDevice!=null">
+                #{cdRoomDevice},
+            </if>
+            <if test="desRoomDevice!=null">
+                #{desRoomDevice},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
+    <update id="editRoom">
+        UPDATE erp_room
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="naRoom != null and naRoom!=''">
+                na_room = #{naRoom},
+            </if>
+            <if test="desRoom != null and desRoom!=''">
+                des_room = #{desRoom},
+            </if>
+            <if test="picRoom != null and picRoom!=''">
+                pic_room = #{picRoom},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+            <if test="gmtModify != null">
+                gmt_modify = #{gmtModify},
+            </if>
+        </trim>
+        WHERE
+            id_room = #{idRoom}
+    </update>
+    <update id="delRoom">
+        UPDATE erp_room
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id_room in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+    <update id="editDevice">
+        UPDATE erp_room_device
+        SET
+        <trim suffixOverrides=",">
+            <if test="idRoom != null">
+                id_room = #{idRoom},
+            </if>
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="sdRoomDeviceCa != null and sdRoomDeviceCa!=''">
+                sd_room_device_ca = #{sdRoomDeviceCa},
+            </if>
+            <if test="cdRoomDevice != null and cdRoomDevice!=''">
+                cd_room_device = #{cdRoomDevice},
+            </if>
+            <if test="desRoomDevice != null and desRoomDevice!=''">
+                des_room_device = #{desRoomDevice},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+            <if test="gmtModify != null">
+                gmt_modify = #{gmtModify},
+            </if>
+        </trim>
+        WHERE
+            id_room_device = #{idRoomDevice}
+    </update>
+    <update id="delDevice">
+        UPDATE erp_room_device
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id_room_device in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
 
     <select id="listRooms" resultType="com.osce.entity.ErpRoom">
         SELECT
@@ -22,6 +307,7 @@
         LEFT JOIN erp_room_device b ON a.id_room = b.id_room
         WHERE
             a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
         GROUP BY
             a.id_room ,
             a.id_org ,
@@ -45,6 +331,48 @@
             erp_room
         WHERE
             id_org = #{idOrg}
+        AND a.fg_valid = '0'
+    </select>
+    <select id="isExistRoom" resultType="java.lang.Boolean">
+        SELECT
+            count(1)
+        FROM
+            erp_room
+        WHERE
+            id_org = #{idOrg}
+        AND a.na_room = #{naRoom}
+        AND a.fg_valid = '0'
+    </select>
+    <select id="listDevices" resultType="com.osce.entity.ErpRoom">
+        SELECT
+            id_room_device,
+            id_room ,
+            id_org ,
+            sd_room_device_ca ,
+            cd_room_device ,
+            des_room_device ,
+            fg_active ,
+            fg_valid ,
+            sort ,
+            creator ,
+            gmt_create ,
+            operator ,
+            gmt_modify
+        FROM
+            erp_room_device
+        WHERE
+            id_room = #{idRoom}
+        AND fg_valid = '0'
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countDevice" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            erp_room_device
+        WHERE
+            id_room = #{idRoom}
+        AND fg_valid = '0'
     </select>
 
 </mapper>

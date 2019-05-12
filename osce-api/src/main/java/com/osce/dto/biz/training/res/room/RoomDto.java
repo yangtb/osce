@@ -25,4 +25,9 @@ public class RoomDto extends PageParam implements Serializable {
      */
     private Long idOrg;
 
+    /**
+     * 房间id
+     */
+    private Long idRoom;
+
 }

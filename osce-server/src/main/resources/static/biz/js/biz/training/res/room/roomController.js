@@ -13,7 +13,7 @@ layui.config({
         , height: 'full-68' //容器高度
         , cols: [[
             {checkbox: true, fixed: true},
-            {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
+            {field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
             {field: 'naRoom', minWidth: 170, title: '房号', fixed: true},
             {field: 'desRoom', minWidth: 200, title: '描述'},
             {field: 'deviceNum', minWidth: 100, title: '设备数量', align: "right"},
@@ -66,10 +66,10 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            var index = common.open('新增房间信息', basePath + '/pf/p/room/form?formType=' + formType, 430, 255);
+            var index = common.open('新增房间信息', basePath + '/pf/p/room/form?formType=' + formType, 500, 400);
             layer.full(index)
         } else {
-            var index = common.open('编辑房间信息', basePath + '/pf/p/room/form?formType=' + formType, 430, 255, _successFunction(currentEditData));
+            var index = common.open('编辑房间信息', basePath + '/pf/p/room/form?formType=' + formType, 500, 400, _successFunction(currentEditData));
             layer.full(index)
         }
     };
@@ -94,10 +94,10 @@ layui.config({
             layer.tips('请先选中一行记录', '#del', {tips: 1});
             return;
         }
-        _delGrade(data);
+        _delRoom(data);
     });
 
-    var _delGrade = function (currentData) {
+    var _delRoom = function (currentData) {
         var url = basePath + '/pf/r/room/del';
         var reqData = new Array();
         var messageTitle = '';
@@ -106,29 +106,31 @@ layui.config({
             if (messageTitle) {
                 messageTitle += ', ';
             }
-            messageTitle += '【' + content.naGrade + '】';
-            reqData.push(content.idGrade);
+            messageTitle += '【' + content.naRoom + '】';
+            reqData.push(content.idRoom);
 
-            if (content.roomNum > 0) {
+            if (content.deviceNum > 0) {
                 delFlag = true;
-                delMsg += '【' + content.naGrade + '】';
+                delMsg += '【' + content.naRoom + '】';
             }
         });
 
-        if(delFlag) {
-            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">学届下已有班级，不允许删除，请重新选择操作</span>', {
-                title: '删除学届提示',
+        if (delFlag) {
+            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">房间下已绑定设备，不允许删除，请重新选择操作</span>', {
+                title: '删除房间提示',
                 resize: false,
                 btn: ['确定']
             });
             return false;
         }
 
-        var data = {};
-        data.list = reqData;
-        data.status = '1';
+        var data = {
+            list: reqData,
+            status: '1'
+        };
+
         layer.confirm('确定删除' + messageTitle + '么？', {
-            title: '删除学届提示',
+            title: '删除房间提示',
             resize: false,
             btn: ['确定', '取消'],
             btnAlign: 'c',

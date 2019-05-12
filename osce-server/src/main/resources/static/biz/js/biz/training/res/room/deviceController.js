@@ -13,10 +13,9 @@ layui.config({
         , height: 'full-50' //容器高度
         , cols: [[
             {checkbox: true, fixed: true},
-            {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
-            {field: 'naRoom', minWidth: 170, title: '房号', fixed: true},
+            {field: 'naRoom', minWidth: 170, title: '固定设备类型', fixed: true},
+            {field: 'deviceNum', minWidth: 100, title: '设备编号', align: "right"},
             {field: 'desRoom', minWidth: 200, title: '描述'},
-            {field: 'deviceNum', minWidth: 100, title: '设备数量', align: "right"},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#deviceBar'}
         ]] //设置表头
@@ -113,7 +112,7 @@ layui.config({
             }
         });
 
-        if(delFlag) {
+        if (delFlag) {
             layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">学届下已有班级，不允许删除，请重新选择操作</span>', {
                 title: '删除学届提示',
                 resize: false,
@@ -174,20 +173,6 @@ layui.config({
             height: 'full-50'
         });
     }
-
-    //监听删除操作
-    form.on('switch(fgActiveCheckFilter)', function (obj) {
-        var reqData = new Array();
-        var data = {};
-        reqData.push(this.value);
-        data.list = reqData;
-        if (obj.elem.checked) {
-            data.status = '1';
-        } else {
-            data.status = '0';
-        }
-        common.commonPost(basePath + '/pf/r/device/updateStatus', data, '设置', obj.othis);
-    });
 
 });
 

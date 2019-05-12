@@ -67,4 +67,12 @@ public class PfRoomController extends BaseController {
         return pfRoomService.pageRooms(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/device/list")
+    @ResponseBody
+    public PageResult pageDevices(RoomDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfRoomService.pageDevices(dto);
+    }
+
 }

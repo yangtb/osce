@@ -47,12 +47,7 @@
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/training/res/room/deviceController.js"></script>
 
-<script type="text/html" id="fgActiveTpl">
-    <input type="checkbox" name="fgActive" value="{{d.idRoom}}"
-           lay-skin="switch" lay-text="是|否" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
-</script>
-
-<script type="text/html" id="roomBar">
+<script type="text/html" id="deviceBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
 </script>
 
