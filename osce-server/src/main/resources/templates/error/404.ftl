@@ -11,12 +11,24 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="${basePath!}/layui/plugins/layui/css/layui.css" media="all">
     <link rel="stylesheet" type="text/css" href="${basePath!}/biz/iconfont/iconfont.css">
+    <script src="${basePath!}/biz/iconfont/iconfont.js"></script>
 
+    <style>
+        .icon {
+            width: 18em;
+            height: 18em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body class="childrenBody">
 <div style="text-align: center; padding:8% 0;">
-    <i class="iconfont icon-404" style="line-height:18rem; font-size:18rem; color: #393D50;"></i>
+    <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-404"></use>
+    </svg>
     <p style="font-size: 20px; font-weight: 300; color: #999;">页面未找到！抱歉，页面好像去火星了~</p>
 </div>
 </body>

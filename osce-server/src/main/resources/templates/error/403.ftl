@@ -11,10 +11,11 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="stylesheet" href="${basePath!}/layui/plugins/layui/css/layui.css" media="all">
     <link rel="stylesheet" type="text/css" href="${basePath!}/biz/iconfont/iconfont.css">
+    <script src="${basePath!}/biz/iconfont/iconfont.js"></script>
 
     <style type="text/css">
         .icon {
-            width: 1em; height: 1em;
+            width: 18em; height: 18em;
             vertical-align: -0.15em;
             fill: currentColor;
             overflow: hidden;
@@ -24,7 +25,9 @@
 
 <body class="childrenBody">
 <div style="text-align: center;padding:8% 0;">
-    <i class="iconfont icon-403" style="line-height:18rem; font-size:18rem; color: #393D50;"></i>
+    <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-403"></use>
+    </svg>
     <p style="font-size: 20px; font-weight: 300; color: #999;">温馨提示：您没有权限访问当前页面，请联系管理员~</p>
 </div>
 </body>
