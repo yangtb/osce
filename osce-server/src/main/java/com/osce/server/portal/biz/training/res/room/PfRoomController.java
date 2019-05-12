@@ -31,26 +31,26 @@ public class PfRoomController extends BaseController {
     @Resource
     private EnumUtil enumUtil;
 
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/room/page")
     public String page() {
         return "pages/biz/training/res/room/roomPage";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/room/form")
     public String form(String formType, Model model) {
         model.addAttribute("formType", formType);
         return "pages/biz/training/res/room/roomTagForm";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/room/device/page")
     public String pageDevice() {
         return "pages/biz/training/res/room/devicePage";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/room/device/form")
     public String formDevice(String formType, Long idRoom, Model model) {
         model.addAttribute("formType", formType);
@@ -59,7 +59,7 @@ public class PfRoomController extends BaseController {
         return "pages/biz/training/res/room/deviceForm";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/room/list")
     @ResponseBody
     public PageResult pageRooms(RoomDto dto) {
@@ -67,7 +67,7 @@ public class PfRoomController extends BaseController {
         return pfRoomService.pageRooms(dto);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/device/list")
     @ResponseBody
     public PageResult pageDevices(RoomDto dto) {

@@ -36,7 +36,7 @@ public class PfRoomRestController extends BaseController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/room/add")
     public ResultObject addRoom(@RequestBody ErpRoom dto) {
         /* 参数校验 */
@@ -53,7 +53,7 @@ public class PfRoomRestController extends BaseController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002', 'ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001', 'ROLE_SUPER')")
     @PostMapping(value = "/pf/r/room/edit")
     public ResultObject editRoom(@RequestBody ErpRoom dto) {
         /* 参数校验 */
@@ -68,7 +68,7 @@ public class PfRoomRestController extends BaseController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/room/del")
     public ResultObject delRoom(@RequestBody PfBachChangeStatusDto dto) {
         /* 参数校验 */
@@ -84,7 +84,7 @@ public class PfRoomRestController extends BaseController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/room/updateStatus")
     public ResultObject updateRoomStatus(@RequestBody PfBachChangeStatusDto dto) {
         /* 参数校验 */
@@ -102,7 +102,7 @@ public class PfRoomRestController extends BaseController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/device/add")
     public ResultObject addDevice(@RequestBody ErpRoom dto) {
         /* 参数校验 */
@@ -119,7 +119,7 @@ public class PfRoomRestController extends BaseController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002', 'ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001', 'ROLE_SUPER')")
     @PostMapping(value = "/pf/r/device/edit")
     public ResultObject editDevice(@RequestBody ErpRoom dto) {
         /* 参数校验 */
@@ -134,7 +134,7 @@ public class PfRoomRestController extends BaseController {
      * @param dto
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/device/del")
     public ResultObject delDevice(@RequestBody PfBachChangeStatusDto dto) {
         /* 参数校验 */
