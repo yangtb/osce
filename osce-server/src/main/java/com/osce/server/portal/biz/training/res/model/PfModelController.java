@@ -1,7 +1,7 @@
 package com.osce.server.portal.biz.training.res.model;
 
-import com.osce.api.biz.training.structure.student.PfStudentService;
-import com.osce.dto.biz.training.structure.student.StudentDto;
+import com.osce.api.biz.training.res.model.PfModelService;
+import com.osce.dto.biz.training.res.model.ModelDto;
 import com.osce.enums.SysDicGroupEnum;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 
 /**
  * @ClassName: PfModelController
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 public class PfModelController extends BaseController {
 
     @Reference
-    private PfStudentService pfStudentService;
+    private PfModelService pfModelService;
 
     @Resource
     private EnumUtil enumUtil;
@@ -56,9 +55,9 @@ public class PfModelController extends BaseController {
     @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/model/list")
     @ResponseBody
-    public PageResult listModel(StudentDto dto) {
+    public PageResult listModel(ModelDto dto) {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
-        return PageResult.create(new ArrayList<>());
+        return pfModelService.pageModels(dto);
     }
 
 }

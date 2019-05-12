@@ -13,13 +13,13 @@ layui.config({
         , height: 'full-68' //容器高度
         , cols: [[
             {checkbox: true, fixed: true},
-            {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
-            {field: 'naRoom', minWidth: 170, title: '设备名称', fixed: true},
-            {field: 'desRoom', minWidth: 250, title: '设备描述'},
-            {field: 'desRoom', minWidth: 200, title: '设备类型'},
-            {field: 'desRoom', minWidth: 120, title: '单位'},
-            {field: 'deviceNum', minWidth: 100, title: '设备数量', align: "right"},
-            {field: 'deviceNum', minWidth: 100, title: '警戒数量', align: "right"},
+            {field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
+            {field: 'naDevice', minWidth: 170, title: '设备名称', fixed: true},
+            {field: 'desDevice', minWidth: 250, title: '设备描述'},
+            {field: 'fgConsumables', minWidth: 200, title: '设备类型', templet: '#fgConsumablesTpl'},
+            {field: 'sdDeviceUnit', minWidth: 120, title: '单位'},
+            {field: 'unmStock', minWidth: 100, title: '设备数量', align: "right"},
+            {field: 'numWarn', minWidth: 100, title: '警戒数量', align: "right"},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#modelBar'}
         ]] //设置表头
@@ -104,34 +104,21 @@ layui.config({
         var url = basePath + '/pf/r/model/del';
         var reqData = new Array();
         var messageTitle = '';
-        var delFlag = false, delMsg = '';
         $.each(currentData, function (index, content) {
             if (messageTitle) {
                 messageTitle += ', ';
             }
             messageTitle += '【' + content.naGrade + '】';
             reqData.push(content.idGrade);
-
-            if (content.modelNum > 0) {
-                delFlag = true;
-                delMsg += '【' + content.naGrade + '】';
-            }
         });
 
-        if(delFlag) {
-            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">学届下已有班级，不允许删除，请重新选择操作</span>', {
-                title: '删除学届提示',
-                resize: false,
-                btn: ['确定']
-            });
-            return false;
+        var data = {
+            list: reqData,
+            status: '1'
         }
 
-        var data = {};
-        data.list = reqData;
-        data.status = '1';
         layer.confirm('确定删除' + messageTitle + '么？', {
-            title: '删除学届提示',
+            title: '删除教学模型提示',
             resize: false,
             btn: ['确定', '取消'],
             btnAlign: 'c',

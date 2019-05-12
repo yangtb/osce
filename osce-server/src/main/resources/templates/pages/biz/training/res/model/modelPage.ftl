@@ -58,6 +58,14 @@
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/training/res/model/modelController.js"></script>
 
+<script type="text/html" id="fgConsumablesTpl">
+    {{#  if(d.fgConsumables == '1'){ }}
+    消耗品
+    {{#  } else { }}
+    非耗品
+    {{#  } }}
+</script>
+
 
 <script type="text/html" id="modelBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>

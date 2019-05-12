@@ -25,9 +25,9 @@
         </ul>
         <div class="layui-tab-content" style="margin: 0px;">
             <div class="layui-tab-item layui-show">
-                <form class="layui-form" id="roomForm">
+                <form class="layui-form" id="modelForm">
                     <div hidden>
-                        <input name="idRoom" hidden>
+                        <input name="idDevice" hidden>
                     </div>
 
                     <div class="layui-form-item form-item-my">
@@ -35,7 +35,7 @@
                             <label class="layui-form-label">设备名称<i class="iconfont icon-required"
                                                                    style="color: #f03f2d"></i></label>
                             <div class="layui-input-inline">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="naDevice" lay-verify="required|naDevice" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -59,8 +59,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">设备类型</label>
                             <div class="layui-input-block">
-                                <input type="radio" name="role" value="" title="消耗品" checked>
-                                <input type="radio" name="role" value="" title="非耗品">
+                                <input type="radio" name="fgConsumables" value="1" title="消耗品" checked>
+                                <input type="radio" name="fgConsumables" value="0" title="非耗品">
                             </div>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">库存数量</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="unmStock" lay-verify="required" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                             <label class="layui-form-label">警戒数量<i class="iconfont icon-required"
                                                                  style="color: #f03f2d"></i></label>
                             <div class="layui-input-inline">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="numWarn" lay-verify="required" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -87,8 +87,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">描述</label>
                             <div class="layui-input-inline" style="width: 514px;">
-                                <textarea name="remark" class="layui-textarea"
-                                          autocomplete="off" lay-verify="commonLength255" lay-vertype="tips"/></textarea>
+                                <textarea name="desDevice" class="layui-textarea"
+                                          autocomplete="off" lay-verify="desDevice" lay-vertype="tips"/></textarea>
                             </div>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
 
                     <div class="layui-form-item" style="padding-top: 5px">
                         <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="addUser">
+                            <button class="layui-btn" lay-submit="" lay-filter="addModel">
                                 <i class="iconfont icon-save-copy"></i> 保存
                             </button>
                             <#if (formType == 'add')>
@@ -175,7 +175,7 @@
 <script>
     function fullForm(data) {
         $(document).ready(function(){
-            $("#roomForm").autofill(data);
+            $("#modelForm").autofill(data);
             layui.use('form',function(){
                 layui.form.render();
             });

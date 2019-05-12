@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.training.res.model.PfModelDao">
+    <insert id="addModel" useGeneratedKeys="true" keyProperty="idDevice">
+        INSERT INTO erp_device
+        (
+        <trim suffixOverrides=",">
+            <if test="idDevice!=null">
+                id_device,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="naDevice!=null">
+                na_device,
+            </if>
+            <if test="desDevice!=null">
+                des_device,
+            </if>
+            <if test="sdDeviceUnit!=null">
+                sd_device_unit,
+            </if>
+            <if test="fgConsumables!=null">
+                fg_consumables,
+            </if>
+            <if test="numWarn!=null">
+                num_warn,
+            </if>
+            <if test="unmStock!=null">
+                unm_stock,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idDevice!=null">
+                #{idDevice},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="naDevice!=null">
+                #{naDevice},
+            </if>
+            <if test="desDevice!=null">
+                #{desDevice},
+            </if>
+            <if test="sdDeviceUnit!=null">
+                #{sdDeviceUnit},
+            </if>
+            <if test="fgConsumables!=null">
+                #{fgConsumables},
+            </if>
+            <if test="numWarn!=null">
+                #{numWarn},
+            </if>
+            <if test="unmStock!=null">
+                #{unmStock},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+            now(),
+        </trim>
+        )
+    </insert>
+    <update id="editModel">
+        UPDATE erp_device
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="naDevice != null and naDevice!=''">
+                na_device = #{naDevice},
+            </if>
+            <if test="desDevice != null and desDevice!=''">
+                des_device = #{desDevice},
+            </if>
+            <if test="sdDeviceUnit != null and sdDeviceUnit!=''">
+                sd_device_unit = #{sdDeviceUnit},
+            </if>
+            <if test="fgConsumables != null and fgConsumables!=''">
+                fg_consumables = #{fgConsumables},
+            </if>
+            <if test="numWarn != null">
+                num_warn = #{numWarn},
+            </if>
+            <if test="unmStock != null">
+                unm_stock = #{unmStock},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id_device = #{idDevice}
+    </update>
+    <update id="delModel">
+        UPDATE erp_device
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id_device in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+
+
+    <select id="listModels" resultType="com.osce.entity.ErpDevice">
+        SELECT
+            id_device ,
+            id_org ,
+            na_device ,
+            des_device ,
+            sd_device_unit ,
+            fg_consumables ,
+            num_warn ,
+            unm_stock ,
+            fg_active ,
+            fg_valid ,
+            sort ,
+            creator ,
+            gmt_create ,
+            operator ,
+            gmt_modify
+        FROM
+            erp_device
+        WHERE
+            id_org = #{idOrg}
+        AND fg_valid = '0'
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countModel" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            erp_device
+        WHERE
+            id_org = #{idOrg}
+        AND fg_valid = '0'
+    </select>
+</mapper>
