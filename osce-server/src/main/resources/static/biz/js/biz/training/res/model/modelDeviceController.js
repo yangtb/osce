@@ -19,17 +19,18 @@ layui.config({
 
     //执行渲染
     table.render({
-        elem: '#answerTable' //指定原始表格元素选择器（推荐id选择器）
-        , id: 'answerTableId'
+        elem: '#deviceTable' //指定原始表格元素选择器（推荐id选择器）
+        , id: 'deviceTableId'
         , height: '510' //容器高度
         , cols: [[
             {type: 'radio'},
-            {field: 'desAnswer', minWidth: 150, title: '设备编码'},
-            {field: 'desAnswer1', minWidth: 150, title: '购入时间'}
+            {field: 'cdDeviceCase', minWidth: 150, title: '设备编码'},
+            {field: 'gmtStoreIn', minWidth: 150, title: '购入时间'},
+            {fixed: 'right', width: 80, title: '操作', align: 'center', toolbar: '#deviceBar'}
         ]] //设置表头
-        , url: basePath + '/pf/p/model/list'
+        , url: basePath + '/pf/p/model/device/list'
         , where: {
-            //idInques: idInques,
+            //idDevice: idDevice
         }
         , page: false
     });
@@ -140,12 +141,8 @@ layui.config({
         if (!data.field.fgActive) {
             data.field.fgActive = '0';
         }
-        data.field.fgReason = data.field.fgReason ? '1' : '0';
-        data.field.fgBack = data.field.fgBack ? '1' : '0';
-        data.field.fgTag = data.field.fgTag ? '1' : '0';
-        data.field.fgDefault = data.field.fgDefault ? '1' : '0';
-        data.field.idInques = idInques;
-        common.commonPost(basePath + '/pf/r/inquisition/question/answer/save', data.field, '保存', '', _callBack);
+        data.field.idDeviceCase = idDeviceCase;
+        common.commonPost(basePath + '/pf/p/model/device/save', data.field, '保存', '', _callBack);
         return false;
     });
 
@@ -155,7 +152,7 @@ layui.config({
     }
 
     //监听工具条
-    table.on('tool(answerTableFilter)', function (obj) {
+    table.on('tool(deviceTableFilter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'del') {
             _delAnswer(data);
@@ -163,17 +160,18 @@ layui.config({
     });
 
     var _delAnswer = function (currentData) {
-        var url = basePath + '/pf/r/inquisition/question/answer/del';
+        var url = basePath + '/pf/p/model/device/del';
         var reqData = new Array();
         var name = '【' + currentData.desAnswer + '】';
         reqData.push(currentData.idAnswer);
-        var data = {};
-        data.list = reqData;
-        data.status = '1';
-        data.extId = currentData.idInques;
-
-        layer.confirm('真的要删除答案内容：' + name + '么？', {
-            title: '删除答案内容提示',
+        var data = {
+            list: reqData,
+            status: '1',
+            extId: currentData.idDeviceCase
+        };
+        
+        layer.confirm('真的要删除设备编码：' + name + '么？', {
+            title: '删除设备提示',
             resize: false,
             btn: ['确定', '取消'],
             btnAlign: 'c',
@@ -187,16 +185,16 @@ layui.config({
     };
 
     var _tableReload = function () {
-        table.reload('answerTableId', {
+        table.reload('deviceTableId', {
             where: {
-                idInques: idInques,
+                idDeviceCase: idDeviceCase,
             },
             height: 'full-30'
         });
     };
 
     //单击行选中radio
-    table.on('row(answerTableFilter)', function (obj) {
+    table.on('row(deviceTableFilter)', function (obj) {
         obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');//选中行样式
         obj.tr.find('input[lay-type="layTableRadio"]').prop("checked", true);
         form.render('radio');
@@ -204,11 +202,8 @@ layui.config({
     });
 
     function rowClick(obj) {
-        if (!obj.data.desExpert) {
-            obj.data.desExpert = "";
-        }
         $('#reset').click();
-        $("#answerForm").autofill(obj.data);
+        $("#deviceForm").autofill(obj.data);
         layui.use('form', function () {
             layui.form.render();
         });

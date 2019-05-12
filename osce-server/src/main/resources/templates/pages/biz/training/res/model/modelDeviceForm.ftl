@@ -19,14 +19,14 @@
 <body>
 <div style="margin: -10px 0px 0px -10px">
     <div class="layui-col-xs4">
-        <table id="answerTable" lay-filter="answerTableFilter">
+        <table id="deviceTable" lay-filter="deviceTableFilter">
         </table>
     </div>
 
     <div class="layui-col-xs8">
-        <form class="layui-form" id="roomForm" style="padding-top: 10px;">
+        <form class="layui-form" id="deviceForm" style="padding-top: 10px;">
             <div hidden>
-                <input name="idRoom" hidden>
+                <input name="idDeviceCase" hidden>
             </div>
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
@@ -194,15 +194,7 @@
 <script src="${contextPath}/common/js/jquery.formautofill.js"></script>
 <script src="${contextPath}/biz/js/biz/training/res/model/modelDeviceController.js"></script>
 
-<script type="text/html" id="fgActiveTpl">
-    {{#  if(d.fgActive == '1'){ }}
-    <button class="layui-btn layui-btn-normal layui-btn-xs">启用</button>
-    {{#  } else { }}
-    <button class="layui-btn layui-btn-danger layui-btn-xs">停用</button>
-    {{#  } }}
-</script>
-
-<script type="text/html" id="inquisitionAnswer">
+<script type="text/html" id="deviceBar">
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
 </script>
 

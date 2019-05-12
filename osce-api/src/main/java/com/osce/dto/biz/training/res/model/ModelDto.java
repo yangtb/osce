@@ -23,4 +23,9 @@ public class ModelDto extends PageParam implements Serializable {
      */
     private Long idOrg;
 
+    /**
+     * 设备ID
+     */
+    private Long idDevice;
+
 }

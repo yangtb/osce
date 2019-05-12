@@ -3,6 +3,8 @@ package com.osce.server.rest.biz.training.res.model;
 import com.osce.api.biz.training.res.model.PfModelService;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.ErpDevice;
+import com.osce.entity.ErpDeviceCase;
+import com.osce.entity.ErpRoom;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -94,6 +96,40 @@ public class PfModelRestController extends BaseController {
         dto.setExtId(CurrentUserUtils.getCurrentUserIdOrg());
         return pfModelService.delModel(dto) ? ResultObject.createSuccess("updateModelStatus", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("updateModelStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+    /**
+     * 新增设备
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/model/device/save")
+    public ResultObject addModelDevice(@RequestBody ErpDeviceCase dto) {
+        /* 参数校验 */
+        dto.setCreator(CurrentUserUtils.getCurrentUsername());
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return ResultObject.createSuccess("addModelDevice", ResultObject.DATA_TYPE_OBJECT,
+                pfModelService.addModelDevice(dto));
+    }
+
+
+    /**
+     * 删除设备
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/model/device/del")
+    public ResultObject delDevice(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        return pfModelService.delModelDevice(dto) ? ResultObject.createSuccess("delModelDevice", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("delModelDevice", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
 

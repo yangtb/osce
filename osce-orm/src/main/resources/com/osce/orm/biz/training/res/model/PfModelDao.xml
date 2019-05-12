@@ -95,6 +95,130 @@
         </trim>
         )
     </insert>
+    <insert id="addModelDevice" useGeneratedKeys="true" keyProperty="idDeviceCase">
+        INSERT INTO erp_device_case
+        (
+        <trim suffixOverrides=",">
+            <if test="idDeviceCase!=null">
+                id_device_case,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="idDevice!=null">
+                id_device,
+            </if>
+            <if test="cdDeviceCase!=null">
+                cd_device_case,
+            </if>
+            <if test="brand!=null">
+                brand,
+            </if>
+            <if test="model!=null">
+                model,
+            </if>
+            <if test="price!=null">
+                price,
+            </if>
+            <if test="gmtStoreIn!=null">
+                gmt_store_in,
+            </if>
+            <if test="gmtRepairEnd!=null">
+                gmt_repair_end,
+            </if>
+            <if test="tellRepair!=null">
+                tell_repair,
+            </if>
+            <if test="picDiviceCase!=null">
+                pic_divice_case,
+            </if>
+            <if test="fgScrap!=null">
+                fg_scrap,
+            </if>
+            <if test="gmtScrap!=null">
+                gmt_scrap,
+            </if>
+            <if test="desScrap!=null">
+                des_scrap,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idDeviceCase!=null">
+                #{idDeviceCase},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="idDevice!=null">
+                #{idDevice},
+            </if>
+            <if test="cdDeviceCase!=null">
+                #{cdDeviceCase},
+            </if>
+            <if test="brand!=null">
+                #{brand},
+            </if>
+            <if test="model!=null">
+                #{model},
+            </if>
+            <if test="price!=null">
+                #{price},
+            </if>
+            <if test="gmtStoreIn!=null">
+                #{gmtStoreIn},
+            </if>
+            <if test="gmtRepairEnd!=null">
+                #{gmtRepairEnd},
+            </if>
+            <if test="tellRepair!=null">
+                #{tellRepair},
+            </if>
+            <if test="picDiviceCase!=null">
+                #{picDiviceCase},
+            </if>
+            <if test="fgScrap!=null">
+                #{fgScrap},
+            </if>
+            <if test="gmtScrap!=null">
+                #{gmtScrap},
+            </if>
+            <if test="desScrap!=null">
+                #{desScrap},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
     <update id="editModel">
         UPDATE erp_device
         SET
@@ -164,6 +288,90 @@
         </foreach>
         )
     </update>
+    <update id="editModelDevice">
+        UPDATE erp_device_case
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="idDevice != null">
+                id_device = #{idDevice},
+            </if>
+            <if test="cdDeviceCase != null and cdDeviceCase!=''">
+                cd_device_case = #{cdDeviceCase},
+            </if>
+            <if test="brand != null and brand!=''">
+                brand = #{brand},
+            </if>
+            <if test="model != null and model!=''">
+                model = #{model},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="gmtStoreIn != null">
+                gmt_store_in = #{gmtStoreIn},
+            </if>
+            <if test="gmtRepairEnd != null">
+                gmt_repair_end = #{gmtRepairEnd},
+            </if>
+            <if test="tellRepair != null and tellRepair!=''">
+                tell_repair = #{tellRepair},
+            </if>
+            <if test="picDiviceCase != null and picDiviceCase!=''">
+                pic_divice_case = #{picDiviceCase},
+            </if>
+            <if test="fgScrap != null and fgScrap!=''">
+                fg_scrap = #{fgScrap},
+            </if>
+            <if test="gmtScrap != null">
+                gmt_scrap = #{gmtScrap},
+            </if>
+            <if test="desScrap != null and desScrap!=''">
+                des_scrap = #{desScrap},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id_device_case = #{idDeviceCase}
+    </update>
+    <update id="delModelDevice">
+        UPDATE erp_device_case
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id_device_case in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
 
 
     <select id="listModels" resultType="com.osce.entity.ErpDevice">
@@ -199,4 +407,16 @@
             id_org = #{idOrg}
         AND fg_valid = '0'
     </select>
+
+    <select id="listModelDevice" resultType="com.osce.entity.ErpDeviceCase">
+        SELECT
+            cd_device_case,
+            gmt_store_in
+        FROM
+            erp_device_case
+        WHERE
+            id_device = #{idDevice}
+        AND fg_valid = '0'
+    </select>
+
 </mapper>

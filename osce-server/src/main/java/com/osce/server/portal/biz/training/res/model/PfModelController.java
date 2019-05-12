@@ -60,4 +60,13 @@ public class PfModelController extends BaseController {
         return pfModelService.pageModels(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/model/device/list")
+    @ResponseBody
+    public PageResult pageModelDevice(ModelDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfModelService.pageModelDevice(dto);
+    }
+
+
 }

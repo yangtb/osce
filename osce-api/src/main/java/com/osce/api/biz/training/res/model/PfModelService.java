@@ -3,7 +3,9 @@ package com.osce.api.biz.training.res.model;
 import com.osce.dto.biz.training.res.model.ModelDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.ErpDevice;
+import com.osce.entity.ErpDeviceCase;
 import com.osce.result.PageResult;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @ClassName: PfModelService
@@ -37,6 +39,28 @@ public interface PfModelService {
      */
     boolean delModel(PfBachChangeStatusDto dto);
 
-   
+    /**
+     * 设备列表
+     *
+     * @param dto
+     * @return
+     */
+    PageResult pageModelDevice(ModelDto dto);
+
+    /**
+     * 增加设备
+     *
+     * @param dto
+     * @return
+     */
+    Long addModelDevice(ErpDeviceCase dto);
+
+    /**
+     * 删除设备
+     *
+     * @param dto
+     * @return
+     */
+    boolean delModelDevice(PfBachChangeStatusDto dto);
 
 }

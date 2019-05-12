@@ -3,6 +3,7 @@ package com.osce.server.rest.biz.training.res.room;
 import com.osce.api.biz.training.res.room.PfRoomService;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.ErpRoom;
+import com.osce.entity.ErpRoomDevice;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -104,13 +105,13 @@ public class PfRoomRestController extends BaseController {
      */
     @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/device/add")
-    public ResultObject addDevice(@RequestBody ErpRoom dto) {
+    public ResultObject addDevice(@RequestBody ErpRoomDevice dto) {
         /* 参数校验 */
         dto.setCreator(CurrentUserUtils.getCurrentUsername());
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return ResultObject.createSuccess("addDevice", ResultObject.DATA_TYPE_OBJECT,
-                pfRoomService.addRoom(dto));
+                pfRoomService.addRoomDevice(dto));
     }
 
     /**
@@ -121,10 +122,11 @@ public class PfRoomRestController extends BaseController {
      */
     @PreAuthorize("hasAnyRole('ROLE_01_02_001', 'ROLE_SUPER')")
     @PostMapping(value = "/pf/r/device/edit")
-    public ResultObject editDevice(@RequestBody ErpRoom dto) {
+    public ResultObject editDevice(@RequestBody ErpRoomDevice dto) {
         /* 参数校验 */
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
-        return ResultObject.createSuccess("editDevice", ResultObject.DATA_TYPE_OBJECT, pfRoomService.addRoom(dto));
+        return ResultObject.createSuccess("editDevice", ResultObject.DATA_TYPE_OBJECT,
+                pfRoomService.addRoomDevice(dto));
 
     }
 
@@ -140,7 +142,7 @@ public class PfRoomRestController extends BaseController {
         /* 参数校验 */
         Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
-        return pfRoomService.delRoom(dto) ? ResultObject.createSuccess("delDevice", ResultObject.DATA_TYPE_OBJECT, true)
+        return pfRoomService.delRoomDevice(dto) ? ResultObject.createSuccess("delDevice", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("delDevice", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 

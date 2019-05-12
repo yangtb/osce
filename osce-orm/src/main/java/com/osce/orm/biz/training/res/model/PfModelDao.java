@@ -3,6 +3,7 @@ package com.osce.orm.biz.training.res.model;
 import com.osce.dto.biz.training.res.model.ModelDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.ErpDevice;
+import com.osce.entity.ErpDeviceCase;
 
 import java.util.List;
 
@@ -53,6 +54,38 @@ public interface PfModelDao {
      * @return
      */
     int delModel(PfBachChangeStatusDto dto);
+
+    /**
+     * 设备列表
+     *
+     * @param dto
+     * @return
+     */
+    List<ErpDeviceCase> listModelDevice(ModelDto dto);
+
+    /**
+     * 新增设备
+     *
+     * @param dto
+     * @return
+     */
+    Long addModelDevice(ErpDeviceCase dto);
+
+    /**
+     * 编辑设备
+     *
+     * @param dto
+     * @return
+     */
+    int editModelDevice(ErpDeviceCase dto);
+
+    /**
+     * 删除设备
+     *
+     * @param dto
+     * @return
+     */
+    int delModelDevice(PfBachChangeStatusDto dto);
 
 
 }
