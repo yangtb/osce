@@ -12,7 +12,8 @@ public enum PfRoleEnum {
     PFTOU("PFTOU", "游客"),
     MCADM("MCADM", "机构管理员"),
     MCTE("MCTE", "老师"),
-    MCST("MCST", "学生");
+    MCST("MCST", "学生"),
+    SP("SP", "SP");
 
     private String code;
     private String desc;

@@ -1,12 +1,12 @@
 package com.osce.server.portal.biz.training.structure.sp;
 
 import com.osce.api.biz.training.structure.sp.PfSpService;
-import com.osce.api.biz.training.structure.student.PfStudentService;
-import com.osce.dto.biz.training.structure.student.StudentDto;
+import com.osce.dto.biz.training.structure.sp.SpDto;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.server.security.rsa.RsaKeyPairQueue;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -26,10 +27,10 @@ import javax.servlet.http.HttpServletRequest;
 public class PfSpController extends BaseController {
 
     @Reference
-    private PfStudentService pfStudentService;
-
-    @Reference
     private PfSpService pfSpService;
+
+    @Resource(name = "rsaKeyPairQueue")
+    private RsaKeyPairQueue rsaKeyPairQueue;
 
     @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
     @RequestMapping("/pf/p/sp/page")
@@ -48,9 +49,9 @@ public class PfSpController extends BaseController {
     @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/sp/list")
     @ResponseBody
-    public PageResult listStudent(StudentDto dto) {
+    public PageResult listSp(SpDto dto) {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
-        return pfStudentService.pageStudents(dto);
+        return pfSpService.pageSp(dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")

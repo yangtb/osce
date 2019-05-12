@@ -5,43 +5,90 @@ layui.config({
         form = layui.form,
         common = layui.common,
         layer = layui.layer,
-        treeSelect= layui.treeSelect;
+        treeSelect = layui.treeSelect;
 
+    if (formType == 'add') {
+        treeSelect.render({
+            elem: '#idOrg',
+            data: basePath + '/pf/r/org/tree/select',
+            type: 'post',
+            placeholder: '请选择机构',
+            click: function (d) {
+                $("#idOrg").val(d.current.id);
+            }
+        });
+    }
 
-    treeSelect.render({
-        // 选择器
-        elem: '#idOrg',
-        // 数据
-        data: basePath + '/pf/r/org/tree/select',
-        // 异步加载方式：get/post，默认get
-        type: 'post',
-        // 占位符
-        placeholder: '请选择机构',
-        // 是否开启搜索功能：true/false，默认false
-        search: true,
-        // 点击回调
-        click: function(d){
-            console.log(d);
-        },
-        // 加载完成后的回调函数
-        success: function (d) {
-            console.log(d);
-//                选中节点，根据id筛选
-//                treeSelect.checkNode('tree', 3);
-
-//                获取zTree对象，可以调用zTree方法
-//                var treeObj = treeSelect.zTree('tree');
-//                console.log(treeObj);
-
-//                刷新树结构
-//                treeSelect.refresh();
-        }
-    });
-    
     $("#addTag").on('click', function () {
         common.open('标签管理', basePath + '/pf/p/sp/tag/form', 490, 465);
     });
 
+    //监听提交
+    form.on('submit(addUser)', function (data) {
+        if (!data.field.idOrg) {
+            $('#idOrg').focus();
+            common.errorMsg("请选择机构");
+            return false;
+        }
+
+        console.log(data.field)
+
+        var reqData = new Array(),
+            userSpObj = data.field;
+
+        for (var i in userSpObj) {
+            if (i.indexOf("spTag-") != -1) {
+                var userSpData = {
+                    idSpTag2: i.substring(6, i.length),
+                    value: userSpObj[i]
+                }
+                reqData.push(userSpData);
+            }
+        }
+
+        var bizData = {
+            registerInfo: data.field,
+            userSpList: reqData
+        }
+
+        console.log(bizData)
+
+        var url = basePath + "/pf/r/sp/" + formType;
+        layer.load(2);
+        $.ajax({
+            url: url,
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    common.errorMsg(data.msg);
+                    return false;
+                } else {
+                    common.sucMsg("保存成功");
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                    //刷新父页面table
+                    if (formType == 'edit') {
+                        parent.layui.common.refreshCurrentPage();
+                    } else {
+                        parent.layui.table.reload('spTableId', {
+                            height: 'full-60'
+                        });
+                    }
+                    return true;
+                }
+            },
+            error: function () {
+                layer.closeAll('loading');
+                common.errorMsg("保存失败");
+                return false;
+            }
+        });
+        return false;
+    });
 
 
 });

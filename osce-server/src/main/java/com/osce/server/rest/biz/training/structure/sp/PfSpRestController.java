@@ -1,10 +1,10 @@
 package com.osce.server.rest.biz.training.structure.sp;
 
 import com.osce.api.biz.training.structure.sp.PfSpService;
-import com.osce.api.biz.training.structure.student.PfStudentService;
-import com.osce.dto.biz.training.structure.student.StudentDepartDto;
+import com.osce.dto.biz.training.structure.sp.UserSpDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgSpDefine;
+import com.osce.entity.OrgUserSp;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.server.security.CurrentUserUtils;
 import com.sm.open.care.core.ErrorCode;
@@ -29,77 +29,86 @@ import org.springframework.web.bind.annotation.RestController;
 public class PfSpRestController {
 
     @Reference
-    private PfStudentService pfStudentService;
-
-    @Reference
     private PfSpService pfSpService;
 
     /**
-     * 新增学届信息
+     * 新增
      *
      * @param dto
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/sp/add")
-    public ResultObject addStudent(@RequestBody StudentDepartDto dto) {
+    public ResultObject addSp(@RequestBody UserSpDto dto) {
         /* 参数校验 */
         dto.getRegisterInfo().setOperator(CurrentUserUtils.getCurrentUsername());
         dto.getRegisterInfo().setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
-        return ResultObject.createSuccess("addStudent", ResultObject.DATA_TYPE_OBJECT,
-                pfStudentService.addStudent(dto));
+        return ResultObject.createSuccess("addSp", ResultObject.DATA_TYPE_OBJECT,
+                pfSpService.addSp(dto));
     }
 
     /**
-     * 编辑学届信息
+     * 编辑
      *
      * @param dto
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_01_01_004', 'ROLE_SUPER')")
     @PostMapping(value = "/pf/r/sp/edit")
-    public ResultObject editStudent(@RequestBody StudentDepartDto dto) {
+    public ResultObject editSp(@RequestBody UserSpDto dto) {
         /* 参数校验 */
         dto.getRegisterInfo().setOperator(CurrentUserUtils.getCurrentUsername());
-        return ResultObject.createSuccess("editStudent", ResultObject.DATA_TYPE_OBJECT,
-                pfStudentService.addStudent(dto));
+        return ResultObject.createSuccess("editSp", ResultObject.DATA_TYPE_OBJECT,
+                pfSpService.addSp(dto));
 
     }
 
     /**
-     * 删除学届信息
+     * 删除
      *
      * @param dto
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/sp/del")
-    public ResultObject delStudent(@RequestBody PfBachChangeStatusDto dto) {
+    public ResultObject delSp(@RequestBody PfBachChangeStatusDto dto) {
         /* 参数校验 */
         Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
-        return pfStudentService.delStudent(dto) ? ResultObject.createSuccess("delStudent", ResultObject.DATA_TYPE_OBJECT, true)
+        return pfSpService.delSp(dto) ? ResultObject.createSuccess("delSp", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("delQuestion", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
     /**
-     * 停用、启用学届信息
+     * 停用、启用
      *
      * @param dto
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/sp/updateStatus")
-    public ResultObject updateStudentStatus(@RequestBody PfBachChangeStatusDto dto) {
+    public ResultObject updateSpStatus(@RequestBody PfBachChangeStatusDto dto) {
         /* 参数校验 */
         Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
         dto.setOperationType(OperationTypeEnum.UPDATE_STATUS.getCode());
         dto.setExtId(CurrentUserUtils.getCurrentUserIdOrg());
-        return pfStudentService.delStudent(dto) ? ResultObject.createSuccess("updateStudentStatus", ResultObject.DATA_TYPE_OBJECT, true)
-                : ResultObject.create("updateStudentStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+        return pfSpService.delSp(dto) ? ResultObject.createSuccess("updateSpStatus", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("updateSpStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
+    /**
+     * 标签值
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/sp/tag/value")
+    public ResultObject listTagValue(@RequestBody OrgUserSp dto) {
+        return ResultObject.createSuccess("listTagValue", ResultObject.DATA_TYPE_LIST,
+                pfSpService.listSpTagValue(dto.getIdUser()));
+    }
 
     /**
      * 新增标签

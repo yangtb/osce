@@ -19,7 +19,6 @@
 <script>
     var basePath = '${basePath}';
     var contextPath = '${contextPath}';
-    var currentGrade = '${currentGrade!}';
 </script>
 
 <body>

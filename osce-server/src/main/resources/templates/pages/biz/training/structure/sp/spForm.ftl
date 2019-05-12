@@ -13,7 +13,6 @@
 
     <script>
         var formType = '${formType!}';
-        var publicKey = '${publicKey!}';
         var basePath = '${basePath!}';
         var contextPath = '${contextPath!}';
     </script>
@@ -22,7 +21,7 @@
 
 <body>
 <div class="wrapper-content">
-    <form class="layui-form layui-form-pane" id="userform">
+    <form class="layui-form layui-form-pane" id="spForm">
         <div hidden>
             <input name="userId" hidden>
         </div>
@@ -40,7 +39,7 @@
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
                     <div class="layui-input-inline">
-                        <input id="idOrg" name="idOrg" type="text" lay-filter="tree" class="layui-input">
+                        <input id="idOrg" name="idOrg" type="text" lay-filter="orgTree" class="layui-input">
                     </div>
 
                 </div>
@@ -63,7 +62,7 @@
                 <label class="layui-form-label">身份证号<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <input type="text" name="idcard" lay-verify="required" lay-vertype="tips"
+                    <input type="text" name="idcard" lay-verify="required|identity" lay-vertype="tips"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -124,7 +123,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">创建人</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="creator" autocomplete="off" class="layui-input layui-disabled"
+                    <input type="text" name="operator" autocomplete="off" class="layui-input layui-disabled"
                            disabled>
                 </div>
             </div>
@@ -132,22 +131,6 @@
                 <label class="layui-form-label">创建时间</label>
                 <div class="layui-input-inline">
                     <input type="text" name="gmtCreate" autocomplete="off" class="layui-input layui-disabled"
-                           disabled>
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item form-item-my">
-            <div class="layui-inline">
-                <label class="layui-form-label">修改人</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="operator" autocomplete="off" class="layui-input layui-disabled"
-                           disabled>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">修改时间</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="gmtModify" autocomplete="off" class="layui-input layui-disabled"
                            disabled>
                 </div>
             </div>
@@ -180,9 +163,20 @@
     <#if (formType == 'edit')>
     function fullForm(data) {
         $(document).ready(function () {
-            $("#userform").autofill(data);
-            layui.use('form', function () {
+            $("#spForm").autofill(data);
+            layui.use(['form', 'jquery', 'treeSelect'], function () {
                 layui.form.render();
+                var treeSelect= layui.treeSelect
+                treeSelect.render({
+                    elem: '#idOrg',
+                    data: basePath + '/pf/r/org/tree/select',
+                    type: 'post',
+                    placeholder: '请选择机构',
+                    // 加载完成后的回调函数
+                    success: function (d) {
+                        treeSelect.checkNode('orgTree', data.idOrg);
+                    }
+                });
             });
         });
     };

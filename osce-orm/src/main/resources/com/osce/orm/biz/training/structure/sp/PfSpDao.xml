@@ -32,6 +32,44 @@
         </trim>
         )
     </insert>
+    <insert id="addSp">
+        <foreach collection="list" item="item" separator=";" >
+            INSERT INTO org_user_sp
+            (
+            <trim suffixOverrides=",">
+                <if test="item.idSpTagRecord!=null">
+                    id_sp_tag_record,
+                </if>
+                <if test="usId!=null">
+                    id_user,
+                </if>
+                <if test="item.idSpTag2!=null">
+                    id_sp_tag2,
+                </if>
+                <if test="item.value!=null">
+                    value,
+                </if>
+            </trim>
+            )
+            VALUES
+            (
+            <trim suffixOverrides=",">
+                <if test="item.idSpTagRecord!=null">
+                    #{item.idSpTagRecord},
+                </if>
+                <if test="usId!=null">
+                    #{usId},
+                </if>
+                <if test="item.idSpTag2!=null">
+                    #{item.idSpTag2},
+                </if>
+                <if test="item.value!=null">
+                    #{item.value},
+                </if>
+            </trim>
+            )
+        </foreach>
+    </insert>
     <delete id="delSpTag">
         DELETE FROM org_sp_define
         WHERE
@@ -40,6 +78,17 @@
             #{item}
         </foreach>
         )
+    </delete>
+    <delete id="delSp">
+        delete from org_user_sp
+        where id_user in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="delSpByusId">
+        delete from org_user_sp where id_user = #{usId}
     </delete>
 
     <select id="listSpTag" resultType="com.osce.entity.OrgSpDefine">
@@ -51,6 +100,59 @@
             org_sp_define
         where
             id_org = #{idOrg}
+    </select>
+
+    <select id="listSp" resultType="com.osce.vo.biz.training.structure.sp.SpVo">
+        SELECT
+            a.id_user as userId,
+            b.username, b.real_name, b.sex, b.phone_no, b.id_org, b.email ,
+            b.idcard, b.enabled, b.operator, b.gmt_create
+        FROM (
+                SELECT
+                    id_user
+                FROM
+                    org_user_sp
+                GROUP BY
+                    id_user
+                ) a
+        LEFT JOIN user_info b ON a.id_user = b.user_id
+        WHERE
+            b.id_org = #{idOrg}
+        AND b.is_deleted = 'N'
+        <if test="keywords != null and keywords != '' ">
+            and (b.phone_no like concat('%',#{keywords},'%')
+            or b.real_name like concat('%',#{keywords},'%'))
+        </if>
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countSp" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM (
+                SELECT
+                    id_user
+                FROM
+                    org_user_sp
+                GROUP BY
+                    id_user
+                ) a
+        LEFT JOIN user_info b ON a.id_user = b.user_id
+        WHERE
+            b.id_org = #{idOrg}
+        AND b.is_deleted = 'N'
+        <if test="keywords != null and keywords != '' ">
+            and (b.phone_no like concat('%',#{keywords},'%')
+            or b.real_name like concat('%',#{keywords},'%'))
+        </if>
+    </select>
+    <select id="listSpTagValue" resultType="java.util.Map">
+        SELECT
+            id_sp_tag2 ,
+            value
+        FROM
+            org_user_sp
+        WHERE
+            id_user = #{userId}
     </select>
 
 </mapper>

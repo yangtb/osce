@@ -89,7 +89,7 @@ public class PfStudentController extends BaseController {
             keyPair = rsaKeyPairQueue.takeQueue(request);
             model.addAttribute("publicKey", keyPair.getPublicKey());
         } catch (InterruptedException e) {
-            logger.error("雪云管理，rsa公私钥队列相关操作异常", e);
+            logger.error("rsa公私钥队列相关操作异常", e);
         }
         return "pages/biz/training/structure/student/studentForm";
     }
