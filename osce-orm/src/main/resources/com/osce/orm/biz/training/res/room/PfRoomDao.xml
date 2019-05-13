@@ -301,7 +301,7 @@
             a.gmt_create ,
             a.operator ,
             a.gmt_modify ,
-            count(1) AS deviceNum
+            count(b.id_room_device) AS deviceNum
         FROM
             erp_room a
         LEFT JOIN erp_room_device b ON a.id_room = b.id_room
@@ -331,7 +331,7 @@
             erp_room
         WHERE
             id_org = #{idOrg}
-        AND a.fg_valid = '0'
+        AND fg_valid = '0'
     </select>
     <select id="isExistRoom" resultType="java.lang.Boolean">
         SELECT
@@ -340,8 +340,8 @@
             erp_room
         WHERE
             id_org = #{idOrg}
-        AND a.na_room = #{naRoom}
-        AND a.fg_valid = '0'
+        AND na_room = #{naRoom}
+        AND fg_valid = '0'
     </select>
     <select id="listDevices" resultType="com.osce.entity.ErpRoom">
         SELECT
