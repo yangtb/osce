@@ -50,7 +50,7 @@ public class PfGradeServiceImpl implements PfGradeService {
     @Override
     public boolean delGrade(PfBachChangeStatusDto dto) {
         int num = pfGradeDao.delGrade(dto);
-        if (dto.getOperationType().equals(OperationTypeEnum.UPDATE_STATUS.getCode())) {
+        if (dto.getOperationType() != null && dto.getOperationType().equals(OperationTypeEnum.UPDATE_STATUS.getCode())) {
             if (dto.getStatus().equals(YesOrNoNum.YES.getCode())) {
                 // 更新其他状态
                 pfGradeDao.updateOtherGrade(dto.getExtId(), dto.getList().get(0));
