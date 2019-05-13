@@ -72,7 +72,7 @@ public interface PfRoomDao {
      * @param dto
      * @return
      */
-    List<ErpRoom> listDevices(RoomDto dto);
+    List<ErpRoomDevice> listDevices(RoomDto dto);
 
     /**
      * 设备总数

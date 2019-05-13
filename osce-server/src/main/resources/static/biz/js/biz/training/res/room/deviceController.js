@@ -13,9 +13,9 @@ layui.config({
         , height: 'full-50' //容器高度
         , cols: [[
             {checkbox: true, fixed: true},
-            {field: 'naRoom', minWidth: 170, title: '固定设备类型', fixed: true},
-            {field: 'deviceNum', minWidth: 100, title: '设备编号', align: "right"},
-            {field: 'desRoom', minWidth: 200, title: '描述'},
+            {field: 'sdRoomDeviceCa', minWidth: 170, title: '固定设备类型', fixed: true, templet: '#sdRoomDeviceCaTpl'},
+            {field: 'cdRoomDevice', minWidth: 100, title: '设备编号'},
+            {field: 'desRoomDevice', minWidth: 200, title: '描述'},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#deviceBar'}
         ]] //设置表头
@@ -24,6 +24,9 @@ layui.config({
         , even: true
         , limits: [15, 30, 100]
         , page: true
+        , where : {
+            idRoom : idRoom
+        }
     });
 
     //监听工具条
@@ -65,9 +68,9 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            common.open('新增固定设备', basePath + '/pf/p/room/device/form?formType=' + formType, 430, 300);
+            common.open('新增固定设备', basePath + '/pf/p/room/device/form?formType=' + formType + '&idRoom=' + idRoom, 430, 300);
         } else {
-            common.open('编辑固定设备', basePath + '/pf/p/room/device/form?formType=' + formType, 430, 300, _successFunction(currentEditData));
+            common.open('编辑固定设备', basePath + '/pf/p/room/device/form?formType=' + formType + '&idRoom=' + idRoom, 430, 300, _successFunction(currentEditData));
         }
     };
 
@@ -91,41 +94,27 @@ layui.config({
             layer.tips('请先选中一行记录', '#del', {tips: 1});
             return;
         }
-        _delGrade(data);
+        _delDevice(data);
     });
 
-    var _delGrade = function (currentData) {
+    var _delDevice = function (currentData) {
         var url = basePath + '/pf/r/device/del';
         var reqData = new Array();
         var messageTitle = '';
-        var delFlag = false, delMsg = '';
         $.each(currentData, function (index, content) {
             if (messageTitle) {
                 messageTitle += ', ';
             }
-            messageTitle += '【' + content.naGrade + '】';
-            reqData.push(content.idGrade);
-
-            if (content.deviceNum > 0) {
-                delFlag = true;
-                delMsg += '【' + content.naGrade + '】';
-            }
+            messageTitle += '【' + content.cdRoomDevice + '】';
+            reqData.push(content.idRoomDevice);
         });
 
-        if (delFlag) {
-            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">学届下已有班级，不允许删除，请重新选择操作</span>', {
-                title: '删除学届提示',
-                resize: false,
-                btn: ['确定']
-            });
-            return false;
-        }
 
         var data = {};
         data.list = reqData;
         data.status = '1';
-        layer.confirm('确定删除' + messageTitle + '么？', {
-            title: '删除学届提示',
+        layer.confirm('确定删除编号' + messageTitle + '么？', {
+            title: '删除设备提示',
             resize: false,
             btn: ['确定', '取消'],
             btnAlign: 'c',

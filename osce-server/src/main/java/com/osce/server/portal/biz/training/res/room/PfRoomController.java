@@ -46,7 +46,9 @@ public class PfRoomController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/room/device/page")
-    public String pageDevice() {
+    public String pageDevice(Long idRoom, Model model) {
+        model.addAttribute("idRoom", idRoom);
+        model.addAttribute("roomDeviceList", enumUtil.getEnumList(SysDicGroupEnum.SD_ROOM_DEVICE_CA.getCode()));
         return "pages/biz/training/res/room/devicePage";
     }
 

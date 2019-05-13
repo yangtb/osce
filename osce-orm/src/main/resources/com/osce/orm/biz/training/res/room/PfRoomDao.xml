@@ -343,7 +343,7 @@
         AND na_room = #{naRoom}
         AND fg_valid = '0'
     </select>
-    <select id="listDevices" resultType="com.osce.entity.ErpRoom">
+    <select id="listDevices" resultType="com.osce.entity.ErpRoomDevice">
         SELECT
             id_room_device,
             id_room ,

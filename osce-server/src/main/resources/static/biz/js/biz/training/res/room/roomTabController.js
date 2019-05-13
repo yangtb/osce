@@ -20,7 +20,7 @@ layui.config({
     element.on('tab(tagTabFilter)', function (data) {
         if (data.index == 1) {
             if (!$("#deviceTag").attr("src")) {
-                $('#deviceTag').attr('src', basePath + '/pf/p/room/device/page');
+                $('#deviceTag').attr('src', basePath + '/pf/p/room/device/page?idRoom=' + $('#idRoom').val());
             }
         }
     });
@@ -78,6 +78,7 @@ layui.config({
                     if (formType == 'edit') {
                         parent.layui.common.refreshCurrentPage();
                     } else {
+                        $('#idRoom').val(data.data);
                         parent.layui.table.reload(tableId, {
                             height: 'full-68'
                         });

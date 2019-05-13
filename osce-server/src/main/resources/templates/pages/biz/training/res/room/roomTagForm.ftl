@@ -19,7 +19,7 @@
 
 <body class="body-my">
 <div>
-    <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 5px">
+    <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 0px">
         <ul class="layui-tab-title">
             <li class="layui-this">房间定义</li>
                 <li>固定设备</li>

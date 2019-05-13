@@ -18,6 +18,7 @@
 <script>
     var basePath = '${basePath}';
     var contextPath = '${contextPath}';
+    var idRoom = '${idRoom!}';
 </script>
 
 <body>
@@ -46,6 +47,17 @@
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/training/res/room/deviceController.js"></script>
+
+
+<script type="text/html" id="sdRoomDeviceCaTpl">
+    <#if roomDeviceList?? && (roomDeviceList?size > 0)>
+        <#list roomDeviceList as enum>
+            {{#  if(d.sdRoomDeviceCa == ${enum.dictCode!}){ }}
+            ${enum.dictName!}
+            {{#  } }}
+        </#list>
+    </#if>
+</script>
 
 <script type="text/html" id="deviceBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>

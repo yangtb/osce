@@ -23,16 +23,16 @@
 <body class="body-my">
 
 <div class="wrapper-content">
-    <form class="layui-form" id="gradeForm">
+    <form class="layui-form" id="deviceForm">
         <div hidden>
-            <input name="idGrade" hidden>
+            <input name="idRoomDevice" id="idRoomDevice" hidden>
         </div>
 
         <div class="layui-form-item form-item-my5">
             <label class="layui-form-label">设备类型<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
             <div class="layui-input-block">
 
-                <select name="idOrg" lay-verify="required" lay-vertype="tips">
+                <select name="sdRoomDeviceCa" lay-verify="required" lay-vertype="tips">
                     <option value="">请选择</option>
                     <#if roomDeviceList?? && (roomDeviceList?size > 0)>
                         <#list roomDeviceList as enum>
@@ -46,7 +46,7 @@
         <div class="layui-form-item form-item-my5">
             <label class="layui-form-label">设备编号<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
             <div class="layui-input-block">
-                <input type="text" name="naGrade" lay-verify="required|naGrade" lay-vertype="tips"
+                <input type="text" name="cdRoomDevice" lay-verify="required|cdRoomDevice" lay-vertype="tips"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -54,13 +54,13 @@
         <div class="layui-form-item layui-form-text form-item-my5">
             <label class="layui-form-label">描述</label>
             <div class="layui-input-block">
-                <textarea name="desGrade" class="layui-textarea" lay-verify="desGrade"></textarea>
+                <textarea name="desRoomDevice" class="layui-textarea" lay-verify="desRoomDevice"></textarea>
             </div>
         </div>
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="addGrade">
+                <button class="layui-btn" lay-submit="" lay-filter="addDevice">
                     <i class="iconfont icon-save-copy"></i> 保存
                 </button>
                 <#if (formType == 'add')>
@@ -74,14 +74,14 @@
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
-<script src="${contextPath}/biz/js/biz/training/structure/grade/gradeFormController.js"></script>
+<script src="${contextPath}/biz/js/biz/training/res/room/deviceFormController.js"></script>
 <script src="${contextPath}/common/js/jquery.min.js"></script>
 <script src="${contextPath}/common/js/jquery.formautofill.js"></script>
 
 <script>
     function fullForm(data) {
         $(document).ready(function(){
-            $("#gradeForm").autofill(data);
+            $("#deviceForm").autofill(data);
             layui.use('form',function(){
                 layui.form.render();
             });
