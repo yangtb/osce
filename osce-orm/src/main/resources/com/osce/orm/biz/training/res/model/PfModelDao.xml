@@ -120,10 +120,10 @@
             <if test="price!=null">
                 price,
             </if>
-            <if test="gmtStoreIn!=null">
+            <if test="gmtStoreIn!=null and gmtStoreIn!=''">
                 gmt_store_in,
             </if>
-            <if test="gmtRepairEnd!=null">
+            <if test="gmtRepairEnd!=null and gmtRepairEnd!=''">
                 gmt_repair_end,
             </if>
             <if test="tellRepair!=null">
@@ -135,7 +135,7 @@
             <if test="fgScrap!=null">
                 fg_scrap,
             </if>
-            <if test="gmtScrap!=null">
+            <if test="gmtScrap!=null and gmtScrap!=''">
                 gmt_scrap,
             </if>
             <if test="desScrap!=null">
@@ -181,10 +181,10 @@
             <if test="price!=null">
                 #{price},
             </if>
-            <if test="gmtStoreIn!=null">
+            <if test="gmtStoreIn!=null and gmtStoreIn!=''">
                 #{gmtStoreIn},
             </if>
-            <if test="gmtRepairEnd!=null">
+            <if test="gmtRepairEnd!=null and gmtRepairEnd!=''">
                 #{gmtRepairEnd},
             </if>
             <if test="tellRepair!=null">
@@ -196,7 +196,7 @@
             <if test="fgScrap!=null">
                 #{fgScrap},
             </if>
-            <if test="gmtScrap!=null">
+            <if test="gmtScrap!=null and gmtScrap!=''">
                 #{gmtScrap},
             </if>
             <if test="desScrap!=null">
@@ -310,10 +310,10 @@
             <if test="price != null">
                 price = #{price},
             </if>
-            <if test="gmtStoreIn != null">
+            <if test="gmtStoreIn != null and gmtStoreIn!=''">
                 gmt_store_in = #{gmtStoreIn},
             </if>
-            <if test="gmtRepairEnd != null">
+            <if test="gmtRepairEnd != null and gmtRepairEnd!=''">
                 gmt_repair_end = #{gmtRepairEnd},
             </if>
             <if test="tellRepair != null and tellRepair!=''">
@@ -325,7 +325,7 @@
             <if test="fgScrap != null and fgScrap!=''">
                 fg_scrap = #{fgScrap},
             </if>
-            <if test="gmtScrap != null">
+            <if test="gmtScrap != null and gmtScrap!=''">
                 gmt_scrap = #{gmtScrap},
             </if>
             <if test="desScrap != null and desScrap!=''">
@@ -360,7 +360,6 @@
             </when>
             <otherwise>
                 fg_valid = #{status},
-                fg_active = '0',
             </otherwise>
         </choose>
             operator = #{operator},
@@ -410,8 +409,26 @@
 
     <select id="listModelDevice" resultType="com.osce.entity.ErpDeviceCase">
         SELECT
-            cd_device_case,
-            gmt_store_in
+            id_device_case ,
+            id_org ,
+            id_device ,
+            cd_device_case ,
+            brand ,
+            model ,
+            price ,
+            date_format(gmt_store_in,'%Y-%m-%d ') gmt_store_in ,
+            date_format(gmt_repair_end,'%Y-%m-%d ') gmt_repair_end ,
+            tell_repair ,
+            pic_divice_case ,
+            fg_scrap ,
+            date_format(gmt_scrap,'%Y-%m-%d ') gmt_scrap ,
+            des_scrap ,
+            fg_valid ,
+            sort ,
+            creator ,
+            gmt_create ,
+            operator ,
+            gmt_modify
         FROM
             erp_device_case
         WHERE

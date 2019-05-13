@@ -20,7 +20,7 @@ layui.config({
     element.on('tab(tagTabFilter)', function (data) {
         if (data.index == 1) {
             if (!$("#deviceTag").attr("src")) {
-                $('#deviceTag').attr('src', basePath + '/pf/p/model/device/form');
+                $('#deviceTag').attr('src', basePath + '/pf/p/model/device/form?idDevice=' + $('#idDevice').val());
             }
         }
     });
@@ -67,17 +67,11 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    /*if (formType == 'add') {
-                        element.tabAdd('tagTabFilter', {
-                            title: '固定设备'
-                            , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' frameborder="0" src= "'+ basePath +'/pf/p/room/device/page" onload="this.height=this.contentWindow.document.body.scrollHeight"></iframe>'
-                            , id: 'deviceTag'
-                        })
-                    }*/
                     //刷新父页面table
                     if (formType == 'edit') {
                         parent.layui.common.refreshCurrentPage();
                     } else {
+                        $('#idDevice').val(data.data);
                         parent.layui.table.reload(tableId, {
                             height: 'full-68'
                         });

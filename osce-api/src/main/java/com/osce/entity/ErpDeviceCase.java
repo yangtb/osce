@@ -1,5 +1,6 @@
 package com.osce.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -62,12 +63,12 @@ public class ErpDeviceCase implements Serializable {
     /**
      * 购入时间
      */
-    private Date gmtStoreIn;
+    private String gmtStoreIn;
 
     /**
      * 保修截止时间
      */
-    private Date gmtRepairEnd;
+    private String gmtRepairEnd;
 
     /**
      * 维修电话
@@ -87,7 +88,7 @@ public class ErpDeviceCase implements Serializable {
     /**
      * 报废时间
      */
-    private Date gmtScrap;
+    private String gmtScrap;
 
     /**
      * 报废描述

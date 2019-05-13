@@ -66,6 +66,10 @@
     {{#  } }}
 </script>
 
+<script type="text/html" id="fgActiveTpl">
+    <input type="checkbox" name="fgActive" value="{{d.idDevice}}"
+           lay-skin="switch" lay-text="NO|OFF" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
+</script>
 
 <script type="text/html" id="modelBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>

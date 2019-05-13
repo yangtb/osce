@@ -69,10 +69,10 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            var index = common.open('新增教学模型', basePath + '/pf/p/model/form?formType=' + formType, 430, 255);
+            var index = common.open('新增教学模型', basePath + '/pf/p/model/form?formType=' + formType, 550, 400);
             layer.full(index)
         } else {
-            var index = common.open('编辑教学模型', basePath + '/pf/p/model/form?formType=' + formType, 430, 255, _successFunction(currentEditData));
+            var index = common.open('编辑教学模型', basePath + '/pf/p/model/form?formType=' + formType, 550, 400, _successFunction(currentEditData));
             layer.full(index)
         }
     };

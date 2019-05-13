@@ -1,6 +1,6 @@
 layui.config({
     base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'upload', 'jquery', 'element', 'common', 'laydate'], function () {
+}).use(['table', 'form', 'laydate', 'upload', 'jquery', 'element', 'common'], function () {
     var $ = layui.$
         , table = layui.table
         , form = layui.form
@@ -10,12 +10,20 @@ layui.config({
         , laydate = layui.laydate;
 
     laydate.render({
-        elem: '#gmtScrap' //指定元素
+        elem: '#gmtScrap'
+        ,trigger: 'click'
     });
 
     laydate.render({
-        elem: '#gmtStoreIn' //指定元素
+        elem: '#gmtStoreIn'
+        ,trigger: 'click'
     });
+
+    laydate.render({
+        elem: '#gmtRepairEnd'
+        ,trigger: 'click'
+    });
+
 
     //执行渲染
     table.render({
@@ -23,20 +31,21 @@ layui.config({
         , id: 'deviceTableId'
         , height: '510' //容器高度
         , cols: [[
-            {type: 'radio'},
-            {field: 'cdDeviceCase', minWidth: 150, title: '设备编码'},
-            {field: 'gmtStoreIn', minWidth: 150, title: '购入时间'},
-            {fixed: 'right', width: 80, title: '操作', align: 'center', toolbar: '#deviceBar'}
+            {type: 'radio', fixed: true},
+            {field: 'cdDeviceCase', minWidth: 100, title: '设备编码'},
+            {field: 'gmtStoreIn', minWidth: 100, title: '购入时间'},
+            {fixed: 'right', width: 60, title: '操作', align: 'center', toolbar: '#deviceBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/model/device/list'
         , where: {
-            //idDevice: idDevice
+            idDevice: idDevice
         }
+        , limit: 1000
         , page: false
     });
 
     form.verify({
-        desAnswer: function (value) {
+        commonLength255: function (value) {
             if (value.length > 255) {
                 return '长度不能超过255个字';
             }
@@ -137,18 +146,18 @@ layui.config({
         $('#save').click();
     });
 
-    form.on('submit(saveAnswer)', function (data) {
+    form.on('submit(addModelDevice)', function (data) {
         if (!data.field.fgActive) {
             data.field.fgActive = '0';
         }
-        data.field.idDeviceCase = idDeviceCase;
-        common.commonPost(basePath + '/pf/p/model/device/save', data.field, '保存', '', _callBack);
+        data.field.idDevice = idDevice;
+        common.commonPost(basePath + '/pf/r/model/device/save', data.field, '保存', '', _callBack);
         return false;
     });
 
     var _callBack = function (data) {
         _tableReload();
-        $('#idAnswer').val(data.data);
+        $('#idDeviceCase').val(data.data);
     }
 
     //监听工具条
@@ -160,10 +169,10 @@ layui.config({
     });
 
     var _delAnswer = function (currentData) {
-        var url = basePath + '/pf/p/model/device/del';
+        var url = basePath + '/pf/r/model/device/del';
         var reqData = new Array();
-        var name = '【' + currentData.desAnswer + '】';
-        reqData.push(currentData.idAnswer);
+        var name = '【' + currentData.cdDeviceCase + '】';
+        reqData.push(currentData.idDeviceCase);
         var data = {
             list: reqData,
             status: '1',
@@ -187,9 +196,9 @@ layui.config({
     var _tableReload = function () {
         table.reload('deviceTableId', {
             where: {
-                idDeviceCase: idDeviceCase,
-            },
-            height: 'full-30'
+                idDevice: idDevice
+            }
+            , height: '510'
         });
     };
 

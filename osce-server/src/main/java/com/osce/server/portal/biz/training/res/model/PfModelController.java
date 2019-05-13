@@ -47,8 +47,8 @@ public class PfModelController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
     @RequestMapping("/pf/p/model/device/form")
-    public String formDevice(String formType, Model model) {
-        model.addAttribute("formType", formType);
+    public String formDevice(Long idDevice, Model model) {
+        model.addAttribute("idDevice", idDevice);
         return "pages/biz/training/res/model/modelDeviceForm";
     }
 

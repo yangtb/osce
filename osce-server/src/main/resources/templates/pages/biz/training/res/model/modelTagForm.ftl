@@ -13,12 +13,13 @@
     <script>
         var basePath = '${basePath}';
         var contextPath = '${contextPath}';
+        var formType = '${formType!}';
     </script>
 </head>
 
 <body class="body-my">
 <div>
-    <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 5px">
+    <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 0px">
         <ul class="layui-tab-title">
             <li class="layui-this">设备定义</li>
             <li>设备实例</li>
@@ -27,7 +28,7 @@
             <div class="layui-tab-item layui-show">
                 <form class="layui-form" id="modelForm">
                     <div hidden>
-                        <input name="idDevice" hidden>
+                        <input name="idDevice" id="idDevice" hidden>
                     </div>
 
                     <div class="layui-form-item form-item-my">

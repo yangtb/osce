@@ -13,11 +13,12 @@
     <script>
         var basePath = '${basePath}';
         var contextPath = '${contextPath}';
+        var idDevice = '${idDevice!}';
     </script>
 </head>
 
 <body>
-<div style="margin: -10px 0px 0px -10px">
+<div style="margin: -10px 0px 0px 0px">
     <div class="layui-col-xs4">
         <table id="deviceTable" lay-filter="deviceTableFilter">
         </table>
@@ -33,7 +34,7 @@
                     <label class="layui-form-label">设备编码<i class="iconfont icon-required"
                                                          style="color: #f03f2d"></i></label>
                     <div class="layui-input-inline" style="width: 514px;">
-                        <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                        <input type="text" name="cdDeviceCase" lay-verify="required" lay-vertype="tips"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -46,15 +47,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">品牌</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="creator" autocomplete="off" class="layui-input"
-                               >
+                        <input type="text" name="brand" autocomplete="off" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">型号</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="gmtCreate" autocomplete="off" class="layui-input"
-                               >
+                        <input type="text" name="model" autocomplete="off" class="layui-input"/>
                     </div>
                 </div>
             </div>
@@ -63,14 +62,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">单价（￥）</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="creator" autocomplete="off" class="layui-input"
-                               placeholder="￥">
+                        <input type="text" name="price" autocomplete="off" class="layui-input"
+                               placeholder="￥"/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">购入时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="gmtStoreIn" id="gmtStoreIn" autocomplete="off" class="layui-input">
+                        <input type="text" name="gmtStoreIn" id="gmtStoreIn" autocomplete="off" class="layui-input"/>
                     </div>
                 </div>
             </div>
@@ -79,13 +78,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">保修截止</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="creator" autocomplete="off" class="layui-input">
+                        <input type="text" name="gmtRepairEnd" id="gmtRepairEnd" autocomplete="off" class="layui-input"/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">维修电话</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="gmtCreate" autocomplete="off" class="layui-input">
+                        <input type="text" name="tellRepair" autocomplete="off" class="layui-input"/>
                     </div>
                 </div>
             </div>
@@ -93,8 +92,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">图片</label>
                 <div class="layui-input-inline" style="vertical-align: middle;width: 317px;">
-                    <input id="path" name="path" placeholder="请上传文件" autocomplete="off"
-                           class="layui-input layui-disabled" disabled>
+                    <input id="picDiviceCase" name="picDiviceCase" placeholder="请上传文件" autocomplete="off"
+                           class="layui-input layui-disabled" disabled/>
                 </div>
                 <button type="button" class="layui-btn layui-btn-primary" id="test3">
                     <i class="layui-icon" style="color: #009688; font-weight: bold">&#xe608;</i>上传
@@ -108,14 +107,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">设备报废</label>
                     <div class="layui-input-inline">
-                        <input type="checkbox" checked="" name="fgActive" lay-skin="switch"
-                               lay-filter="fgActiveSwitch" value="1" lay-text="NO|OFF">
+                        <input type="checkbox" checked="" name="fgScrap" lay-skin="switch"
+                               lay-filter="fgScrapSwitch" value="1" lay-text="NO|OFF"/>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">报废时间</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="gmtScrap" id="gmtScrap" autocomplete="off" class="layui-input">
+                        <input type="text" name="gmtScrap" id="gmtScrap" autocomplete="off" class="layui-input"/>
                     </div>
                 </div>
             </div>
@@ -123,7 +122,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">报废描述</label>
                     <div class="layui-input-inline" style="width: 514px;">
-                                <textarea name="remark" class="layui-textarea"
+                                <textarea name="desScrap" class="layui-textarea"
                                           autocomplete="off" lay-verify="commonLength255" lay-vertype="tips"/></textarea>
                     </div>
                 </div>
@@ -168,7 +167,7 @@
                         <button id="add" type="button" class="layui-btn">
                             <i class="layui-icon layui-icon-add-1"></i>增加
                         </button>
-                        <button class="layui-btn" lay-submit="" lay-filter="addUser">
+                        <button class="layui-btn" lay-submit="" id="save" lay-filter="addModelDevice">
                             <i class="iconfont icon-save-copy"></i>保存
                         </button>
                         <button type="button" class="layui-btn layui-btn-normal" id="record">
@@ -180,6 +179,12 @@
                         <button type="button" class="layui-btn layui-btn-normal">
                             <i class="iconfont icon-weixiu"></i> 维修登记
                         </button>
+                        <div hidden>
+                            <button id="reset" type="reset" class="layui-btn layui-btn-danger">
+                                <i class="iconfont icon-reset"></i> 重新填写
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </div>
