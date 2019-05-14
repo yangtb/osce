@@ -218,5 +218,23 @@ layui.config({
         });
     };
 
+    $('#fault').on('click', function () {
+        if (!$('#idDeviceCase').val()) {
+            layer.tips("请先保存设备或在左侧选中设备", '#fault', {tips: 1});
+            return;
+        }
+        common.open('故障登记', basePath + '/pf/p/model/device/fault/form?idDeviceCase=' + $('#idDeviceCase').val(),
+            560, 380, null, 2);
+    });
+
+    $('#repair').on('click', function () {
+        if (!$('#idDeviceCase').val()) {
+            layer.tips("请先保存设备或在左侧选中设备", '#repair', {tips: 1});
+            return;
+        }
+        common.open('维修登记', basePath + '/pf/p/model/device/repair/form?idDeviceCase=' + $('#idDeviceCase').val(),
+            560, 380, null, 2);
+    });
+
 });
 

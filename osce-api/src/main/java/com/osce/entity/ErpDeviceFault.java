@@ -35,12 +35,12 @@ public class ErpDeviceFault implements Serializable {
     /**
      * 故障描述
      */
-    private Integer desFault;
+    private String desFault;
 
     /**
      * 故障时间
      */
-    private Date gmtFault;
+    private String gmtFault;
 
 
 }

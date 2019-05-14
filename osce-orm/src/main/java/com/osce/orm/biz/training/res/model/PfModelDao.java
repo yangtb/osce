@@ -1,9 +1,13 @@
 package com.osce.orm.biz.training.res.model;
 
+import com.osce.dto.biz.training.res.model.FaultDto;
 import com.osce.dto.biz.training.res.model.ModelDto;
+import com.osce.dto.biz.training.res.model.RepairDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.ErpDevice;
 import com.osce.entity.ErpDeviceCase;
+import com.osce.entity.ErpDeviceFault;
+import com.osce.entity.ErpDeviceRepair;
 
 import java.util.List;
 
@@ -87,5 +91,68 @@ public interface PfModelDao {
      */
     int delModelDevice(PfBachChangeStatusDto dto);
 
+    /**
+     * 故障记录
+     *
+     * @param dto
+     * @return
+     */
+    List<ErpDeviceFault> listDeviceFault(ModelDto dto);
+
+    /**
+     * 维修记录
+     *
+     * @param dto
+     * @return
+     */
+    List<ErpDeviceRepair> listDeviceRepair(ModelDto dto);
+
+    /**
+     * 故障登记
+     *
+     * @param dto
+     * @return
+     */
+    int addDeviceFault(ErpDeviceFault dto);
+
+    /**
+     * 故障编辑
+     *
+     * @param dto
+     * @return
+     */
+    int editDeviceFault(ErpDeviceFault dto);
+
+    /**
+     * 故障删除
+     *
+     * @param dto
+     * @return
+     */
+    int delDeviceFault(PfBachChangeStatusDto dto);
+
+    /**
+     * 维修登记
+     *
+     * @param dto
+     * @return
+     */
+    int addDeviceRepair(ErpDeviceRepair dto);
+
+    /**
+     * 维修编辑
+     *
+     * @param dto
+     * @return
+     */
+    int editDeviceRepair(ErpDeviceRepair dto);
+
+    /**
+     * 维修删除
+     *
+     * @param dto
+     * @return
+     */
+    int delDeviceRepair(PfBachChangeStatusDto dto);
 
 }

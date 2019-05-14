@@ -27,7 +27,7 @@
     <div class="layui-col-xs8">
         <form class="layui-form" id="deviceForm" style="padding-top: 10px;">
             <div hidden>
-                <input name="idDeviceCase" hidden>
+                <input name="idDeviceCase" id="idDeviceCase" hidden>
             </div>
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
@@ -170,13 +170,13 @@
                         <button class="layui-btn" lay-submit="" id="save" lay-filter="addModelDevice">
                             <i class="iconfont icon-save-copy"></i>保存
                         </button>
-                        <button type="button" class="layui-btn layui-btn-normal" id="record">
+                        <button type="button" class="layui-btn layui-btn-normal" id="QRCode">
                             <i class="iconfont icon-erweima"></i>生成二维码
                         </button>
-                        <button type="button" class="layui-btn layui-btn-danger">
+                        <button type="button" class="layui-btn layui-btn-danger" id="fault">
                             <i class="iconfont icon-guzhang"></i> 故障登记
                         </button>
-                        <button type="button" class="layui-btn layui-btn-normal">
+                        <button type="button" class="layui-btn layui-btn-normal" id="repair">
                             <i class="iconfont icon-weixiu"></i> 维修登记
                         </button>
                         <div hidden>

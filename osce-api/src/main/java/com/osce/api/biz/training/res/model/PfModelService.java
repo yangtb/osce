@@ -1,11 +1,19 @@
 package com.osce.api.biz.training.res.model;
 
+import com.osce.dto.biz.training.res.model.FaultDto;
 import com.osce.dto.biz.training.res.model.ModelDto;
+import com.osce.dto.biz.training.res.model.RepairDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.ErpDevice;
 import com.osce.entity.ErpDeviceCase;
+import com.osce.entity.ErpDeviceFault;
+import com.osce.entity.ErpDeviceRepair;
 import com.osce.result.PageResult;
+import com.sm.open.care.core.ResultObject;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * @ClassName: PfModelService
@@ -62,5 +70,53 @@ public interface PfModelService {
      * @return
      */
     boolean delModelDevice(PfBachChangeStatusDto dto);
+
+    /**
+     * 故障记录
+     *
+     * @param dto
+     * @return
+     */
+    List<ErpDeviceFault> listDeviceFault(ModelDto dto);
+
+    /**
+     * 维修记录
+     *
+     * @param dto
+     * @return
+     */
+    List<ErpDeviceRepair> listDeviceRepair(ModelDto dto);
+
+    /**
+     * 故障登记
+     *
+     * @param dto
+     * @return
+     */
+    boolean saveDeviceFault(FaultDto dto);
+
+    /**
+     * 维修登记
+     *
+     * @param dto
+     * @return
+     */
+    boolean saveDeviceRepair(RepairDto dto);
+
+    /**
+     * 故障删除
+     *
+     * @param dto
+     * @return
+     */
+    boolean delDeviceFault(PfBachChangeStatusDto dto);
+
+    /**
+     * 维修删除
+     *
+     * @param dto
+     * @return
+     */
+    boolean delDeviceRepair(PfBachChangeStatusDto dto);
 
 }

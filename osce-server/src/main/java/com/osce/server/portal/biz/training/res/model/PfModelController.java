@@ -68,5 +68,18 @@ public class PfModelController extends BaseController {
         return pfModelService.pageModelDevice(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @RequestMapping("/pf/p/model/device/fault/form")
+    public String formDeviceFault(Long idDeviceCase, Model model) {
+        model.addAttribute("idDeviceCase", idDeviceCase);
+        return "pages/biz/training/res/model/faultForm";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @RequestMapping("/pf/p/model/device/repair/form")
+    public String formDeviceRepair(Long idDeviceCase, Model model) {
+        model.addAttribute("idDeviceCase", idDeviceCase);
+        return "pages/biz/training/res/model/repairForm";
+    }
 
 }

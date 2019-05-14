@@ -20,7 +20,6 @@ public class ErpDeviceRepair implements Serializable {
 
     private static final long serialVersionUID = 1557675154488L;
 
-
     /**
      * 主键
      * 维修ID
@@ -40,7 +39,7 @@ public class ErpDeviceRepair implements Serializable {
     /**
      * 维修时间
      */
-    private Date gmtRepair;
+    private String gmtRepair;
 
 
 }

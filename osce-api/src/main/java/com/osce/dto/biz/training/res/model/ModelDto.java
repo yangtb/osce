@@ -18,6 +18,8 @@ import java.io.Serializable;
 @ToString
 public class ModelDto extends PageParam implements Serializable {
 
+    private static final long serialVersionUID = 1884737987077356819L;
+
     /**
      * 机构id
      */
@@ -27,5 +29,10 @@ public class ModelDto extends PageParam implements Serializable {
      * 设备ID
      */
     private Long idDevice;
+
+    /**
+     * 设备实例ID
+     */
+    private Long idDeviceCase;
 
 }

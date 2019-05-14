@@ -219,6 +219,79 @@
         </trim>
         )
     </insert>
+    <insert id="addDeviceFault" useGeneratedKeys="true" keyProperty="idDeviceFault">
+        INSERT INTO erp_device_fault
+        (
+        <trim suffixOverrides=",">
+            <if test="idDeviceFault!=null">
+                id_device_fault,
+            </if>
+            <if test="idDeviceCase!=null">
+                id_device_case,
+            </if>
+            <if test="desFault!=null">
+                des_fault,
+            </if>
+            <if test="gmtFault!=null and gmtFault!=''">
+                gmt_fault,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idDeviceFault!=null">
+                #{idDeviceFault},
+            </if>
+            <if test="idDeviceCase!=null">
+                #{idDeviceCase},
+            </if>
+            <if test="desFault!=null">
+                #{desFault},
+            </if>
+            <if test="gmtFault!=null and gmtFault!=''">
+                #{gmtFault},
+            </if>
+        </trim>
+        )
+    </insert>
+    <insert id="addDeviceRepair" useGeneratedKeys="true" keyProperty="idRepair">
+        INSERT INTO erp_device_repair
+        (
+        <trim suffixOverrides=",">
+            <if test="idRepair!=null">
+                id_repair,
+            </if>
+            <if test="idDeviceCase!=null">
+                id_device_case,
+            </if>
+            <if test="desRepair!=null">
+                des_repair,
+            </if>
+            <if test="gmtRepair!=null and gmtRepair!=''">
+                gmt_repair,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idRepair!=null">
+                #{idRepair},
+            </if>
+            <if test="idDeviceCase!=null">
+                #{idDeviceCase},
+            </if>
+            <if test="desRepair!=null">
+                #{desRepair},
+            </if>
+            <if test="gmtRepair!=null and gmtRepair!=''">
+                #{gmtRepair},
+            </if>
+        </trim>
+        )
+    </insert>
+
     <update id="editModel">
         UPDATE erp_device
         SET
@@ -371,6 +444,56 @@
         </foreach>
         )
     </update>
+    <update id="editDeviceFault">
+        UPDATE erp_device_fault
+        SET
+        <trim suffixOverrides=",">
+            <if test="idDeviceCase != null">
+                id_device_case = #{idDeviceCase},
+            </if>
+            <if test="desFault != null">
+                des_fault = #{desFault},
+            </if>
+            <if test="gmtFault != null and gmtFault!=''">
+                gmt_fault = #{gmtFault},
+            </if>
+        </trim>
+        WHERE
+            id_device_fault = #{idDeviceFault}
+    </update>
+    <update id="editDeviceRepair">
+        UPDATE erp_device_repair
+        SET
+        <trim suffixOverrides=",">
+            <if test="idDeviceCase != null">
+                id_device_case = #{idDeviceCase},
+            </if>
+            <if test="desRepair != null and desRepair!=''">
+                des_repair = #{desRepair},
+            </if>
+            <if test="gmtRepair != null and gmtRepair!=''">
+                gmt_repair = #{gmtRepair},
+            </if>
+        </trim>
+        WHERE
+            id_repair = #{idRepair}
+    </update>
+    <delete id="delDeviceFault">
+        delete from erp_device_fault
+        where id_device_fault  in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="delDeviceRepair">
+        delete from erp_device_repair
+        where id_repair  in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
 
 
     <select id="listModels" resultType="com.osce.entity.ErpDevice">
@@ -434,6 +557,31 @@
         WHERE
             id_device = #{idDevice}
         AND fg_valid = '0'
+    </select>
+
+    <select id="listDeviceFault" resultType="com.osce.entity.ErpDeviceFault">
+        SELECT
+            id_device_fault ,
+            id_device_case ,
+            des_fault ,
+             date_format(gmt_fault,'%Y-%m-%d ') gmt_fault
+        FROM
+            erp_device_fault
+        WHERE
+            id_device_case = #{idDeviceCase}
+        ORDER BY gmt_fault desc
+    </select>
+    <select id="listDeviceRepair" resultType="com.osce.entity.ErpDeviceRepair">
+        SELECT
+            id_repair ,
+            id_device_case ,
+            des_repair ,
+            date_format(gmt_repair,'%Y-%m-%d ') gmt_repair
+        FROM
+            erp_device_repair
+        WHERE
+            id_device_case = #{idDeviceCase}
+        ORDER BY gmt_repair desc
     </select>
 
 </mapper>
