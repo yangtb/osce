@@ -73,6 +73,178 @@
         )
 
     </insert>
+    <insert id="addSection" useGeneratedKeys="true" keyProperty="idItemSection">
+        INSERT INTO ibm_item_section
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemSection!=null">
+                id_item_section,
+            </if>
+            <if test="idItemStore!=null">
+                id_item_store,
+            </if>
+            <if test="naItemSection!=null">
+                na_item_section,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemSection!=null">
+                #{idItemSection},
+            </if>
+            <if test="idItemStore!=null">
+                #{idItemStore},
+            </if>
+            <if test="naItemSection!=null">
+                #{naItemSection},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+        </trim>
+        )
+    </insert>
+    <insert id="addExam" useGeneratedKeys="true" keyProperty="idItem">
+        INSERT INTO ibm_item
+        (
+        <trim suffixOverrides=",">
+            <if test="idItem!=null">
+                id_item,
+            </if>
+            <if test="idItemStore!=null">
+                id_item_store,
+            </if>
+            <if test="idItemSection!=null">
+                id_item_section,
+            </if>
+            <if test="sdItemCa!=null">
+                sd_item_ca,
+            </if>
+            <if test="mainItem!=null">
+                main_item,
+            </if>
+            <if test="sdItemLevel!=null">
+                sd_item_level,
+            </if>
+            <if test="itemAnalysis!=null">
+                item_analysis,
+            </if>
+            <if test="scoreDefault!=null">
+                score_default,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idItem!=null">
+                #{idItem},
+            </if>
+            <if test="idItemStore!=null">
+                #{idItemStore},
+            </if>
+            <if test="idItemSection!=null">
+                #{idItemSection},
+            </if>
+            <if test="sdItemCa!=null">
+                #{sdItemCa},
+            </if>
+            <if test="mainItem!=null">
+                #{mainItem},
+            </if>
+            <if test="sdItemLevel!=null">
+                #{sdItemLevel},
+            </if>
+            <if test="itemAnalysis!=null">
+                #{itemAnalysis},
+            </if>
+            <if test="scoreDefault!=null">
+                #{scoreDefault},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
+    <insert id="addItemOption" useGeneratedKeys="true" keyProperty="idItemOption">
+        INSERT INTO ibm_item_option
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemOption!=null">
+                id_item_option,
+            </if>
+            <if test="idItem!=null">
+                id_item,
+            </if>
+            <if test="cdIte!=null">
+                cd_ite,
+            </if>
+            <if test="naOption!=null">
+                na_option,
+            </if>
+            <if test="fgRight!=null">
+                fg_right,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemOption!=null">
+                #{idItemOption},
+            </if>
+            <if test="idItem!=null">
+                #{idItem},
+            </if>
+            <if test="cdIte!=null">
+                #{cdIte},
+            </if>
+            <if test="naOption!=null">
+                #{naOption},
+            </if>
+            <if test="fgRight!=null">
+                #{fgRight},
+            </if>
+        </trim>
+        )
+    </insert>
     <update id="editItem">
         UPDATE ibm_item_store
         SET
@@ -109,6 +281,91 @@
         WHERE
             id_item_store = #{idItemStore}
     </update>
+    <update id="editSection">
+        UPDATE ibm_item_section
+        SET
+        <trim suffixOverrides=",">
+            <if test="idItemStore != null">
+                id_item_store = #{idItemStore},
+            </if>
+            <if test="naItemSection != null and naItemSection!=''">
+                na_item_section = #{naItemSection},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+        </trim>
+        WHERE
+            id_item_section = #{idItemSection}
+    </update>
+    <update id="editExam">
+        UPDATE ibm_item
+        SET
+        <trim suffixOverrides=",">
+            <if test="idItemStore != null">
+                id_item_store = #{idItemStore},
+            </if>
+            <if test="idItemSection != null">
+                id_item_section = #{idItemSection},
+            </if>
+            <if test="sdItemCa != null and sdItemCa!=''">
+                sd_item_ca = #{sdItemCa},
+            </if>
+            <if test="mainItem != null and mainItem!=''">
+                main_item = #{mainItem},
+            </if>
+            <if test="sdItemLevel != null and sdItemLevel!=''">
+                sd_item_level = #{sdItemLevel},
+            </if>
+            <if test="itemAnalysis != null and itemAnalysis!=''">
+                item_analysis = #{itemAnalysis},
+            </if>
+            <if test="scoreDefault != null">
+                score_default = #{scoreDefault},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id_item = #{idItem}
+    </update>
+    <update id="editItemOption">
+        UPDATE ibm_item_option
+        SET
+        <trim suffixOverrides=",">
+            <if test="idItem != null">
+                id_item = #{idItem},
+            </if>
+            <if test="cdIte != null and cdIte!=''">
+                cd_ite = #{cdIte},
+            </if>
+            <if test="naOption != null and naOption!=''">
+                na_option = #{naOption},
+            </if>
+            <if test="fgRight != null and fgRight!=''">
+                fg_right = #{fgRight},
+            </if>
+        </trim>
+        WHERE
+            id_item_option = #{idItemOption}
+    </update>
     <delete id="delItem">
         UPDATE ibm_item_store
         SET
@@ -128,6 +385,28 @@
             #{item}
         </foreach>
         )
+    </delete>
+    <delete id="delSection">
+        delete from ibm_item_section
+        where id_item_section in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="delOption">
+        delete from ibm_item_option
+        where id_item_option in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="delOptionByIdItem">
+        delete from ibm_item_option where id_item = #{idItem}
+    </delete>
+    <delete id="delExamByIdItem">
+        delete from ibm_item where id_item = #{idItem}
     </delete>
 
     <select id="listItem" resultType="com.osce.entity.IbmItemStore">
@@ -168,4 +447,62 @@
             id_org = #{idOrg}
         AND fg_valid = '0'
     </select>
+    <select id="listSection" resultType="com.osce.entity.IbmItemSection">
+        SELECT
+            id_item_section ,
+            na_item_section
+        FROM
+            ibm_item_section
+        WHERE
+            id_item_store = #{idItemStore}
+        ORDER BY
+            sort
+    </select>
+    <select id="listItemManage" resultType="com.osce.entity.IbmItem">
+        SELECT
+            id_item ,
+            id_item_store ,
+            id_item_section ,
+            sd_item_ca ,
+            main_item ,
+            sd_item_level ,
+            item_analysis ,
+            score_default ,
+            fg_active ,
+            fg_valid ,
+            sort ,
+            creator ,
+            gmt_create ,
+            operator ,
+            gmt_modify
+        FROM
+            ibm_item
+        WHERE
+            id_item_store = #{idItemStore}
+        AND fg_valid = '0'
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countItemManage" resultType="java.lang.Long">
+        SELECT
+           count(1)
+        FROM
+            ibm_item
+        WHERE
+            id_item_store = #{idItemStore}
+        AND fg_valid = '0'
+    </select>
+
+    <select id="listItemOption" resultType="com.osce.entity.IbmItemOption">
+        SELECT
+            id_item_option ,
+            id_item ,
+            cd_ite ,
+            na_option ,
+            fg_right
+        FROM
+            ibm_item_option
+        WHERE
+            id_item = #{idItem}
+    </select>
+
 </mapper>

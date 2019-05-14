@@ -25,4 +25,14 @@ public class ItemDto extends PageParam implements Serializable {
      */
     private Long idOrg;
 
+    /**
+     * 题目ID
+     */
+    private Long idItem;
+
+    /**
+     * 题集ID
+     */
+    private Long idItemStore;
+
 }

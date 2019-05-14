@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName: IbmItem
@@ -19,7 +20,6 @@ import java.util.Date;
 public class IbmItem implements Serializable {
 
     private static final long serialVersionUID = 1557804849366L;
-
 
     /**
      * 主键
@@ -96,5 +96,10 @@ public class IbmItem implements Serializable {
      * 修改时间
      */
     private Date gmtModify;
+
+    /**
+     * 选项
+     */
+    private List<IbmItemOption> itemOptions;
 
 }

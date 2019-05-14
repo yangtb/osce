@@ -9,7 +9,7 @@ layui.config({
     FrameWH();
 
     function FrameWH() {
-        var h = $(window).height() - 70
+        var h = $(window).height() - 60
         $("iframe").css("height", h + "px");
     }
 
@@ -20,7 +20,7 @@ layui.config({
     element.on('tab(tagTabFilter)', function (data) {
         if (data.index == 1) {
             if (!$("#itemTag").attr("src")) {
-                $('#itemTag').attr('src', basePath + '/pf/p/item/device/form?idItemStore=' + $('#idItemStore').val());
+                $('#itemTag').attr('src', basePath + '/pf/p/item/manage/page?idItemStore=' + $('#idItemStore').val());
             }
         }
     });
@@ -69,8 +69,9 @@ layui.config({
                     common.sucMsg(msg + "成功");
                     if (formType == 'add') {
                        element.tabAdd('tagTabFilter', {
-                           title: '固定设备'
-                           , content: '<iframe id="itemTag" class=\'layui-col-xs12\' frameborder="0" src= "'+ basePath +'/pf/p/room/device/page"></iframe>'
+                           title: '题目定义'
+                           , content: '<iframe id="itemTag" class=\'layui-col-xs12\' frameborder="0" ' +
+                               'src= "' + basePath + '/pf/p/item/manage/page?idItemStore=' + data.data + '"></iframe>'
                            , id: 'itemTag'
                        });
                        FrameWH();

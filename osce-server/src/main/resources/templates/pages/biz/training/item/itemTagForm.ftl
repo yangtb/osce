@@ -19,10 +19,12 @@
 
 <body class="body-my">
 <div>
-    <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 5px">
+    <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 0px">
         <ul class="layui-tab-title">
             <li class="layui-this">题集定义</li>
-            <li>题目定义</li>
+            <#if formType == 'edit'>
+                <li>题目定义</li>
+            </#if>
         </ul>
         <div class="layui-tab-content" style="margin: 0px;">
             <div class="layui-tab-item layui-show">
@@ -120,10 +122,11 @@
 
                 </form>
             </div>
-            <div class="layui-tab-item">
-                <iframe id="itemTag" class='layui-col-xs12' frameborder="0"
-                        src=""></iframe>
-            </div>
+            <#if formType == 'edit'>
+                <div class="layui-tab-item">
+                    <iframe id="itemTag" class='layui-col-xs12' frameborder="0" src=""></iframe>
+                </div>
+            </#if>
         </div>
     </div>
 

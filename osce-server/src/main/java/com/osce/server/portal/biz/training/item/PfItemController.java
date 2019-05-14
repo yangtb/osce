@@ -38,11 +38,42 @@ public class PfItemController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
+    @RequestMapping("/pf/p/item/manage/page")
+    public String pageDevice(Long idItemStore, Model model) {
+        model.addAttribute("idItemStore", idItemStore);
+        return "pages/biz/training/item/itemManagePage";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
+    @RequestMapping("/pf/p/item/section/form")
+    public String formSection(Long idItemStore, Model model) {
+        model.addAttribute("idItemStore", idItemStore);
+        return "pages/biz/training/item/sectionForm";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
+    @RequestMapping("/pf/p/item/detail/form")
+    public String formItem(String formType, Long idItemStore, Long idItemSection,  Model model) {
+        model.addAttribute("formType", formType);
+        model.addAttribute("idItemStore", idItemStore);
+        model.addAttribute("idItemSection", idItemSection);
+        model.addAttribute("idItemStoreList", pfItemService.listSection(idItemStore));
+        return "pages/biz/training/item/itemForm";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/item/list")
     @ResponseBody
-    public PageResult pageRooms(ItemDto dto) {
+    public PageResult pageItems(ItemDto dto) {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return pfItemService.pageItem(dto);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/item/manage/list")
+    @ResponseBody
+    public PageResult pageItemManage(ItemDto dto) {
+        return pfItemService.pageItemManage(dto);
     }
 
 }

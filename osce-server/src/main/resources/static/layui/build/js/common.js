@@ -141,6 +141,23 @@ layui.define(['layer'], function (exports) {
             return index;
         },
 
+        /**弹出层 - 具体点击坐标*/
+        openOffset: function (title, url, width, height, x, y, sucBack) {
+            var index = layui.layer.open({
+                title: '<b>' + title + '</b>',
+                //skin: 'layui-layer-molv', //样式类名
+                type: 2,
+                area: [width + 'px', height + 'px'],
+                offset: [y + 'px', x + 'px'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: url,
+                shadeClose: true,
+                success: sucBack
+            });
+            return index;
+        },
+
         /**弹出层*/
         openParent: function (title, url, width, height, sucBack, anim) {
             var index = parent.layui.layer.open({
