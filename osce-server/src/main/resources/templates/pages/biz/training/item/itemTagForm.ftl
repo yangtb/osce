@@ -13,6 +13,7 @@
     <script>
         var basePath = '${basePath}';
         var contextPath = '${contextPath}';
+        var formType = '${formType!}';
     </script>
 </head>
 
@@ -27,7 +28,7 @@
             <div class="layui-tab-item layui-show">
                 <form class="layui-form" id="itemForm">
                     <div hidden>
-                        <input name="idRoom" hidden>
+                        <input name="idItemStore" id="idItemStore" hidden>
                     </div>
 
                     <div class="layui-form-item form-item-my">
@@ -35,7 +36,7 @@
                             <label class="layui-form-label">题集名称<i class="iconfont icon-required"
                                                                    style="color: #f03f2d"></i></label>
                             <div class="layui-input-inline" style="width: 514px;">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="naItemStore" lay-verify="required|naItemStore" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -48,7 +49,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">描述</label>
                             <div class="layui-input-inline" style="width: 514px;">
-                                <textarea name="remark" class="layui-textarea"
+                                <textarea name="desItemStore" class="layui-textarea"
                                           autocomplete="off" lay-verify="commonLength255" lay-vertype="tips"/></textarea>
                             </div>
                         </div>
@@ -106,7 +107,7 @@
 
                     <div class="layui-form-item" style="padding-top: 5px">
                         <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="addUser">
+                            <button class="layui-btn" lay-submit="" lay-filter="addItem">
                                 <i class="iconfont icon-save-copy"></i> 保存
                             </button>
                             <#if (formType == 'add')>
@@ -120,7 +121,7 @@
                 </form>
             </div>
             <div class="layui-tab-item">
-                <iframe id="deviceTag" class='layui-col-xs12' frameborder="0"
+                <iframe id="itemTag" class='layui-col-xs12' frameborder="0"
                         src=""></iframe>
             </div>
         </div>

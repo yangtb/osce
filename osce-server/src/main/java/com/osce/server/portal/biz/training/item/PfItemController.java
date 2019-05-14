@@ -1,7 +1,7 @@
 package com.osce.server.portal.biz.training.item;
 
-import com.osce.api.biz.training.res.room.PfRoomService;
-import com.osce.dto.biz.training.res.room.RoomDto;
+import com.osce.api.biz.training.item.PfItemService;
+import com.osce.dto.biz.training.item.ItemDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
 
 /**
  * @ClassName: PfRoomController
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 public class PfItemController extends BaseController {
 
     @Reference
-    private PfRoomService pfRoomService;
+    private PfItemService pfItemService;
 
     @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/item/page")
@@ -42,9 +40,9 @@ public class PfItemController extends BaseController {
     @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/item/list")
     @ResponseBody
-    public PageResult pageRooms(RoomDto dto) {
+    public PageResult pageRooms(ItemDto dto) {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
-        return PageResult.create(new ArrayList<>());
+        return pfItemService.pageItem(dto);
     }
 
 }

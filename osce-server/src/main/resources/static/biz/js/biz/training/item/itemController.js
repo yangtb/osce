@@ -14,9 +14,9 @@ layui.config({
         , cols: [[
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
-            {field: 'naRoom', minWidth: 170, title: '题集', fixed: true},
-            {field: 'desRoom', minWidth: 250, title: '描述'},
-            {field: 'deviceNum', minWidth: 100, title: '题目数量', align: "right"},
+            {field: 'naItemStore', minWidth: 170, title: '题集', fixed: true},
+            {field: 'desItemStore', minWidth: 250, title: '描述'},
+            {field: 'itemNum', minWidth: 100, title: '题目数量', align: "right"},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#itemBar'}
         ]] //设置表头
@@ -106,18 +106,18 @@ layui.config({
             if (messageTitle) {
                 messageTitle += ', ';
             }
-            messageTitle += '【' + content.naGrade + '】';
-            reqData.push(content.idGrade);
+            messageTitle += '【' + content.naItemStore + '】';
+            reqData.push(content.idItemStore);
 
             if (content.itemNum > 0) {
                 delFlag = true;
-                delMsg += '【' + content.naGrade + '】';
+                delMsg += '【' + content.naItemStore + '】';
             }
         });
 
         if(delFlag) {
-            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">学届下已有班级，不允许删除，请重新选择操作</span>', {
-                title: '删除学届提示',
+            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">题集下已有题目，不允许删除，请重新选择操作</span>', {
+                title: '删除题集提示',
                 resize: false,
                 btn: ['确定']
             });
@@ -128,7 +128,7 @@ layui.config({
         data.list = reqData;
         data.status = '1';
         layer.confirm('确定删除' + messageTitle + '么？', {
-            title: '删除学届提示',
+            title: '删除题集提示',
             resize: false,
             btn: ['确定', '取消'],
             btnAlign: 'c',

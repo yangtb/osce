@@ -42,7 +42,7 @@
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="record">
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="bachEdit">
                     <i class="iconfont icon-piliangbianji"></i> 批量编辑
                 </button>
             </div>
@@ -56,6 +56,10 @@
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/training/item/itemController.js"></script>
 
+<script type="text/html" id="fgActiveTpl">
+    <input type="checkbox" name="fgActive" value="{{d.idItemStore}}"
+           lay-skin="switch" lay-text="NO|OFF" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
+</script>
 
 <script type="text/html" id="itemBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
