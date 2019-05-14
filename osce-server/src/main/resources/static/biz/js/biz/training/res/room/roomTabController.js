@@ -9,7 +9,7 @@ layui.config({
     FrameWH();
 
     function FrameWH() {
-        var h = $(window).height() - 70
+        var h = $(window).height() - 60
         $("iframe").css("height", h + "px");
     }
 
@@ -53,6 +53,7 @@ layui.config({
     });
 
     var _addRoom = function (url, bizData, formType, tableId, msg) {
+        var idRoom =  $('#idRoom').val();
         layer.load(2);
         $.ajax({
             url: url,
@@ -67,13 +68,15 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    /*if (formType == 'add') {
+                    if (formType == 'add') {
                         element.tabAdd('tagTabFilter', {
                             title: '固定设备'
-                            , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' frameborder="0" src= "'+ basePath +'/pf/p/room/device/page" onload="this.height=this.contentWindow.document.body.scrollHeight"></iframe>'
+                            , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' ' +
+                                'frameborder="0" src= "' + basePath + '/pf/p/room/device/page?idRoom=' + data.data + '"></iframe>'
                             , id: 'deviceTag'
                         })
-                    }*/
+                        FrameWH();
+                    }
                     //刷新父页面table
                     if (formType == 'edit') {
                         parent.layui.common.refreshCurrentPage();

@@ -67,6 +67,15 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
+                    if (formType == 'add') {
+                        element.tabAdd('tagTabFilter', {
+                            title: '固定设备'
+                            , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' ' +
+                                'frameborder="0" src= "' + basePath + '/pf/p/model/device/form?idDevice=' + data.data + '"></iframe>'
+                            , id: 'deviceTag'
+                        })
+                        FrameWH();
+                    }
                     //刷新父页面table
                     if (formType == 'edit') {
                         parent.layui.common.refreshCurrentPage();

@@ -22,7 +22,9 @@
     <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 0px">
         <ul class="layui-tab-title">
             <li class="layui-this">设备定义</li>
-            <li>设备实例</li>
+            <#if formType == 'edit'>
+                <li>设备实例</li>
+            </#if>
         </ul>
         <div class="layui-tab-content" style="margin: 0px;">
             <div class="layui-tab-item layui-show">
@@ -159,10 +161,12 @@
 
                 </form>
             </div>
-            <div class="layui-tab-item">
-                <iframe id="deviceTag" class='layui-col-xs12' frameborder="0"
-                        src=""></iframe>
-            </div>
+            <#if formType == 'edit'>
+                <div class="layui-tab-item">
+                    <iframe id="deviceTag" class='layui-col-xs12' frameborder="0"
+                            src=""></iframe>
+                </div>
+            </#if>
         </div>
     </div>
 
