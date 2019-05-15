@@ -12,6 +12,7 @@ layui.config({
         , id: 'modelTableId'
         , height: 'full-68' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
             {field: 'naDevice', minWidth: 170, title: '设备名称', fixed: true},

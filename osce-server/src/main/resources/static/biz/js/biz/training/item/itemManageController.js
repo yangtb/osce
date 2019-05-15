@@ -13,6 +13,7 @@ layui.config({
         , id: 'itemManageTableId'
         , height: 'full-50' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
             {field: 'mainItem', minWidth: 250, title: '题干'},

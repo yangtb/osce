@@ -12,6 +12,7 @@ layui.config({
         , id: 'gradeTableId'
         , height: 'full-68' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '当前学届',fixed: true, templet: '#fgActiveTpl'},
             {field: 'naGrade', minWidth: 170, title: '学届名称', fixed: true},

@@ -12,7 +12,7 @@ layui.config({
         , id: 'skillDeviceTableId'
         , height: 'full-50' //容器高度
         , cols: [[
-            {type: 'numbers', fixed: true},
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'naDevice', width: 300, title: '设备', fixed: true},
             {field: 'numDevice', width: 120, title: '数量'},

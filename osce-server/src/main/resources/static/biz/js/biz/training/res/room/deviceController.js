@@ -12,6 +12,7 @@ layui.config({
         , id: 'deviceTableId'
         , height: 'full-50' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'sdRoomDeviceCa', minWidth: 170, title: '固定设备类型', fixed: true, templet: '#sdRoomDeviceCaTpl'},
             {field: 'cdRoomDevice', minWidth: 100, title: '设备编号'},

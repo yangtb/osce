@@ -12,6 +12,7 @@ layui.config({
         , id: 'itemTableId'
         , height: 'full-68' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
             {field: 'naItemStore', minWidth: 170, title: '题集', fixed: true},

@@ -12,6 +12,7 @@ layui.config({
         , id: 'caseTableId'
         , height: 'full-68' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
             {field: 'naSpCase', minWidth: 170, title: '病例名称', fixed: true},

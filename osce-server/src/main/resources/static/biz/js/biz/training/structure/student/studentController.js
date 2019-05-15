@@ -111,6 +111,7 @@ layui.config({
         , id: 'studentTableId'
         , height: 'full-110' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'naGrade', minWidth: 120, title: '班级', fixed: true},
             {field: 'username', minWidth: 130, title: '账号'},

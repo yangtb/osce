@@ -25,6 +25,7 @@ layui.config({
         , id: 'spTableId'
         , height: 'full-60' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'realName', minWidth: 140, title: '姓名', fixed: true},
             {field: 'sex', minWidth: 80, title: '性别', templet: '#sexTpl'},
