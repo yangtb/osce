@@ -14,10 +14,10 @@ layui.config({
         , cols: [[
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
-            {field: 'naRoom', minWidth: 170, title: '题集', fixed: true},
-            {field: 'desRoom', minWidth: 250, title: '描述'},
-            {field: 'deviceNum', minWidth: 100, title: '题目数量', align: "right"},
-            {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
+            {field: 'naSpCase', minWidth: 170, title: '病例名称', fixed: true},
+            {field: 'sdSpCaseCa', width: 120, title: '病例类别', templet: '#sdSpCaseCaTpl'},
+            {field: 'desSpCase', minWidth: 250, title: '病例简述'},
+            {field: 'gmtCreate', width: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#caseBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/case/list'
@@ -101,34 +101,29 @@ layui.config({
         var url = basePath + '/pf/r/case/del';
         var reqData = new Array();
         var messageTitle = '';
-        var delFlag = false, delMsg = '';
         $.each(currentData, function (index, content) {
             if (messageTitle) {
                 messageTitle += ', ';
             }
-            messageTitle += '【' + content.naGrade + '】';
-            reqData.push(content.idGrade);
-
-            if (content.caseNum > 0) {
-                delFlag = true;
-                delMsg += '【' + content.naGrade + '】';
-            }
+            messageTitle += '【' + content.naSpCase + '】';
+            reqData.push(content.idCase);
         });
 
-        if(delFlag) {
-            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">学届下已有班级，不允许删除，请重新选择操作</span>', {
-                title: '删除学届提示',
+        /*if(delFlag) {
+            // SP病例有使用记录不允许删除
+            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">病例下已有班级，不允许删除，请重新选择操作</span>', {
+                title: '删除病例提示',
                 resize: false,
                 btn: ['确定']
             });
             return false;
-        }
+        }*/
 
         var data = {};
         data.list = reqData;
         data.status = '1';
         layer.confirm('确定删除' + messageTitle + '么？', {
-            title: '删除学届提示',
+            title: '删除病例提示',
             resize: false,
             btn: ['确定', '取消'],
             btnAlign: 'c',

@@ -1,7 +1,8 @@
 package com.osce.server.portal.biz.training.caseku;
 
-import com.osce.api.biz.training.res.room.PfRoomService;
-import com.osce.dto.biz.training.res.room.RoomDto;
+import com.osce.api.biz.training.caseku.PfCaseService;
+import com.osce.dto.biz.training.caseku.CaseDto;
+import com.osce.dto.biz.training.item.ItemDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
 
 /**
  * @ClassName: PfRoomController
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 public class PfCaseController extends BaseController {
 
     @Reference
-    private PfRoomService pfRoomService;
+    private PfCaseService pfCaseService;
 
     @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
     @RequestMapping("/pf/p/case/page")
@@ -42,9 +41,40 @@ public class PfCaseController extends BaseController {
     @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/case/list")
     @ResponseBody
-    public PageResult pageRooms(RoomDto dto) {
+    public PageResult pageCase(CaseDto dto) {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
-        return PageResult.create(new ArrayList<>());
+        return pfCaseService.pageCase(dto);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
+    @RequestMapping("/pf/p/case/item/page")
+    public String pageDevice(Long idCase, Model model) {
+        model.addAttribute("idCase", idCase);
+        return "pages/biz/training/case/scoreItemPage";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
+    @RequestMapping("/pf/p/case/sheet/page")
+    public String formSection(Long idCase, Model model) {
+        model.addAttribute("idCase", idCase);
+        return "pages/biz/training/case/scoreSheetForm";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
+    @RequestMapping("/pf/p/case/item/form")
+    public String formItem(String formType, Long idCase, Long idScoreSheet,  Model model) {
+        model.addAttribute("formType", formType);
+        model.addAttribute("idCase", idCase);
+        model.addAttribute("idScoreSheet", idScoreSheet);
+        return "pages/biz/training/case/scoreItemForm";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/case/item/list")
+    @ResponseBody
+    public PageResult pageItem(CaseDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfCaseService.pageItem(dto);
     }
 
 }

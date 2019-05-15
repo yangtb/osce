@@ -13,21 +13,24 @@
     <script>
         var basePath = '${basePath}';
         var contextPath = '${contextPath}';
+        var formType = '${formType!}';
     </script>
 </head>
 
 <body style="overflow-x: hidden">
 <div>
-    <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 5px">
+    <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 0px">
         <ul class="layui-tab-title">
             <li class="layui-this">病例定义</li>
-            <li>评分表</li>
+            <#if formType == 'edit'>
+                <li>评分表</li>
+            </#if>
         </ul>
         <div class="layui-tab-content" style="margin: 0px;">
             <div class="layui-tab-item layui-show">
-                <form class="layui-form" id="caseForm">
+                <form class="layui-form" id="spCaseForm">
                     <div hidden>
-                        <input name="idRoom" hidden>
+                        <input name="idCase" id="idCase" hidden>
                     </div>
 
                     <div class="layui-form-item form-item-my">
@@ -35,7 +38,7 @@
                             <label class="layui-form-label">病例名称<i class="iconfont icon-required"
                                                                    style="color: #f03f2d"></i></label>
                             <div class="layui-input-inline">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="naSpCase" lay-verify="required|commonLength64" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -43,7 +46,7 @@
                             <label class="layui-form-label">病例类别<i class="iconfont icon-required"
                                                                  style="color: #f03f2d"></i></label>
                             <div class="layui-input-inline">
-                                <select name="sdDeviceUnit" lay-verify="required" lay-vertype="tips">
+                                <select name="sdSpCaseCa" lay-verify="required" lay-vertype="tips">
                                     <option value="">请选择</option>
                                     <option value="1">内科</option>
                                     <option value="2">外科</option>
@@ -56,18 +59,26 @@
 
                     <div class="layui-form-item form-item-my">
                         <div class="layui-inline">
-                            <label class="layui-form-label">患者主诉</label>
+                            <label class="layui-form-label">病例简述</label>
                             <div class="layui-input-inline" style="width: 514px;">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
-                                       autocomplete="off" class="layui-input">
+                                <textarea name="desSpCase" class="layui-textarea"
+                                          autocomplete="off" lay-verify="commonLength255" lay-vertype="tips"/></textarea>
                             </div>
                         </div>
                     </div>
+
                     <div class="layui-form-item form-item-my">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">患者主诉</label>
+                            <div class="layui-input-inline" style="width: 514px;">
+                                <input type="text" name="desProb" lay-verify="commonLength255" lay-vertype="tips"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">现病史</label>
                             <div class="layui-input-inline" style="width: 514px;">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="desCurDie" lay-verify="commonLength255" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -76,7 +87,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">既往史</label>
                             <div class="layui-input-inline" style="width: 514px;">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="desHisDie" lay-verify="commonLength255" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -85,7 +96,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">个人史</label>
                             <div class="layui-input-inline" style="width: 514px;">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="desPatDie" lay-verify="commonLength255" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -94,7 +105,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">家族史</label>
                             <div class="layui-input-inline" style="width: 514px;">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="desFamDie" lay-verify="commonLength255" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -103,7 +114,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">表演要点</label>
                             <div class="layui-input-inline" style="width: 514px;">
-                                <input type="text" name="naRoom" lay-verify="required" lay-vertype="tips"
+                                <input type="text" name="desPoints" lay-verify="commonLength255" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -112,7 +123,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">剧本</label>
                         <div class="layui-input-inline" style="vertical-align: middle;width: 317px;">
-                            <input id="path" name="path" placeholder="请上传文件" autocomplete="off"
+                            <input id="docSp" name="docSp" placeholder="请上传文件" autocomplete="off"
                                    class="layui-input layui-disabled" disabled>
                         </div>
                         <button type="button" class="layui-btn layui-btn-primary" id="test3">
@@ -128,13 +139,13 @@
                             <label class="layui-form-label">激活状态</label>
                             <div class="layui-input-inline">
                                 <input type="checkbox" checked="" name="fgActive" lay-skin="switch"
-                                       lay-filter="fgActiveSwitch" value="1" lay-text="激活|停用">
+                                       lay-filter="fgActiveSwitch" value="1" lay-text="NO|OFF">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">排序</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="sort" id="sort" autocomplete="off" class="layui-input"
+                                <input type="number" name="sort" id="sort" autocomplete="off" class="layui-input"
                                        lay-verify="sort" lay-vertype="tips">
                             </div>
                         </div>
@@ -175,7 +186,7 @@
 
                     <div class="layui-form-item" style="padding-top: 5px">
                         <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="addUser">
+                            <button class="layui-btn" lay-submit="" lay-filter="addItem">
                                 <i class="iconfont icon-save-copy"></i> 保存
                             </button>
                             <#if (formType == 'add')>
@@ -188,10 +199,11 @@
 
                 </form>
             </div>
-            <div class="layui-tab-item">
-                <iframe id="deviceTag" class='layui-col-xs12' frameborder="0"
-                        src=""></iframe>
-            </div>
+            <#if formType == 'edit'>
+                <div class="layui-tab-item">
+                    <iframe id="scoreSheetTag" class='layui-col-xs12' frameborder="0" src=""></iframe>
+                </div>
+            </#if>
         </div>
     </div>
 
@@ -201,18 +213,6 @@
 <script src="${contextPath}/biz/js/biz/training/case/caseTabController.js"></script>
 <script src="${contextPath}/common/js/jquery.min.js"></script>
 <script src="${contextPath}/common/js/jquery.formautofill.js"></script>
-
-<script>
-    function fullForm(data) {
-        $(document).ready(function(){
-            $("#caseForm").autofill(data);
-            layui.use('form',function(){
-                layui.form.render();
-            });
-
-        });
-    }
-</script>
 
 </body>
 </html>

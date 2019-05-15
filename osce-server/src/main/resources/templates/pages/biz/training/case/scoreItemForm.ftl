@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>新增题目</title>
+    <title>新增评分项</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -14,77 +14,53 @@
         var basePath = '${basePath}';
         var contextPath = '${contextPath}';
         var formType = '${formType!}';
-        var idItemStore = '${idItemStore!}';
-        var idItemSection = '${idItemSection!}';
+        var idCase = '${idCase!}';
+        var idScoreSheet = '${idScoreSheet!}';
     </script>
-
-    <style>
-        .div-left{ float:left;width:645px;padding-top: 10px;}
-        .div-right{ float:left;width:370px; margin-left: -10px;}
-    </style>
 </head>
 
-<body>
+<body class="wrapper-content">
 <div>
-    <div class="div-left">
-        <form class="layui-form" id="itemForm">
+    <form class="layui-form" id="itemForm">
             <div hidden>
-                <input name="idItem" id="idItem" hidden>
+                <input name="idScoreItem" id="idScoreItem" hidden>
             </div>
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
-                    <label class="layui-form-label">目录<i class="iconfont icon-required"
+                    <label class="layui-form-label">评分项<i class="iconfont icon-required"
                                                          style="color: #f03f2d"></i></label>
                     <div class="layui-input-inline">
-                        <select name="idItemSection" lay-verify="required" lay-vertype="tips">
-                            <option value="">请选择</option>
-                            <#if idItemStoreList?? && (idItemStoreList?size > 0)>
-                                <#list idItemStoreList as element>
-                                    <option value="${element.idItemSection!}">${element.naItemSection!}</option>
-                                </#list>
-                            </#if>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">题目类型<i class="iconfont icon-required"
-                                                         style="color: #f03f2d"></i></label>
-                    <div class="layui-input-inline">
-                        <select name="sdItemCa" lay-verify="required" lay-vertype="tips">
-                            <option value="2">单选题</option>
-                            <option value="1">多选题</option>
-                        </select>
+                        <input type="text" name="naScoreItem" autocomplete="off" class="layui-input"
+                               lay-verify="required|commonLength64" lay-vertype="tips" style="width: 514px;"/>
                     </div>
                 </div>
             </div>
 
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
-                    <label class="layui-form-label">题目难度</label>
+                    <label class="layui-form-label">分类</label>
                     <div class="layui-input-inline">
-                        <select name="sdItemLevel" lay-verify="required" lay-vertype="tips">
-                            <option value="1">易</option>
-                            <option value="2">较易</option>
-                            <option value="3">中</option>
-                            <option value="4">难</option>
-                            <option value="5">较难</option>
+                        <select name="sdScoreItemCa">
+                            <option value="1">todo分类</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">默认分值</label>
+                    <label class="layui-form-label">参考分值<i class="iconfont icon-required"
+                                                           style="color: #f03f2d"></i></label>
                     <div class="layui-input-inline">
-                        <input type="number" name="scoreDefault" autocomplete="off" class="layui-input"/>
+                        <input type="number" name="score" autocomplete="off" class="layui-input"
+                               lay-verify="required|sort" lay-vertype="tips"/>
                     </div>
                 </div>
             </div>
 
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
-                    <label class="layui-form-label">题干<i class="iconfont icon-required"
+                    <label class="layui-form-label">内容<i class="iconfont icon-required"
                                                          style="color: #f03f2d"></i></label>
                     <div class="layui-input-inline" style="width: 514px;">
-                                <textarea name="mainItem" class="layui-textarea"
+                                <textarea name="desScoreItem" class="layui-textarea"
                                           autocomplete="off" lay-verify="required|commonLength255" lay-vertype="tips"/></textarea>
                     </div>
                 </div>
@@ -92,10 +68,19 @@
 
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
-                    <label class="layui-form-label">题目解析</label>
+                    <label class="layui-form-label">解析</label>
                     <div class="layui-input-inline" style="width: 514px;">
-                                <textarea name="itemAnalysis" class="layui-textarea"
+                                <textarea name="scoreItemAnalysis" class="layui-textarea"
                                           autocomplete="off" lay-verify="commonLength255" lay-vertype="tips"/></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item form-item-my">
+                <div class="layui-inline">
+                    <label class="layui-form-label">参考问题</label>
+                    <div class="layui-input-inline" style="width: 514px;">
+                                    <textarea name="refQuestion" class="layui-textarea"
+                                              autocomplete="off" lay-verify="commonLength255" lay-vertype="tips"/></textarea>
                     </div>
                 </div>
             </div>
@@ -150,7 +135,7 @@
                 </div>
             </div>
 
-            <div class="layui-form-item" style="text-align: right; padding-top: 5px;">
+            <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn" lay-submit="" id="save" lay-filter="addItem">
                         <i class="iconfont icon-save-copy"></i>保存
@@ -164,36 +149,12 @@
             </div>
 
         </form>
-    </div>
-
-    <div class="div-right">
-        <form class="layui-form" style="padding-top: 10px;">
-            <div class="layui-inline">
-                <button type="button" class="layui-btn layui-btn-sm" id="addOption">
-                    <i class="iconfont icon-add"></i> 增加
-                </button>
-                <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="delOption">
-                    <i class="layui-icon layui-icon-delete"></i>删除
-                </button>
-            </div>
-        </form>
-        <table id="itemOptionTable" lay-filter="itemOptionTableFilter">
-        </table>
-    </div>
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.all.js"></script>
 <script src="${contextPath}/common/js/jquery.min.js"></script>
 <script src="${contextPath}/common/js/jquery.formautofill.js"></script>
-<script src="${contextPath}/biz/js/biz/training/item/itemFormController.js"></script>
-
-
-
-<script type="text/html" id="fgRightTpl">
-    <input type="checkbox" name="fgRight" value="{{ d.LAY_INDEX }}"
-           lay-skin="switch" lay-text="正确|错误" lay-filter="fgRightCheckFilter" {{ d.fgRight== '1' ? 'checked' : '' }}>
-</script>
-
+<script src="${contextPath}/biz/js/biz/training/case/socreItemFormController.js"></script>
 
 </body>
 </html>

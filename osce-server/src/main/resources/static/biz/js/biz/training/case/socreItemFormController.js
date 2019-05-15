@@ -1,29 +1,11 @@
 layui.config({
     base: basePath + '/layui/build/js/'
-}).use(['element', 'jquery', 'form', 'jquery', 'common'], function () {
-    var element = layui.element;
-    var $ = jQuery = layui.jquery
+}).use(['table', 'form', 'jquery', 'element', 'common'], function () {
+    var $ = layui.$
+        , table = layui.table
         , form = layui.form
-        , common = layui.common;
-
-    FrameWH();
-
-    function FrameWH() {
-        var h = $(window).height() - 60
-        $("iframe").css("height", h + "px");
-    }
-
-    $(window).resize(function () {
-        FrameWH();
-    });
-
-    element.on('tab(tagTabFilter)', function (data) {
-        if (data.index == 1) {
-            if (!$("#scoreSheetTag").attr("src")) {
-                $('#scoreSheetTag').attr('src', basePath + '/pf/p/case/item/page?idCase=' + $('#idCase').val());
-            }
-        }
-    });
+        , common = layui.common
+        , element = layui.element;
 
     form.verify({
         commonLength64: function (value) {
@@ -36,25 +18,18 @@ layui.config({
                 return '长度不能超过255个字';
             }
         },
-        sort:  function (value) {
+        sort: function (value) {
             if (value && !value.match(/^[1-9]\d*$/)) {
-                return '排序必须是正整数';
+                return '必须是正整数';
             }
         }
     });
 
-    //监听提交
     form.on('submit(addItem)', function (data) {
-        if (!data.field.fgActive) {
-            data.field.fgActive = '0';
-        }
-        var url = basePath + '/pf/r/case/';
-        if (formType == 'add') {
-            url += 'add';
-        } else if (formType == 'edit') {
-            url += 'edit';
-        }
-        return _addItem(url, data.field, formType, 'caseTableId', '保存');
+        var url = basePath + '/pf/r/case/item/save';
+        data.field.idCase = idCase;
+        data.field.idScoreSheet = idScoreSheet;
+        return _addItem(url, data.field, formType, 'sheetTableId', '保存');
     });
 
     var _addItem = function (url, bizData, formType, tableId, msg) {
@@ -72,20 +47,11 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    if (formType == 'add') {
-                        element.tabAdd('tagTabFilter', {
-                            title: '评分表'
-                            , content: '<iframe id="scoreSheetTag" class=\'layui-col-xs12\' frameborder="0" ' +
-                                'src= "' + basePath + '/pf/p/case/item/page?idCase=' + data.data + '"></iframe>'
-                            , id: 'scoreSheetTag'
-                        });
-                        FrameWH();
-                    }
                     //刷新父页面table
                     if (formType == 'edit') {
                         parent.layui.common.refreshCurrentPage();
                     } else {
-                        $('#idItemStore').val(data.data);
+                        $('#idScoreItem').val(data.data);
                         parent.layui.table.reload(tableId, {
                             height: 'full-68'
                         });
@@ -102,17 +68,16 @@ layui.config({
         return false;
     }
 
-
 });
-
-
-
 
 function fullForm(data) {
     $(document).ready(function(){
-        $("#spCaseForm").autofill(data);
-        layui.use('form',function(){
-            layui.form.render();
+        $("#itemForm").autofill(data);
+        layui.use(['form'],function(){
+            var form = layui.form;
+            // 渲染表单
+            form.render();
         });
     });
 }
+

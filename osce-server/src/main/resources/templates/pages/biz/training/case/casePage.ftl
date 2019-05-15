@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>题库管理</title>
+    <title>病例库管理</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -47,6 +47,26 @@
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/training/case/caseController.js"></script>
+
+<script type="text/html" id="fgActiveTpl">
+    <input type="checkbox" name="fgActive" value="{{d.idCase}}"
+           lay-skin="switch" lay-text="NO|OFF" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
+</script>
+
+<script type="text/html" id="sdSpCaseCaTpl">
+    {{#  if(d.sdSpCaseCa == 1){ }}
+    内科
+    {{#  } }}
+    {{#  if(d.sdSpCaseCa == 2){ }}
+    外科
+    {{#  } }}
+    {{#  if(d.sdSpCaseCa == '3'){ }}
+    妇科
+    {{#  } }}
+    {{#  if(d.sdSpCaseCa == '4'){ }}
+    儿科
+    {{#  } }}
+</script>
 
 
 <script type="text/html" id="caseBar">
