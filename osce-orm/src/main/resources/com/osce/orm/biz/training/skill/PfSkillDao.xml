@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.training.skill.PfSkillDao">
+
+    <insert id="addSkill" useGeneratedKeys="true" keyProperty="idSkillCase">
+        INSERT INTO cob_skill_case
+        (
+        <trim suffixOverrides=",">
+            <if test="idSkillCase!=null">
+                id_skill_case,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="naSkillCase!=null">
+                na_skill_case,
+            </if>
+            <if test="sdSkillCaseCa!=null">
+                sd_skill_case_ca,
+            </if>
+            <if test="desSkillCase!=null">
+                des_skill_case,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idSkillCase!=null">
+                #{idSkillCase},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="naSkillCase!=null">
+                #{naSkillCase},
+            </if>
+            <if test="sdSkillCaseCa!=null">
+                #{sdSkillCaseCa},
+            </if>
+            <if test="desSkillCase!=null">
+                #{desSkillCase},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
+    <insert id="addSkillDevice" useGeneratedKeys="true" keyProperty="idSkillDevice">
+        INSERT INTO cob_skill_device
+        (
+        <trim suffixOverrides=",">
+            <if test="idSkillDevice!=null">
+                id_skill_device,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="idSkillCase!=null">
+                id_skill_case,
+            </if>
+            <if test="idDevice!=null">
+                id_device,
+            </if>
+            <if test="numDevice!=null">
+                num_device,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idSkillDevice!=null">
+                #{idSkillDevice},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="idSkillCase!=null">
+                #{idSkillCase},
+            </if>
+            <if test="idDevice!=null">
+                #{idDevice},
+            </if>
+            <if test="numDevice!=null">
+                #{numDevice},
+            </if>
+        </trim>
+        )
+    </insert>
+    <update id="editSkill">
+        UPDATE cob_skill_case
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="naSkillCase != null and naSkillCase!=''">
+                na_skill_case = #{naSkillCase},
+            </if>
+            <if test="sdSkillCaseCa != null and sdSkillCaseCa!=''">
+                sd_skill_case_ca = #{sdSkillCaseCa},
+            </if>
+            <if test="desSkillCase != null and desSkillCase!=''">
+                des_skill_case = #{desSkillCase},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id_skill_case = #{idSkillCase}
+    </update>
+    <update id="delSkill">
+        UPDATE cob_skill_case
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id_skill_case in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+    <update id="editSkillDevice">
+        UPDATE cob_skill_device
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="idSkillCase != null">
+                id_skill_case = #{idSkillCase},
+            </if>
+            <if test="idDevice != null">
+                id_device = #{idDevice},
+            </if>
+            <if test="numDevice != null">
+                num_device = #{numDevice},
+            </if>
+        </trim>
+        WHERE
+            id_skill_device = #{idSkillDevice}
+    </update>
+    <delete id="delSkillDevice">
+        delete from cob_skill_device
+        where
+            id_skill_device in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+
+    <select id="listSkill" resultType="com.osce.entity.CobSkillCase">
+        SELECT
+            id_skill_case ,
+            id_org ,
+            na_skill_case ,
+            sd_skill_case_ca ,
+            des_skill_case ,
+            fg_active ,
+            fg_valid ,
+            sort ,
+            creator ,
+            gmt_create ,
+            operator ,
+            gmt_modify
+        FROM
+            cob_skill_case
+        WHERE
+            id_org = #{idOrg}
+        AND fg_valid = '0'
+        <if test="naSkillCase != null and naSkillCase != '' ">
+            and na_skill_case like concat('%',#{naSkillCase},'%')
+        </if>
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countSkill" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            cob_skill_case
+        WHERE
+            id_org = #{idOrg}
+        AND fg_valid = '0'
+        <if test="naSkillCase != null and naSkillCase != '' ">
+            and na_skill_case like concat('%',#{naSkillCase},'%')
+        </if>
+    </select>
+    <select id="listSkillDevice" resultType="com.osce.entity.CobSkillDevice">
+        select 
+            a.id_skill_device,
+            a.id_org,
+            a.id_skill_case,
+            a.id_device,
+            a.num_device,
+            b.na_device
+        from 
+            cob_skill_device a
+        left join erp_device b on a.id_device = b.id_device
+        where
+            a.id_skill_case = #{idSkillCase}
+        <if test="naDevice != null and naDevice != '' ">
+            and b.na_device like concat('%',#{naDevice},'%')
+        </if>
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countSkillDevice" resultType="java.lang.Long">
+        select 
+            count(1)
+        from
+            cob_skill_device a
+        left join erp_device b on a.id_device = b.id_device
+        where
+            a.id_skill_case = #{idSkillCase}
+        <if test="naDevice != null and naDevice != '' ">
+            and b.na_device like concat('%',#{naDevice},'%')
+        </if>
+    </select>
+</mapper>

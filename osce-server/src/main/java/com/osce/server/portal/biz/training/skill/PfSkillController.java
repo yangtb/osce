@@ -1,7 +1,7 @@
 package com.osce.server.portal.biz.training.skill;
 
-import com.osce.api.biz.training.res.room.PfRoomService;
-import com.osce.dto.biz.training.res.room.RoomDto;
+import com.osce.api.biz.training.skill.PfSkillService;
+import com.osce.dto.biz.training.skill.SkillDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -11,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
 
 /**
  * @ClassName: PfRoomController
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 public class PfSkillController extends BaseController {
 
     @Reference
-    private PfRoomService pfRoomService;
+    private PfSkillService pfSkillService;
 
     @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
     @RequestMapping("/pf/p/skill/page")
@@ -40,11 +38,26 @@ public class PfSkillController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
+    @RequestMapping("/pf/p/skill/device/page")
+    public String pageDevice(Long idSkillCase, Model model) {
+        model.addAttribute("idSkillCase", idSkillCase);
+        return "pages/biz/training/skill/skillDevicePage";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/skill/list")
     @ResponseBody
-    public PageResult pageRooms(RoomDto dto) {
+    public PageResult pageSkill(SkillDto dto) {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
-        return PageResult.create(new ArrayList<>());
+        return pfSkillService.pageSkill(dto);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/skill/device/list")
+    @ResponseBody
+    public PageResult pageSkillDevice(SkillDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfSkillService.pageSkillDevice(dto);
     }
 
 }

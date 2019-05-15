@@ -19,11 +19,12 @@
 <script>
     var basePath = '${basePath}';
     var contextPath = '${contextPath}';
+    var idSkillCase = '${idSkillCase!}';
 </script>
 
 <body>
 
-<div class="wrapper-content">
+<div>
 
     <form class="layui-form">
         <div class="layui-inline">
@@ -39,12 +40,12 @@
                 </button>
             </div>
             <div class="layui-input-inline">
-                <input type="text" name="naSkillCase" class="layui-input btn-sm-my" autocomplete="off"
+                <input type="text" name="naDevice" class="layui-input btn-sm-my" autocomplete="off"
                        placeholder="请输入病例名称">
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="skillSearchFilter">
+                    <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="skillDeviceSearchFilter">
                         <i class="iconfont icon-query"></i> 查询
                     </button>
                     <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">
@@ -55,37 +56,17 @@
         </div>
     </form>
 
-    <table id="skillTable" lay-filter="skillTableFilter">
+    <table id="skillDeviceTable" lay-filter="skillTableDeviceFilter">
     </table>
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
-<script src="${contextPath}/biz/js/biz/training/skill/skillController.js"></script>
+<script src="${contextPath}/biz/js/biz/training/skill/skillDeviceController.js"></script>
 
-
-<script type="text/html" id="fgActiveTpl">
-    <input type="checkbox" name="fgActive" value="{{d.idSkillCase}}"
-           lay-skin="switch" lay-text="NO|OFF" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
-</script>
-
-<script type="text/html" id="skillBar">
+<script type="text/html" id="skillDeviceBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
 </script>
 
-<script type="text/html" id="sdSkillCaseCaTpl">
-    {{#  if(d.sdSkillCaseCa == 1){ }}
-    内科
-    {{#  } }}
-    {{#  if(d.sdSkillCaseCa == 2){ }}
-    外科
-    {{#  } }}
-    {{#  if(d.sdSkillCaseCa == '3'){ }}
-    妇科
-    {{#  } }}
-    {{#  if(d.sdSkillCaseCa == '4'){ }}
-    儿科
-    {{#  } }}
-</script>
 
 </body>
 </html>

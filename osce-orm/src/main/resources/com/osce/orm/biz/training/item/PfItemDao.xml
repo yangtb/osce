@@ -375,6 +375,7 @@
             </when>
             <otherwise>
                 fg_valid = #{status},
+                fg_active = '0',
             </otherwise>
         </choose>
             operator = #{operator},

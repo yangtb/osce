@@ -41,6 +41,11 @@ public class CobSkillDevice implements Serializable {
     private Long idDevice;
 
     /**
+     * 设备名称
+     */
+    private String naDevice;
+
+    /**
      * 设备数量
      */
     private Integer numDevice;
