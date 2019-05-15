@@ -21,6 +21,17 @@
     <style>
         .div-left{ float:left;width:645px;padding-top: 10px;}
         .div-right{ float:left;width:370px; margin-left: -10px;}
+
+        /* 防止下拉框的下拉列表被隐藏---必须设置--- */
+        .layui-table-cell {
+            overflow: visible !important;
+        }
+        /* 使得下拉框与单元格刚好合适 */
+        td .layui-form-select{
+            margin-top: -10px;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
     </style>
 </head>
 
@@ -190,9 +201,10 @@
 
 
 <script type="text/html" id="fgRightTpl">
-    <input type="checkbox" name="fgRight" value="{{d.fgRight}}"
+    <input type="checkbox" name="fgRight" value="{{ d.LAY_INDEX }}"
            lay-skin="switch" lay-text="正确|错误" lay-filter="fgRightCheckFilter" {{ d.fgRight== '1' ? 'checked' : '' }}>
 </script>
+
 
 </body>
 </html>

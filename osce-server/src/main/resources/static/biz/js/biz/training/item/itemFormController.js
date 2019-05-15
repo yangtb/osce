@@ -35,6 +35,8 @@ layui.config({
         data.field.idItemStore = idItemStore;
         data.field.idItemSection = idItemSection;
         var oldData = table.cache["itemOptionTableId"];
+        console.log("oldData=============")
+        console.log(oldData)
         data.field.itemOptions = oldData;
         if (!oldData || oldData.length == 0) {
             layer.confirm('题目选项未填写，点击【确定】将继续保存', {
@@ -119,11 +121,11 @@ layui.config({
 
     //监听删除操作
     form.on('switch(fgRightCheckFilter)', function (obj) {
-        if (obj.elem.checked) {
-            obj.update('1')
-        } else {
-            obj.update('0')
-        }
+        var oldData = table.cache["itemOptionTableId"];
+        oldData[obj.value - 1].fgRight = obj.elem.checked ? '1' :'0';
+        table.reload('itemOptionTableId', {
+            data: oldData
+        });
     });
 
     $('#addOption').on('click', function () {
