@@ -16,6 +16,7 @@ layui.config({
         , id: 'menuTableId'
         , height: 'full-68' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             //{field: 'id', width: 60, title: 'ID', fixed: true},
             {field: 'name', width: 120, title: '名称', fixed: true},

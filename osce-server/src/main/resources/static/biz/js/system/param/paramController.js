@@ -16,6 +16,7 @@ layui.config({
         , id: 'paramTableId'
         , height: 'full-68' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             //{field: 'id', width: 60, title: 'ID', fixed: true},
             {field: 'paramCode', width: 170, title: '参数编码', fixed: true},

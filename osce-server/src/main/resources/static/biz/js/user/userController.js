@@ -17,6 +17,7 @@ layui.config({
         , toolbar: '#toolbarDemo'
         , height: 'full-68' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             //{field: 'user_id', width: 80, hidden: true, title: 'ID'},
             {field: 'userName', width: 130, title: '账号', fixed: true},

@@ -16,6 +16,7 @@ layui.config({
         , id: 'roleTableId'
         , height: 'full-68' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             //{field: 'roleId', width: 80, hidden: true, title: '角色ID'},
             {field: 'name', width: 100, title: '角色名称', fixed: true},

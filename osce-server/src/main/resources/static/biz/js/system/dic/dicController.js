@@ -39,6 +39,7 @@ layui.config({
         , id: 'enumTableId'
         , height: 'full-68' //容器高度
         , cols: [[
+            {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             //{field: 'id', width: 60, title: 'ID', fixed: true},
             {field: 'groupName', width: 150, title: '字典名称'},
