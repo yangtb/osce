@@ -74,7 +74,8 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">默认分值</label>
                     <div class="layui-input-inline">
-                        <input type="number" name="scoreDefault" autocomplete="off" class="layui-input"/>
+                        <input class="layui-input layui-input-number" min="1" step="1"
+                               name="scoreDefault"  autocomplete="off" lay-vertype="tips">
                     </div>
                 </div>
             </div>
@@ -111,8 +112,8 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">排序</label>
                     <div class="layui-input-inline">
-                        <input type="number" name="sort" id="sort" autocomplete="off" class="layui-input"
-                               lay-verify="sort" lay-vertype="tips">
+                        <input class="layui-input layui-input-number" min="1" step="1"
+                               name="sort" id="sort" autocomplete="off" lay-vertype="tips">
                     </div>
                 </div>
             </div>

@@ -1,11 +1,18 @@
 layui.config({
     base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'jquery', 'element', 'common'], function () {
+}).extend({
+    numinput: 'numinput.min'
+}).use(['table', 'form', 'jquery', 'element', 'common', 'numinput'], function () {
     var $ = layui.$
         , table = layui.table
         , form = layui.form
         , common = layui.common
-        , element = layui.element;
+        , element = layui.element
+        , numinp = layui.numinput;
+
+    numinp.init({
+        rightBtns: true
+    });
 
     form.verify({
         commonLength64: function (value) {
