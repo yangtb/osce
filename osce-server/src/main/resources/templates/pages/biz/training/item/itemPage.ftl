@@ -47,6 +47,20 @@
                 </button>
             </div>
         </div>
+        <div class="layui-input-inline">
+            <input type="text" name="naItemStore" class="layui-input btn-sm-my" autocomplete="off"
+                   placeholder="请输入题集名称">
+        </div>
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="itemSearchFilter">
+                    <i class="iconfont icon-query"></i> 查询
+                </button>
+                <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">
+                    <i class="iconfont icon-reset"></i> 重置
+                </button>
+            </div>
+        </div>
     </form>
 
     <table id="itemTable" lay-filter="itemTableFilter">

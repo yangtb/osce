@@ -43,6 +43,9 @@ layui.config({
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
+            , where :{
+                naItemStore : data.field.naItemStore
+            }
         });
     });
 

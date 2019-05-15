@@ -437,6 +437,9 @@
         WHERE
             a.id_org = #{idOrg}
         AND a.fg_valid = '0'
+        <if test="naItemStore != null and naItemStore != ''">
+            AND a.na_item_store LIKE concat('%', #{naItemStore},'%')
+        </if>
         limit #{offset}, #{limit}
     </select>
     <select id="countItem" resultType="java.lang.Long">
@@ -447,6 +450,9 @@
         WHERE
             id_org = #{idOrg}
         AND fg_valid = '0'
+        <if test="naItemStore != null and naItemStore != ''">
+            AND na_item_store LIKE concat('%', #{naItemStore},'%')
+        </if>
     </select>
     <select id="listSection" resultType="com.osce.entity.IbmItemSection">
         SELECT
