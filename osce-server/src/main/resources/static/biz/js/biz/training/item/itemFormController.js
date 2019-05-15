@@ -20,23 +20,11 @@ layui.config({
         }
     });
 
-    function isRepeat(arr){
-        var hash = {};
-        for(var i in arr) {
-            if(hash[arr[i]])
-                return true;
-            hash[arr[i]] = true;
-        }
-        return false;
-    };
-
     form.on('submit(addItem)', function (data) {
         var url = basePath + '/pf/r/item/exam/save';
         data.field.idItemStore = idItemStore;
         data.field.idItemSection = idItemSection;
         var oldData = table.cache["itemOptionTableId"];
-        console.log("oldData=============")
-        console.log(oldData)
         data.field.itemOptions = oldData;
         if (!oldData || oldData.length == 0) {
             layer.confirm('题目选项未填写，点击【确定】将继续保存', {
@@ -55,14 +43,53 @@ layui.config({
             });
             return false;
         }
-        /*if (isRepeat(oldData)) {
-            layer.alert('题目选项值【<br><span style="color: red; font-weight: bold">**</span>】重复，请进行修改', {
+        // 1、选项编码重复校验
+        var map = {}, fgRightNum = 0;
+        $.each(oldData, function (index, content) {
+            if (map[content.cdIte]) {
+                map[content.cdIte] = map[content.cdIte] + 1;
+            } else {
+                map[content.cdIte] = 1;
+            }
+
+            if (content.fgRight == 1) {
+                fgRightNum = fgRightNum + 1;
+            }
+        });
+
+        var repeatCode = '';
+        for (var key in map) {
+            if (map[key] > 1) {
+                if (!repeatCode) {
+                    repeatCode += key;
+                } else {
+                    repeatCode = repeatCode + "、" + key;
+                }
+            }
+        }
+
+        if (repeatCode) {
+            layer.alert('题目选项编码【<span style="color: red; font-weight: bold">' + repeatCode + '</span>】重复，请修改', {
                 title: '提示',
                 resize: false,
                 btn: ['确定']
+                , icon: 5
             });
             return false;
-        }*/
+        }
+        // 2、正确答案校验
+        if (data.field.sdItemCa == 2) {
+            // 单选
+            if (fgRightNum > 1) {
+                layer.alert('【<span style="color: red; font-weight: bold">此题目为单选题</span>】，正确答案只有1个，请修改', {
+                    title: '提示',
+                    resize: false,
+                    btn: ['确定']
+                    , icon: 5
+                });
+                return false;
+            }
+        }
         return _addItem(url, data.field, formType, 'itemManageTableId', '保存');
     });
 
