@@ -49,8 +49,9 @@
                     <label class="layui-form-label">参考分值<i class="iconfont icon-required"
                                                            style="color: #f03f2d"></i></label>
                     <div class="layui-input-inline">
-                        <input type="number" name="score" autocomplete="off" class="layui-input"
-                               lay-verify="required|sort" lay-vertype="tips"/>
+                        <input class="layui-input layui-input-number" min="1" step="1"
+                               name="score" autocomplete="off" lay-verify="required" lay-vertype="tips">
+
                     </div>
                 </div>
             </div>
