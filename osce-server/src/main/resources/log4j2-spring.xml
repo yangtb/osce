@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Log4j 2.x 配置文件。每30秒自动检查和应用配置文件的更新；http://logging.apache.org/log4j/2.x/manual/configuration.html -->
-<configuration status="info" monitorInterval="3600">
+<configuration status="@log.level@" monitorInterval="3600">
 
 	<properties>
 		<property name="CONSOLE_LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight{%5p} %style{%processId}{magenta} --- [%15.15t] %style{%-40.40c{1.}}{cyan} : %m%n</property>
@@ -11,15 +11,15 @@
 		<!-- 定义控制台输出 -->
 		<Console name="console" target="SYSTEM_OUT" follow="true">
 			<Filters>
-				<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+				<ThresholdFilter level="@log.level@" onMatch="ACCEPT" onMismatch="DENY"/>
 			</Filters>
 			<PatternLayout pattern="${CONSOLE_LOG_PATTERN}"/>
 		</Console >
 
 		<!-- 默认日志 -->
 		<RollingRandomAccessFile name="default" immediateFlush="true" append="true"
-								 fileName="./logs/server/osce-server.log"
-								 filePattern="./logs/server/%d{yyyy-MM-dd}/osce-server-%i.log">
+								 fileName="@log.path@/server.log"
+								 filePattern="@log.path@/server-%d{yyyy-MM-dd}-%i.log">
 			<PatternLayout pattern="${FILE_LOG_PATTERN}" />
 			<Policies>
 				<!-- TimeBased Triggering Policy 基于时间的触发策略。该策略主要是完成周期性的log文件封存工作。有两个参数：
@@ -29,17 +29,17 @@
 				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
 			</Policies>
 			<DefaultRolloverStrategy max="100">
-				<Delete basePath="./logs/server" maxDepth="2">
-					<IfFileName glob="*/osce-server-*.log"/>
-					<IfLastModified age="2d" />
+				<Delete basePath="@log.path@" maxDepth="1">
+					<IfFileName glob="*/server-*.log"/>
+					<IfLastModified age="@log.age@" />
 				</Delete>
 			</DefaultRolloverStrategy>
 		</RollingRandomAccessFile>
 
 		<!-- 失败日志 -->
 		<RollingRandomAccessFile name="error" immediateFlush="false" append="true"
-								 fileName="./logs/server/error.log"
-								 filePattern="./logs/server/error-%d{yyyy-MM-dd}.log">
+								 fileName="@log.path@/error.log"
+								 filePattern="@log.path@/error-%d{yyyy-MM-dd}.log">
 			<Filters>
 				<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
 			</Filters>
@@ -48,41 +48,41 @@
 				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
 			</Policies>
 			<DefaultRolloverStrategy max="100">
-				<Delete basePath="./logs/server" maxDepth="2">
+				<Delete basePath="@log.path@" maxDepth="1">
 					<IfFileName glob="*/error-*.log"/>
-					<IfLastModified age="2d" />
+					<IfLastModified age="@log.age@" />
 				</Delete>
 			</DefaultRolloverStrategy>
 		</RollingRandomAccessFile>
 
 		<!-- 监控日志 -->
 		<RollingRandomAccessFile name="monitor" immediateFlush="false" append="true"
-								 fileName="./logs/server/monitor.log"
-								 filePattern="./logs/server/monitor-%d{yyyy-MM-dd}.log">
+								 fileName="@log.path@/monitor.log"
+								 filePattern="@log.path@/monitor-%d{yyyy-MM-dd}.log">
 			<PatternLayout pattern="${FILE_LOG_PATTERN}" />
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
 			</Policies>
 			<DefaultRolloverStrategy max="100">
-				<Delete basePath="./logs/server" maxDepth="2">
+				<Delete basePath="@log.path@" maxDepth="1">
 					<IfFileName glob="*/monitor-*.log"/>
-					<IfLastModified age="2d" />
+					<IfLastModified age="@log.age@" />
 				</Delete>
 			</DefaultRolloverStrategy>
 		</RollingRandomAccessFile>
 
 	</Appenders>
 	<Loggers>
-		<asyncRoot level="info" includeLocation="true">
+		<asyncRoot level="@log.level@" includeLocation="true">
 			<appender-ref ref="console" />
 			<appender-ref ref="default" />
 			<appender-ref ref="error" />
 		</asyncRoot>
-		<asyncLogger name="monitor" additivity="false" level="info" includeLocation="true">
+		<asyncLogger name="monitor" additivity="false" level="@log.level@" includeLocation="true">
 			<appender-ref ref="error" />
 			<appender-ref ref="monitor" />
 		</asyncLogger>
-		<asyncLogger name="com.osce" additivity="false" level="info" includeLocation="true">
+		<asyncLogger name="com.osce" additivity="false" level="@log.level@" includeLocation="true">
 			<appender-ref ref="console" />
 			<appender-ref ref="default" />
 			<appender-ref ref="error" />

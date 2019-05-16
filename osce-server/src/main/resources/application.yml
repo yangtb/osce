@@ -1,9 +1,9 @@
 server:
-  port: 8090
+  port: @server.port@
   tomcat:
     uri-encoding: UTF-8
   servlet:
-    context-path: /osce
+    context-path: @server.context-path@
 
 # dubbo消费者配置
 dubbo:
@@ -11,9 +11,9 @@ dubbo:
     name: osce-server
     id: osce-server
   registry:
-    address: zookeeper://127.0.0.1:2181
+    address: @dubbo.registry.address@
     port: 2181
-    file: /Users/yangtongbin/work/cache/osce-server.cache
+    file: @dubbo.registry.file@
   protocol:
     name: dubbo
     port: -1
@@ -52,9 +52,6 @@ website:
   logSwitch: Y
   copyright: \u7248\u6743\u6240\u6709 Copyright \u00A9 Since2018 ******\u79D1\u6280\u6709\u9650\u516C\u53F8
   ipBlacklist:
-
-logging:
-  config: classpath:log4j2-spring.xml
 
 spring:
   jackson:
