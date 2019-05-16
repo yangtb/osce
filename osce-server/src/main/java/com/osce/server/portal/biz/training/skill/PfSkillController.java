@@ -45,6 +45,14 @@ public class PfSkillController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
+    @RequestMapping("/pf/p/skill/device/form")
+    public String formDevice(String formType,Long idSkillCase, Model model) {
+        model.addAttribute("formType", formType);
+        model.addAttribute("idSkillCase", idSkillCase);
+        return "pages/biz/training/skill/skillDeviceForm";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/skill/list")
     @ResponseBody
     public PageResult pageSkill(SkillDto dto) {

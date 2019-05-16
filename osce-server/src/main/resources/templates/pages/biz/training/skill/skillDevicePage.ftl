@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>技能操作库</title>
+    <title>站点配置</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -56,7 +56,7 @@
         </div>
     </form>
 
-    <table id="skillDeviceTable" lay-filter="skillTableDeviceFilter">
+    <table id="skillDeviceTable" lay-filter="skillDeviceTableFilter">
     </table>
 </div>
 

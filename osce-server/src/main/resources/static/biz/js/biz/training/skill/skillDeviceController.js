@@ -70,11 +70,13 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            var index = common.open('新增技能操作病例', basePath + '/pf/p/skill/device/form?formType=' + formType, 500, 350);
-            layer.full(index)
+            var index = common.open('新增设备', basePath + '/pf/p/skill/device/form?formType='
+                + formType + '&idSkillCase=' + idSkillCase, 550, 400);
+            layer.full(index);
         } else {
-            var index = common.open('编辑技能操作病例', basePath + '/pf/p/skill/device/form?formType=' + formType, 500, 350, _successFunction(currentEditData));
-            layer.full(index)
+            var index = common.open('编辑设备', basePath + '/pf/p/skill/device/form?formType='
+                + formType + '&idSkillCase=' + idSkillCase, 550, 400, _successFunction(currentEditData));
+            layer.full(index);
         }
     };
 

@@ -518,6 +518,9 @@
         WHERE
             id_org = #{idOrg}
         AND fg_valid = '0'
+        <if test="naDevice != null and naDevice != '' ">
+            and na_device like concat('%',#{naDevice},'%')
+        </if>
         limit #{offset}, #{limit}
     </select>
     <select id="countModel" resultType="java.lang.Long">
@@ -528,6 +531,9 @@
         WHERE
             id_org = #{idOrg}
         AND fg_valid = '0'
+        <if test="naDevice != null and naDevice != '' ">
+            and na_device like concat('%',#{naDevice},'%')
+        </if>
     </select>
 
     <select id="listModelDevice" resultType="com.osce.entity.ErpDeviceCase">
@@ -539,12 +545,12 @@
             brand ,
             model ,
             price ,
-            date_format(gmt_store_in,'%Y-%m-%d ') gmt_store_in ,
-            date_format(gmt_repair_end,'%Y-%m-%d ') gmt_repair_end ,
+            date_format(gmt_store_in,'%Y-%m-%d') gmt_store_in ,
+            date_format(gmt_repair_end,'%Y-%m-%d') gmt_repair_end ,
             tell_repair ,
             pic_divice_case ,
             fg_scrap ,
-            date_format(gmt_scrap,'%Y-%m-%d ') gmt_scrap ,
+            date_format(gmt_scrap,'%Y-%m-%d') gmt_scrap ,
             des_scrap ,
             fg_valid ,
             sort ,
@@ -564,7 +570,7 @@
             id_device_fault ,
             id_device_case ,
             des_fault ,
-             date_format(gmt_fault,'%Y-%m-%d ') gmt_fault
+             date_format(gmt_fault,'%Y-%m-%d') gmt_fault
         FROM
             erp_device_fault
         WHERE
@@ -576,7 +582,7 @@
             id_repair ,
             id_device_case ,
             des_repair ,
-            date_format(gmt_repair,'%Y-%m-%d ') gmt_repair
+            date_format(gmt_repair,'%Y-%m-%d') gmt_repair
         FROM
             erp_device_repair
         WHERE

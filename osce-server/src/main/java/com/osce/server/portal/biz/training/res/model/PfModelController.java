@@ -52,7 +52,7 @@ public class PfModelController extends BaseController {
         return "pages/biz/training/res/model/modelDeviceForm";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_01_05','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/model/list")
     @ResponseBody
     public PageResult listModel(ModelDto dto) {

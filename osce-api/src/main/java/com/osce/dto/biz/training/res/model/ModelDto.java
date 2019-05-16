@@ -31,6 +31,11 @@ public class ModelDto extends PageParam implements Serializable {
     private Long idDevice;
 
     /**
+     * 设备名称
+     */
+    private String naDevice;
+
+    /**
      * 设备实例ID
      */
     private Long idDeviceCase;
