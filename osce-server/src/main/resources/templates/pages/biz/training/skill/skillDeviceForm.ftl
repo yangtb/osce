@@ -47,7 +47,7 @@
                 <button class="layui-btn" lay-submit="" lay-filter="addSkillDevice">
                     <i class="iconfont icon-save-copy"></i> 保存
                 </button>
-                <#if formType = 'add'>
+                <#if formType == 'add'>
                     <button type="reset" class="layui-btn layui-btn-danger">
                         <i class="iconfont icon-reset"></i> 重新填写
                     </button>
