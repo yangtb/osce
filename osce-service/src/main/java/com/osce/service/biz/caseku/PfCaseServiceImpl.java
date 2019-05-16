@@ -10,6 +10,8 @@ import com.osce.orm.biz.training.caseku.PfCaseDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
+import com.sm.open.care.core.utils.CommonUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
@@ -35,8 +37,9 @@ public class PfCaseServiceImpl implements PfCaseService {
     }
 
     @Override
-    public Long addCase(CobSpCase dto) {
-        if (dto.getIdCase() == null) {
+    public String addCase(CobSpCase dto) {
+        if (StringUtils.isBlank(dto.getIdCase())) {
+            dto.setIdCase(CommonUtil.uuid());
             pfCaseDao.addCase(dto);
         } else {
             pfCaseDao.editCase(dto);

@@ -31,7 +31,7 @@ public interface PfCaseService {
      * @param dto
      * @return
      */
-    Long addCase(CobSpCase dto);
+    String addCase(CobSpCase dto);
 
     /**
      * 删除

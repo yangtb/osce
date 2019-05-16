@@ -22,9 +22,13 @@ public class CobSkillCase implements Serializable {
 
     /**
      * 主键
+     */
+    private String id;
+
+    /**
      * 技能病例ID
      */
-    private Long idSkillCase;
+    private String idSkillCase;
 
     /**
      * 机构ID

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.osce.orm.biz.training.caseku.PfCaseDao">
-    <insert id="addCase" useGeneratedKeys="true" keyProperty="idCase">
+    <insert id="addCase" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO cob_sp_case
         (
         <trim suffixOverrides=",">
-            <if test="idCase!=null">
+            <if test="id!=null">
+                id,
+            </if>
+            <if test="idCase!=null and idCase!=''">
                 id_case,
             </if>
             <if test="idOrg!=null">
@@ -63,7 +66,10 @@
         VALUES
         (
         <trim suffixOverrides=",">
-            <if test="idCase!=null">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="idCase!=null and idCase!=''">
                 #{idCase},
             </if>
             <if test="idOrg!=null">
@@ -129,7 +135,7 @@
             <if test="idOrg!=null">
                 id_org,
             </if>
-            <if test="idCase!=null">
+            <if test="idCase!=null and idCase!=''">
                 id_case,
             </if>
             <if test="naScoreSheet!=null">
@@ -527,36 +533,40 @@
     </select>
     <select id="listItem" resultType="com.osce.entity.CobScoreItem">
         SELECT
-            id_score_item ,
-            id_org ,
-            id_score_sheet ,
-            na_score_item ,
-            sd_score_item_ca ,
-            des_score_item ,
-            score_item_analysis ,
-            ref_question ,
-            score ,
-            fg_active ,
-            fg_valid ,
-            sort ,
-            creator ,
-            gmt_create ,
-            operator ,
-            gmt_modify
+            a.id_score_item ,
+            a.id_org ,
+            a.id_score_sheet ,
+            a.na_score_item ,
+            a.sd_score_item_ca ,
+            a.des_score_item ,
+            a.score_item_analysis ,
+            a.ref_question ,
+            a.score ,
+            a.fg_active ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify
         FROM
-            cob_score_item
+            cob_score_item a
+        LEFT JOIN cob_score_sheet b ON a.id_score_sheet = b.id_score_sheet
         WHERE
-            id_org = #{idOrg}
-        AND fg_valid = '0'
+            b.id_case = #{idCase}
+        AND a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
         limit #{offset}, #{limit}
     </select>
     <select id="countItem" resultType="java.lang.Long">
         SELECT
             count(1)
         FROM
-            cob_score_item
+            cob_score_item a
+        LEFT JOIN cob_score_sheet b ON a.id_score_sheet = b.id_score_sheet
         WHERE
-            id_org = #{idOrg}
-        AND fg_valid = '0'
+            b.id_case = #{idCase}
+        AND a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
     </select>
 </mapper>

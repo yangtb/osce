@@ -35,7 +35,7 @@ public class CobScoreSheet implements Serializable {
     /**
      * 病例ID
      */
-    private Long idCase;
+    private String idCase;
 
     /**
      * 评分表名称

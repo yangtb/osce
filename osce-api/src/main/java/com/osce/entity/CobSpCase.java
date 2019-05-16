@@ -22,9 +22,13 @@ public class CobSpCase implements Serializable {
 
     /**
      * 主键
-     * 病例ID
      */
-    private Long idCase;
+    private String id;
+
+    /**
+     * 主键
+     */
+    private String idCase;
 
     /**
      * 机构ID

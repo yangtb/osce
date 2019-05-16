@@ -28,7 +28,7 @@ public interface PfSkillService {
      * @param dto
      * @return
      */
-    Long addSkill(CobSkillCase dto);
+    String addSkill(CobSkillCase dto);
 
     /**
      * 删除

@@ -24,6 +24,7 @@
             <li class="layui-this">病例定义</li>
             <#if formType == 'edit'>
                 <li>站点配置</li>
+                <li>评分表</li>
             </#if>
         </ul>
         <div class="layui-tab-content" style="margin: 0px;">
@@ -138,6 +139,9 @@
             <#if formType == 'edit'>
                 <div class="layui-tab-item">
                     <iframe id="deviceTag" class='layui-col-xs12' frameborder="0" src=""></iframe>
+                </div>
+                <div class="layui-tab-item">
+                    <iframe id="scoreSheetTag" class='layui-col-xs12' frameborder="0" src=""></iframe>
                 </div>
             </#if>
         </div>

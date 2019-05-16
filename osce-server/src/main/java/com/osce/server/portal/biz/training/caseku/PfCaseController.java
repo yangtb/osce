@@ -48,21 +48,21 @@ public class PfCaseController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
     @RequestMapping("/pf/p/case/item/page")
-    public String pageDevice(Long idCase, Model model) {
+    public String pageDevice(String idCase, Model model) {
         model.addAttribute("idCase", idCase);
         return "pages/biz/training/case/scoreItemPage";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
     @RequestMapping("/pf/p/case/sheet/page")
-    public String formSection(Long idCase, Model model) {
+    public String formSection(String idCase, Model model) {
         model.addAttribute("idCase", idCase);
         return "pages/biz/training/case/scoreSheetForm";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
     @RequestMapping("/pf/p/case/item/form")
-    public String formItem(String formType, Long idCase, Long idScoreSheet,  Model model) {
+    public String formItem(String formType, String idCase, Long idScoreSheet,  Model model) {
         model.addAttribute("formType", formType);
         model.addAttribute("idCase", idCase);
         model.addAttribute("idScoreSheet", idScoreSheet);

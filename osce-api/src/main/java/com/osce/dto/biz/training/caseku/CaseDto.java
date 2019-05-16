@@ -28,7 +28,7 @@ public class CaseDto extends PageParam implements Serializable {
     /**
      * 病例id
      */
-    private Long idCase;
+    private String idCase;
 
     /**
      * 评分表ID

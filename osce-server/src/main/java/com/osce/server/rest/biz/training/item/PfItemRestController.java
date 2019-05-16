@@ -151,6 +151,8 @@ public class PfItemRestController extends BaseController {
     @PreAuthorize("hasAnyRole('ROLE_01_03_001', 'ROLE_SUPER')")
     @PostMapping(value = "/pf/r/item/exam/save")
     public ResultObject saveExam(@RequestBody IbmItem dto) {
+        dto.setCreator(CurrentUserUtils.getCurrentUsername());
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
         return ResultObject.createSuccess("saveExam", ResultObject.DATA_TYPE_OBJECT,
                 pfItemService.saveExam(dto));
 

@@ -23,6 +23,12 @@ layui.config({
                 $('#deviceTag').attr('src', basePath + '/pf/p/skill/device/page?idSkillCase=' + $('#idSkillCase').val());
             }
         }
+        if (data.index == 2) {
+            if (!$("#scoreSheetTag").attr("src")) {
+                $('#scoreSheetTag').attr('src', basePath + '/pf/p/case/item/page?idCase=' + $('#idSkillCase').val());
+            }
+        }
+
     });
 
     form.verify({
@@ -78,6 +84,12 @@ layui.config({
                             , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' frameborder="0" ' +
                                 'src= "' + basePath + '/pf/p/skill/device/page?idSkillCase=' + data.data + '"></iframe>'
                             , id: 'deviceTag'
+                        });
+                        element.tabAdd('tagTabFilter', {
+                            title: '评分表'
+                            , content: '<iframe id="scoreSheetTag" class=\'layui-col-xs12\' frameborder="0" ' +
+                                'src= "' + basePath + '/pf/p/case/item/page?idCase=' + data.data + '"></iframe>'
+                            , id: 'scoreSheetTag'
                         });
                         FrameWH();
                     }

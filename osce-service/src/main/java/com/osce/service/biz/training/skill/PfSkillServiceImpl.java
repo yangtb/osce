@@ -9,6 +9,8 @@ import com.osce.orm.biz.training.skill.PfSkillDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
+import com.sm.open.care.core.utils.CommonUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
@@ -33,8 +35,9 @@ public class PfSkillServiceImpl implements PfSkillService {
     }
 
     @Override
-    public Long addSkill(CobSkillCase dto) {
-        if (dto.getIdSkillCase() == null) {
+    public String addSkill(CobSkillCase dto) {
+        if (StringUtils.isBlank(dto.getIdSkillCase())) {
+            dto.setIdSkillCase(CommonUtil.uuid());
             pfSkillDao.addSkill(dto);
         } else {
             pfSkillDao.editSkill(dto);

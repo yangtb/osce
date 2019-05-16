@@ -33,7 +33,7 @@ public class CobSkillDevice implements Serializable {
     /**
      * 技能病例ID
      */
-    private Long idSkillCase;
+    private String idSkillCase;
 
     /**
      * 设备ID
