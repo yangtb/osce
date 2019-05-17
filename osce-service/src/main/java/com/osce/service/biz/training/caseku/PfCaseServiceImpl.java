@@ -1,4 +1,4 @@
-package com.osce.service.biz.caseku;
+package com.osce.service.biz.training.caseku;
 
 import com.osce.api.biz.training.caseku.PfCaseService;
 import com.osce.dto.biz.training.caseku.CaseDto;
