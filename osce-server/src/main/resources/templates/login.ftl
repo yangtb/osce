@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>开放平台登陆</title>
+    <title>${websiteName!}</title>
     <meta name="keywords" content="登录">
     <meta name="description" content="登录">
     <link rel="stylesheet" type="text/css" href="${basePath!}/bootstrap/css/bootstrap.min.css">
@@ -29,10 +29,10 @@
         <div class="col-sm-7">
             <div class="signin-info">
                 <div class="logopanel m-b">
-                    <h1>OSCE考试管理系统</h1>
+                    <h1>${websiteName!}</h1>
                 </div>
                 <div class="m-b"></div>
-                <h4>欢迎使用 <strong>OSCE考试管理系统</strong></h4>
+                <h4>欢迎使用 <strong>${websiteName!}</strong></h4>
                 <ul class="m-b">
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势一</li>
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势二</li>
@@ -50,7 +50,7 @@
             <div id="passwordLoginBody">
                 <form method="post" id="loginForm" action="${contextPath!}/pfprodlogin" onSubmit="return submitForm()">
                     <h4 class="no-margins">登录：</h4>
-                    <p class="m-t-md">登录到OSCE考试管理系统</p>
+                    <p class="m-t-md">登录到${websiteName!}</p>
                     <input type="text" id="username" name="username" maxlength="11" class="form-control uname" placeholder="用户名" autocomplete="off"/>
                     <input type="hidden" name="password" id="encryptPassword" />
                     <input type="password" id="clearPassword" maxlength="16" class="form-control pword m-b" placeholder="密码" autocomplete="off" />
@@ -79,7 +79,7 @@
         <div class="pull-left">
             技术服务电话：XXXX-XXXXXXX
             <br>
-            版权所有 © ***有限公司.
+            ${websiteCopyright!}.
         </div>
     </div>
 </div>
