@@ -26,28 +26,28 @@
         <div class="layui-form-item form-item-my5">
             <label class="layui-form-label">字典名称<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
             <div class="layui-input-block">
-                <input type="text" name="groupName" lay-verify="required" autocomplete="off" disabled class="layui-input layui-disabled">
+                <input type="text" name="groupName" lay-verify="required" lay-vertype="tips" autocomplete="off" disabled class="layui-input layui-disabled">
             </div>
         </div>
 
         <div class="layui-form-item form-item-my5">
             <label class="layui-form-label">字典编码<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
             <div class="layui-input-block">
-                <input type="text" name="groupCode" lay-verify="required" autocomplete="off" disabled class="layui-input layui-disabled">
+                <input type="text" name="groupCode" lay-verify="required" lay-vertype="tips" autocomplete="off" disabled class="layui-input layui-disabled">
             </div>
         </div>
 
         <div class="layui-form-item form-item-my5">
             <label class="layui-form-label">枚举名称<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
             <div class="layui-input-block">
-                <input type="text" name="dictName" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="dictName" lay-verify="required" lay-vertype="tips" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item form-item-my5">
             <label class="layui-form-label">枚举编码<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
             <div class="layui-input-block">
-                <input type="text" name="dictCode" lay-verify="required" autocomplete="off" class="layui-input">
+                <input type="text" name="dictCode" lay-verify="required" lay-vertype="tips" autocomplete="off" class="layui-input">
             </div>
         </div>
 
