@@ -34,22 +34,14 @@ public class PfHomeController extends BaseController {
     @Resource
     private ParamUtil paramUtil;
 
-    /**
-     * 网站名称
-     */
     @Value("${website.name}")
     private String websiteName;
 
-    /**
-     * 版权信息
-     */
     @Value("${website.copyright}")
     private String websiteCopyright;
 
     @Value("${website.approve}")
     private String websiteApprove;
-
-    private static int ORG_EXPIRY_NOTICE_DEFAULT_DAY = 3;
 
     @PreAuthorize("isAnonymous() || isAuthenticated()")
     @RequestMapping("/index")
@@ -64,6 +56,9 @@ public class PfHomeController extends BaseController {
         if (SecurityContext.isAnonymousUser()) {
             SysParam sysParam = paramUtil.getParamInfo(SysParamEnum.VISITOR_SWITCH.getCode());
             if (sysParam == null || sysParam.getParamValue().equals(YesOrNo.NO.getCode())) {
+                model.addAttribute("websiteName", websiteName);
+                model.addAttribute("websiteCopyright", websiteCopyright);
+                model.addAttribute("websiteApprove", websiteApprove);
                 return "login";
             }
         }
