@@ -30,7 +30,7 @@
 			</Policies>
 			<DefaultRolloverStrategy max="100">
 				<Delete basePath="@log.path@" maxDepth="1">
-					<IfFileName glob="*/service-*.log"/>
+					<IfFileName glob="service-*.log"/>
 					<IfLastModified age="@log.age@" />
 				</Delete>
 			</DefaultRolloverStrategy>
@@ -49,7 +49,7 @@
 			</Policies>
 			<DefaultRolloverStrategy max="100">
 				<Delete basePath="@log.path@" maxDepth="1">
-					<IfFileName glob="*/error-*.log"/>
+					<IfFileName glob="error-*.log"/>
 					<IfLastModified age="@log.age@" />
 				</Delete>
 			</DefaultRolloverStrategy>
@@ -65,7 +65,7 @@
 			</Policies>
 			<DefaultRolloverStrategy max="100">
 				<Delete basePath="@log.path@" maxDepth="1">
-					<IfFileName glob="*/monitor-*.log"/>
+					<IfFileName glob="monitor-*.log"/>
 					<IfLastModified age="@log.age@" />
 				</Delete>
 			</DefaultRolloverStrategy>
