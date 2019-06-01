@@ -28,22 +28,35 @@ public class GlobalHttpExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResultObject globalExceptionResolver(HttpServletRequest request, Exception e) {
         String requestUrl = request.getServletPath();
-        if (e instanceof BizRuntimeException) {
-            BizRuntimeException bizEx = (BizRuntimeException) e;
-            return ResultObject.create(requestUrl, bizEx.getErrorCode(), bizEx.getMessage());
-        } else if (e instanceof RestException) {
-            RestException restException = (RestException) e;
-            return ResultObject.create(requestUrl, restException.getCode(), restException.getMessage());
-        } else if (e instanceof AccessDeniedException) {
-            if (isAjaxReq(request)) {
-                return ResultObject.create(requestUrl, RestErrorCode.ACCESS_RESTRICTED_ERROR.getMessage(), "没有访问权限");
-            }
-            // 无权限异常抛到上层
-            throw new AccessDeniedException(e.getMessage());
-        } else {
-            LOGGER.info("【GlobalExceptionResolver】服务器内部错误, url:{}, msg:{}", requestUrl, e.getMessage());
-            return ResultObject.create(requestUrl, RestErrorCode.UNKNOWN_ERROR.getCode(), RestErrorCode.UNKNOWN_ERROR.getMessage());
+        LOGGER.info("【GlobalExceptionResolver】服务器内部错误, url:{}, msg:{}", requestUrl, e.getMessage());
+        return ResultObject.create(requestUrl, RestErrorCode.UNKNOWN_ERROR.getCode(), RestErrorCode.UNKNOWN_ERROR.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(BizRuntimeException.class)
+    public ResultObject bizRuntimeExceptionHandler(HttpServletRequest request, Exception e) {
+        String requestUrl = request.getServletPath();
+        BizRuntimeException bizEx = (BizRuntimeException) e;
+        return ResultObject.create(requestUrl, bizEx.getErrorCode(), bizEx.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(RestException.class)
+    public ResultObject restExceptionHandler(HttpServletRequest request, Exception e) {
+        String requestUrl = request.getServletPath();
+        RestException restException = (RestException) e;
+        return ResultObject.create(requestUrl, restException.getCode(), restException.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResultObject accessDeniedExceptionHandler(HttpServletRequest request, Exception e) {
+        if (isAjaxReq(request)) {
+            String requestUrl = request.getServletPath();
+            return ResultObject.create(requestUrl, RestErrorCode.ACCESS_RESTRICTED_ERROR.getMessage(), "没有访问权限");
         }
+        // 无权限异常抛到上层
+        throw new AccessDeniedException(e.getMessage());
     }
 
     /**
