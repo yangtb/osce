@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.plan.template.PfTemplateDao">
+
+    <insert id="addTemplate" useGeneratedKeys="true" keyProperty="idModel">
+        INSERT INTO td_model
+        (
+        <trim suffixOverrides=",">
+            <if test="idModel!=null">
+                id_model,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="fgChild!=null">
+                fg_child,
+            </if>
+            <if test="naModel!=null">
+                na_model,
+            </if>
+            <if test="desModel!=null">
+                des_model,
+            </if>
+            <if test="numArea!=null">
+                num_area,
+            </if>
+            <if test="numStudentMax!=null">
+                num_student_max,
+            </if>
+            <if test="weightManager!=null">
+                weight_manager,
+            </if>
+            <if test="weightAssistant!=null">
+                weight_assistant,
+            </if>
+            <if test="weightRemote!=null">
+                weight_remote,
+            </if>
+            <if test="minInterval!=null">
+                min_interval,
+            </if>
+            <if test="sdModelStrategy!=null">
+                sd_model_strategy,
+            </if>
+            <if test="sdModelCa!=null">
+                sd_model_ca,
+            </if>
+            <if test="morningBegin!=null">
+                morning_begin,
+            </if>
+            <if test="morningEnd!=null">
+                morning_end,
+            </if>
+            <if test="afternoonBegin!=null">
+                afternoon_begin,
+            </if>
+            <if test="afternoonEnd!=null">
+                afternoon_end,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+            <if test="gmtCreate!=null">
+                gmt_create,
+            </if>
+            <if test="operator!=null">
+                operator,
+            </if>
+            <if test="gmtModify!=null">
+                gmt_modify,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idModel!=null">
+                #{idModel},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="fgChild!=null">
+                #{fgChild},
+            </if>
+            <if test="naModel!=null">
+                #{naModel},
+            </if>
+            <if test="desModel!=null">
+                #{desModel},
+            </if>
+            <if test="numArea!=null">
+                #{numArea},
+            </if>
+            <if test="numStudentMax!=null">
+                #{numStudentMax},
+            </if>
+            <if test="weightManager!=null">
+                #{weightManager},
+            </if>
+            <if test="weightAssistant!=null">
+                #{weightAssistant},
+            </if>
+            <if test="weightRemote!=null">
+                #{weightRemote},
+            </if>
+            <if test="minInterval!=null">
+                #{minInterval},
+            </if>
+            <if test="sdModelStrategy!=null">
+                #{sdModelStrategy},
+            </if>
+            <if test="sdModelCa!=null">
+                #{sdModelCa},
+            </if>
+            <if test="morningBegin!=null">
+                #{morningBegin},
+            </if>
+            <if test="morningEnd!=null">
+                #{morningEnd},
+            </if>
+            <if test="afternoonBegin!=null">
+                #{afternoonBegin},
+            </if>
+            <if test="afternoonEnd!=null">
+                #{afternoonEnd},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+            <if test="gmtCreate!=null">
+                #{gmtCreate},
+            </if>
+            <if test="operator!=null">
+                #{operator},
+            </if>
+            <if test="gmtModify!=null">
+                #{gmtModify},
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <insert id="addTdArea" useGeneratedKeys="true" keyProperty="idArea">
+        INSERT INTO td_area
+        (
+        <trim suffixOverrides=",">
+            <if test="idArea!=null">
+                id_area,
+            </if>
+            <if test="idModel!=null">
+                id_model,
+            </if>
+            <if test="naArea!=null">
+                na_area,
+            </if>
+            <if test="sdAreaLoopBegin!=null">
+                sd_area_loop_begin,
+            </if>
+            <if test="sdAreaLoopEnd!=null">
+                sd_area_loop_end,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idArea!=null">
+                #{idArea},
+            </if>
+            <if test="idModel!=null">
+                #{idModel},
+            </if>
+            <if test="naArea!=null">
+                #{naArea},
+            </if>
+            <if test="sdAreaLoopBegin!=null">
+                #{sdAreaLoopBegin},
+            </if>
+            <if test="sdAreaLoopEnd!=null">
+                #{sdAreaLoopEnd},
+            </if>
+        </trim>
+        )
+    </insert>
+    <insert id="addTdStation" useGeneratedKeys="true" keyProperty="idStation">
+        INSERT INTO td_station
+        (
+        <trim suffixOverrides=",">
+            <if test="idStation!=null">
+                id_station,
+            </if>
+            <if test="idArea!=null">
+                id_area,
+            </if>
+            <if test="naStation!=null">
+                na_station,
+            </if>
+            <if test="sdStationCa!=null">
+                sd_station_ca,
+            </if>
+            <if test="sdSkillCa!=null">
+                sd_skill_ca,
+            </if>
+            <if test="minCost!=null">
+                min_cost,
+            </if>
+            <if test="fgMust!=null">
+                fg_must,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idStation!=null">
+                #{idStation},
+            </if>
+            <if test="idArea!=null">
+                #{idArea},
+            </if>
+            <if test="naStation!=null">
+                #{naStation},
+            </if>
+            <if test="sdStationCa!=null">
+                #{sdStationCa},
+            </if>
+            <if test="sdSkillCa!=null">
+                #{sdSkillCa},
+            </if>
+            <if test="minCost!=null">
+                #{minCost},
+            </if>
+            <if test="fgMust!=null">
+                #{fgMust},
+            </if>
+        </trim>
+        )
+    </insert>
+    <insert id="addTdSite" useGeneratedKeys="true" keyProperty="idSite">
+        INSERT INTO td_site
+        (
+        <trim suffixOverrides=",">
+            <if test="idSite!=null">
+                id_site,
+            </if>
+            <if test="idStation!=null">
+                id_station,
+            </if>
+            <if test="idArea!=null">
+                id_area,
+            </if>
+            <if test="idRoom!=null">
+                id_room,
+            </if>
+            <if test="idPaper!=null">
+                id_paper,
+            </if>
+            <if test="numConcur!=null">
+                num_concur,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idSite!=null">
+                #{idSite},
+            </if>
+            <if test="idStation!=null">
+                #{idStation},
+            </if>
+            <if test="idArea!=null">
+                #{idArea},
+            </if>
+            <if test="idRoom!=null">
+                #{idRoom},
+            </if>
+            <if test="idPaper!=null">
+                #{idPaper},
+            </if>
+            <if test="numConcur!=null">
+                #{numConcur},
+            </if>
+        </trim>
+        )
+    </insert>
+    <update id="delTemplate">
+        UPDATE td_model
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+        operator = #{operator},
+        gmt_modify = now()
+        WHERE
+        id_model in (
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </update>
+    <update id="editTemplate">
+        UPDATE td_model
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="fgChild != null and fgChild!=''">
+                fg_child = #{fgChild},
+            </if>
+            <if test="naModel != null and naModel!=''">
+                na_model = #{naModel},
+            </if>
+            <if test="desModel != null and desModel!=''">
+                des_model = #{desModel},
+            </if>
+            <if test="numArea != null">
+                num_area = #{numArea},
+            </if>
+            <if test="numStudentMax != null">
+                num_student_max = #{numStudentMax},
+            </if>
+            <if test="weightManager != null">
+                weight_manager = #{weightManager},
+            </if>
+            <if test="weightAssistant != null">
+                weight_assistant = #{weightAssistant},
+            </if>
+            <if test="weightRemote != null">
+                weight_remote = #{weightRemote},
+            </if>
+            <if test="minInterval != null">
+                min_interval = #{minInterval},
+            </if>
+            <if test="sdModelStrategy != null and sdModelStrategy!=''">
+                sd_model_strategy = #{sdModelStrategy},
+            </if>
+            <if test="sdModelCa != null and sdModelCa!=''">
+                sd_model_ca = #{sdModelCa},
+            </if>
+            <if test="morningBegin != null">
+                morning_begin = #{morningBegin},
+            </if>
+            <if test="morningEnd != null">
+                morning_end = #{morningEnd},
+            </if>
+            <if test="afternoonBegin != null">
+                afternoon_begin = #{afternoonBegin},
+            </if>
+            <if test="afternoonEnd != null">
+                afternoon_end = #{afternoonEnd},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+            <if test="gmtModify != null">
+                gmt_modify = #{gmtModify},
+            </if>
+        </trim>
+        WHERE
+        id_model = #{idModel}
+    </update>
+    <update id="editTdArea">
+        UPDATE td_area
+        SET
+        <trim suffixOverrides=",">
+            <if test="idModel != null">
+                id_model = #{idModel},
+            </if>
+            <if test="naArea != null and naArea!=''">
+                na_area = #{naArea},
+            </if>
+            <if test="sdAreaLoopBegin != null and sdAreaLoopBegin!=''">
+                sd_area_loop_begin = #{sdAreaLoopBegin},
+            </if>
+            <if test="sdAreaLoopEnd != null and sdAreaLoopEnd!=''">
+                sd_area_loop_end = #{sdAreaLoopEnd},
+            </if>
+        </trim>
+        WHERE
+        id_area = #{idArea}
+    </update>
+    <update id="editTdStation">
+        UPDATE td_station
+        SET
+        <trim suffixOverrides=",">
+            <if test="idArea != null">
+                id_area = #{idArea},
+            </if>
+            <if test="naStation != null and naStation!=''">
+                na_station = #{naStation},
+            </if>
+            <if test="sdStationCa != null and sdStationCa!=''">
+                sd_station_ca = #{sdStationCa},
+            </if>
+            <if test="sdSkillCa != null and sdSkillCa!=''">
+                sd_skill_ca = #{sdSkillCa},
+            </if>
+            <if test="minCost != null">
+                min_cost = #{minCost},
+            </if>
+            <if test="fgMust != null and fgMust!=''">
+                fg_must = #{fgMust},
+            </if>
+        </trim>
+        WHERE
+        id_station = #{idStation}
+    </update>
+    <update id="editTdSite">
+        UPDATE td_site
+        SET
+        <trim suffixOverrides=",">
+            <if test="idStation != null">
+                id_station = #{idStation},
+            </if>
+            <if test="idArea != null">
+                id_area = #{idArea},
+            </if>
+            <if test="idRoom != null">
+                id_room = #{idRoom},
+            </if>
+            <if test="idPaper != null">
+                id_paper = #{idPaper},
+            </if>
+            <if test="numConcur != null">
+                num_concur = #{numConcur},
+            </if>
+        </trim>
+        WHERE
+        id_site = #{idSite}
+    </update>
+    <update id="editSkill">
+        <choose>
+            <when test="dto.status == 0">
+                update td_ins_station set id_paper = #{idPaper} where id_ins_station = #{idInsStation}
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+
+    </update>
+
+    <select id="listTemplate" resultType="com.osce.entity.TdModel">
+        SELECT
+            id_model ,
+            id_org ,
+            fg_child ,
+            na_model ,
+            des_model ,
+            num_area ,
+            num_student_max ,
+            weight_manager ,
+            weight_assistant ,
+            weight_remote ,
+            min_interval ,
+            sd_model_strategy ,
+            sd_model_ca ,
+            morning_begin ,
+            morning_end ,
+            afternoon_begin ,
+            afternoon_end ,
+            fg_active ,
+            fg_valid ,
+            sort ,
+            creator ,
+            gmt_create ,
+            operator ,
+            gmt_modify
+        FROM
+            td_model
+        WHERE
+            id_org = #{idOrg}
+        AND fg_valid = '0'
+        LIMIT #{offset}, #{limit}
+    </select>
+    <select id="countTemplate" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            td_model
+        WHERE
+            id_org = #{idOrg}
+        AND fg_valid = '0'
+    </select>
+    <select id="selectTemplateInfoById" resultType="com.osce.entity.TdModel">
+        SELECT
+            id_model ,
+            id_org ,
+            fg_child ,
+            na_model ,
+            des_model ,
+            num_area ,
+            num_student_max ,
+            weight_manager ,
+            weight_assistant ,
+            weight_remote ,
+            min_interval ,
+            sd_model_strategy ,
+            sd_model_ca ,
+            morning_begin ,
+            morning_end ,
+            afternoon_begin ,
+            afternoon_end ,
+            fg_active ,
+            fg_valid ,
+            sort ,
+            creator ,
+            gmt_create ,
+            operator ,
+            gmt_modify
+        FROM
+            td_model
+        WHERE
+            id_model = #{idModel}
+        AND fg_valid = '0'
+    </select>
+
+    <resultMap id="tdAreaResultMap" type="com.osce.dto.biz.plan.template.TdAreaDto">
+        <id property="idArea" column="id_area"/>
+        <id property="idModel" column="id_model"/>
+        <id property="naArea" column="na_area"/>
+        <id property="sdAreaLoopBegin" column="sd_area_loop_begin"/>
+        <id property="sdAreaLoopEnd" column="sd_area_loop_end"/>
+
+        <collection property="tdStations" column="id_area"
+                    select="listTdStation" ofType="com.osce.dto.biz.plan.template.TdStationDto"/>
+    </resultMap>
+
+    <resultMap id="tdStationResultMap" type="com.osce.dto.biz.plan.template.TdStationDto">
+        <id property="idStation" column="id_station"/>
+        <id property="idArea" column="id_area"/>
+        <id property="naStation" column="na_station"/>
+        <id property="sdStationCa" column="sd_station_ca"/>
+        <id property="sdSkillCa" column="sd_skill_ca"/>
+        <id property="minCost" column="min_cost"/>
+        <id property="fgMust" column="fg_must"/>
+
+        <collection property="tdSites" column="id_station"
+                    select="listTdSite" ofType="com.osce.entity.TdSite"/>
+    </resultMap>
+
+    <select id="listTdArea" resultMap="tdAreaResultMap">
+        SELECT
+            id_area ,
+            id_model ,
+            na_area ,
+            sd_area_loop_begin ,
+            sd_area_loop_end
+        FROM
+            td_area
+        WHERE
+            id_model = #{idModel}
+    </select>
+    <select id="listTdStation" resultMap="tdStationResultMap">
+        SELECT
+            id_station ,
+            id_area ,
+            na_station ,
+            sd_station_ca ,
+            sd_skill_ca ,
+            num_pc ,
+            min_cost ,
+            fg_must ,
+            num_room
+        FROM
+            td_station
+        WHERE
+            id_area = #{idArea}
+    </select>
+    <select id="listTdSite" resultType="com.osce.entity.TdSite">
+        SELECT
+            id_site ,
+            id_station ,
+            id_area ,
+            id_room ,
+            id_paper ,
+            num_concur
+        FROM
+            td_site
+        WHERE
+            id_station = #{idStation}
+    </select>
+
+    <select id="callStationModelOrder" statementType="CALLABLE">
+        call P_STATION_MODEL_ORDER(
+            #{parIdDemo,mode=IN,jdbcType=INTEGER},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+
+    <select id="selectStationInfo" resultType="com.osce.vo.biz.plan.template.TdInsStationVo">
+        SELECT
+            a.id_ins_station ,
+            a.id_model ,
+            a.time_section ,
+            a.id_area ,
+            b.na_area ,
+            a.id_station ,
+            c.na_station ,
+            a.sd_station_ca ,
+            a.sd_skill_ca ,
+            a.id_room ,
+            a.id_paper
+        FROM
+            td_ins_station a
+        LEFT JOIN td_area b ON a.id_area = b.id_area
+        LEFT JOIN td_station c ON a.id_station = c.id_station
+        WHERE
+            a.id_model = #{idModel}
+    </select>
+
+    <select id="selectSkillName" resultType="java.lang.String">
+        <choose>
+            <when test='sdSkillCa == "1".toString()'>
+                select na_item_store from td_item_store where id_item_store = #{idPaper}
+            </when>
+            <when test='sdSkillCa == "2".toString()'>
+                select na_skill_case from td_skill_case where id_skill_case = #{idPaper}
+            </when>
+            <otherwise>
+                select na_sp_case from td_sp_case where id_case = #{idPaper}
+            </otherwise>
+        </choose>
+    </select>
+    <select id="selectStationDetail" resultType="com.osce.vo.biz.plan.template.TdInsStationDetailVo">
+        SELECT
+            a.id_ins_station ,
+            a.id_model ,
+            a.time_section ,
+            a.id_area ,
+            b.na_area ,
+            a.id_station ,
+            c.na_station ,
+            a.sd_station_ca ,
+            a.sd_skill_ca ,
+            a.id_room ,
+            d.id_ins_station_detail ,
+            d.cd_invented_student ,
+            date_format(d.time_begin , '%h:%i') AS time_begin ,
+            date_format(d.time_end , '%h:%i') AS time_end
+        FROM
+            td_ins_station_detail d
+        LEFT JOIN td_ins_station a ON d.id_ins_station = a.id_ins_station
+        LEFT JOIN td_area b ON a.id_area = b.id_area
+        LEFT JOIN td_station c ON a.id_station = c.id_station
+        WHERE
+            a.id_model = #{idModel}
+    </select>
+
+</mapper>
