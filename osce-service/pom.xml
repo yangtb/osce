@@ -32,6 +32,12 @@
             <groupId>com.osce</groupId>
             <artifactId>osce-api</artifactId>
             <version>${osce.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>dubbo</artifactId>
+                    <groupId>com.alibaba</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.osce</groupId>
