@@ -10,19 +10,19 @@ layui.config({
     table.render({
         elem: '#skillDeviceTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'skillDeviceTableId'
-        , height: 'full-50' //容器高度
+        , height: 'full-20' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'naDevice', width: 300, title: '设备', fixed: true},
             {field: 'numDevice', width: 120, title: '数量'},
-            {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#skillDeviceBar'}
+            {fixed: 'right', width: 180, title: '操作', align: 'center', toolbar: '#skillDeviceBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/skill/device/list'
-        , limit: 15
+        , limit: 500
         , even: true
-        , limits: [15, 30, 100]
-        , page: true
+        //, limits: [15, 30, 100]
+        , page: false
         , where : {
             idSkillCase : idSkillCase
         }
@@ -31,8 +31,14 @@ layui.config({
     //监听工具条
     table.on('tool(skillDeviceTableFilter)', function (obj) {
         var data = obj.data;
+        if (obj.event === 'add') {
+            _addOrEdit("add", data);
+        }
         if (obj.event === 'edit') {
             _addOrEdit("edit", data);
+        }
+        if (obj.event === 'del') {
+            _delSkill(data);
         }
     });
 
@@ -49,34 +55,15 @@ layui.config({
         });
     });
 
-    $('#add').on('click', function () {
-        _addOrEdit("add");
-    });
-
-    $('#edit').on('click', function () {
-        var checkStatus = table.checkStatus('skillDeviceTableId')
-            , data = checkStatus.data;
-        if (data.length == 0) {
-            layer.tips('请先选中一行记录', '#edit', {tips: 1});
-            return;
-        }
-        if (data.length > 1) {
-            layer.tips('请选中一行记录进行编辑', '#edit', {tips: 1});
-            return;
-        }
-        var currentEditData = data[0];
-        _addOrEdit("edit", currentEditData);
-    });
-
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
             var index = common.open('新增设备', basePath + '/pf/p/skill/device/form?formType='
-                + formType + '&idSkillCase=' + idSkillCase, 750, 425);
-            //layer.full(index);
+                + formType + '&idSkillCase=' + idSkillCase, 550, 400);
+            layer.full(index);
         } else {
             var index = common.open('编辑设备', basePath + '/pf/p/skill/device/form?formType='
-                + formType + '&idSkillCase=' + idSkillCase, 750, 425, _successFunction(currentEditData));
-            //layer.full(index);
+                + formType + '&idSkillCase=' + idSkillCase, 550, 400, _successFunction(currentEditData));
+            layer.full(index);
         }
     };
 
@@ -93,33 +80,18 @@ layui.config({
         _addOrEdit("edit", obj.data);
     });
 
-    $("#del").on('click', function () {
-        var checkStatus = table.checkStatus('skillDeviceTableId')
-            , data = checkStatus.data;
-        if (data.length == 0) {
-            layer.tips('请先选中一行记录', '#del', {tips: 1});
-            return;
-        }
-        _delSkill(data);
-    });
 
     var _delSkill = function (currentData) {
         var url = basePath + '/pf/r/skill/device/del';
         var reqData = new Array();
-        var messageTitle = '';
-        $.each(currentData, function (index, content) {
-            if (messageTitle) {
-                messageTitle += ', ';
-            }
-            messageTitle += '【' + content.naDevice + '】';
-            reqData.push(content.idSkillDevice);
-        });
+        reqData.push(currentData.idSkillDevice);
+        var messageTitle = currentData.naDevice;
         var data = {
             list : reqData,
             status : '1'
         };
 
-        layer.confirm('确定删除' + messageTitle + '么？', {
+        layer.confirm('确定删除【' + messageTitle + '】么？', {
             title: '删除提示',
             resize: false,
             btn: ['确定', '取消'],

@@ -14,7 +14,7 @@ layui.config({
         , height: 'full-50' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
-            {checkbox: true, fixed: true},
+            //{checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
             {field: 'naScoreItem', minWidth:150, title: '评分项'},
             {field: 'sdScoreItemCa', width: 100, title: '分类', templet: '#sdScoreItemTpl'},

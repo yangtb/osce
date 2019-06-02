@@ -198,7 +198,15 @@ layui.config({
 
 
     $('#designExamPaper').on('click', function () {
-        $('#designExamPaperHidden').attr('lay-href', basePath + '/pf/p/plan/template/form?formType=add');
+        var checkStatus = table.checkStatus('templateTableId')
+            , data = checkStatus.data;
+        if (data.length != 1) {
+            layer.tips('请先选中一个模板', '#designExamPaper', {tips: 1});
+            return;
+        }
+        var currentEditData = data[0];
+        $('#designExamPaperHidden').attr('lay-href',
+            basePath + '/pf/p/plan/paper/page?idModel=' + currentEditData.idModel);
         $('#designExamPaperHidden').click();
     });
 

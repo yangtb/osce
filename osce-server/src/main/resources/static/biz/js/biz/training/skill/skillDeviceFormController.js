@@ -21,6 +21,7 @@ layui.config({
         searchPlaceholder: '请输入设备名称',
         table: {
             url: basePath + '/pf/p/model/list',
+            height: 260,
             cols: [[
                 {type: 'radio'},
                 {field: 'naDevice', minWidth: 170, title: '设备名称'},
