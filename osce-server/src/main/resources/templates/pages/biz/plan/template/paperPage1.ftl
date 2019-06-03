@@ -169,6 +169,7 @@
             display: inline-block;
             color: #ff7916;
             padding-right: 20px;
+            width: 76px;
         }
 
         .f-mb40 {
@@ -220,14 +221,15 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">题集范围</label>
                                     <div class="layui-input-block">
-                                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="题库试题"
+                                        <input type="checkbox" name="like1[write]" title="题库试题"
                                                checked="">
-                                        <input type="checkbox" name="like1[read]" lay-skin="primary" title="私有试题">
-                                        <input type="checkbox" name="like1[game]" lay-skin="primary" title="导入试题">
-                                        <button class="layui-btn layui-btn-normal"><i class="iconfont icon-add"></i>
+                                        <input type="checkbox" name="like1[read]" title="私有试题">
+                                        <input type="checkbox" name="like1[game]" title="导入试题">
+                                        <button class="layui-btn layui-btn-normal layui-btn-sm"><i class="iconfont icon-add"></i>
                                             导入试题
                                         </button>
                                     </div>
+
                                 </div>
                                 <div class="layui-form-item">
                                     <div class="layui-inline">
@@ -294,9 +296,9 @@
                                     <tbody>
                                     <tr>
                                         <td>数量</td>
-                                        <td><input style="width: 50px; height: 20px;"/> / 833</td>
-                                        <td><input style="width: 50px; height: 20px;"/> / 833</td>
-                                        <td><input style="width: 50px; height: 20px;"/> / 833</td>
+                                        <td><input style="width: 50px; height: 20px;"/> / 800</td>
+                                        <td><input style="width: 50px; height: 20px;"/> / 500</td>
+                                        <td><input style="width: 50px; height: 20px;"/> / 100</td>
                                     </tr>
                                     <tr>
                                         <td>分值</td>
@@ -318,59 +320,64 @@
                                             <p class="f-range-msg">
                                                 <span class="f-color f-color1">&nbsp;</span>
                                                 <span class="f-color-text">易</span>
-                                                <span class="f-color-area"><span class="f-valMin">82%</span></span>
+                                                <span class="f-color-area">
+                                                    <span class="f-valMax">82%</span>
+                                                </span>
                                             </p>
                                             <p class="f-range-msg">
                                                 <span class="f-color f-color2">&nbsp;</span>
                                                 <span class="f-color-text">较易</span>
-                                                <span class="f-color-area"><span class="f-valMax">82%</span>~<span
-                                                            class="f-valMin">65%</span></span>
+                                                <span class="f-color-area">
+                                                    <span class="f-valMax">82%</span>
+                                                </span>
                                             </p>
                                             <#--<div class="clear"></div>-->
                                             <p class="f-range-msg">
                                                 <span class="f-color f-color3">&nbsp;</span>
                                                 <span class="f-color-text">中</span>
-                                                <span class="f-color-area"><span class="f-valMax">65%</span>~<span
-                                                            class="f-valMin">44%</span></span>
+                                                <span class="f-color-area">
+                                                    <span class="f-valMax">65%</span>
+                                                </span>
                                             </p>
                                             <p class="f-range-msg">
                                                 <span class="f-color f-color4">&nbsp;</span>
                                                 <span class="f-color-text">较难</span>
-                                                <span class="f-color-area"><span class="f-valMax">44%</span>~<span
-                                                            class="f-valMin">19%</span></span>
+                                                <span class="f-color-area">
+                                                    <span class="f-valMax">44%</span>
+                                                </span>
                                             </p>
                                             <p class="f-range-msg">
                                                 <span class="f-color f-color5">&nbsp;</span>
                                                 <span class="f-color-text">难</span>
-                                                <span class="f-color-area"><span class="f-valMax">44%</span>~<span
-                                                            class="f-valMin">19%</span></span>
+                                                <span class="f-color-area">
+                                                    <span class="f-valMax">44%</span></span>
                                             </p>
                                             <div class="clear"></div>
                                         </div>
                                         <div class="f-range">
                                             <div class="f-hk f-hk1" src="${basePath}/biz/img/huakuai/hk1.png"
                                                  style="left: 84px;"><span
-                                                        class="f-range-tips" style="display: none;">82%</span></div>
+                                                        class="f-range-tips" style="display: none;">83%</span></div>
                                             <div class="f-hk f-hk2" src="${basePath}/biz/img/huakuai/hk2.png"
                                                  style="left: 173px;"><span
-                                                        class="f-range-tips" style="display: none;">65%</span></div>
+                                                        class="f-range-tips" style="display: none;">66%</span></div>
                                             <div class="f-hk f-hk3" src="${basePath}/biz/img/huakuai/hk3.png"
                                                  style="left: 282px;"><span
-                                                        class="f-range-tips" style="display: none;">44%</span></div>
+                                                        class="f-range-tips" style="display: none;">46%</span></div>
                                             <div class="f-hk f-hk4" src="${basePath}/biz/img/huakuai/hk4.png"
                                                  style="left: 409px;"><span
-                                                        class="f-range-tips" style="display: none;">19%</span></div>
+                                                        class="f-range-tips" style="display: none;">10%</span></div>
                                         </div>
 
-                                        <p class="f-rangeArea clearfix">
-                                            <span class="left">0%</span>
-                                            <span class="right">100%</span>
-                                        </p>
+                                        <#--<p class="f-rangeArea clearfix">
+                                            <span class="left">100%</span>
+                                            <span class="right">0%</span>
+                                        </p>-->
 
                                     </div>
                                 </div>
 
-                                <div class="layui-form-item">
+                                <div class="layui-form-item" style="margin-top: 50px;">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
                                         <button class="layui-btn" lay-submit lay-filter="formStep2">下一步</button>
@@ -481,6 +488,7 @@
 
         //拖动开始X值
         var startX, preLeft, minLeft;
+        var v_index = new Array()
         var handle = false;
 
         $(".f-hk").mousedown(function (e) {
@@ -522,13 +530,16 @@
                     //执行拖动
                     $(".f-hk").eq(index).css("left", newLeft);
                     //动态改变提示的值
-                    var myVal = parseInt((1 - (parseFloat($(".f-hk").eq(index).css("left")) - 8 * (index)) / (700 - 8 * (index + ($(".f-hk ").length - index - 1)))) * 100) + "%";
+                    var myVal = parseInt((1 - (parseFloat($(".f-hk").eq(index).css("left")) - 8 * (index)) / (700 - 8 * (index + ($(".f-hk ").length - index - 1)))) * 100);
                     $(".f-hk").eq(index).find(".f-range-tips").html(myVal);
                     //改变 信息表最小值
-                    $(".f-range-msg").eq(index).find(".f-valMin").html(myVal);
+                    v_index[index] = myVal;
+                    console.log(index + "----" + v_index[index])
+                    $(".f-range-msg").eq(index).find(".f-valMax").html((100 - myVal) + "%");
+                    //$(".f-range-msg").eq(index).find(".f-valMax").html(myVal);
                     //改变信息表最大值
                     if (index != $(".f-hk ").length - 1) {
-                        var max = $(".f-range-msg").eq(index + 1).find(".f-valMax").html(myVal);
+                        var max = $(".f-range-msg").eq(index + 1).find(".f-valMax").html(v_index[0] - v_index[1] + "%");
                     }
                 } else {
                     //是否最后一个
@@ -550,13 +561,19 @@
                     //执行拖动
                     $(".f-hk").eq(index).css("left", newLeft);
                     //动态改变提示的值
-                    var myVal = parseInt((1 - (parseFloat($(".f-hk").eq(index).css("left")) - 8 * (index)) / (700 - 8 * (index + ($(".f-hk ").length - index - 1)))) * 100) + "%";
-                    $(".f-hk").eq(index).find(".f-range-tips").html(myVal);
+                    var myVal = parseInt((1 - (parseFloat($(".f-hk").eq(index).css("left")) - 8 * (index)) / (700 - 8 * (index + ($(".f-hk ").length - index - 1)))) * 100);
+                    console.log("index====" + index)
+                    v_index[index] = myVal;
+                    $(".f-hk").eq(index).find(".f-range-tips").html(myVal + "%");
+
+                    console.log(v_index[0] + "----" + v_index[1]+ "----" + v_index[2]+ "----" + v_index[3])
                     //改变信息表最小值
-                    $(".f-range-msg").eq(index).find(".f-valMin").html(myVal);
+                    $(".f-range-msg").eq(index).find(".f-valMax").html(v_index[index - 1] - v_index[index] + "%");
                     //改变信息表最大值
-                    if (index != $(".f-hk ").length - 1) {
-                        var max = $(".f-range-msg").eq(index + 1).find(".f-valMax").html(myVal);
+                    if (index == $(".f-hk ").length - 1) {
+                        $(".f-range-msg").eq(index + 1).find(".f-valMax").html(v_index[index] + "%");
+                    } else {
+                        $(".f-range-msg").eq(index + 1).find(".f-valMax").html(v_index[index] - v_index[index + 1] + "%");
                     }
                 }
 
@@ -570,21 +587,26 @@
         })
 
         //初始化
-        for (i = 0; i < $(".f-hk").length; i++) {
+        for (var i = 0; i < $(".f-hk").length; i++) {
             //获取百分比
             var getVal = parseInt($(".f-hk").eq(i).find(".f-range-tips").html());
             var totalWidth = 700 - 8 * (i + 4 - 1 - i);
             var setLeft = parseInt((1 - getVal / 100) * (totalWidth)) + 8 * (i);
-            // ((1 - 82 / 100) * (676)) + 8 * (0)
-            // i:0, getVal:82, totalWidth:676, setLeft:121
-            console.log('i:' + i +', getVal:' + getVal + ', totalWidth:' + totalWidth +', setLeft:' + setLeft)
             //初始化left值
             $(".f-hk").eq(i).css("left", setLeft);
+            v_index[i] = getVal;
+
             //初始化最小值
-            $(".f-range-msg").eq(i).find(".f-valMin").html(getVal + "%");
+            var v_set;
+            if (i == 0) {
+                v_set = 100 - v_index[i];
+            } else {
+                v_set = v_index[i - 1] - v_index[i];
+            }
+            $(".f-range-msg").eq(i).find(".f-valMax").html(v_set + "%");
             //初始化最大值
-            if (i != $(".f-hk").length - 1) {
-                $(".f-range-msg").eq(i + 1).find(".f-valMin").html(getVal + "%");
+            if (i == $(".f-hk").length - 1) {
+                $(".f-range-msg").eq(i + 1).find(".f-valMax").html(v_index[i] + "%");
             }
 
         }
