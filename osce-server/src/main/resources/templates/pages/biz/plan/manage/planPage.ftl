@@ -22,9 +22,6 @@
     <form class="layui-form">
         <div class="layui-inline">
             <div class="layui-btn-group">
-                <button type="button" class="layui-btn layui-btn-sm" id="add">
-                    <i class="iconfont icon-add"></i> 增加
-                </button>
                 <button type="button" class="layui-btn layui-btn-sm" id="edit">
                     <i class="iconfont icon-edit"></i> 编辑
                 </button>
@@ -34,12 +31,12 @@
             </div>
             <div class="layui-input-inline">
                 <input type="text" name="naModel" class="layui-input btn-sm-my" autocomplete="off"
-                       placeholder="请输入模板名称">
+                       placeholder="请输入考试名称">
             </div>
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="gradeSearchFilter">
+                <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="planSearchFilter">
                     <i class="iconfont icon-query"></i> 查询
                 </button>
                 <button type="reset" class="layui-btn layui-btn-sm layui-btn-danger">
@@ -47,30 +44,22 @@
                 </button>
             </div>
         </div>
+        <div>
+            <button id="editPlan" type="button" class="layui-btn layui-btn-normal"
+                    lay-href="" style="display: none">实训计划编辑
+            </button>
+        </div>
     </form>
 
-    <table id="gradeTable" lay-filter="gradeTableFilter">
+    <table id="planTable" lay-filter="planTableFilter">
     </table>
 
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
-<script src="${contextPath}/biz/js/biz/training/structure/grade/gradeController.js"></script>
+<script src="${contextPath}/biz/js/biz/plan/manage/planController.js"></script>
 
-<script type="text/html" id="fgActiveTpl">
-    <input type="checkbox" name="fgActive" value="{{d.idGrade}}"
-           lay-skin="switch" lay-text="是|否" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
-</script>
-<#--
-<script type="text/html" id="currentGradeTpl">
-    {{#  if(d.currentGrade == true){ }}
-    <i class="iconfont icon-gou" style="color: #5FB878"></i>
-    {{#  } else { }}
-    <i class="iconfont icon-chacha" style="color: #FF5722"></i>
-    {{#  } }}
-</script>-->
-
-<script type="text/html" id="gradeBar">
+<script type="text/html" id="planBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
 </script>
 

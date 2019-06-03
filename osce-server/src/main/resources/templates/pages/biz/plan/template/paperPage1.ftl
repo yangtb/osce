@@ -255,7 +255,7 @@
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button class="layui-btn" lay-submit lay-filter="formStep">
-                                            &emsp;下一步&emsp;
+                                            下一步 ：试卷参数
                                         </button>
                                     </div>
                                 </div>
@@ -380,7 +380,7 @@
                                 <div class="layui-form-item" style="margin-top: 50px;">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                        <button class="layui-btn" lay-submit lay-filter="formStep2">下一步</button>
+                                        <button class="layui-btn" lay-submit lay-filter="formStep2">下一步 ：设置必考题</button>
                                     </div>
                                 </div>
                             </form>
@@ -391,7 +391,7 @@
                                 </table>
                                 <div style="text-align: center;margin-top: 5px;">
                                     <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                    <button class="layui-btn" lay-submit lay-filter="formStep3">下一步</button>
+                                    <button class="layui-btn" lay-submit lay-filter="formStep3">下一步 ：生成试卷</button>
 
                                 </div>
                             </form>
@@ -401,12 +401,13 @@
                             </table>
                             <div style="text-align: center;margin-top: 5px;">
                                 <#--<button class="layui-btn layui-btn-primary next">重来一次</button>-->
-                                <button class="layui-btn layui-btn-normal">生成试卷</button>
+                                <button class="layui-btn layui-btn-normal">
+                                    <i class="iconfont icon-shengcheng"></i> 生成试卷
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr>
                 <div>
                     <fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 0px;">
                         <legend style="font-size: 14px; font-weight: bold">试卷列表</legend>

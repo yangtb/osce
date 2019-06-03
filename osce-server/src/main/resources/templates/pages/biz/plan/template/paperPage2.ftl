@@ -77,7 +77,7 @@
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button class="layui-btn" lay-submit lay-filter="formStep">
-                                            &emsp;下一步&emsp;
+                                            下一步 ：站点配置
                                         </button>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                        <button class="layui-btn" lay-submit lay-filter="formStep1">下一步</button>
+                                        <button class="layui-btn" lay-submit lay-filter="formStep1">下一步 ：评分表</button>
                                     </div>
                                 </div>
                             </form>
@@ -109,7 +109,7 @@
                                         src="${basePath}/pf/p/case/item/page?idCase=1"></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn">完成</button>
+                                        <button class="layui-btn"><i class="iconfont icon-save"></i> 完成</button>
                                     </div>
                                 </div>
                             </form>
@@ -117,7 +117,6 @@
 
                     </div>
                 </div>
-                <hr>
                 <div>
                     <fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 0px;">
                         <legend style="font-size: 14px; font-weight: bold">技能列表</legend>

@@ -14,7 +14,7 @@ layui.config({
     table.render({
         elem: '#itemTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'itemTableId'
-        , height: 400 //容器高度
+        , height: 430 //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
