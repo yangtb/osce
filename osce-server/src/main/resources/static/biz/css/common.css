@@ -7,6 +7,11 @@
     margin: 10px
 }
 
+.wrapper-content-new {
+    margin: 10px;
+    border-radius: 4px;
+    background-color: #fff
+}
 
 /* from表单上下间距 */
 .form-item-my {
@@ -23,6 +28,10 @@
 
 .body-my {
     overflow: hidden;
+}
+
+.body-bg {
+    background-color: #f2f2f2
 }
 
 .label {

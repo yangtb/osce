@@ -64,10 +64,9 @@
     </style>
 </head>
 
-<body style="background-color: #f2f2f2">
+<body class="body-bg">
 
-<div class="wrapper-content" style="border-radius: 4px;background-color: #fff">
-
+<div class="wrapper-content-new">
 
     <div id="wrap" class="pageHeight">
         <div id="div1" class="left">
@@ -93,7 +92,6 @@
             <iframe id="paperTag" class='layui-col-xs12 pageHeight' frameborder="0" src=""></iframe>
         </div>
     </div>
-
 
 </div>
 

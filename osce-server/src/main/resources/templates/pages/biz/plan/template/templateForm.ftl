@@ -14,12 +14,18 @@
     <script>
         var basePath = '${basePath}';
     </script>
+
+    <style>
+        .pageHeight {
+            min-height: 1050px
+        }
+    </style>
 </head>
 
-<body>
+<body class="body-bg">
 
-<div>
-    <div class="layui-fluid">
+<div class="wrapper-content-new">
+    <div class="layui-fluid pageHeight">
         <div class="layui-card">
             <div class="layui-card-body" style="padding-top: 5px;">
                 <div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin: 0 auto;">
@@ -140,14 +146,6 @@
                         </div>
                     </div>
                 </div>
-                <hr>
-                <div style="color: #666;margin-top: 30px;margin-bottom: 40px;padding-left: 30px;">
-                    <h3>说明</h3><br>
-                    <h4>入款到保险箱</h4>
-                    <p>如果需要，这里可以放一些关于产品的常见问题说明。</p>
-                    <br><h4>入款到现金</h4>
-                    <p>如果需要，这里可以放一些关于产品的常见问题说明。</p>
-                </div>
             </div>
         </div>
     </div>
@@ -173,7 +171,7 @@
             filter: 'stepForm',
             width: '100%', //设置容器宽度
             stepWidth: '800px',
-            height: '500px',
+            height: '1000px',
             stepItems: [{
                 title: '考站定义'
             }, {

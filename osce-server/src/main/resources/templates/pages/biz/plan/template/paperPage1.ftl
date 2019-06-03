@@ -408,6 +408,9 @@
                 </div>
                 <hr>
                 <div>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 0px;">
+                        <legend style="font-size: 14px; font-weight: bold">试卷列表</legend>
+                    </fieldset>
                     <table id="itemTable" lay-filter="itemTableFilter">
                     </table>
                 </div>
