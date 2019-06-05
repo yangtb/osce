@@ -1,14 +1,59 @@
-/**
- * 字典表单
- */
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'layer', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['layer', 'index', 'table', 'form', 'jquery', 'step', 'element', 'common'], function () {
     var $ = layui.$
         , table = layui.table
+        , common = layui.common
         , form = layui.form
-        , common = layui.common;
+        , step = layui.step
+        , element = layui.element;
 
+    step.render({
+        elem: '#stepForm',
+        filter: 'stepForm',
+        width: '100%', //设置容器宽度
+        stepWidth: '680px',
+        height: '500px',
+        stepItems: [{
+            title: '选择题集'
+        }, {
+            title: '试卷参数'
+        }, {
+            title: '设置必考题'
+        }, {
+            title: '生成试卷'
+        }]
+    });
+
+
+    form.on('submit(formStep)', function (data) {
+        step.next('#stepForm');
+        return false;
+    });
+
+    form.on('submit(formStep2)', function (data) {
+        step.next('#stepForm');
+        return false;
+    });
+
+    form.on('submit(formStep3)', function (data) {
+        step.next('#stepForm');
+        return false;
+    });
+
+    $('.pre').click(function () {
+        step.pre('#stepForm');
+    });
+
+    $('.next').click(function () {
+        step.next('#stepForm');
+    });
+
+    $("#importItem").on('click', function () {
+        $('#importItemHidden').click();
+    });
 
     //执行渲染
     table.render({
@@ -72,6 +117,11 @@ layui.config({
         , limit: 800
         , even: true
         , page: false
+    });
+
+    // 导入试题
+    $("#importItem").on('click', function () {
+        var url = basePath + 'pf/p/item/page';
     });
 
 });

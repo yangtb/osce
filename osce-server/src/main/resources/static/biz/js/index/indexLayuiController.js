@@ -16,7 +16,7 @@ layui.config({
             //skin: 'layui-layer-molv', //样式类名
             type: 2,
             area: ['450px', '280px'],
-            anim: 1,
+            anim: 0,
             fixed: false, //不固定
             maxmin: true,
             content: basePath + '/pf/p/user/modifyPass',

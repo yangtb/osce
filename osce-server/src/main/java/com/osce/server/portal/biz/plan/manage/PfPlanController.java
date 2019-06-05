@@ -53,4 +53,11 @@ public class PfPlanController extends BaseController {
         return "pages/biz/plan/manage/assignedStudent";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @RequestMapping("/pf/p/plan/manage/tpPicking/page")
+    public String tpPickingPage(Model model) {
+        return "pages/biz/plan/manage/tpPickingPage";
+    }
+
+
 }

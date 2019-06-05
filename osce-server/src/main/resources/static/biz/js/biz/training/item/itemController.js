@@ -1,10 +1,16 @@
 layui.config({
     base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'jquery', 'common'], function () {
+}).extend({
+    excel: 'layui_exts/excel.min'
+}).use(['table', 'form', 'jquery', 'common', 'layer', 'excel', 'laytpl', 'element'], function () {
     var $ = layui.$
         , table = layui.table
         , form = layui.form
-        , common = layui.common;
+        , common = layui.common
+        , layer = layui.layer
+        , excel = layui.excel
+        , laytpl = layui.laytpl
+        , element = layui.element;
 
     //执行渲染
     table.render({
@@ -195,7 +201,90 @@ layui.config({
         common.commonPost(basePath + '/pf/r/item/updateStatus', data, '设置', obj.othis);
     });
 
+
+    // 模板下载
+    $("#templateDownLoad").on('click', function () {
+        document.getElementById("exportForm").submit();
+    });
+
+    // 模板上传
+    $(function(){
+        // 监听上传文件的事件
+        $('#itemImport').change(function(e) {
+            var files = e.target.files;
+            uploadExcel(files);
+        });
+        // 文件拖拽
+        $('body')[0].ondragover = function(e) {
+            e.preventDefault();
+        }
+        $('body')[0].ondrop = function(e) {
+            e.preventDefault();
+            var files = e.dataTransfer.files;
+            uploadExcel(files);
+        }
+    });
+
+    /**
+     * 上传excel的处理函数，传入文件对象数组
+     * @param  {[type]} files [description]
+     * @return {[type]}       [description]
+     */
+    function uploadExcel(files) {
+        try {
+            excel.importExcel(files, {
+                // 读取数据的同时梳理数据
+                fields: {
+                    'item1': 'A'
+                    ,'item2': 'B'
+                    ,'item3': 'C'
+                    ,'item4': 'D'
+                    ,'item5': 'E'
+                    ,'item6': 'F'
+                    ,'item7': 'G'
+                    ,'item8': 'H'
+                    ,'item9': 'I'
+                    ,'item10': 'J'
+                    ,'item11': 'K'
+                    ,'item12': 'M'
+                    ,'item13': 'L'
+                    ,'item14': 'N'
+                    ,'item15': 'O'
+                    ,'item16': 'P'
+                    ,'item17': 'Q'
+                    ,'item18': 'R'
+                    ,'item19': 'S'
+                    ,'item20': 'T'
+                }
+            }, function(data) {
+                // 如果不需要展示直接上传，可以再次 $.ajax() 将JSON数据通过 JSON.stringify() 处理后传递到后端即可
+                layer.open({
+                    title: '文件转换结果'
+                    ,area: ['980px', '500px']
+                    ,tipsMore: true
+                    ,content: laytpl($('#LAY-excel-export-ans').html()).render({data: data, files: files})
+                    ,success: function() {
+                        element.render('tab');
+                    }
+                    ,yes: function(index, layero){
+                        console.log(JSON.stringify(data));
+                        layer.close(index); //如果设定了yes回调，需进行手工关闭
+                    }
+                    ,end: function(){
+                        $('#itemImport').val('');
+                    }
+                });
+
+            });
+        } catch (e) {
+            $('#itemImport').val('')
+            layer.alert(e.message);
+        }
+    };
+
+
 });
+
 
 
 

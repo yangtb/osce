@@ -19,28 +19,18 @@
 <body>
 
 <div>
-    <form class="layui-form">
-        <div class="layui-inline">
-            <button type="button" class="layui-btn layui-btn-sm" id="selectStudent">
-                <i class="iconfont icon-add"></i> 选择学员
-            </button>
-            <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
-                <i class="iconfont icon-batch-del"></i> 删除
-            </button>
-        </div>
-    </form>
 
     <fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 0px;">
-        <legend style="font-size: 14px; font-weight: bold">已分配学员</legend>
+        <legend style="font-size: 14px; font-weight: bold">领料清单</legend>
     </fieldset>
 
-    <table id="assignedStudentTable" lay-filter="assignedStudentTableFilter">
+    <table id="tpPickingTable" lay-filter="tpPickingTableFilter">
     </table>
 
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
-<script src="${contextPath}/biz/js/biz/plan/manage/assignedStudentController.js"></script>
+<script src="${contextPath}/biz/js/biz/plan/manage/tpPickingController.js"></script>
 
 </body>
 

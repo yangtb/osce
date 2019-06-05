@@ -225,8 +225,12 @@
                                                checked="">
                                         <input type="checkbox" name="like1[read]" title="私有试题">
                                         <input type="checkbox" name="like1[game]" title="导入试题">
-                                        <button class="layui-btn layui-btn-normal layui-btn-sm"><i class="iconfont icon-add"></i>
-                                            导入试题
+                                        <button class="layui-btn layui-btn-normal layui-btn-sm layui-btn-radius"
+                                                id="importItem">
+                                            &nbsp;<i class="iconfont icon-add"></i> 导入试题&nbsp;
+                                        </button>
+                                        <button id="importItemHidden" type="button" class="layui-btn layui-btn-normal"
+                                                lay-href="${contextPath!}/pf/p/item/page" style="display: none">题库管理
                                         </button>
                                     </div>
 
@@ -239,7 +243,8 @@
                                                 <option value="1">todo分类</option>
                                             </select>
                                         </div>
-                                        <button class="layui-btn layui-btn-normal"><i class="iconfont icon-add"></i> 选择
+                                        <button class="layui-btn layui-btn-normal layui-btn-radius">
+                                            &nbsp;<i class="iconfont icon-add"></i> 选择&nbsp;
                                         </button>
                                     </div>
                                 </div>
@@ -425,59 +430,6 @@
 <script src="${contextPath}/biz/js/biz/plan/template/paperOne.js"></script>
 <script src="${contextPath}/common/js/jquery.min.js"></script>
 <script src="${contextPath}/common/js/jquery.formautofill.js"></script>
-<script src="${contextPath}/layui/build/js/step.js"></script>
-
-<script>
-    layui.config({
-        base: basePath + '/layui/build/js/'
-    }).use(['form', 'step', 'element'], function () {
-        var $ = layui.$
-            , form = layui.form
-            , step = layui.step
-            , element = layui.element;
-
-        step.render({
-            elem: '#stepForm',
-            filter: 'stepForm',
-            width: '100%', //设置容器宽度
-            stepWidth: '680px',
-            height: '500px',
-            stepItems: [{
-                title: '选择题集'
-            }, {
-                title: '试卷参数'
-            }, {
-                title: '设置必考题'
-            }, {
-                title: '生成试卷'
-            }]
-        });
-
-
-        form.on('submit(formStep)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        form.on('submit(formStep2)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        form.on('submit(formStep3)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        $('.pre').click(function () {
-            step.pre('#stepForm');
-        });
-
-        $('.next').click(function () {
-            step.next('#stepForm');
-        });
-    })
-</script>
 
 <script>
     var index, maxLeft;

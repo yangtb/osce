@@ -5,12 +5,18 @@ import com.osce.dto.biz.training.item.ItemDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.server.utils.DownloadFileUtil;
 import org.apache.dubbo.config.annotation.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 /**
  * @ClassName: PfRoomController
@@ -20,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class PfItemController extends BaseController {
+
+    public static final Logger logger = LoggerFactory.getLogger(PfItemController.class);
 
     @Reference
     private PfItemService pfItemService;
@@ -53,7 +61,7 @@ public class PfItemController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/item/detail/form")
-    public String formItem(String formType, Long idItemStore, Long idItemSection,  Model model) {
+    public String formItem(String formType, Long idItemStore, Long idItemSection, Model model) {
         model.addAttribute("formType", formType);
         model.addAttribute("idItemStore", idItemStore);
         model.addAttribute("idItemSection", idItemSection);
@@ -75,5 +83,19 @@ public class PfItemController extends BaseController {
     public PageResult pageItemManage(ItemDto dto) {
         return pfItemService.pageItemManage(dto);
     }
+
+
+    @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
+    @RequestMapping("/pf/p/item/template/download")
+    public Object templateDownLoad() {
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            response = DownloadFileUtil.download("item", "itemTemplate.xlsx", "OSCE题集批量导入模板1.0");
+        } catch (Exception e) {
+            logger.error("下载模板失败");
+        }
+        return response;
+    }
+
 
 }

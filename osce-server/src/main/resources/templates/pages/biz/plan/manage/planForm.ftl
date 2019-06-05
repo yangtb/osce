@@ -185,12 +185,8 @@
                         <div>
                             <form class="layui-form">
                                 <hr>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">备注说明:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">备注说明</div>
-                                    </div>
-                                </div>
+                                <iframe id="assignedStudentIframe" class='layui-col-xs12' frameborder="0" style="height: 700px;"
+                                        src="${basePath}/pf/p/plan/manage/tpPicking/page"></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
