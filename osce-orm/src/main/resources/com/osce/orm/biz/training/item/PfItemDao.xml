@@ -214,7 +214,7 @@
                 id_item,
             </if>
             <if test="cdIte!=null">
-                cd_ite,
+                cd_ite_str,
             </if>
             <if test="naOption!=null">
                 na_option,
@@ -354,7 +354,7 @@
                 id_item = #{idItem},
             </if>
             <if test="cdIte != null and cdIte!=''">
-                cd_ite = #{cdIte},
+                cd_ite_str = #{cdIte},
             </if>
             <if test="naOption != null and naOption!=''">
                 na_option = #{naOption},
@@ -486,6 +486,9 @@
             ibm_item
         WHERE
             id_item_store = #{idItemStore}
+        <if test="idItemSection != null">
+            and id_item_section = #{idItemSection}
+        </if>
         AND fg_valid = '0'
         limit #{offset}, #{limit}
     </select>
@@ -496,6 +499,9 @@
             ibm_item
         WHERE
             id_item_store = #{idItemStore}
+        <if test="idItemSection != null">
+            and id_item_section = #{idItemSection}
+        </if>
         AND fg_valid = '0'
     </select>
 
@@ -503,7 +509,7 @@
         SELECT
             id_item_option ,
             id_item ,
-            cd_ite ,
+            cd_ite_str as cd_ite ,
             na_option ,
             fg_right
         FROM

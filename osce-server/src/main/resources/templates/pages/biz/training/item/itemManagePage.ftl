@@ -33,7 +33,7 @@
 <div>
     <form class="layui-form">
         <div class="layui-input-inline">
-            <select id="idItemSection" lay-verify="required">
+            <select id="idItemSection" lay-filter="idItemSectionFilter" lay-verify="required">
             </select>
         </div>
         <div class="layui-inline">
@@ -67,10 +67,32 @@
 </script>
 
 <script type="text/html" id="sdItemCaTpl">
-    {{#  if(d.sdItemCa == '1'){ }}
-    多选
-    {{#  } else { }}
-    单选
+    {{#  if(d.sdItemCa == 1){ }}
+    A1
+    {{#  } }}
+    {{#  if(d.sdItemCa == 2){ }}
+    A2
+    {{#  } }}
+    {{#  if(d.sdItemCa == 3){ }}
+    B1
+    {{#  } }}
+</script>
+
+<script type="text/html" id="sdItemLevelTpl">
+    {{#  if(d.sdItemLevel == 1){ }}
+    易
+    {{#  } }}
+    {{#  if(d.sdItemLevel == 2){ }}
+    较易
+    {{#  } }}
+    {{#  if(d.sdItemLevel == 3){ }}
+    中
+    {{#  } }}
+    {{#  if(d.sdItemLevel == 4){ }}
+    难
+    {{#  } }}
+    {{#  if(d.sdItemLevel == 5){ }}
+    较难
     {{#  } }}
 </script>
 

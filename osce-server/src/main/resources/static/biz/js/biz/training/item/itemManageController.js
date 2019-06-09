@@ -18,7 +18,7 @@ layui.config({
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
             {field: 'mainItem', minWidth: 250, title: '题干'},
             {field: 'sdItemCa', width: 100, title: '题目类型', templet: '#sdItemCaTpl'},
-            {field: 'sdItemLevel', width: 100, title: '难度'},
+            {field: 'sdItemLevel', width: 100, title: '难度', templet: '#sdItemLevelTpl'},
             {field: 'gmtCreate', width: 170, title: '创建时间'},
             {fixed: 'right', width: 140, title: '操作', align: 'center', toolbar: '#itemManageBar'}
         ]] //设置表头
@@ -28,8 +28,20 @@ layui.config({
         , limits: [15, 30, 100]
         , page: true
         , where : {
-            idItemStore : idItemStore
+            idItemStore : idItemStore,
+            idItemSection : $('#idItemSection option:selected').val()
         }
+    });
+
+
+    form.on('select(idItemSectionFilter)', function(data){
+        table.reload('itemManageTableId', {
+            height: 'full-50',
+            where : {
+                idItemStore : idItemStore,
+                idItemSection : data.value
+            }
+        });
     });
 
     $('#addSection').on('click', function () {

@@ -40,4 +40,9 @@ public class ItemDto extends PageParam implements Serializable {
      */
     private String naItemStore;
 
+    /**
+     * 目录ID
+     */
+    private Long idItemSection;
+
 }

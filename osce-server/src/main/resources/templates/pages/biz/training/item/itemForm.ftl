@@ -51,8 +51,9 @@
                                                          style="color: #f03f2d"></i></label>
                     <div class="layui-input-inline">
                         <select name="sdItemCa" lay-verify="required" lay-vertype="tips">
-                            <option value="2">单选题</option>
-                            <option value="1">多选题</option>
+                            <option value="1">A1</option>
+                            <option value="2">A2</option>
+                            <option value="3">B1</option>
                         </select>
                     </div>
                 </div>
