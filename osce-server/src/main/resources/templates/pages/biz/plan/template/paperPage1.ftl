@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/layui/build/css/step.css">
+    <link rel="stylesheet" href="${contextPath}/layui/expand/css/formSelects-v4.css">
 
     <script>
         var basePath = '${basePath}';
+        var idModel = '${idModel!}';
     </script>
 
     <style>
@@ -50,7 +52,7 @@
             height: 20px;
             width: 700px;
             position: relative;
-            background: #70baff
+            background: #1E9FFF
         }
 
         .f-hk {
@@ -175,6 +177,10 @@
         .f-mb40 {
             margin-bottom: 5px
         }
+
+        .total-color {
+            color: #1E9FFF;
+        }
     </style>
 </head>
 
@@ -188,13 +194,15 @@
 
                     <div carousel-item>
                         <div>
-                            <form class="layui-form">
+                            <form class="layui-form" lay-filter="step1FormFilter">
+                                <input id="idItemStore" name="idItemStore" hidden/>
                                 <hr>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">试卷名称<i class="iconfont icon-required"
                                                                            style="color: #f03f2d"></i></label>
                                     <div class="layui-input-inline">
-                                        <input type="text" placeholder="请输入试卷名称" class="layui-input"/>
+                                        <input type="text" name="naItemStore" id="naItemStore" placeholder="请输入试卷名称" autocomplete="off"
+                                               class="layui-input" lay-verify="required" lay-vertype="tips"/>
 
                                     </div>
                                 </div>
@@ -202,7 +210,8 @@
                                     <label class="layui-form-label">及格分数<i class="iconfont icon-required"
                                                                            style="color: #f03f2d"></i></label>
                                     <div class="layui-input-inline">
-                                        <input type="number" placeholder="请输入及格分数" class="layui-input">
+                                        <input type="number" name="scorePass" placeholder="请输入及格分数"  autocomplete="off"
+                                               class="layui-input" lay-verify="required" min="0" lay-vertype="tips">
                                     </div>
                                 </div>
                                 <fieldset class="layui-elem-field layui-field-title">
@@ -212,19 +221,18 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label">选择题集</label>
                                         <div class="layui-input-inline">
-                                            <select name="sdScoreItemCa">
-                                                <option value="1">todo分类</option>
-                                            </select>
+                                            <input id="idItemStoreFrom" name="idItemStoreFrom" hidden>
+                                            <input type="text" name="naItemStoreFrom" id="naItemStoreFrom" autocomplete="off"
+                                                   autocomplete="off" class="layui-input">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">题集范围</label>
-                                    <div class="layui-input-block">
-                                        <input type="checkbox" name="like1[write]" title="题库试题"
-                                               checked="">
-                                        <input type="checkbox" name="like1[read]" title="私有试题">
-                                        <input type="checkbox" name="like1[game]" title="导入试题">
+                                    <div class="layui-input-block" id="tjfw">
+                                        <input type="checkbox" name="fgItemFromPublic" title="题库试题">
+                                        <input type="checkbox" name="fgItemFromPrivate" title="私有试题">
+                                        <input type="checkbox" name="fgItemFromImport" title="导入试题">
                                         <button class="layui-btn layui-btn-normal layui-btn-sm layui-btn-radius"
                                                 id="importItem">
                                             &nbsp;<i class="iconfont icon-add"></i> 导入试题&nbsp;
@@ -233,53 +241,53 @@
                                                 lay-href="${contextPath!}/pf/p/item/page" style="display: none">题库管理
                                         </button>
                                     </div>
-
-                                </div>
-                                <div class="layui-form-item">
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label">选择目录</label>
-                                        <div class="layui-input-inline">
-                                            <select name="sdScoreItemCa">
-                                                <option value="1">todo分类</option>
-                                            </select>
-                                        </div>
-                                        <button class="layui-btn layui-btn-normal layui-btn-radius">
-                                            &nbsp;<i class="iconfont icon-add"></i> 选择&nbsp;
-                                        </button>
-                                    </div>
                                 </div>
 
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">排除条件</label>
                                     <div class="layui-input-block">
-                                        <input type="radio" name="sex" value="男" title="不排除以前使用过的试题" checked="">
-                                        <input type="radio" name="sex" value="女" title="排除以前使用过的试题">
+                                        <input type="radio" name="fgChooseHist" value="0" title="不排除以前使用过的试题" checked="">
+                                        <input type="radio" name="fgChooseHist" value="1" title="排除以前使用过的试题">
                                     </div>
                                 </div>
 
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn" lay-submit lay-filter="formStep">
+                                        <button class="layui-btn" lay-submit lay-filter="formStep" id="addTdItemStore">
                                             下一步 ：试卷参数
                                         </button>
+                                        <div hidden>
+                                            <button id="reset" type="reset" class="layui-btn layui-btn-danger" hidden>
+                                                <i class="iconfont icon-reset"></i> 重新填写
+                                            </button>
+                                        </div>
+
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div>
-                            <form class="layui-form">
+                            <form class="layui-form" lay-filter="step2FormFilter">
                                 <hr>
+                                <div class="layui-form-item" style="margin-bottom: -5px;">
+                                    <div class="layui-inline" style="width: 450px;">
+                                        <label class="layui-form-label">选择目录</label>
+                                        <div class="layui-input-block" id="idItemSectionTips">
+                                            <select name="idItemSection" id="idItemSection" xm-select="select1">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                                 <fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 0px">
                                     <legend style="font-size: 14px; font-weight: bold;">选择条件</legend>
                                 </fieldset>
 
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">选择题型</label>
-                                    <div class="layui-input-block">
-                                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="A1"
-                                               checked="">
-                                        <input type="checkbox" name="like1[read]" lay-skin="primary" title="A2">
-                                        <input type="checkbox" name="like1[game]" lay-skin="primary" title="B1">
+                                    <div class="layui-input-block" id="sdItemCaTips">
+                                        <input type="checkbox" name="sdItemCa_A1" lay-skin="primary" title="A1" lay-filter="switch_A1">
+                                        <input type="checkbox" name="sdItemCa_A2" lay-skin="primary" title="A2" lay-filter="switch_A2">
+                                        <input type="checkbox" name="sdItemCa_B1" lay-skin="primary" title="B1" lay-filter="switch_B1">
                                     </div>
                                 </div>
 
@@ -295,21 +303,27 @@
                                         <th style="text-align: center; font-weight: bold;">题型</th>
                                         <th style="text-align: center; font-weight: bold;">A1</th>
                                         <th style="text-align: center; font-weight: bold;">A2</th>
-                                        <th style="text-align: center; font-weight: bold;">A3</th>
+                                        <th style="text-align: center; font-weight: bold;">B1</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <tr hidden>
+                                        <td>题型参数ID</td>
+                                        <td><input id="idItemArgType_A1" name="idItemArgType_A1" disabled/></td>
+                                        <td><input id="idItemArgType_A2" name="idItemArgType_A2" disabled/></td>
+                                        <td><input id="idItemArgType_B1" name="idItemArgType_B1" disabled/></td>
+                                    </tr>
                                     <tr>
                                         <td>数量</td>
-                                        <td><input style="width: 50px; height: 20px;"/> / 800</td>
-                                        <td><input style="width: 50px; height: 20px;"/> / 500</td>
-                                        <td><input style="width: 50px; height: 20px;"/> / 100</td>
+                                        <td><input style="width: 50px; height: 20px;" id="numType_A1" name="numType_A1" autocomplete="off" disabled/> / <span id="total_1" class="total-color"></span></td>
+                                        <td><input style="width: 50px; height: 20px;" id="numType_A2" name="numType_A2" autocomplete="off" disabled/> / <span id="total_2" class="total-color"></span></td>
+                                        <td><input style="width: 50px; height: 20px;" id="numType_B1" name="numType_B1" autocomplete="off" disabled/> / <span id="total_3" class="total-color"></span></td>
                                     </tr>
                                     <tr>
                                         <td>分值</td>
-                                        <td><input style="width: 50px; height: 20px;"/></td>
-                                        <td><input style="width: 50px; height: 20px;"/></td>
-                                        <td><input style="width: 50px; height: 20px;"/></td>
+                                        <td><input style="width: 50px; height: 20px;" id="scoreType_A1" name="scoreType_A1" autocomplete="off" disabled/></td>
+                                        <td><input style="width: 50px; height: 20px;" id="scoreType_A2" name="scoreType_A2" autocomplete="off" disabled/></td>
+                                        <td><input style="width: 50px; height: 20px;" id="scoreType_B1" name="scoreType_B1" autocomplete="off" disabled/></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -326,14 +340,16 @@
                                                 <span class="f-color f-color1">&nbsp;</span>
                                                 <span class="f-color-text">易</span>
                                                 <span class="f-color-area">
-                                                    <span class="f-valMax">82%</span>
+                                                    <input id="idItemArgLevel_1" name="idItemArgLevel_1" hidden>
+                                                    <span id="sdItemLevel_1" class="f-valMax">82</span>%
                                                 </span>
                                             </p>
                                             <p class="f-range-msg">
                                                 <span class="f-color f-color2">&nbsp;</span>
                                                 <span class="f-color-text">较易</span>
                                                 <span class="f-color-area">
-                                                    <span class="f-valMax">82%</span>
+                                                    <input id="idItemArgLevel_2" name="idItemArgLevel_2" hidden>
+                                                    <span id="sdItemLevel_2" class="f-valMax">82</span>%
                                                 </span>
                                             </p>
                                             <#--<div class="clear"></div>-->
@@ -341,37 +357,40 @@
                                                 <span class="f-color f-color3">&nbsp;</span>
                                                 <span class="f-color-text">中</span>
                                                 <span class="f-color-area">
-                                                    <span class="f-valMax">65%</span>
+                                                    <input id="idItemArgLevel_3" name="idItemArgLevel_3" hidden>
+                                                    <span id="sdItemLevel_3" class="f-valMax">65</span>%
                                                 </span>
                                             </p>
                                             <p class="f-range-msg">
                                                 <span class="f-color f-color4">&nbsp;</span>
                                                 <span class="f-color-text">较难</span>
                                                 <span class="f-color-area">
-                                                    <span class="f-valMax">44%</span>
+                                                    <input id="idItemArgLevel_4" name="idItemArgLevel_4" hidden>
+                                                    <span id="sdItemLevel_4" class="f-valMax">44</span>%
                                                 </span>
                                             </p>
                                             <p class="f-range-msg">
                                                 <span class="f-color f-color5">&nbsp;</span>
                                                 <span class="f-color-text">难</span>
                                                 <span class="f-color-area">
-                                                    <span class="f-valMax">44%</span></span>
+                                                    <input id="idItemArgLevel_5" name="idItemArgLevel_5" hidden>
+                                                    <span id="sdItemLevel_5" class="f-valMax">44</span>%
                                             </p>
                                             <div class="clear"></div>
                                         </div>
                                         <div class="f-range">
                                             <div class="f-hk f-hk1" src="${basePath}/biz/img/huakuai/hk1.png"
                                                  style="left: 84px;"><span
-                                                        class="f-range-tips" style="display: none;">83%</span></div>
+                                                        class="f-range-tips" style="display: none;" id="sdItemLevel1Per">83</span></div>
                                             <div class="f-hk f-hk2" src="${basePath}/biz/img/huakuai/hk2.png"
                                                  style="left: 173px;"><span
-                                                        class="f-range-tips" style="display: none;">66%</span></div>
+                                                        class="f-range-tips" style="display: none;" id="sdItemLevel2Per">66</span></div>
                                             <div class="f-hk f-hk3" src="${basePath}/biz/img/huakuai/hk3.png"
                                                  style="left: 282px;"><span
-                                                        class="f-range-tips" style="display: none;">46%</span></div>
+                                                        class="f-range-tips" style="display: none;" id="sdItemLevel3Per">46</span></div>
                                             <div class="f-hk f-hk4" src="${basePath}/biz/img/huakuai/hk4.png"
                                                  style="left: 409px;"><span
-                                                        class="f-range-tips" style="display: none;">10%</span></div>
+                                                        class="f-range-tips" style="display: none;" id="sdItemLevel4Per">10</span></div>
                                         </div>
 
                                         <#--<p class="f-rangeArea clearfix">
@@ -382,31 +401,35 @@
                                     </div>
                                 </div>
 
-                                <div class="layui-form-item" style="margin-top: 50px;">
+                                <div class="layui-form-item" style="margin-top: 30px;">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                        <button class="layui-btn" lay-submit lay-filter="formStep2">下一步 ：设置必考题</button>
+                                        <button class="layui-btn" lay-submit lay-filter="formStep2" id="addPaperParam">
+                                            下一步 ：设置必考题
+                                        </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div>
                             <form class="layui-form">
-                                <table id="itemTable1" lay-filter="itemTableFilter1">
+                                <table id="setItemTable" lay-filter="setItemTableFilter">
                                 </table>
                                 <div style="text-align: center;margin-top: 5px;">
                                     <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                    <button class="layui-btn" lay-submit lay-filter="formStep3">下一步 ：生成试卷</button>
-
+                                    <button class="layui-btn" lay-submit lay-filter="formStep3">
+                                        下一步 ：生成试卷
+                                    </button>
                                 </div>
                             </form>
                         </div>
                         <div>
-                            <table id="itemTable2" lay-filter="itemTableFilter2">
+                            <table id="itemTableResult" lay-filter="itemTableResultFilter">
                             </table>
                             <div style="text-align: center;margin-top: 5px;">
                                 <#--<button class="layui-btn layui-btn-primary next">重来一次</button>-->
-                                <button class="layui-btn layui-btn-normal">
+                                <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
+                                <button class="layui-btn layui-btn-normal" id="generatePaper">
                                     <i class="iconfont icon-shengcheng"></i> 生成试卷
                                 </button>
                             </div>
@@ -414,10 +437,20 @@
                     </div>
                 </div>
                 <div>
-                    <fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 0px;">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 10px;">
                         <legend style="font-size: 14px; font-weight: bold">试卷列表</legend>
                     </fieldset>
-                    <table id="itemTable" lay-filter="itemTableFilter">
+                    <form class="layui-form">
+                        <div class="layui-inline">
+                            <button type="button" class="layui-btn layui-btn-sm" id="addPaper">
+                                <i class="iconfont icon-add"></i> 增加
+                            </button>
+                            <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="delPaper">
+                                <i class="layui-icon layui-icon-delete"></i>删除
+                            </button>
+                        </div>
+                    </form>
+                    <table id="paperTable" lay-filter="paperTableFilter">
                     </table>
                 </div>
             </div>
@@ -428,146 +461,21 @@
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/plan/template/paperOne.js"></script>
-<script src="${contextPath}/common/js/jquery.min.js"></script>
-<script src="${contextPath}/common/js/jquery.formautofill.js"></script>
 
-<script>
-    var index, maxLeft;
-    $(function () {
-        //range值提示
-        $(".f-hk").mouseenter(function () {
-            $(this).find(".f-range-tips").css("display", "block");
-        });
-        $(".f-hk").mouseleave(function () {
-            $(this).find(".f-range-tips").css("display", "none");
-        });
+<script type="text/html" id="paperBar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
+</script>
 
-        //拖动开始X值
-        var startX, preLeft, minLeft;
-        var v_index = new Array()
-        var handle = false;
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button type="button" class="layui-btn layui-btn-sm" id="checkAllBtn" lay-event="checkAll">全选</button>
+        <button type="button" class="layui-btn layui-btn-sm" id="notCheckAllBtn" lay-event="notCheckAll">全不选</button>
+    </div>
+</script>
 
-        $(".f-hk").mousedown(function (e) {
-            //拖动开始的X坐标
-            startX = e.pageX;
-            //判断是否拖动的变量
-            handle = true;
-            index = $(".f-hk").index(this);
-            //获取滑块下标
-            preLeft = parseInt($(".f-hk").eq(index).css("left"));
-            //获取滑块最左的值
-            minLeft = parseInt($(".f-hk").eq(index - 1).css("left")) + 8;
-            console.log("startX:" + startX + ', index:' + index + ', preLeft:' + preLeft + ', minLeft' + minLeft)
-        })
-
-        $(document).mousemove(function (e) {
-            e.stopPropagation();
-            //是否点击滑块
-            if (handle) {
-                //显示提示值
-                $(".f-hk").eq(index).find(".f-range-tips").css("display", "block");
-                //是否第一个
-                if (index == 0) {
-                    //是否最后一个
-                    if (index != $(".f-hk").length - 1) {
-                        maxLeft = parseInt($(".f-hk").eq(index + 1).css("left")) - 8;
-                    } else {
-                        maxLeft = 700;
-                    }
-
-                    var newLeft = e.pageX - startX + preLeft;
-                    //设置边界
-                    if (newLeft > maxLeft) {
-                        newLeft = maxLeft;
-                    }
-                    if (newLeft < 0) {
-                        newLeft = 0;
-                    }
-                    //执行拖动
-                    $(".f-hk").eq(index).css("left", newLeft);
-                    //动态改变提示的值
-                    var myVal = parseInt((1 - (parseFloat($(".f-hk").eq(index).css("left")) - 8 * (index)) / (700 - 8 * (index + ($(".f-hk ").length - index - 1)))) * 100);
-                    $(".f-hk").eq(index).find(".f-range-tips").html(myVal);
-                    //改变 信息表最小值
-                    v_index[index] = myVal;
-                    console.log(index + "----" + v_index[index])
-                    $(".f-range-msg").eq(index).find(".f-valMax").html((100 - myVal) + "%");
-                    //$(".f-range-msg").eq(index).find(".f-valMax").html(myVal);
-                    //改变信息表最大值
-                    if (index != $(".f-hk ").length - 1) {
-                        var max = $(".f-range-msg").eq(index + 1).find(".f-valMax").html(v_index[0] - v_index[1] + "%");
-                    }
-                } else {
-                    //是否最后一个
-                    if (index != $(".f-hk").length - 1) {
-                        maxLeft = parseFloat($(".f-hk").eq(index + 1).css("left")) - 8;
-                    } else {
-                        maxLeft = 700;
-                    }
-
-                    var newLeft = e.pageX - startX + preLeft;
-                    //设置边界
-                    if (newLeft > maxLeft) {
-                        newLeft = maxLeft;
-                    }
-                    if (newLeft < minLeft) {
-                        newLeft = minLeft;
-                    }
-
-                    //执行拖动
-                    $(".f-hk").eq(index).css("left", newLeft);
-                    //动态改变提示的值
-                    var myVal = parseInt((1 - (parseFloat($(".f-hk").eq(index).css("left")) - 8 * (index)) / (700 - 8 * (index + ($(".f-hk ").length - index - 1)))) * 100);
-                    console.log("index====" + index)
-                    v_index[index] = myVal;
-                    $(".f-hk").eq(index).find(".f-range-tips").html(myVal + "%");
-
-                    console.log(v_index[0] + "----" + v_index[1]+ "----" + v_index[2]+ "----" + v_index[3])
-                    //改变信息表最小值
-                    $(".f-range-msg").eq(index).find(".f-valMax").html(v_index[index - 1] - v_index[index] + "%");
-                    //改变信息表最大值
-                    if (index == $(".f-hk ").length - 1) {
-                        $(".f-range-msg").eq(index + 1).find(".f-valMax").html(v_index[index] + "%");
-                    } else {
-                        $(".f-range-msg").eq(index + 1).find(".f-valMax").html(v_index[index] - v_index[index + 1] + "%");
-                    }
-                }
-
-
-            }
-        })
-        $(document).mouseup(function () {
-            handle = false;
-            //隐藏值
-            $(".f-range-tips").css("display", "none");
-        })
-
-        //初始化
-        for (var i = 0; i < $(".f-hk").length; i++) {
-            //获取百分比
-            var getVal = parseInt($(".f-hk").eq(i).find(".f-range-tips").html());
-            var totalWidth = 700 - 8 * (i + 4 - 1 - i);
-            var setLeft = parseInt((1 - getVal / 100) * (totalWidth)) + 8 * (i);
-            //初始化left值
-            $(".f-hk").eq(i).css("left", setLeft);
-            v_index[i] = getVal;
-
-            //初始化最小值
-            var v_set;
-            if (i == 0) {
-                v_set = 100 - v_index[i];
-            } else {
-                v_set = v_index[i - 1] - v_index[i];
-            }
-            $(".f-range-msg").eq(i).find(".f-valMax").html(v_set + "%");
-            //初始化最大值
-            if (i == $(".f-hk").length - 1) {
-                $(".f-range-msg").eq(i + 1).find(".f-valMax").html(v_index[i] + "%");
-            }
-
-        }
-
-    })
+<script type="text/html" id="checkboxTpl">
+    <input type="checkbox" lay-skin="primary" value="{{d.idItem}}" lay-filter="checkItemFilter" {{ d.fgMust == '1' ? 'checked' : '' }}>
 </script>
 
 

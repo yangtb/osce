@@ -69,7 +69,7 @@ public class PfItemController extends BaseController {
         return "pages/biz/training/item/itemForm";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/item/list")
     @ResponseBody
     public PageResult pageItems(ItemDto dto) {

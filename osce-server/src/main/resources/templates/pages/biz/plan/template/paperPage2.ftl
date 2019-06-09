@@ -13,6 +13,7 @@
 
     <script>
         var basePath = '${basePath}';
+        var idModel = '${idModel!}';
     </script>
 
 </head>

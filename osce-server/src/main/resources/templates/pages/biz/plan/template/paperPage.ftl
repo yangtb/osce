@@ -53,7 +53,7 @@
         }
 
 
-        #div1, #div2 {
+        #leftMenu, #div2 {
             display: inline-block;
 
         }
@@ -69,8 +69,8 @@
 <div class="wrapper-content-new">
 
     <div id="wrap" class="pageHeight">
-        <div id="div1" class="left">
-            <ul class="paper-ul select" data-index="1">
+        <div id="leftMenu" class="left">
+            <#--<ul class="paper-ul select" data-index="1">
                 <li>内科</li>
                 <li>机考考站</li>
                 <li>房间：201、202、204</li>
@@ -86,7 +86,7 @@
                 <li>内科</li>
                 <li>问诊查体</li>
                 <li>房间：201、202、204</li>
-            </ul>
+            </ul>-->
         </div>
         <div id="div2" style="width: 100%">
             <iframe id="paperTag" class='layui-col-xs12 pageHeight' frameborder="0" src=""></iframe>
@@ -96,37 +96,8 @@
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
-<script src="${contextPath}/biz/js/biz/plan/template/templateController.js"></script>
 <script src="${contextPath}/common/js/jquery.min.js"></script>
-
-<script>
-    var ul = document.querySelectorAll(".paper-ul");
-    for (var i = 0; i < ul.length; i++) {
-        ul[i].addEventListener('click', function () {
-            console.log(this)
-            $(this).addClass("select").siblings().removeClass("select");
-            loadIframe(this.getAttribute('data-index'));
-        });
-        ul[i].addEventListener('mouseover', function () {
-            $(this).addClass("mouseOver").siblings().removeClass("mouseOver");
-        });
-        ul[i].addEventListener('mouseout', function () {
-            $(this).removeClass("mouseOver");
-        });
-    }
-    ul[0].click();
-
-
-    function loadIframe(dataIndex) {
-        if (dataIndex == 1) {
-            $('#paperTag').attr('src', basePath + '/pf/p/plan/paper/skill/one?idModel=' + 1);
-        } else if (dataIndex == 2) {
-            $('#paperTag').attr('src', basePath + '/pf/p/plan/paper/skill/two?idModel=' + 1);
-        } else if (dataIndex == 3) {
-            $('#paperTag').attr('src', basePath + '/pf/p/plan/paper/skill/third?idModel=' + 1);
-        }
-    }
-</script>
+<script src="${contextPath}/biz/js/biz/plan/template/paper.js"></script>
 
 </body>
 

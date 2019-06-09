@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.plan.template.PfPaperDao">
+
+    <insert id="addTdItemStore" useGeneratedKeys="true" keyProperty="idItemStore">
+        INSERT INTO td_item_store
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemStore!=null">
+                id_item_store,
+            </if>
+            <if test="idModel!=null">
+                id_model,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="idItemStoreFrom!=null">
+                id_item_store_from,
+            </if>
+            <if test="naItemStore!=null">
+                na_item_store,
+            </if>
+            <if test="scorePass!=null">
+                score_pass,
+            </if>
+            <if test="fgItemFromPublic!=null">
+                fg_item_from_public,
+            </if>
+            <if test="fgItemFromPrivate!=null">
+                fg_item_from_private,
+            </if>
+            <if test="fgItemFromImport!=null">
+                fg_item_from_import,
+            </if>
+            <if test="desItemStore!=null">
+                des_item_store,
+            </if>
+            <if test="fgChooseHist!=null">
+                fg_choose_hist,
+            </if>
+                fg_active,
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemStore!=null">
+                #{idItemStore},
+            </if>
+            <if test="idModel!=null">
+                #{idModel},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="idItemStoreFrom!=null">
+                #{idItemStoreFrom},
+            </if>
+            <if test="naItemStore!=null">
+                #{naItemStore},
+            </if>
+            <if test="scorePass!=null">
+                #{scorePass},
+            </if>
+            <if test="fgItemFromPublic!=null">
+                #{fgItemFromPublic},
+            </if>
+            <if test="fgItemFromPrivate!=null">
+                #{fgItemFromPrivate},
+            </if>
+            <if test="fgItemFromImport!=null">
+                #{fgItemFromImport},
+            </if>
+            <if test="desItemStore!=null">
+                #{desItemStore},
+            </if>
+            <if test="fgChooseHist!=null">
+                #{fgChooseHist},
+            </if>
+                '1',
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
+
+    <insert id="addTdItemArgTypes">
+        INSERT INTO td_item_arg_type(id_item_store, sd_item_ca, num_type, score_type)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.idItemStore}, #{item.sdItemCa}, #{item.numType}, #{item.scoreType})
+        </foreach>
+    </insert>
+
+    <insert id="addSdItemLevels">
+        INSERT INTO td_item_arg_level(id_item_store, sd_item_level, weight_level)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.idItemStore}, #{item.sdItemLevel}, #{item.weightLevel})
+        </foreach>
+    </insert>
+
+    <update id="editTdItemStore">
+        UPDATE td_item_store
+        SET
+        <trim suffixOverrides=",">
+            <if test="idModel != null">
+                id_model = #{idModel},
+            </if>
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="idItemStoreFrom != null">
+                id_item_store_from = #{idItemStoreFrom},
+            </if>
+            <if test="naItemStore != null and naItemStore!=''">
+                na_item_store = #{naItemStore},
+            </if>
+            <if test="scorePass != null">
+                score_pass = #{scorePass},
+            </if>
+            <if test="fgItemFromPublic != null and fgItemFromPublic!=''">
+                fg_item_from_public = #{fgItemFromPublic},
+            </if>
+            <if test="fgItemFromPrivate != null and fgItemFromPrivate!=''">
+                fg_item_from_private = #{fgItemFromPrivate},
+            </if>
+            <if test="fgItemFromImport != null and fgItemFromImport!=''">
+                fg_item_from_import = #{fgItemFromImport},
+            </if>
+            <if test="desItemStore != null and desItemStore!=''">
+                des_item_store = #{desItemStore},
+            </if>
+            <if test="fgChooseHist != null and fgChooseHist!=''">
+                fg_choose_hist = #{fgChooseHist},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id_item_store = #{idItemStore}
+    </update>
+    <update id="editTdItemArgTypes">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update td_item_arg_type
+            <set>
+                id_item_store = #{item.idItemStore},
+                sd_item_ca = #{item.sdItemCa},
+                num_type = #{item.numType},
+                score_type = #{item.scoreType}
+            </set>
+            where id_item_arg_type = #{item.idItemArgType}
+        </foreach>
+    </update>
+    <update id="editSdItemLevels">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update td_item_arg_level
+            <set>
+                id_item_store = #{item.idItemStore},
+                sd_item_level = #{item.sdItemLevel},
+                weight_level = #{item.weightLevel}
+            </set>
+            where id_item_arg_level = #{item.idItemArgLevel}
+        </foreach>
+    </update>
+    <update id="editTdItemSections">
+        UPDATE
+            td_item_section
+        SET
+            fg_active = '1'
+        WHERE
+            id_item_section in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+    <update id="updateItemByIdItemStore">
+        UPDATE
+            td_item
+        SET
+            fg_must = #{status}
+        WHERE
+            id_item_store = #{idItemStore}
+    </update>
+    <update id="updateItemByIds">
+        UPDATE
+            td_item
+        SET
+            fg_must = #{status}
+        WHERE
+            id_item in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+    <update id="delPaper">
+        UPDATE td_item_store
+        SET
+            <choose>
+                <when test="operationType == 'updateStatus'">
+                    fg_active = #{status},
+                </when>
+                <otherwise>
+                    fg_valid = #{status},
+                    fg_active = '0',
+                </otherwise>
+            </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id_item_store in (
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </update>
+
+    <select id="listLeft" resultType="com.osce.vo.biz.plan.template.PaperLeftVo">
+        SELECT
+            a.sd_skill_ca ,
+            a.sd_station_ca ,
+            group_concat(d.na_room SEPARATOR '、') AS rooms
+        FROM
+            td_station a
+        LEFT JOIN td_area b ON a.id_area = b.id_area
+        LEFT JOIN td_site c ON b.id_area = c.id_area
+        LEFT JOIN erp_room d ON c.id_room = d.id_room
+        WHERE
+            b.id_model = #{idModel}
+        GROUP BY
+            a.sd_skill_ca ,
+            a.sd_station_ca
+    </select>
+    <select id="selectTdItemStore" resultType="com.osce.entity.TdItemStore">
+        SELECT
+            a.id_item_store ,
+            a.id_model ,
+            a.id_org ,
+            a.id_item_store_from ,
+            a.na_item_store ,
+            a.score_pass ,
+            a.fg_item_from_public ,
+            a.fg_item_from_private ,
+            a.fg_item_from_import ,
+            a.des_item_store ,
+            a.fg_choose_hist ,
+            b.na_item_store AS naItemStoreFrom
+        FROM
+            td_item_store a
+        LEFT JOIN ibm_item_store b ON b.id_item_store = a.id_item_store_from
+        WHERE
+            a.id_model = #{idModel}
+        AND a.id_item_store = #{idItemStore}
+        AND a.id_org = #{idOrg}
+    </select>
+    <select id="listTdItemArgType" resultType="com.osce.entity.TdItemArgType">
+        SELECT
+            id_item_arg_type ,
+            id_item_store ,
+            sd_item_ca ,
+            num_type ,
+            score_type
+        FROM
+            td_item_arg_type
+        WHERE
+            id_item_store = #{idItemStore}
+    </select>
+    <select id="listSdItemLevel" resultType="com.osce.entity.TdItemArgLevel">
+        SELECT
+            id_item_arg_level ,
+            id_item_store ,
+            sd_item_level ,
+            weight_level
+        FROM
+            td_item_arg_level
+        WHERE
+            id_item_store = #{idItemStore}
+    </select>
+    <select id="selectTdItemSection" resultType="com.osce.entity.TdItemSection">
+        SELECT
+            id_item_section ,
+            id_item_store ,
+            na_item_section ,
+            fg_active
+        FROM
+            td_item_section
+        WHERE
+            id_item_store = #{idItemStore}
+        order by sort
+    </select>
+    <select id="callItemStoreIns" statementType="CALLABLE">
+         call P_ITEM_STORE_INS(
+            #{parIdItemStore,mode=IN,jdbcType=INTEGER},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+    <select id="listItemTotal" resultType="com.osce.vo.biz.plan.template.PaperItemTotalVo">
+        SELECT
+            sd_item_ca ,
+            count(1) total
+        FROM
+            td_item
+        WHERE
+            id_item_store = #{idItemStore}
+        GROUP BY
+            sd_item_ca
+    </select>
+
+    <select id="listItem" resultType="com.osce.entity.TdItem">
+        SELECT
+            id_item ,
+            main_item ,
+            (
+                CASE sd_item_ca
+                WHEN '1' THEN 'A1'
+                WHEN '2' THEN 'A2'
+                WHEN '3' THEN 'B1'
+                END
+            ) AS sd_item_ca ,
+            (
+                CASE sd_item_level
+                    WHEN '1' THEN '易'
+                    WHEN '2' THEN '较易'
+                    WHEN '3' THEN '中'
+                    WHEN '4' THEN '难'
+                    WHEN '5' THEN '较难'
+                END
+            ) AS sd_item_level ,
+            (
+                CASE sd_item_from
+                    WHEN '1' THEN '题库试题'
+                    WHEN '2' THEN '私有试题'
+                    WHEN '2' THEN '导入试题'
+                END
+            ) AS sd_item_from ,
+            fg_must
+        FROM
+            td_item
+        WHERE
+            id_item_store = #{idItemStore}
+        <if test="fgActive != null and fgActive != ''">
+            and fg_active = #{fgActive}
+        </if>
+        ORDER BY cast(sd_item_level as UNSIGNED INTEGER)
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countItem" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            td_item
+        WHERE
+            id_item_store = #{idItemStore}
+        <if test="fgActive != null and fgActive != ''">
+            and fg_active = #{fgActive}
+        </if>
+    </select>
+    <select id="callGeneratePaper" statementType="CALLABLE">
+         call P_ITEM_PAPER_GENERATE(
+            #{parIdItemStore,mode=IN,jdbcType=INTEGER},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+    <select id="countPaper" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            td_item_store a
+        LEFT JOIN td_item b ON a.id_item_store = b.id_item_store
+        AND b.fg_active = 1
+        WHERE
+            a.id_model = #{idModel}
+        AND a.fg_active = '1'
+        GROUP BY
+            a.id_item_store
+    </select>
+    <select id="listPaper" resultType="com.osce.vo.biz.plan.template.PfPaperVo">
+        SELECT
+            a.id_item_store ,
+            a.na_item_store ,
+            count(1) itemNum ,
+            sum(b.score_default) AS totalScore ,
+            a.gmt_create
+        FROM
+            td_item_store a
+        LEFT JOIN td_item b ON a.id_item_store = b.id_item_store
+        AND b.fg_active = 1
+        WHERE
+            a.id_model = #{idModel}
+        AND a.fg_active = '1'
+        GROUP BY
+            a.id_item_store
+        limit #{offset}, #{limit}
+    </select>
+
+</mapper>

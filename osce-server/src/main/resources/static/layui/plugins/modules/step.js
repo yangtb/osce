@@ -3,6 +3,8 @@
     var layer = layui.layer;
     var carousel = layui.carousel;
 
+    var v_index = 0;
+
     // 添加步骤条dom节点
     var renderDom = function (elem, stepItems, postion) {
         var stepDiv = '<div class="lay-step">';
@@ -77,6 +79,8 @@
                 $(param.elem).find('.lay-step').remove();
                 renderDom(param.elem, stepItems, obj.index);
                 $('.lay-step').css('width', param.stepWidth);
+                v_index = obj.index;
+                console.log("切换后v_index===" + v_index)
             });
 
             // 隐藏左右箭头按钮
@@ -92,7 +96,31 @@
         // 上一步
         pre: function (elem) {
             $(elem).find('.layui-carousel-arrow[lay-type=sub]').trigger('click');
-        }
+        },
+        // 跳转第几步
+        goStep: function(elem) {
+            var v_click = v_index;
+            for (var i = 0; i < v_click; i++) {
+                if (i == 0) {
+                    $(elem).find('.layui-carousel-arrow[lay-type=sub]').trigger('click');
+                    return;
+                }
+                console.log('循环点击次数i====bugin====' + i)
+                setTimeout(function () {
+                    $(elem).find('.layui-carousel-arrow[lay-type=sub]').trigger('click');
+                }, i * 1000);
+                console.log('循环点击次数i====end====' + i)
+            }
+        },
+        // 跳到第一步
+        goFirst: function(elem) {
+            console.log('v_index========' + v_index)
+            if (v_index == 0) {
+                return;
+            }
+            this.goStep(elem);
+        },
+
     };
     layui.link('/osce/layui/build/css/step.css');
     exports('step', step);

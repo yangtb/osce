@@ -1,8 +1,5 @@
 package com.osce.dto.biz.plan.template;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.osce.entity.TdArea;
 import com.osce.entity.TdModel;
 import lombok.Getter;
 import lombok.Setter;
