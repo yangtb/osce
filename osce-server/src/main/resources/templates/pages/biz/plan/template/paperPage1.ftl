@@ -193,7 +193,7 @@
                 <div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin: 0 auto;">
 
                     <div carousel-item>
-                        <div>
+                        <div class="step-skip">
                             <form class="layui-form" lay-filter="step1FormFilter">
                                 <input id="idItemStore" name="idItemStore" hidden/>
                                 <hr>
@@ -266,7 +266,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div>
+                        <div class="step-skip">
                             <form class="layui-form" lay-filter="step2FormFilter">
                                 <hr>
                                 <div class="layui-form-item" style="margin-bottom: -5px;">
@@ -411,7 +411,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div>
+                        <div class="step-skip">
                             <form class="layui-form">
                                 <table id="setItemTable" lay-filter="setItemTableFilter">
                                 </table>
@@ -423,7 +423,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div>
+                        <div class="step-skip">
                             <table id="itemTableResult" lay-filter="itemTableResultFilter">
                             </table>
                             <div style="text-align: center;margin-top: 5px;">

@@ -67,7 +67,7 @@
             }
 
             // 渲染轮播图
-            carousel.render(param);
+            var ins = carousel.render(param);
 
             // 渲染步骤条
             var stepItems = param.stepItems;
@@ -88,6 +88,8 @@
 
             // 去掉轮播图的背景颜色
             $(param.elem).css('background-color', 'transparent');
+
+            return ins;
         },
         // 下一步
         next: function (elem) {
@@ -99,26 +101,25 @@
         },
         // 跳转第几步
         goStep: function(elem) {
-            var v_click = v_index;
-            for (var i = 0; i < v_click; i++) {
-                if (i == 0) {
-                    $(elem).find('.layui-carousel-arrow[lay-type=sub]').trigger('click');
-                    return;
-                }
-                console.log('循环点击次数i====bugin====' + i)
-                setTimeout(function () {
-                    $(elem).find('.layui-carousel-arrow[lay-type=sub]').trigger('click');
-                }, i * 1000);
-                console.log('循环点击次数i====end====' + i)
-            }
+
         },
         // 跳到第一步
-        goFirst: function(elem) {
-            console.log('v_index========' + v_index)
-            if (v_index == 0) {
-                return;
+        goFirst: function(ins, options) {
+            options.index = 0;
+            ins.reload(options);
+            $(options.elem).find('.lay-step').remove();
+            renderDom(options.elem, options.stepItems, 0);
+            $('.lay-step').css('width', options.stepWidth);
+            var stepPages = document.querySelectorAll(".step-skip");
+            for (var i = 0; i < stepPages.length; i++) {
+                if (i == 0) {
+                    $(stepPages[i]).addClass("layui-this");
+                } else {
+                    $(stepPages[i]).removeClass("layui-this");
+                }
             }
-            this.goStep(elem);
+            // 隐藏左右箭头按钮
+            $(options.elem).find('.layui-carousel-arrow').css('display', 'none');
         },
 
     };

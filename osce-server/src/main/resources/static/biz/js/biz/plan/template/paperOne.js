@@ -39,12 +39,15 @@ layui.config({
         }
     });
 
-    step.render({
+    var options = {
         elem: '#stepForm',
         filter: 'stepForm',
         width: '100%', //设置容器宽度
         stepWidth: '680px',
         height: '500px',
+        indicator : 'none',  // 不显示指示器
+        arrow : 'always',  // 始终显示箭头
+        autoplay : false,  // 关闭自动播放
         stepItems: [{
             title: '选择题集'
         }, {
@@ -54,7 +57,8 @@ layui.config({
         }, {
             title: '生成试卷'
         }]
-    });
+    };
+    var ins = step.render(options);
 
     // 第1步 ： 选择题集
     form.on('submit(formStep)', function (data) {
@@ -397,7 +401,7 @@ layui.config({
             {checkbox: true, fixed: true},
             //{field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
             {field: 'naItemStore', minWidth: 170, title: '试卷名称'},
-            {field: 'naItemStore1', minWidth: 170, title: '题集'},
+            {field: 'naItemStoreFrom', minWidth: 170, title: '题集'},
             {field: 'itemNum', width: 100, title: '题目数量', align: "right"},
             {field: 'itemNum', width: 100, title: '总分值', align: "right"},
             {field: 'gmtCreate', width: 170, title: '创建时间'},
@@ -419,7 +423,7 @@ layui.config({
         var data = obj.data;
         if (obj.event === 'edit') {
             // 表单跳到第一步
-            step.goFirst('#stepForm');
+            step.goFirst(ins, options);
             editPaper(data);
             $('#naItemStore').focus();
         } else if (obj.event === 'del') {
@@ -431,7 +435,7 @@ layui.config({
 
     $('#addPaper').on('click', function () {
         // 表单跳到第一步
-        step.goFirst('#stepForm');
+        step.goFirst(ins, options);
         $('#reset').trigger('click');
         $('#naItemStore').focus();
     });
