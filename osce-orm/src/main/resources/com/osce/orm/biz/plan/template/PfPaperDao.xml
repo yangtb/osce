@@ -422,6 +422,7 @@
         SELECT
             a.id_item_store ,
             a.na_item_store ,
+            c.na_item_store AS na_item_store_from ,
             count(DISTINCT b.id_item) itemNum ,
             sum(b.score_default) AS totalScore ,
             a.gmt_create
@@ -429,11 +430,15 @@
             td_item_store a
         LEFT JOIN td_item b ON a.id_item_store = b.id_item_store
         AND b.fg_active = 1
+        LEFT JOIN ibm_item_store c ON a.id_item_store_from = c.id_item_store
         WHERE
             a.id_model = #{idModel}
         AND a.fg_active = '1'
         GROUP BY
-            a.id_item_store
+            a.id_item_store ,
+            a.na_item_store ,
+            c.na_item_store ,
+            a.gmt_create
         limit #{offset}, #{limit}
     </select>
 

@@ -33,6 +33,11 @@ public class PfPaperVo implements Serializable {
     private String naItemStore;
 
     /**
+     * 题集名称
+     */
+    private String naItemStoreFrom;
+
+    /**
      * 题目数量
      */
     private Integer itemNum;
