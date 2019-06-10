@@ -39,6 +39,7 @@ public class PfPaperServiceImpl implements PfPaperService {
         return pfPaperDao.listLeft(idModel);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Long addTdItemStore(TdItemStore dto) {
         if (dto.getIdItemStore() == null) {

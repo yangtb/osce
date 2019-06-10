@@ -414,19 +414,15 @@
             count(1)
         FROM
             td_item_store a
-        LEFT JOIN td_item b ON a.id_item_store = b.id_item_store
-        AND b.fg_active = 1
         WHERE
             a.id_model = #{idModel}
         AND a.fg_active = '1'
-        GROUP BY
-            a.id_item_store
     </select>
     <select id="listPaper" resultType="com.osce.vo.biz.plan.template.PfPaperVo">
         SELECT
             a.id_item_store ,
             a.na_item_store ,
-            count(1) itemNum ,
+            count(DISTINCT b.id_item) itemNum ,
             sum(b.score_default) AS totalScore ,
             a.gmt_create
         FROM
