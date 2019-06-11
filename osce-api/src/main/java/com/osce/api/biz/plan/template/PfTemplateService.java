@@ -1,5 +1,6 @@
 package com.osce.api.biz.plan.template;
 
+import com.osce.dto.biz.plan.template.PfStationModelDto;
 import com.osce.dto.biz.plan.template.TdInsStationDto;
 import com.osce.dto.biz.plan.template.TdModelInfo;
 import com.osce.dto.biz.plan.template.TemplateDto;
@@ -34,6 +35,13 @@ public interface PfTemplateService {
      * @return
      */
     TdModelVo addTemplate(TdModelInfo dto);
+
+    /**
+     * 排站
+     *
+     * @param idModel
+     */
+    void callStationModelOrder(Long idModel);
 
     /**
      * 删除

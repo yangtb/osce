@@ -123,7 +123,6 @@ public class TdModel implements Serializable {
      * ,defaultVal:999
      */
     private Integer sort;
-
     /**
      * 创建人员
      */
@@ -132,8 +131,7 @@ public class TdModel implements Serializable {
     /**
      * 创建时间
      */
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private java.time.LocalDateTime gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改人员
@@ -143,8 +141,7 @@ public class TdModel implements Serializable {
     /**
      * 修改时间
      */
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private java.time.LocalDateTime gmtModify;
+    private String gmtModify;
 
 
 }

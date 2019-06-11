@@ -46,7 +46,6 @@ public class PfTemplateServiceImpl implements PfTemplateService {
      *     2、保存考场
      *     3、保存考站
      *     4、保存站点
-     *     5、排站
      * </pre>
      *
      * @param dto
@@ -98,14 +97,18 @@ public class PfTemplateServiceImpl implements PfTemplateService {
                 }
             }
         }
+        return tdModelVo;
+    }
+
+    @Override
+    public void callStationModelOrder(Long idModel) {
         // 5、排站
         PfStationModelDto pfStationModelDto = new PfStationModelDto();
-        pfStationModelDto.setParIdDemo(tdModel.getIdModel());
+        pfStationModelDto.setParIdDemo(idModel);
         pfTemplateDao.callStationModelOrder(pfStationModelDto);
         if (pfStationModelDto.getParCode() != 0) {
             throw new BizRuntimeException(String.valueOf(pfStationModelDto.getParCode()), pfStationModelDto.getParMsg());
         }
-        return tdModelVo;
     }
 
     @Transactional(rollbackFor = Exception.class)

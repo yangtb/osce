@@ -42,6 +42,11 @@ public class TdSite implements Serializable {
     private Long idRoom;
 
     /**
+     * 房间号
+     */
+    private String idRoomText;
+
+    /**
      * 试卷ID
      */
     private Long idPaper;

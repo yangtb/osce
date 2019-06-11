@@ -6,6 +6,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.vo.biz.plan.template.TdModelVo;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.ResultObject;
@@ -38,6 +39,7 @@ public class PfTemplateRestController extends BaseController {
      *     2、保存考场
      *     3、保存考站
      *     4、保存站点
+     *     5、排站
      * </pre>
      *
      * @param dto
@@ -58,8 +60,10 @@ public class PfTemplateRestController extends BaseController {
         dto.setCreator(CurrentUserUtils.getCurrentUsername());
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
-        return ResultObject.createSuccess("addTemplate", ResultObject.DATA_TYPE_OBJECT,
-                pfTemplateService.addTemplate(dto));
+        TdModelVo tdModelVo = pfTemplateService.addTemplate(dto);
+        // 5、排站
+        //pfTemplateService.callStationModelOrder(tdModelVo.getIdModel());
+        return ResultObject.createSuccess("addTemplate", ResultObject.DATA_TYPE_OBJECT, tdModelVo);
     }
 
     /**

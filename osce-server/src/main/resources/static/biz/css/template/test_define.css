@@ -1,0 +1,489 @@
+.conatiner {
+  width: 100%;
+  height: 110vh;
+  background: #ffffff;
+  font-size: 14px;
+  /*color: #b8b8b8;*/
+}
+
+.header-table {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 1px solid #f1f1f1;
+  -moz-box-shadow: 0px 3px 12px rgba(201, 201, 201, 0.349019607843137);
+  -webkit-box-shadow: 0px 3px 12px rgba(201, 201, 201, 0.349019607843137);
+  box-shadow: 0px 3px 12px rgba(201, 201, 201, 0.349019607843137);
+}
+
+.table-item {
+  width: 98%;
+  height: 35px;
+  line-height: 35px;
+  margin: 0 auto;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.item-main {
+  flex: 1;
+  height: 35px;
+  line-height: 100%;
+  text-align: left;
+  /*color: #b8b8b8;*/
+  font-size: 14px;
+}
+
+/*i {
+  color: red;
+}*/
+
+.label-name {
+  display: inline-block;
+  width: 130px;
+  height: 30px;
+  line-height: 30px;
+  text-align: right;
+}
+
+.input-box {
+  height: 30px;
+  width: 40%;
+  line-height: 30px;
+  text-indent: 15px;
+  border: 1px solid #f1f1f1;
+  border-radius: 2px;
+  outline: none;
+  margin-left: 15px;
+  font-size: 14px;
+  border: 1px solid #b8b8b8;
+}
+
+.item-name {
+  display: inline-block;
+  width: 130px;
+  text-align: right;
+}
+
+.desc-input {
+  flex: 1;
+  margin-left: 19px;
+  margin-right: 40px;
+  
+}
+
+/* 考站信息 */
+.main {
+  width: 100%;
+  height: auto;
+  margin-top: 30px;
+  display: flex;
+  /*align-items: center;*/
+  justify-content: flex-start;
+}
+
+.main-left {
+  color: #000000;
+  border-width: 0px;
+  width: 290px;
+  height: 329px;
+  background: inherit;
+  background-color: rgba(255, 255, 255, 1);
+  border: none;
+  border-radius: 4px;
+  -moz-box-shadow: 0px 3px 12px rgba(201, 201, 201, 0.349019607843137);
+  -webkit-box-shadow: 0px 3px 12px rgba(201, 201, 201, 0.349019607843137);
+  box-shadow: 0px 3px 12px rgba(201, 201, 201, 0.349019607843137);
+  margin-left: 5px;
+}
+
+.left-header {
+  width: 290px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.847058823529412);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.date-text {
+  margin-left: 15px;
+}
+
+.save-btn {
+  width: 60px;
+  height: 36px;
+  line-height: 36px;
+  background-color: rgba(96, 193, 145, 1);
+  border-radius: 4px;
+  text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.time-line {
+  width: 100%;
+  height: 36px;
+  line-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.time-header {
+  flex: 1;
+  text-align: right;
+}
+
+.time-box {
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 2px;
+  border: 1px solid #b8b8b8;
+  outline: none;
+  width: 150px;
+  height: 36px;
+  font-family: 'Arial Normal', 'Arial';
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  text-decoration: none;
+  color: #000000;
+  text-align: left;
+  display: inline-block;
+  text-indent: 5px;
+}
+
+/* 考场信息 */
+.main-right {
+  flex: 1;
+  overflow-x: scroll;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.room-main {
+  width: 100%;
+  padding-bottom: 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.room2 {
+  margin-top: 20px;
+}
+
+.bottom-line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: url(/osce/biz/img/template/dashed_line.png) repeat-x center;
+  background-size: 100% auto;
+}
+
+.room-msg {
+  width: 42px;
+  height: 100%;
+}
+
+.room-name {
+  display: inline-block;
+  width: 42px;
+  height: 244px;
+  position: relative;
+  background-color: rgba(24, 144, 255, 1);
+  border-radius: 21px;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  color: #FFFFFF;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+
+.set-btn {
+  cursor: pointer;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+}
+
+/* 弹窗 */
+.set-modal {
+  width: 266px;
+  height: 135px;
+  background: url(/osce/biz/img/template/set_modal_bg.png) no-repeat center;
+  background-size: 100% auto;
+  position: absolute;
+  left: 20px;
+  bottom: -20px;
+  z-index: 2;
+  /*display: none;*/
+}
+
+.modal-select {
+  display: block;
+  width: 192px;
+  height: 30px;
+  line-height: 30px;
+  outline: none;
+  margin: 0 auto;
+  margin-top: 12px;
+}
+
+.content {
+  flex: 1;
+  margin-left: 5px;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+.room-content {
+  display: inline-block;
+  width: 238px;
+  height: 244px;
+  background-color: rgba(24, 144, 255, 0.0980392156862745);
+  border-radius: 28px;
+  margin-left: 5px;
+  position: relative;
+}
+
+.content-main {
+  width: 201px;
+  height: 210px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  -moz-box-shadow: 0px 3px 5px rgba(134, 134, 134, 0.149019607843137);
+  -webkit-box-shadow: 0px 3px 5px rgba(134, 134, 134, 0.149019607843137);
+  box-shadow: 0px 3px 5px rgba(134, 134, 134, 0.149019607843137);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.content-header {
+  width: 201px;
+  height: 38px;
+  position: relative;
+  line-height: 38px;
+  color: #FFFFFF;
+  background-color: rgba(24, 144, 255, 1);
+  border-radius: 3px;
+  text-align: center;
+}
+
+.content-text {
+  width: 100%;
+}
+
+.text-item {
+  font-size: 12px;
+  position: relative;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  line-height: 30px;
+  color: #1890FF;
+}
+
+.room-num {
+  width: 12px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  letter-spacing: 0;
+  transform: translate(-50%, -50%);
+}
+
+
+.modal {
+  display: none;
+  position: absolute;
+  width: 360px;
+  min-height: 60px;
+  left: 0;
+  top: 135px;
+  z-index: 999999;
+  background: #ffffff;
+  -moz-box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.349019607843137);
+  -webkit-box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.349019607843137);
+  box-shadow: 0px 3px 6px rgba(201, 201, 201, 0.349019607843137)
+}
+
+.modal-arrow {
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: -12px;
+  width: 100px;
+  height: 60px;
+  background: url(/osce/biz/img/template/modal_arrow.png) no-repeat center;
+  background-size: 100% auto;
+}
+
+.modal-main {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  background: #ffffff;
+  position: relative;
+}
+
+.modal-content{ 
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+.select-main {
+  width: 100px;
+  height: 30px;
+}
+
+.num-text {
+  margin-left: 15px;
+}
+
+.num-input {
+  width: 80px;
+  height: 30px;
+  text-align: right;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  margin-left: 10px;
+  outline: none;
+  font-size: 14px;
+}
+
+.add-item, .delete-item {
+  width: 34px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 5px;
+  margin-left: 12px;
+  border: 1px solid #000000;
+  color: #000000;
+}
+
+.control-area {
+  width: 100%;
+  height: 30px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.sure-btn, .close-btn {
+  width: 67px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
+  text-align: center;
+  color: #ffffff;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.sure-btn {
+  background-color: rgba(22, 155, 213, 1);
+}
+
+.close-btn {
+  margin-right: 0;
+  background-color: rgba(255, 0, 0, 0.447058823529412);
+}
+
+
+.edit-btn {
+  width: 16px;
+  height: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.item-desc {
+  flex: 1;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: url(/osce/biz/img/template/close.png) no-repeat center;
+  background-size: 100% auto;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.add-box {
+  display: inline-block;
+  width: 238px;
+  height: 244px;
+  position: relative;
+}
+
+.add-main {
+  display: inline-block;
+  width: 201px;
+  height: 210px;
+  line-height: 330px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 4px;
+  -moz-box-shadow: 0px 3px 15px rgba(161, 161, 161, 0.149019607843137);
+  -webkit-box-shadow: 0px 3px 15px rgba(161, 161, 161, 0.149019607843137);
+  box-shadow: 0px 3px 15px rgba(161, 161, 161, 0.149019607843);
+  text-align: center;
+  color: #333333;
+}
+
+
+.add-btn {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}

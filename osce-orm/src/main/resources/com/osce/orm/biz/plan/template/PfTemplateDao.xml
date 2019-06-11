@@ -69,15 +69,11 @@
             <if test="creator!=null">
                 creator,
             </if>
-            <if test="gmtCreate!=null">
                 gmt_create,
-            </if>
             <if test="operator!=null">
                 operator,
             </if>
-            <if test="gmtModify!=null">
                 gmt_modify,
-            </if>
         </trim>
         )
         VALUES
@@ -146,15 +142,11 @@
             <if test="creator!=null">
                 #{creator},
             </if>
-            <if test="gmtCreate!=null">
-                #{gmtCreate},
-            </if>
+                now(),
             <if test="operator!=null">
                 #{operator},
             </if>
-            <if test="gmtModify!=null">
-                #{gmtModify},
-            </if>
+                now(),
         </trim>
         )
     </insert>

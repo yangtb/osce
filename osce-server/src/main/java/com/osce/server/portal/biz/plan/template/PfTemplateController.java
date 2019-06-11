@@ -33,7 +33,8 @@ public class PfTemplateController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/template/form")
-    public String pageForm(Model model) {
+    public String pageForm(Model model, Long idModel) {
+        model.addAttribute("idModel", idModel);
         return "pages/biz/plan/template/templateForm";
     }
 

@@ -51,7 +51,7 @@ public class TdStationDto implements Serializable {
     /**
      * 站点耗时
      */
-    private Date minCost;
+    private Long minCost;
 
     /**
      * 必过标志

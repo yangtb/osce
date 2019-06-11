@@ -77,7 +77,8 @@ layui.config({
     });
 
     var _addOrEdit = function (formType, currentEditData) {
-        $('#editTemplate').attr('lay-href', basePath + '/pf/p/plan/template/form?formType=' + formType);
+        var idModel = currentEditData ? currentEditData.idModel : '';
+        $('#editTemplate').attr('lay-href', basePath + '/pf/p/plan/template/form?idModel=' + idModel);
         $('#editTemplate').click();
     };
 
