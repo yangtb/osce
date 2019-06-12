@@ -26,7 +26,6 @@ import javax.annotation.Resource;
  * @Date 2017/10/9 11:05
  */
 @Controller
-@RequestMapping(value = "/pf/r/dic")
 public class PfDicRestController {
 
     @Reference
@@ -42,7 +41,7 @@ public class PfDicRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_DIC_ADD','ROLE_SUPER')")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/dic/add", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject addDic(@RequestBody SysDictionary dto) {
         /* 参数校验 */
@@ -60,7 +59,7 @@ public class PfDicRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_DIC_EDIT','ROLE_SUPER')")
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/dic/edit", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject editDic(@RequestBody SysDictionary dto) {
         /* 参数校验 */
@@ -78,7 +77,7 @@ public class PfDicRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_DIC_DEL','ROLE_SUPER')")
-    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/dic/del", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject delDic(@RequestBody PfCommonListDto dto) {
         /* 参数校验 */
@@ -94,7 +93,7 @@ public class PfDicRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_DIC_ENUM_ADD','ROLE_SUPER')")
-    @RequestMapping(value = "/enum/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/dic/enum/add", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject addEnum(@RequestBody SysDictionary dto) {
         /* 参数校验 */
@@ -114,7 +113,7 @@ public class PfDicRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_DIC_ENUM_EDIT','ROLE_SUPER')")
-    @RequestMapping(value = "/enum/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/dic/enum/edit", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject editEnum(@RequestBody SysDictionary dto) {
         /* 参数校验 */
@@ -133,12 +132,27 @@ public class PfDicRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_DIC_REFRESHCACHE','ROLE_SUPER')")
-    @RequestMapping(value = "/refreshCache", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/dic/refreshCache", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject refreshCache() {
         enumUtil.init();
         return ResultObject.create("refreshCache", ResultObject.SUCCESS_CODE, ResultObject.MSG_SUCCESS,
                 ResultObject.DATA_TYPE_OBJECT, true);
+    }
+
+    /**
+     * 获取某个枚举列表
+     *
+     * @param dto
+     * @return
+     */
+    @RequestMapping(value = "/pf/r/dic/enum/code/all", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultObject listEnumByCode(@RequestBody SysDictionary dto) {
+        /* 参数校验 */
+        Assert.isTrue(StringUtils.isNotBlank(dto.getGroupCode()), "groupCode");
+        return ResultObject.createSuccess("editEnum", ResultObject.DATA_TYPE_LIST,
+                enumUtil.getEnumList(dto.getGroupCode()));
     }
 
 }
