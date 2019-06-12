@@ -105,4 +105,13 @@ public interface PfRoomDao {
      * @return
      */
     int delDevice(PfBachChangeStatusDto dto);
+
+    /**
+     * 获取当前机构下所有房间号
+     *
+     * @param idOrg
+     * @return
+     */
+    List<ErpRoom> listAllRooms(@Param("idOrg") Long idOrg);
+
 }

@@ -1,6 +1,7 @@
 package com.osce.server.rest.biz.training.res.room;
 
 import com.osce.api.biz.training.res.room.PfRoomService;
+import com.osce.dto.biz.training.res.room.RoomDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.ErpRoom;
 import com.osce.entity.ErpRoomDevice;
@@ -144,6 +145,19 @@ public class PfRoomRestController extends BaseController {
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
         return pfRoomService.delRoomDevice(dto) ? ResultObject.createSuccess("delDevice", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("delDevice", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+    /**
+     * 获取当前机构下所有房间号
+     *
+     * @return
+     */
+    @PostMapping(value = "/pf/r/room/list/all")
+    public ResultObject listAllRooms() {
+        /* 参数校验 */
+        return ResultObject.createSuccess("listRooms", ResultObject.DATA_TYPE_OBJECT,
+                pfRoomService.listAllRooms(CurrentUserUtils.getCurrentUserIdOrg()));
+
     }
 
 }

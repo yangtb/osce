@@ -14,6 +14,7 @@ import com.osce.result.ResultFactory;
 import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName: PfRoomServiceImpl
@@ -75,6 +76,11 @@ public class PfRoomServiceImpl implements PfRoomService {
     public boolean delRoomDevice(PfBachChangeStatusDto dto) {
         int num = pfRoomDao.delDevice(dto);
         return num >= 1 ? true : false;
+    }
+
+    @Override
+    public List<ErpRoom> listAllRooms(Long idOrg) {
+        return pfRoomDao.listAllRooms(idOrg);
     }
 
 }

@@ -374,5 +374,15 @@
             id_room = #{idRoom}
         AND fg_valid = '0'
     </select>
+    <select id="listAllRooms" resultType="com.osce.entity.ErpRoom">
+        SELECT
+            a.id_room ,
+            a.na_room
+        FROM
+            erp_room a
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
+    </select>
 
 </mapper>

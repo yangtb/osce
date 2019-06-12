@@ -6,6 +6,8 @@ import com.osce.entity.ErpRoom;
 import com.osce.entity.ErpRoomDevice;
 import com.osce.result.PageResult;
 
+import java.util.List;
+
 /**
  * @ClassName: PfRoomService
  * @Description: 房间管理
@@ -61,5 +63,13 @@ public interface PfRoomService {
      * @return
      */
     boolean delRoomDevice(PfBachChangeStatusDto dto);
+
+    /**
+     * 获取当前机构下所有房间号
+     *
+     * @param idOrg
+     * @return
+     */
+    List<ErpRoom> listAllRooms(Long idOrg);
 
 }
