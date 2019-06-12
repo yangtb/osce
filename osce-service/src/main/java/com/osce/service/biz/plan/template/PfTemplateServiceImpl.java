@@ -14,6 +14,8 @@ import com.osce.vo.biz.plan.template.TdInsStationVo;
 import com.osce.vo.biz.plan.template.TdModelVo;
 import com.sm.open.care.core.exception.BizRuntimeException;
 import org.apache.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -27,6 +29,8 @@ import java.util.List;
  */
 @Service
 public class PfTemplateServiceImpl implements PfTemplateService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PfTemplateServiceImpl.class);
 
     @Resource
     private PfTemplateDao pfTemplateDao;
@@ -53,7 +57,7 @@ public class PfTemplateServiceImpl implements PfTemplateService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public TdModelVo addTemplate(TdModelInfo dto) {
+    public Long addTemplate(TdModelInfo dto) {
         TdModelVo tdModelVo = new TdModelVo();
         // 1、保存模板
         TdModel tdModel = dto.getTdModel();
@@ -66,38 +70,35 @@ public class PfTemplateServiceImpl implements PfTemplateService {
             pfTemplateDao.editTemplate(tdModel);
         }
         tdModelVo.setIdModel(tdModel.getIdModel());
+        // 删除考场信息
+        pfTemplateDao.delSite(tdModel.getIdModel());
+        pfTemplateDao.delStation(tdModel.getIdModel());
+        pfTemplateDao.delArea(tdModel.getIdModel());
         // 2、保存考场
+        int i = 0;
         for (TdAreaDto tdAreaDto : dto.getTdAreas()) {
+            i++;
             tdAreaDto.setIdModel(tdModel.getIdModel());
-            if (tdAreaDto.getIdArea() == null) {
-                pfTemplateDao.addTdArea(tdAreaDto);
-            } else {
-                pfTemplateDao.editTdArea(tdAreaDto);
-            }
+            pfTemplateDao.addTdArea(tdAreaDto);
             tdModelVo.setIdArea(tdAreaDto.getIdArea());
             // 3、保存考站
+            int j = 0;
             for (TdStationDto tdStationDto : tdAreaDto.getTdStations()) {
+                j++;
                 tdStationDto.setIdArea(tdAreaDto.getIdArea());
-                if (tdStationDto.getIdStation() == null) {
-                    pfTemplateDao.addTdStation(tdStationDto);
-                } else {
-                    pfTemplateDao.editTdStation(tdStationDto);
-                }
+                tdStationDto.setNaStation("考站" + i + "-" + j);
+                pfTemplateDao.addTdStation(tdStationDto);
                 tdModelVo.setIdStation(tdStationDto.getIdStation());
                 // 4、保存站点
                 for (TdSite tdSite : tdStationDto.getTdSites()) {
                     tdSite.setIdArea(tdAreaDto.getIdArea());
                     tdSite.setIdStation(tdStationDto.getIdStation());
-                    if (tdSite.getIdSite() == null) {
-                        pfTemplateDao.addTdSite(tdSite);
-                    } else {
-                        pfTemplateDao.editTdSite(tdSite);
-                    }
+                    pfTemplateDao.addTdSite(tdSite);
                     tdModelVo.setIdSite(tdSite.getIdSite());
                 }
             }
         }
-        return tdModelVo;
+        return tdModel.getIdModel();
     }
 
     @Override
@@ -132,10 +133,10 @@ public class PfTemplateServiceImpl implements PfTemplateService {
      * @return
      */
     @Override
-    public TdModelInfo selectTdModelInfo(Long idModel) {
+    public TdModelInfo selectTdModelInfo(Long idModel, Long idOrg) {
         TdModelInfo tdModelInfo = new TdModelInfo();
         // 1、模板信息
-        TdModel tdModel = pfTemplateDao.selectTemplateInfoById(idModel);
+        TdModel tdModel = pfTemplateDao.selectTemplateInfoById(idModel, idOrg);
         if (tdModel == null) {
             throw new RuntimeException("模板记录不存在");
         }
@@ -165,6 +166,14 @@ public class PfTemplateServiceImpl implements PfTemplateService {
     @Override
     public List<TdInsStationDetailVo> selectStationDetail(Long idModel) {
         return pfTemplateDao.selectStationDetail(idModel);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean delStation(TemplateDto dto) {
+        pfTemplateDao.delStationById(dto.getIdStation());
+        pfTemplateDao.delSiteByIdStation(dto.getIdStation());
+        return true;
     }
 
 }

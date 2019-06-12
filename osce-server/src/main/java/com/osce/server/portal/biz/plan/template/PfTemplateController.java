@@ -2,7 +2,6 @@ package com.osce.server.portal.biz.plan.template;
 
 import com.osce.api.biz.plan.template.PfTemplateService;
 import com.osce.dto.biz.plan.template.TemplateDto;
-import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -45,5 +44,20 @@ public class PfTemplateController extends BaseController {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return pfTemplateService.pageTemplate(dto);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping("/pf/p/plan/template/two")
+    public String stepTwo(Model model, Long idModel) {
+        model.addAttribute("idModel", idModel);
+        return "pages/biz/plan/template/tempTwo";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping("/pf/p/plan/template/third")
+    public String stepThird(Model model, Long idModel) {
+        model.addAttribute("idModel", idModel);
+        return "pages/biz/plan/template/tempThird";
+    }
+
 
 }

@@ -15,11 +15,17 @@ layui.config({
         , formSelects = layui.formSelects
         , laydate = layui.laydate;
 
+    var oldNumArea = 1;
     $(document).ready(function(){
         $("#area-main").empty();
         $("#area-main").append(bulidAreaHtml(1));
         $("#currStationNum_1").val(1);
         form.render();
+
+        if (idModel) {
+            // 加载模板所有信息
+            loadTemplateInfo();
+        }
     });
 
     // *******************日期 begin**************************
@@ -40,7 +46,7 @@ layui.config({
         filter: 'stepForm',
         width: '100%', //设置容器宽度
         stepWidth: '800px',
-        height: '800px',
+        height: '850px',
         stepItems: [{
             title: '考站定义'
         }, {
@@ -52,7 +58,8 @@ layui.config({
 
 
     form.on('submit(formStep)', function (data) {
-        saveThisPage(data.field)
+        //step.next('#stepForm');
+        saveThisPage(data.field);
         return false;
     });
 
@@ -82,8 +89,8 @@ layui.config({
             '                         id="set-btn-' + areaIndex + '" alt="设置" class=\'set-btn\' onclick="setAreaLoop(' + areaIndex + ')" style="display: none">\n' +
             '                    <input id="idArea_' + areaIndex + '" hidden>\n' +
             '                    <input id="currStationNum_' + areaIndex + '" hidden>\n' +
-            '                    <input id="sdAreaLoopBegin_' + areaIndex + '" hidden>\n' +
-            '                    <input id="sdAreaLoopEnd_' + areaIndex + '" hidden>\n' +
+            '                    <input id="sdAreaLoopBegin_' + areaIndex + '" value="1" hidden>\n' +
+            '                    <input id="sdAreaLoopEnd_' + areaIndex + '" value="1" hidden>\n' +
             '                </div>\n' +
             '            </div>\n' +
             '            <div class="content" id="station-main">\n' +
@@ -136,8 +143,38 @@ layui.config({
     }
     
     // 动态添加考场
-    $("#numArea").on('blur', function () {
-        var areaNum = $("#numArea").val();
+    $("#numArea").on('change', function () {
+        var newNumArea = parseInt($("#numArea").val());
+        // console.log("旧值：" + oldNumArea + "，新值：" + newNumArea);
+        addAreaNum(newNumArea - parseInt(oldNumArea), parseInt(oldNumArea), newNumArea);
+        oldNumArea = newNumArea;
+    });
+
+    function addAreaNum(num, oldNumArea, newNumArea) {
+        if (num > 0) {
+            for (var i = 1; i <= num; i++) {
+                $("#area-main").append(bulidAreaHtml(oldNumArea + i));
+                $("#currStationNum_"+ i).val(1);
+            }
+            form.render();
+
+        } else {
+            for (var j = oldNumArea; j > oldNumArea + num; j--) {
+                $("#area_" + j).remove();
+            }
+        }
+        $('#stepForm').height(800 + newNumArea * 280);
+        if (newNumArea > 1) {
+            for (var i = 1; i <= newNumArea; i++) {
+                $('#set-btn-' + i).css('display','block');
+            }
+        } else {
+            $('#set-btn-1').css('display','none');
+        }
+    }
+
+    function addArea(areaNum) {
+        areaNum = areaNum ? areaNum : 1;
         $("#area-main").empty();
 
         for(var i = 1; i <= areaNum; i++) {
@@ -154,8 +191,7 @@ layui.config({
         } else {
             $('#set-btn-1').css('display','none');
         }
-
-    });
+    }
 
     // *******************考站操作 end**************************
 
@@ -163,17 +199,20 @@ layui.config({
 
     // *******************保存操作 begin************************
     function saveThisPage(data) {
+        if (!idModel) {
+            idModel = $('#idModel').val();
+        }
         data.fgActive = '1';
+        data.fgChild = '0';
         // 构建考场数据
         var tdAreaList = new Array(),
             areaNumSave = parseInt($("#numArea").val());
 
-        console.log(areaNumSave);
         for (var i = 1; i <= areaNumSave; i++) {
             // 考站
             var tdStationList = new Array(),
                 stationNumSave =  parseInt($("#currStationNum_" + i).val());
-            console.log(stationNumSave);
+            console.log("考场：" + i + ', 站点数：' + stationNumSave)
             for (var j = 1; j <= stationNumSave; j++) {
                 // 站点
                 var tdSiteList = new Array();
@@ -188,6 +227,12 @@ layui.config({
                         }
                         tdSiteList.push(tdSite);
                     }
+                }
+
+                console.log(!$("#naStation_" + i + '_' + j).html())
+                if (!$("#naStation_" + i + '_' + j).html()) {
+                    // 空站点，跳出循环
+                    continue;
                 }
 
                 var tdStation = {
@@ -235,7 +280,7 @@ layui.config({
                     layer.tips(data.msg, '#step1', {tips: [4, '#FF5722']});
                     return false;
                 } else {
-                    // 重新设置表单数据
+                    $('#idModel').val(data.data);
                     step.next('#stepForm');
                     return false;
                 }
@@ -247,10 +292,94 @@ layui.config({
         });
     }
 
-    // *******************板寸操作 end**************************
+    // *******************保存操作 end**************************
 
+    function loadTemplateInfo() {
+        var bizData = {
+            idModel : idModel
+        }
 
+        $.ajax({
+            url: basePath + '/pf/r/plan/template/select',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg, {icon: 5});
+                    return false;
+                } else {
+                    console.log("=================模板信息=================")
+                    console.log(data.data);
+                    fullTemplateData(data.data);
+                    return false;
+                }
+            },
+            error: function () {
+                layer.msg("查询模板信息失败", {icon: 5});
+                return false;
+            }
+        });
+    }
 
+    function fullTemplateData(data) {
+        // 模板表单信息
+        form.val("step1FormFilter", data.tdModel);
+
+        var tdAreas = data.tdAreas;
+        addArea(tdAreas.length);
+
+        for (var i = 1; i <= tdAreas.length; i++) {
+            var tdArea = tdAreas[i - 1];
+
+            $("#idArea_" + i).val(tdArea.idArea);                       // 考场ID
+            $("#naArea_" + i).html(tdArea.naArea);                      // 考场名称
+            $("#sdAreaLoopBegin_" + i).val(tdArea.sdAreaLoopBegin);     // 1 首次循环半天 2 首次循环一天
+            $("#sdAreaLoopEnd_" + i).val(tdArea.sdAreaLoopEnd);         // 1 末次循环半天 2 末次循环一天
+
+            var tdStations = tdArea.tdStations;
+            for (var j = 1; j <= tdStations.length; j++) {
+                if (j > 1) {
+                    addStation(i);
+                }
+                var tdStation = tdStations[j - 1];
+                if (tdStation.sdSkillCa == 1) {
+                    tdStation.sdSkillCaText = '理论试题';
+                } else if (tdStation.sdSkillCa == 2) {
+                    tdStation.sdSkillCaText = '技能操作';
+                } else if (tdStation.sdSkillCa == 3) {
+                    tdStation.sdSkillCaText = '病史采集';
+                }
+                $("#idStation_" + i + '_' + j).val(tdStation.idStation);                // 考站ID
+                $("#idArea_" + i).val(tdStation.idArea);                                // 考场ID
+                $("#naStation_" + i + '_' + j).html(tdStation.naStation);               // 考站名称
+                $("#sdStationCa_" + i + '_' + j).val(tdStation.sdStationCa);            // 基地类型
+                $("#sdStationCaText_" + i + '_' + j).html(tdStation.sdStationCaText);   // 基地类型
+                $("#sdSkillCa_" + i + '_' + j).val(tdStation.sdSkillCa);                // 技能类型
+                $("#sdSkillCaText_" + i + '_' + j).html(tdStation.sdSkillCaText);       // 技能类型
+                $("#minCost_" + i + '_' + j).val(tdStation.minCost);                    // 站点耗时
+                $("#fgMust_" + i + '_' + j).attr("checked", tdStation.fgMust == '1' ? true : false);  // 必过标志
+
+                var tdSites = tdStation.tdSites;
+                var roomData = '', siteText = '';
+                for (var k = 1; k <= tdSites.length; k++) {
+                    var tdSite = tdSites[k - 1];
+                    if (k > 1) {
+                        roomData += '|';
+                    }
+                    roomData += tdSite.idRoom + '-' + tdSite.numConcur;
+                    siteText += tdSite.idRoomText + ' ';
+                }
+                $('#site_' + i + '_' + j).val(roomData);
+                $('#siteText_' + i + '_' + j).html(siteText);
+            }
+        }
+        form.render();
+        // 考场数
+        oldNumArea = $("#numArea").val();
+    }
 });
 
 
@@ -264,14 +393,12 @@ function addStation(areaIndex) {
     });
 }
 
+// 删除站点
 function delStation(areaIndex, stationIndex) {
-    layui.use('layer',function() {
-        /*var layer = layui.layer;
-        var url = basePath + '/pf/r/item/exam/del';
-        var data = {
-            list: reqData
-        };
-        layer.confirm('确定要删除考站【'+ currentData.mainItem +'】？', {
+    layui.use('layer', function () {
+        var layer = layui.layer;
+
+        layer.confirm('确定要删除考站【' + $("#naStation_" + areaIndex + '_' + stationIndex).html() + '】？', {
             title: '提示',
             resize: false,
             btn: ['确定', '取消'],
@@ -279,11 +406,42 @@ function delStation(areaIndex, stationIndex) {
             icon: 3,
         }, function (index) {
             layer.close(index);
-            //return common.commonPost(url, data, '删除', null, _delItemBack, true);
-        });*/
-        $('#station_' + areaIndex + '_' + stationIndex).remove();
-        $("#currStationNum_"+ areaIndex).val(parseInt(stationIndex) - 1);
+            return del();
+        });
 
+        function del() {
+            var idStation = $("#idStation_" + areaIndex + '_' + stationIndex).val();
+            if (!idStation) {
+                $('#station_' + areaIndex + '_' + stationIndex).remove();
+                //$("#currStationNum_" + areaIndex).val(parseInt(stationIndex) - 1);
+                return false;
+            }
+            var bizData = {
+                idStation: idStation
+            }
+            $.ajax({
+                url: basePath + '/pf/r/plan/template/del/station',
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(bizData),
+                success: function (data) {
+                    layer.closeAll('loading');
+                    if (data.code != 0) {
+                        layer.msg(data.msg, {icon: 5});
+                        return false;
+                    } else {
+                        $('#station_' + areaIndex + '_' + stationIndex).remove();
+                        //$("#currStationNum_" + areaIndex).val(parseInt(stationIndex) - 1);
+                        return false;
+                    }
+                },
+                error: function () {
+                    layer.msg("删除站点失败", {icon: 5});
+                    return false;
+                }
+            });
+        }
     });
 
 }
@@ -291,47 +449,67 @@ function delStation(areaIndex, stationIndex) {
 // 请添加基地类型
 function addSdStationCa(areaIndex, stationIndex) {
     layui.use('layer',function(){
+
         var layer = layui.layer;
         var y = event.clientY;
         var x = event.clientX;
-        layer.open({
-            title: false,
-            type: 1,
-            closeBtn: 0, //不显示关闭按钮
-            anim: 5,
-            shadeClose: true, //开启遮罩关闭
-            resize : false,
-            area: ['260px', 'auto'],
-            offset: [y + 'px', x + 'px'],
-            btn: ['确认', '关闭'],
-            content: '<select class="modal-select" id="sdStationCaWin">\n' +
-                '         <option value="1">内科</option>\n' +
-                '         <option value="2">外科</option>\n' +
-                '         <option value="3">妇产科</option>\n' +
-                '         <option value="4">儿科</option>\n' +
-                '         <option value="5">急诊</option>\n' +
-                '         <option value="6">医患沟通</option>\n' +
-                '         <option value="7">神经内科</option>\n' +
-                '         <option value="8">眼鼻喉</option>\n' +
-                '         <option value="9">皮肤科</option>\n' +
-                '         <option value="10">肿瘤</option>\n' +
-                '         <option value="11">传染</option>\n' +
-                '         <option value="12">心理精神</option>\n' +
-                '         <option value="13">循证医学</option>\n' +
-                '         <option value="14">康复</option>\n' +
-                '         <option value="15">伦理</option>\n' +
-                '     </select>\n'
-            ,yes: function(){
-                console.log(areaIndex + '---' +stationIndex + '---' + $('#sdStationCaWin').val())
-                $('#sdStationCaText_' + areaIndex + '_' + stationIndex).html($("#sdStationCaWin option:selected").text());
-                $('#sdStationCa_' + areaIndex + '_' + stationIndex).val($('#sdStationCaWin').val());
-                layer.closeAll();
-            }, success: function(layero, index){
-                var v = $('#sdStationCa_' + areaIndex + '_' + stationIndex).val();
-                $("#sdStationCaWin option[value='"+ v +"']").attr("selected",true)
 
+        var bizData = {
+            groupCode : 'SD_STATION_CA'
+        }
+        $.ajax({
+            url: basePath + '/pf/r/dic/enum/code/all',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg, {icon: 5});
+                    return '';
+                } else {
+                    var sucData = data.data;
+                    var optionHtml = '';
+                    for (var i = 0; i < sucData.length; i++) {
+                        optionHtml += '<option value="' + sucData[i].dictCode + '">' + sucData[i].dictName + '</option>\\n'
+                    }
+                    openJdlx(optionHtml);
+                    return true;
+                }
+            },
+            error: function () {
+                layer.msg("查询房间列表失败", {icon: 5});
+                return false;
             }
         });
+
+        function openJdlx(optionHtml) {
+            layer.open({
+                title: false,
+                type: 1,
+                closeBtn: 0, //不显示关闭按钮
+                anim: 5,
+                shadeClose: true, //开启遮罩关闭
+                resize : false,
+                area: ['260px', 'auto'],
+                offset: [y + 'px', x + 'px'],
+                btn: ['确认', '关闭'],
+                content: '<select class="modal-select" id="sdStationCaWin">\n' +
+                    optionHtml +
+                    '     </select>\n'
+                ,yes: function(){
+                    console.log(areaIndex + '---' +stationIndex + '---' + $('#sdStationCaWin').val())
+                    $('#sdStationCaText_' + areaIndex + '_' + stationIndex).html($("#sdStationCaWin option:selected").text());
+                    $('#sdStationCa_' + areaIndex + '_' + stationIndex).val($('#sdStationCaWin').val());
+                    layer.closeAll();
+                }, success: function(layero, index){
+                    var v = $('#sdStationCa_' + areaIndex + '_' + stationIndex).val();
+                    $("#sdStationCaWin option[value='"+ v +"']").attr("selected",true)
+
+                }
+            });
+        }
     });
 }
 
@@ -379,77 +557,107 @@ function addSdSkillCa(areaIndex, stationIndex) {
 }
 
 // 请添加站点
+var roomOption = '';
 function addSite(areaIndex, stationIndex) {
     layui.use('layer',function(){
         var layer = layui.layer;
         var y = event.clientY;
         var x = event.clientX;
-        layer.open({
-            title: false,
-            type: 1,
-            closeBtn: 0, //不显示关闭按钮
-            anim: 5,
-            shadeClose: true, //开启遮罩关闭
-            area: ['300px', '165px'],
-            offset: [y + 'px', x + 'px'],
-            btn: ['确认', '关闭'],
-            resize : false,
-
-            content: '<table id="roomTable" border="0" width="100%" style="text-align: center; vertical-align: center; padding-top: 10px;">\n' +
-                '        <input id="rowNum" hidden>\n' +
-                buildTr(1) +
-                '    </table>'
-            ,yes: function() {
-                var rowNum = $('#rowNum').val();
-                console.log('rowNum:' + rowNum)
-                var roomData = '', siteText = '', idRoomArr = new Array();
-                for (var i = 1; i <= rowNum; i++) {
-                    console.log($('#idRoom_' + i).val() + '----' + $('#numConcur_' + i).val())
-                    var idRoom = $('#idRoom_' + i).val();
-                    if (idRoom) {
-
-                        console.log(idRoomArr)
-                        console.log($.inArray(idRoom, idRoomArr))
-                        if ($.inArray(idRoom, idRoomArr) != -1) {
-                            layer.tips("该房间号重复", '#idRoom_' + i);
-                            return false;
-                        }
-                        if (!$('#numConcur_' + i).val()) {
-                            layer.tips("请填写并发人数", '#numConcur_' + i);
-                            return false;
-                        } else {
-                            if (i > 1) {
-                                roomData += '|';
-                            }
-                            roomData += $('#idRoom_' + i).val() + '-' + $('#numConcur_' + i).val();
-                            siteText += $("#idRoom_" + i + " option:selected").text() + ' ';
-                        }
-                        idRoomArr.push(idRoom);
+        // 加载房间列表
+        $.ajax({
+            url: basePath + '/pf/r/room/list/all',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg, {icon: 5});
+                    return '';
+                } else {
+                    var sucData = data.data;
+                    roomOption = '';
+                    for (var i = 0; i < sucData.length; i++) {
+                        roomOption += '<option value="' + sucData[i].idRoom + '">' + sucData[i].naRoom + '</option>\\n'
                     }
-
+                    openSite();
+                    return true;
                 }
-                console.log("roomData:" + roomData + ', siteText: ' + siteText)
-                $('#site_' + areaIndex + '_' + stationIndex).val(roomData);
-                $('#siteText_' + areaIndex + '_' + stationIndex).html(siteText);
-                layer.closeAll();
-            }, success: function(layero, index){
-                $('#rowNum').val(1);
-                var siteData = $('#site_' + areaIndex + '_' + stationIndex).val();
-                console.log("站点数据：" + siteData);
-                if (siteData) {
-                    var arr = siteData.split("|");
-                    for (var i = 0; i < arr.length; i++) {
-                        console.log(arr[i])
-                        var roomArr = arr[i].split("-");
-                        if (i != 0) {
-                            addTr();
-                        }
-                        $("#idRoom_" + (i + 1) + " option[value='"+ roomArr[0] +"']").attr("selected",true)
-                        $('#numConcur_' + (i + 1)).val(roomArr[1]);
-                    }
-                }
+            },
+            error: function () {
+                layer.msg("查询房间列表失败", {icon: 5});
+                return false;
             }
         });
+
+        function openSite() {
+            layer.open({
+                title: false,
+                type: 1,
+                closeBtn: 0, //不显示关闭按钮
+                anim: 5,
+                shadeClose: true, //开启遮罩关闭
+                area: ['300px', '165px'],
+                offset: [y + 'px', x + 'px'],
+                btn: ['确认', '关闭'],
+                resize : false,
+
+                content: '<table id="roomTable" border="0" width="100%" style="text-align: center; vertical-align: center; padding-top: 10px;">\n' +
+                    '        <input id="rowNum" hidden>\n' +
+                    buildTr(1) +
+                    '    </table>'
+                ,yes: function() {
+                    var rowNum = $('#rowNum').val();
+                    console.log('rowNum:' + rowNum)
+                    var roomData = '', siteText = '', idRoomArr = new Array();
+                    for (var i = 1; i <= rowNum; i++) {
+                        console.log($('#idRoom_' + i).val() + '----' + $('#numConcur_' + i).val())
+                        var idRoom = $('#idRoom_' + i).val();
+                        if (idRoom) {
+
+                            console.log(idRoomArr)
+                            console.log($.inArray(idRoom, idRoomArr))
+                            if ($.inArray(idRoom, idRoomArr) != -1) {
+                                layer.tips("该房间号重复", '#idRoom_' + i);
+                                return false;
+                            }
+                            if (!$('#numConcur_' + i).val()) {
+                                layer.tips("请填写并发人数", '#numConcur_' + i);
+                                return false;
+                            } else {
+                                if (i > 1) {
+                                    roomData += '|';
+                                }
+                                roomData += $('#idRoom_' + i).val() + '-' + $('#numConcur_' + i).val();
+                                siteText += $("#idRoom_" + i + " option:selected").text() + ' ';
+                            }
+                            idRoomArr.push(idRoom);
+                        }
+
+                    }
+                    console.log("roomData:" + roomData + ', siteText: ' + siteText)
+                    $('#site_' + areaIndex + '_' + stationIndex).val(roomData);
+                    $('#siteText_' + areaIndex + '_' + stationIndex).html(siteText);
+                    layer.closeAll();
+                }, success: function(layero, index){
+                    $('#rowNum').val(1);
+                    var siteData = $('#site_' + areaIndex + '_' + stationIndex).val();
+                    console.log("站点数据：" + siteData);
+                    if (siteData) {
+                        var arr = siteData.split("|");
+                        for (var i = 0; i < arr.length; i++) {
+                            console.log(arr[i])
+                            var roomArr = arr[i].split("-");
+                            if (i != 0) {
+                                addTr();
+                            }
+                            $("#idRoom_" + (i + 1) + " option[value='"+ roomArr[0] +"']").attr("selected",true)
+                            $('#numConcur_' + (i + 1)).val(roomArr[1]);
+                        }
+                    }
+                }
+            });
+        }
     });
 }
 
@@ -457,9 +665,7 @@ function buildTr(i) {
     return '  <tr id="tableTr_' + i + '">\n' +
         '            <td width="100" style="padding-left: 5px;">' +
         '               <select class="modal-select" id="idRoom_' + i + '" style="width: 100px; margin-top:5px;">\n' +
-        '                   <option value="1">101</option>\n' +
-        '                   <option value="2">102</option>\n' +
-        '                   <option value="3">103</option>\n' +
+        roomOption +
         '               </select>\n' +
         '            </td>\n' +
         '            <td width="100">' +

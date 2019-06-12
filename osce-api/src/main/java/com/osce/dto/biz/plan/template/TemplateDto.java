@@ -35,4 +35,9 @@ public class TemplateDto extends PageParam implements Serializable {
      */
     private Long idModel;
 
+    /**
+     * 站点id
+     */
+    private Long idStation;
+
 }

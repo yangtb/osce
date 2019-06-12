@@ -44,6 +44,11 @@ public class TdStationDto implements Serializable {
     private String sdStationCa;
 
     /**
+     * 基地类型名称
+     */
+    private String sdStationCaText;
+
+    /**
      * 1 理论试题 2 技能操作 3 病史采集
      */
     private String sdSkillCa;

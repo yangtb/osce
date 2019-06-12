@@ -473,6 +473,21 @@
         </choose>
 
     </update>
+    <delete id="delSite">
+        delete from td_site where id_area in (select id_area from td_area where id_model = #{idModel})
+    </delete>
+    <delete id="delStation">
+        delete from td_station where id_area in (select id_area from td_area where id_model = #{idModel})
+    </delete>
+    <delete id="delArea">
+        delete from td_area where id_model = #{idModel}
+    </delete>
+    <delete id="delStationById">
+        delete from td_station where id_station = #{idStation}
+    </delete>
+    <delete id="delSiteByIdStation">
+        delete from td_site where id_station = #{idStation}
+    </delete>
 
     <select id="listTemplate" resultType="com.osce.entity.TdModel">
         SELECT
@@ -531,10 +546,10 @@
             min_interval ,
             sd_model_strategy ,
             sd_model_ca ,
-            morning_begin ,
-            morning_end ,
-            afternoon_begin ,
-            afternoon_end ,
+            date_format(morning_begin , '%H:%i') morning_begin ,
+            date_format(morning_end , '%H:%i') morning_end ,
+            date_format(afternoon_begin , '%H:%i') afternoon_begin ,
+            date_format(afternoon_end , '%H:%i') afternoon_end ,
             fg_active ,
             fg_valid ,
             sort ,
@@ -546,6 +561,9 @@
             td_model
         WHERE
             id_model = #{idModel}
+        <if test="idOrg != null">
+            and id_org = #{idOrg}
+        </if>
         AND fg_valid = '0'
     </select>
 
@@ -591,11 +609,10 @@
             id_area ,
             na_station ,
             sd_station_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = sd_station_ca) AS sdStationCaText ,
             sd_skill_ca ,
-            num_pc ,
             min_cost ,
-            fg_must ,
-            num_room
+            fg_must
         FROM
             td_station
         WHERE
@@ -603,14 +620,16 @@
     </select>
     <select id="listTdSite" resultType="com.osce.entity.TdSite">
         SELECT
-            id_site ,
-            id_station ,
-            id_area ,
-            id_room ,
-            id_paper ,
-            num_concur
+            a.id_site ,
+            a.id_station ,
+            a.id_area ,
+            a.id_room ,
+            b.na_room AS idRoomText ,
+            a.id_paper ,
+            a.num_concur
         FROM
-            td_site
+            td_site a
+        LEFT JOIN erp_room b ON a.id_room = b.id_room
         WHERE
             id_station = #{idStation}
     </select>
@@ -671,8 +690,8 @@
             a.id_room ,
             d.id_ins_station_detail ,
             d.cd_invented_student ,
-            date_format(d.time_begin , '%h:%i') AS time_begin ,
-            date_format(d.time_end , '%h:%i') AS time_end
+            date_format(d.time_begin , '%H:%i') AS time_begin ,
+            date_format(d.time_end , '%H:%i') AS time_end
         FROM
             td_ins_station_detail d
         LEFT JOIN td_ins_station a ON d.id_ins_station = a.id_ins_station

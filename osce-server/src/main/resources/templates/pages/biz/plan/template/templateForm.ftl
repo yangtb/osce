@@ -12,16 +12,16 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/layui/build/css/step.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/css/template/test_define.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/css/template/reset.css">
-    <link rel="stylesheet" href="${contextPath}/layui/expand/css/formSelects-v4.css"></script>
+    <link rel="stylesheet" href="${contextPath}/layui/expand/css/formSelects-v4.css">
 
     <script>
-        var basePath = '${basePath}';
+        var basePath = '${basePath!}';
         var idModel = '${idModel!}';
     </script>
 
     <style>
         .pageHeight {
-            min-height: 800px
+            min-height: 850px
         }
     </style>
 </head>
@@ -35,13 +35,13 @@
                 <div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin: 0 auto;">
                     <div carousel-item>
                         <div>
-                            <form class="layui-form">
+                            <form class="layui-form" lay-filter="step1FormFilter">
                                 <div class="layui-form-item">
                                 <div class="conatiner">
                                     <div class="header-table">
                                         <div class="layui-row form-item-my5">
                                             <div class="layui-col-md4">
-                                                <input name="idModel" hidden>
+                                                <input id="idModel" name="idModel" hidden>
                                                 <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">模板名称<i class="iconfont icon-required"
                                                                                        style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
@@ -240,68 +240,30 @@
                             </form>
                         </div>
                         <div>
-                            <form class="layui-form" style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
+                            <form class="layui-form" style="margin: 0">
+                                <iframe id="pz" class='layui-col-xs12' frameborder="0" style="height: 760px;"
+                                        src="${basePath}/pf/p/plan/template/two" scrolling="no"></iframe>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">游戏ID:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">639537</div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">账户余额:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">3000 元（保险箱：1000，现金：2000）</div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">入款金额:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">
-                                            <span style="font-size: 18px;color: #333;">1800 元</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">入款类型:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">保险箱</div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">入款方式:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">人工入款</div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">备注说明:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">备注说明</div>
-                                    </div>
-                                </div>
-                                <div class="layui-form-item">
-                                    <div class="layui-input-block">
-                                        <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
+                                    <div class="layui-input-block" style="text-align: right; margin-right: 100px;">
+                                        <button type="button" class="layui-btn layui-btn-primary pre">撤销排站</button>
                                         <button class="layui-btn" lay-submit lay-filter="formStep2">
-                                            &emsp;确认入款&emsp;
+                                            &emsp;下一步 ：模拟排考&emsp;
                                         </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div>
-                            <div style="text-align: center;margin-top: 90px;">
-                                <i class="layui-icon layui-circle"
-                                   style="color: white;font-size:30px;font-weight:bold;background: #52C41A;padding: 20px;line-height: 80px;">&#xe605;</i>
-                                <div style="font-size: 24px;color: #333;font-weight: 500;margin-top: 30px;">
-                                    入款成功
+                            <form class="layui-form" style="margin: 0">
+                                <iframe id="mnpk" class='layui-col-xs12' frameborder="0" style="height: 760px;"
+                                        src="${basePath}/pf/p/plan/template/third" scrolling="no"></iframe>
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block" style="text-align: right; margin-right: 100px;">
+                                        <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
+                                    </div>
                                 </div>
-                                <div style="font-size: 14px;color: #666;margin-top: 20px;">预计两小时到账</div>
-                            </div>
-                            <div style="text-align: center;margin-top: 50px;">
-                                <button class="layui-btn next">再入一笔</button>
-                                <button class="layui-btn layui-btn-primary">查看账单</button>
-                            </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>

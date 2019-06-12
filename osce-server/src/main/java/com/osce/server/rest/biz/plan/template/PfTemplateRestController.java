@@ -60,10 +60,10 @@ public class PfTemplateRestController extends BaseController {
         dto.setCreator(CurrentUserUtils.getCurrentUsername());
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
-        TdModelVo tdModelVo = pfTemplateService.addTemplate(dto);
+        Long idModel = pfTemplateService.addTemplate(dto);
         // 5、排站
-        //pfTemplateService.callStationModelOrder(tdModelVo.getIdModel());
-        return ResultObject.createSuccess("addTemplate", ResultObject.DATA_TYPE_OBJECT, tdModelVo);
+        pfTemplateService.callStationModelOrder(idModel);
+        return ResultObject.createSuccess("addTemplate", ResultObject.DATA_TYPE_OBJECT, idModel);
     }
 
     /**
@@ -124,11 +124,12 @@ public class PfTemplateRestController extends BaseController {
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/plan/template/select")
-    public ResultObject selectTdModelInfo(TemplateDto dto) {
+    public ResultObject selectTdModelInfo(@RequestBody TemplateDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdModel() != null, "模板id");
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return ResultObject.createSuccess("selectTdModelInfo", ResultObject.DATA_TYPE_OBJECT,
-                pfTemplateService.selectTdModelInfo(dto.getIdModel()));
+                pfTemplateService.selectTdModelInfo(dto.getIdModel(), dto.getIdOrg()));
     }
 
     /**
@@ -139,7 +140,7 @@ public class PfTemplateRestController extends BaseController {
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/plan/template/selectStationInfo")
-    public ResultObject selectStationInfo(TemplateDto dto) {
+    public ResultObject selectStationInfo(@RequestBody TemplateDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdModel() != null, "模板id");
         return ResultObject.createSuccess("selectTdModelInfo", ResultObject.DATA_TYPE_LIST,
@@ -154,7 +155,7 @@ public class PfTemplateRestController extends BaseController {
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/plan/template/editSkill")
-    public ResultObject editSkill(TdInsStationDto dto) {
+    public ResultObject editSkill(@RequestBody TdInsStationDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdInsStation() != null, "排站id");
         Assert.isTrue(dto.getIdPaper() != null, "技能id");
@@ -170,11 +171,28 @@ public class PfTemplateRestController extends BaseController {
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/plan/template/selectStationDetail")
-    public ResultObject selectStationDetail(TemplateDto dto) {
+    public ResultObject selectStationDetail(@RequestBody TemplateDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdModel() != null, "模板id");
         return ResultObject.createSuccess("selectStationDetail", ResultObject.DATA_TYPE_LIST,
                 pfTemplateService.selectStationDetail(dto.getIdModel()));
+    }
+
+
+    /**
+     * 删除考站
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/plan/template/del/station")
+    public ResultObject delStation(@RequestBody TemplateDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdStation() != null, "idStation");
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfTemplateService.delStation(dto) ? ResultObject.createSuccess("delStation", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("delStation", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
 }

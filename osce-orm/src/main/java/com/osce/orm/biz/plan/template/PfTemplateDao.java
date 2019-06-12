@@ -99,6 +99,30 @@ public interface PfTemplateDao {
     int editTdSite(TdSite tdSite);
 
     /**
+     * 删除站点
+     *
+     * @param idModel
+     * @return
+     */
+    int delSite(@Param("idModel") Long idModel);
+
+    /**
+     * 删除站点
+     *
+     * @param idModel
+     * @return
+     */
+    int delStation(@Param("idModel") Long idModel);
+
+    /**
+     * 删除站点
+     *
+     * @param idModel
+     * @return
+     */
+    int delArea(@Param("idModel") Long idModel);
+
+    /**
      * 删除
      *
      * @param dto
@@ -117,9 +141,11 @@ public interface PfTemplateDao {
      * 查询模板信息
      *
      * @param idModel 模板id
+     * @param idOrg   机构id
      * @return
      */
-    TdModel selectTemplateInfoById(@Param("idModel") Long idModel);
+    TdModel selectTemplateInfoById(@Param("idModel") Long idModel,
+                                   @Param("idOrg") Long idOrg);
 
     /**
      * 获取考场信息
@@ -162,4 +188,22 @@ public interface PfTemplateDao {
      * @return
      */
     List<TdInsStationDetailVo> selectStationDetail(@Param("idModel") Long idModel);
+
+    /**
+     * 删除站点
+     *
+     * @param idStation
+     * @return
+     */
+    int delStationById(Long idStation);
+
+    /**
+     * 删除site
+     *
+     * @param idStation
+     * @return
+     */
+    int delSiteByIdStation(Long idStation);
+
+
 }
