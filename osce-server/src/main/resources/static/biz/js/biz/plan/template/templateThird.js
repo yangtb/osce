@@ -102,7 +102,7 @@ layui.config({
     }
 
     function buildStationDataHtml(stationData) {
-        var html = '';
+        var html = '<div class="test-container">';
         $.each(stationData, function (index, content) {
             var sdSkillCaText;
             if (content.sdSkillCa == 1) {
@@ -118,6 +118,7 @@ layui.config({
                          buildRoomDataHtml(content.roomData) +
                 '    </div></div>';
         });
+        html += '</div>';
         return html;
     }
 
@@ -142,7 +143,7 @@ layui.config({
             }
             $.each(content.spList, function (indexSp, contentSp) {
                 html += '<p class="item-main">\n' +
-                '       <span class="item-msg">S' + contentSp.cdInventedStudent + '</span>\n' +
+                '       <span class="item-msg item-msg-s">S' + contentSp.cdInventedStudent + '</span>\n' +
                 '       <span class="item-msg">' + contentSp.timeBegin + '</span>\n' +
                 '       <span class="item-msg">' + contentSp.timeEnd + '</span>\n'+
                 '    </p>\n';
