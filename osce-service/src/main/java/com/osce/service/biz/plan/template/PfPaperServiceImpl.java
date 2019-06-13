@@ -9,14 +9,16 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdItemArgLevel;
 import com.osce.entity.TdItemArgType;
 import com.osce.entity.TdItemStore;
+import com.osce.exception.RestException;
 import com.osce.orm.biz.plan.template.PfPaperDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
-import com.sm.open.care.core.exception.BizRuntimeException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -31,6 +33,8 @@ import java.util.List;
 @Service
 public class PfPaperServiceImpl implements PfPaperService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PfPaperServiceImpl.class);
+
     @Resource
     private PfPaperDao pfPaperDao;
 
@@ -39,7 +43,6 @@ public class PfPaperServiceImpl implements PfPaperService {
         return pfPaperDao.listLeft(idModel);
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
     public Long addTdItemStore(TdItemStore dto) {
         if (dto.getIdItemStore() == null) {
@@ -47,14 +50,18 @@ public class PfPaperServiceImpl implements PfPaperService {
         } else {
             pfPaperDao.editTdItemStore(dto);
         }
-        // 调用存储过程另存 P_ITEM_STORE_INS
-        PfParamItemStoreDto pfParamItemStoreDto = new PfParamItemStoreDto();
-        pfParamItemStoreDto.setParIdItemStore(dto.getIdItemStore());
-        pfPaperDao.callItemStoreIns(pfParamItemStoreDto);
-        if (pfParamItemStoreDto.getParCode() != 0) {
-            throw new BizRuntimeException(String.valueOf(pfParamItemStoreDto.getParCode()), pfParamItemStoreDto.getParMsg());
-        }
         return dto.getIdItemStore();
+    }
+
+    @Override
+    public boolean copyTdItemStore(PfParamItemStoreDto dto) {
+        // 调用存储过程另存 P_ITEM_STORE_INS
+        pfPaperDao.callItemStoreIns(dto);
+        if (dto.getParCode() != 0) {
+            logger.error("调用存储过程另存[理论试题]出错, param : {} ", dto.toString());
+            throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
+        }
+        return true;
     }
 
     @Override
@@ -125,7 +132,7 @@ public class PfPaperServiceImpl implements PfPaperService {
     public boolean generatePaper(PfParamItemStoreDto dto) {
         pfPaperDao.callGeneratePaper(dto);
         if (dto.getParCode() != 0) {
-            throw new BizRuntimeException(String.valueOf(dto.getParCode()), dto.getParMsg());
+            throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
         }
         return true;
     }

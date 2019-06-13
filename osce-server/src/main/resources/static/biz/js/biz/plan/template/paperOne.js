@@ -75,10 +75,20 @@ layui.config({
         return common.commonPost(basePath + '/pf/p/plan/paper/add/item', data.field, null, 'addTdItemStore',
             function (data) {
                 $('#idItemStore').val(data.data);
+                copyItem(data.data);
+            }, true);
+    });
+
+    function copyItem(idItemStore) {
+        var bizData = {
+            parIdItemStore: idItemStore
+        }
+        common.commonPost(basePath + '/pf/p/plan/paper/copy/item', bizData, null, 'addTdItemStore',
+            function (data) {
                 step.next('#stepForm');
                 selectPaperParam();
             }, true);
-    });
+    }
 
     // 第2步 ： 试卷参数
     function selectPaperParam() {

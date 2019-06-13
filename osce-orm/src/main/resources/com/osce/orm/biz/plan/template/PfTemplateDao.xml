@@ -767,7 +767,7 @@
         ORDER BY
             (a.time_section MOD 1) ,
             floor(a.time_section) ,
-            d.cd_invented_student
+            date_format(d.time_begin , '%H:%i')
     </select>
 
 </mapper>

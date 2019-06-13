@@ -265,7 +265,7 @@
         SELECT
             a.sd_skill_ca ,
             a.sd_station_ca ,
-            group_concat(d.na_room SEPARATOR '、') AS rooms
+            group_concat(DISTINCT d.na_room SEPARATOR '、') AS rooms
         FROM
             td_station a
         LEFT JOIN td_area b ON a.id_area = b.id_area

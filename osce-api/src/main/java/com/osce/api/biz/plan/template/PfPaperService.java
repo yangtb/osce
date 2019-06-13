@@ -8,6 +8,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdItemStore;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -34,6 +35,13 @@ public interface PfPaperService {
      * @return
      */
     Long addTdItemStore(TdItemStore dto);
+
+    /**
+     * 拷贝题集
+     *
+     * @param dto
+     */
+    boolean copyTdItemStore(PfParamItemStoreDto dto);
 
     /**
      * 获取试题题集

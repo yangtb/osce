@@ -86,7 +86,7 @@ public class PfUserServiceImpl implements PfUserService {
             List<Long> orgList = pfUserDao.selectOrgId(dto.getList()).stream()
                     .filter(idOrg -> !idOrg.equals(dto.getCurrentUserOrgId())).collect(Collectors.toList());
             if (!CollectionUtils.isEmpty(orgList)) {
-                throw new BizRuntimeException(ErrorCode.USER_AUTH_EXCEPTION, ErrorMessage.USER_AUTH_EXCEPTION_MSG);
+                throw new RestException(ErrorCode.USER_AUTH_EXCEPTION, ErrorMessage.USER_AUTH_EXCEPTION_MSG);
             }
         }
         return pfUserDao.delUser(dto.getList()) >= 1 ? true : false;
@@ -99,7 +99,7 @@ public class PfUserServiceImpl implements PfUserService {
             List<Long> orgList = pfUserDao.selectOrgId(dto.getList()).stream()
                     .filter(idOrg -> !idOrg.equals(dto.getCurrentUserOrgId())).collect(Collectors.toList());
             if (!CollectionUtils.isEmpty(orgList)) {
-                throw new BizRuntimeException(ErrorCode.USER_AUTH_EXCEPTION, ErrorMessage.USER_AUTH_EXCEPTION_MSG);
+                throw new RestException(ErrorCode.USER_AUTH_EXCEPTION, ErrorMessage.USER_AUTH_EXCEPTION_MSG);
             }
         }
         return pfUserDao.freezeUser(dto.getList()) >= 1 ? true : false;

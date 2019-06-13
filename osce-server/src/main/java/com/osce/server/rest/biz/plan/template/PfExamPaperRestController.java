@@ -80,6 +80,22 @@ public class PfExamPaperRestController {
     }
 
     /**
+     * 增加试题题集
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/p/plan/paper/copy/item")
+    public ResultObject copyTdItemStore(@RequestBody PfParamItemStoreDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getParIdItemStore() != null, "题集ID");
+        return ResultObject.createSuccess("copyTdItemStore", ResultObject.DATA_TYPE_OBJECT,
+                pfPaperService.copyTdItemStore(dto));
+    }
+
+
+    /**
      * 获取试题题集
      *
      * @param dto

@@ -5,14 +5,13 @@ import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdModel;
 import com.osce.entity.TdSite;
+import com.osce.exception.RestException;
 import com.osce.orm.biz.plan.template.PfTemplateDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
-import com.osce.vo.biz.plan.template.TdInsStationDetailVo;
 import com.osce.vo.biz.plan.template.TdModelVo;
 import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
-import com.sm.open.care.core.exception.BizRuntimeException;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,7 +107,7 @@ public class PfTemplateServiceImpl implements PfTemplateService {
         pfStationModelDto.setParIdDemo(idModel);
         pfTemplateDao.callStationModelOrder(pfStationModelDto);
         if (pfStationModelDto.getParCode() != 0) {
-            throw new BizRuntimeException(String.valueOf(pfStationModelDto.getParCode()), pfStationModelDto.getParMsg());
+            throw new RestException(String.valueOf(pfStationModelDto.getParCode()), pfStationModelDto.getParMsg());
         }
     }
 
