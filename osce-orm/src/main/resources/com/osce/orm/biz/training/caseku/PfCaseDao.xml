@@ -485,6 +485,7 @@
 
     <select id="listCase" resultType="com.osce.entity.CobSpCase">
         SELECT
+            id,
             id_case ,
             id_org ,
             na_sp_case ,

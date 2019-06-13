@@ -38,7 +38,7 @@ public class PfCaseController extends BaseController {
         return "pages/biz/training/case/caseTagForm";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/case/list")
     @ResponseBody
     public PageResult pageCase(CaseDto dto) {
