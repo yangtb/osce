@@ -509,6 +509,9 @@
         WHERE
             id_org = #{idOrg}
         AND fg_valid = '0'
+        <if test="naSpCase != null and naSpCase != ''">
+            AND na_sp_case like concat('%',#{naSpCase},'%')
+        </if>
         limit #{offset}, #{limit}
     </select>
     <select id="countCase" resultType="java.lang.Long">
@@ -519,6 +522,9 @@
          WHERE
             id_org = #{idOrg}
         AND fg_valid = '0'
+        <if test="naSpCase != null and naSpCase != ''">
+            AND na_sp_case like concat('%',#{naSpCase},'%')
+        </if>
     </select>
     <select id="listSheet" resultType="com.osce.entity.CobScoreSheet">
         SELECT
