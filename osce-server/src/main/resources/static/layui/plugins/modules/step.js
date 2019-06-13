@@ -80,7 +80,7 @@
                 renderDom(param.elem, stepItems, obj.index);
                 $('.lay-step').css('width', param.stepWidth);
                 v_index = obj.index;
-                console.log("切换后v_index===" + v_index)
+                //console.log("切换后v_index===" + v_index)
             });
 
             // 隐藏左右箭头按钮

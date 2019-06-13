@@ -6,7 +6,6 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
-import com.osce.vo.biz.plan.template.TdModelVo;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.ResultObject;
@@ -193,6 +192,22 @@ public class PfTemplateRestController extends BaseController {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return pfTemplateService.delStation(dto) ? ResultObject.createSuccess("delStation", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("delStation", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+    /**
+     * 撤销排站
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/plan/template/station/cancel")
+    public ResultObject cancelStation(@RequestBody TemplateDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdModel() != null, "模板id");
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfTemplateService.cancelStation(dto) ? ResultObject.createSuccess("cancelStation", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("cancelStation", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
 }

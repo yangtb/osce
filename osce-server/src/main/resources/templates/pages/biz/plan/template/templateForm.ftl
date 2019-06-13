@@ -241,11 +241,11 @@
                         </div>
                         <div>
                             <form class="layui-form" style="margin: 0">
-                                <iframe id="pz" class='layui-col-xs12' frameborder="0" style="height: 760px;"
-                                        src="${basePath}/pf/p/plan/template/two" scrolling="no"></iframe>
+                                <iframe id="pz" class='layui-col-xs12' frameborder="0" style="height: 670px;"
+                                        src="${basePath}/pf/p/plan/template/two?idModel=${idModel!}" scrolling="no"></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block" style="text-align: right; margin-right: 100px;">
-                                        <button type="button" class="layui-btn layui-btn-primary pre">撤销排站</button>
+                                        <button id="cancelStation" type="button" class="layui-btn layui-btn-primary">撤销排站</button>
                                         <button class="layui-btn" lay-submit lay-filter="formStep2">
                                             &emsp;下一步 ：模拟排考&emsp;
                                         </button>
@@ -255,8 +255,8 @@
                         </div>
                         <div>
                             <form class="layui-form" style="margin: 0">
-                                <iframe id="mnpk" class='layui-col-xs12' frameborder="0" style="height: 760px;"
-                                        src="${basePath}/pf/p/plan/template/third" scrolling="no"></iframe>
+                                <iframe id="mnpk" class='layui-col-xs12' frameborder="0" style="height: 670px;"
+                                        src="${basePath}/pf/p/plan/template/third?idModel=${idModel!}" scrolling="no"></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block" style="text-align: right; margin-right: 100px;">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>

@@ -3,16 +3,12 @@ layui.config({
 }).extend({
     index: 'lib/index', //主入口模块
     formSelects: 'formSelects-v4'
-}).use(['layer', 'index', 'table', 'form', 'jquery', 'step', 'element'
-    , 'common', 'tableSelect', 'formSelects', 'laydate'], function () {
+}).use(['layer', 'index', 'form', 'jquery', 'step', 'element', 'common', 'laydate'], function () {
     var $ = layui.$
-        , table = layui.table
         , common = layui.common
         , form = layui.form
         , step = layui.step
         , element = layui.element
-        , tableSelect = layui.tableSelect
-        , formSelects = layui.formSelects
         , laydate = layui.laydate;
 
     var oldNumArea = 1;
@@ -65,6 +61,8 @@ layui.config({
 
     form.on('submit(formStep2)', function (data) {
         step.next('#stepForm');
+        // 重新加载iframe
+        $('#mnpk').attr('src', $('#mnpk').attr('src'));
         return false;
     });
 
@@ -282,6 +280,8 @@ layui.config({
                 } else {
                     $('#idModel').val(data.data);
                     step.next('#stepForm');
+                    // 重新加载iframe
+                    $('#pz').attr('src', $('#pz').attr('src'));
                     return false;
                 }
             },
@@ -358,7 +358,7 @@ layui.config({
                 $("#sdStationCa_" + i + '_' + j).val(tdStation.sdStationCa);            // 基地类型
                 $("#sdStationCaText_" + i + '_' + j).html(tdStation.sdStationCaText);   // 基地类型
                 $("#sdSkillCa_" + i + '_' + j).val(tdStation.sdSkillCa);                // 技能类型
-                $("#sdSkillCaText_" + i + '_' + j).html(tdStation.sdSkillCaText);       // 技能类型
+                $("#sdSkillCaText_" + i + '_' + j).html(tdStation.sdSkillCaText + ' ' + tdStation.minCost + 'min');       // 技能类型
                 $("#minCost_" + i + '_' + j).val(tdStation.minCost);                    // 站点耗时
                 $("#fgMust_" + i + '_' + j).attr("checked", tdStation.fgMust == '1' ? true : false);  // 必过标志
 
@@ -380,6 +380,35 @@ layui.config({
         // 考场数
         oldNumArea = $("#numArea").val();
     }
+
+    // 撤销排站
+    $("#cancelStation").on('click', function () {
+        var bizData = {
+            idModel : idModel
+        }
+
+        $.ajax({
+            url: basePath + '/pf/r/plan/template/station/cancel',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg, {icon: 5});
+                    return false;
+                } else {
+                    step.pre('#stepForm');
+                    return false;
+                }
+            },
+            error: function () {
+                layer.msg("撤销排站失败", {icon: 5});
+                return false;
+            }
+        });
+    });
 });
 
 
@@ -505,8 +534,7 @@ function addSdStationCa(areaIndex, stationIndex) {
                     layer.closeAll();
                 }, success: function(layero, index){
                     var v = $('#sdStationCa_' + areaIndex + '_' + stationIndex).val();
-                    $("#sdStationCaWin option[value='"+ v +"']").attr("selected",true)
-
+                    $("#sdStationCaWin option[value='"+ v +"']").attr("selected",true);
                 }
             });
         }
@@ -673,11 +701,13 @@ function buildTr(i) {
         '                   style="height: 27px; width: 100px; text-indent: 5px; margin-left: 15px; margin-top:5px;" placeholder="并发人数"/>' +
         '            </td>\n' +
         '            <td width="100">' +
-        '               <a style="cursor: pointer; font-size: 20px" onclick="addTr()">+</a>&nbsp;' +
-        '               <a style="cursor: pointer; font-size: 20px" onclick="delTr(' + i + ')">-</a>' +
-        '            </td>\n' +
+        '               <a style="cursor: pointer; font-size: 20px" onclick="addTr()"><i class="iconfont icon-add" style="color: #009688"></i></a>&nbsp;' +
+        '               <a style="cursor: pointer; font-size: 20px" onclick="delTr(' + i + ')"><i class="layui-icon layui-icon-delete" style="color: red"></i></a>' +
+
+    '            </td>\n' +
         '        </tr>\n';
 }
+
 
 function addTr() {
     var rowNum = parseInt($('#rowNum').val()) + 1;

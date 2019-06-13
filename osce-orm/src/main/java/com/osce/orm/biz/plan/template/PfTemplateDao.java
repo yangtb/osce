@@ -5,7 +5,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdModel;
 import com.osce.entity.TdSite;
 import com.osce.vo.biz.plan.template.TdInsStationDetailVo;
-import com.osce.vo.biz.plan.template.TdInsStationVo;
+import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -161,7 +161,7 @@ public interface PfTemplateDao {
      * @param idModel 模板id
      * @return
      */
-    List<TdInsStationVo> selectStationInfo(@Param("idModel") Long idModel);
+    List<TdStationInfoVo> selectStationInfo(@Param("idModel") Long idModel);
 
     /**
      * 查询技能名称
@@ -187,7 +187,7 @@ public interface PfTemplateDao {
      * @param idModel 模板id
      * @return
      */
-    List<TdInsStationDetailVo> selectStationDetail(@Param("idModel") Long idModel);
+    List<TdStationInfoVo> selectStationDetail(@Param("idModel") Long idModel);
 
     /**
      * 删除站点
@@ -205,5 +205,20 @@ public interface PfTemplateDao {
      */
     int delSiteByIdStation(Long idStation);
 
+    /**
+     * 撤销排站 - 详情
+     *
+     * @param idModel 模板id
+     * @return
+     */
+    int delTdInsStationDetail(@Param("idModel") Long idModel);
+
+    /**
+     * 撤销排站
+     *
+     * @param idModel 模板id
+     * @return
+     */
+    int delTdInsStation(@Param("idModel") Long idModel);
 
 }

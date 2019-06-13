@@ -10,8 +10,8 @@ import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.vo.biz.plan.template.TdInsStationDetailVo;
-import com.osce.vo.biz.plan.template.TdInsStationVo;
 import com.osce.vo.biz.plan.template.TdModelVo;
+import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
 import com.sm.open.care.core.exception.BizRuntimeException;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
@@ -148,12 +148,17 @@ public class PfTemplateServiceImpl implements PfTemplateService {
     }
 
     @Override
-    public List<TdInsStationVo> selectStationInfo(Long idModel) {
-        List<TdInsStationVo> stationVos = pfTemplateDao.selectStationInfo(idModel);
-        for (TdInsStationVo tdInsStationVo : stationVos) {
-            String idPaperText = pfTemplateDao.selectSkillName(tdInsStationVo.getSdSkillCa(), tdInsStationVo.getIdPaper());
-            tdInsStationVo.setIdPaperText(idPaperText);
-        }
+    public List<TdStationInfoVo> selectStationInfo(Long idModel) {
+        List<TdStationInfoVo> stationVos = pfTemplateDao.selectStationInfo(idModel);
+        stationVos.forEach(tdInsStationVo -> tdInsStationVo.getDayData().forEach(tdDayInfo -> { tdDayInfo.getAreaData().forEach(tdAreaInfo -> tdAreaInfo.getStationData().forEach(tdStation -> {
+                tdStation.getRoomData().forEach(tdRoomInfo -> {
+                    if (tdRoomInfo.getIdPaper() != null) {
+                        String idPaperText = pfTemplateDao.selectSkillName(tdStation.getSdSkillCa(), tdRoomInfo.getIdPaper());
+                        tdRoomInfo.setIdPaperText(idPaperText);
+                    }
+                });
+            }));
+        }));
         return stationVos;
     }
 
@@ -164,7 +169,7 @@ public class PfTemplateServiceImpl implements PfTemplateService {
     }
 
     @Override
-    public List<TdInsStationDetailVo> selectStationDetail(Long idModel) {
+    public List<TdStationInfoVo> selectStationDetail(Long idModel) {
         return pfTemplateDao.selectStationDetail(idModel);
     }
 
@@ -173,6 +178,14 @@ public class PfTemplateServiceImpl implements PfTemplateService {
     public boolean delStation(TemplateDto dto) {
         pfTemplateDao.delStationById(dto.getIdStation());
         pfTemplateDao.delSiteByIdStation(dto.getIdStation());
+        return true;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean cancelStation(TemplateDto dto) {
+        pfTemplateDao.delTdInsStationDetail(dto.getIdModel());
+        pfTemplateDao.delTdInsStation(dto.getIdModel());
         return true;
     }
 

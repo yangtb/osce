@@ -488,6 +488,12 @@
     <delete id="delSiteByIdStation">
         delete from td_site where id_station = #{idStation}
     </delete>
+    <delete id="delTdInsStationDetail">
+        delete from td_ins_station_detail where id_ins_station in (select id_ins_station from td_ins_station where id_model = #{idModel})
+    </delete>
+    <delete id="delTdInsStation">
+        delete from td_ins_station where id_model = #{idModel}
+    </delete>
 
     <select id="listTemplate" resultType="com.osce.entity.TdModel">
         SELECT
@@ -642,25 +648,57 @@
         )
     </select>
 
-    <select id="selectStationInfo" resultType="com.osce.vo.biz.plan.template.TdInsStationVo">
+
+    <resultMap id="stationResultMap" type="com.osce.vo.biz.plan.template.station.TdStationInfoVo">
+        <id property="timeFlag" column="timeFlag" />
+        <collection property="dayData" ofType="com.osce.vo.biz.plan.template.station.TdDayInfo">
+            <result property="dayNum" column="dayNum" />
+            <collection property="areaData" ofType="com.osce.vo.biz.plan.template.station.TdAreaInfo">
+                <result property="idArea" column="id_area" />
+                <result property="naArea" column="na_area" />
+                <collection property="stationData" ofType="com.osce.vo.biz.plan.template.station.TdStation">
+                    <result property="idStation" column="id_station" />
+                    <result property="naStation" column="na_station" />
+                    <result property="sdStationCa" column="sd_station_ca" />
+                    <result property="sdStationCaText" column="sdStationCaText" />
+                    <result property="sdSkillCa" column="sd_skill_ca" />
+                    <collection property="roomData" ofType="com.osce.vo.biz.plan.template.station.TdRoomInfo">
+                        <result property="idInsStation" column="id_ins_station" />
+                        <result property="idRoom" column="id_room" />
+                        <result property="idRoomText" column="idRoomText" />
+                        <result property="idPaper" column="id_paper" />
+                        <result property="idPaperText" column="idPaperText"/>
+                        <result property="sq" column="sq"/>
+                    </collection>
+                </collection>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectStationInfo" resultMap="stationResultMap">
         SELECT
-            a.id_ins_station ,
-            a.id_model ,
-            a.time_section ,
+            if((a.time_section mod 1) = 0, 1, 2) as timeFlag ,
+            floor(a.time_section) as dayNum ,
             a.id_area ,
             b.na_area ,
             a.id_station ,
             c.na_station ,
             a.sd_station_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = a.sd_station_ca) AS sdStationCaText ,
             a.sd_skill_ca ,
+            a.id_ins_station ,
             a.id_room ,
-            a.id_paper
+            d.na_room as idRoomText ,
+            a.id_paper,
+            concat(if((a.time_section mod 1) = 0, 1, 2), '-', floor(a.time_section), '-', a.id_area, '-', a.id_station) as sq
         FROM
             td_ins_station a
         LEFT JOIN td_area b ON a.id_area = b.id_area
         LEFT JOIN td_station c ON a.id_station = c.id_station
+        left join erp_room d on a.id_room = d.id_room
         WHERE
             a.id_model = #{idModel}
+        order by (a.time_section mod 1), floor(a.time_section)
     </select>
 
     <select id="selectSkillName" resultType="java.lang.String">
@@ -676,18 +714,44 @@
             </otherwise>
         </choose>
     </select>
-    <select id="selectStationDetail" resultType="com.osce.vo.biz.plan.template.TdInsStationDetailVo">
+
+    <resultMap id="stationDetailMap" type="com.osce.vo.biz.plan.template.station.TdStationInfoVo">
+        <id property="timeFlag" column="timeFlag" />
+        <collection property="dayData" ofType="com.osce.vo.biz.plan.template.station.TdDayInfo">
+            <result property="dayNum" column="dayNum" />
+            <collection property="areaData" ofType="com.osce.vo.biz.plan.template.station.TdAreaInfo">
+                <result property="naArea" column="na_area" />
+                <collection property="stationData" ofType="com.osce.vo.biz.plan.template.station.TdStation">
+                    <result property="naStation" column="na_station" />
+                    <result property="sdStationCaText" column="sdStationCaText" />
+                    <result property="sdSkillCa" column="sd_skill_ca" />
+                    <collection property="roomData" ofType="com.osce.vo.biz.plan.template.station.TdRoomInfo">
+                        <result property="idRoom" column="id_room" />
+                        <result property="idRoomText" column="idRoomText" />
+                        <result property="sq" column="sq" />
+                        <collection property="spList" ofType="com.osce.entity.TdInsStationDetail">
+                            <result property="idInsStationDetail" column="id_ins_station_detail" />
+                            <result property="cdInventedStudent" column="cd_invented_student" />
+                            <result property="timeBegin" column="time_begin" />
+                            <result property="timeEnd" column="time_end" />
+                        </collection>
+                    </collection>
+                </collection>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectStationDetail" resultMap="stationDetailMap">
         SELECT
-            a.id_ins_station ,
-            a.id_model ,
-            a.time_section ,
-            a.id_area ,
+            IF((a.time_section mod 1) = 0, 1, 2) as timeFlag ,
+            floor(a.time_section) AS dayNum ,
             b.na_area ,
-            a.id_station ,
             c.na_station ,
-            a.sd_station_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = a.sd_station_ca) AS sdStationCaText ,
             a.sd_skill_ca ,
-            a.id_room ,
+            f.id_room ,
+            f.na_room AS idRoomText ,
+            concat(if((a.time_section mod 1) = 0, 1, 2), '-', floor(a.time_section), '-', a.id_area, '-', a.id_station) as sq,
             d.id_ins_station_detail ,
             d.cd_invented_student ,
             date_format(d.time_begin , '%H:%i') AS time_begin ,
@@ -697,8 +761,13 @@
         LEFT JOIN td_ins_station a ON d.id_ins_station = a.id_ins_station
         LEFT JOIN td_area b ON a.id_area = b.id_area
         LEFT JOIN td_station c ON a.id_station = c.id_station
+        LEFT JOIN erp_room f ON a.id_room = f.id_room
         WHERE
             a.id_model = #{idModel}
+        ORDER BY
+            (a.time_section MOD 1) ,
+            floor(a.time_section) ,
+            d.cd_invented_student
     </select>
 
 </mapper>

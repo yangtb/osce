@@ -6,7 +6,7 @@ import com.osce.dto.biz.plan.template.TemplateDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.template.TdInsStationDetailVo;
-import com.osce.vo.biz.plan.template.TdInsStationVo;
+import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public interface PfTemplateService {
      * @param idModel 模板id
      * @return
      */
-    List<TdInsStationVo> selectStationInfo(Long idModel);
+    List<TdStationInfoVo> selectStationInfo(Long idModel);
 
     /**
      * 排站信息 - 修改技能
@@ -80,13 +80,23 @@ public interface PfTemplateService {
      * @param idModel 模板id
      * @return
      */
-    List<TdInsStationDetailVo> selectStationDetail(Long idModel);
+    List<TdStationInfoVo> selectStationDetail(Long idModel);
 
     /**
      * 删除考站
+     *
      * @param dto
      * @return
      */
     boolean delStation(TemplateDto dto);
+
+    /**
+     * 撤销排站
+     *
+     * @param dto
+     * @return
+     */
+    boolean cancelStation(TemplateDto dto);
+
 
 }

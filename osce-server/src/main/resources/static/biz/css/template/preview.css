@@ -129,6 +129,7 @@ td {
 .item-text {
   font-size: 10px;
   cursor: pointer;
+  font-weight: normal;
 }
 
 /* 弹层 */
@@ -203,6 +204,12 @@ td {
   border-right: 1px solid #d2d2d2;
 }
 
+.tab-content {
+  display: inline-block;
+  width: 110px;
+  height: 115px;
+}
+
 .item-main {
   width: 100%;
   height: 20px;
@@ -214,7 +221,9 @@ td {
 .item-msg {
   flex: 1;
   font-size: 10px;
-  text-align: center;
+  text-align: left;
+  padding-left: 10px;
+  font-weight: normal;
 }
 
 .tab2-content {
@@ -243,4 +252,9 @@ td {
 
 .edit {
   margin-right: 0;
+}
+
+img, a {
+  display: inline-block;
+  text-decoration: none;
 }
