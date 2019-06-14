@@ -81,6 +81,7 @@ layui.config({
     }
 
     function loadSheet() {
+        reloadSpTable();
         $('#scoreTag').attr('src', basePath + "/pf/p/plan/paper/item/page?idCase=" + $("#idCase").val());
     }
 
@@ -140,6 +141,7 @@ layui.config({
     $('#addSp').on('click', function () {
         // 表单跳到第一步
         step.goFirst(ins, options);
+        $('#naSpCaseFrom').attr("ts-selected", "");
         $('#reset').trigger('click');
         $('#naSpCase').focus();
     });
@@ -218,9 +220,22 @@ layui.config({
     });
 
     $('#finish-btn').on('click',function () {
+        reloadSpTable();
         layer.tips('已完成', '#finish-btn');
         return false;
     });
+
+    function reloadSpTable() {
+        table.reload('skillTableId', {
+            height: 360
+            , page: {
+                curr: 1
+            }
+            , where : {
+                idModel: idModel
+            }
+        });
+    }
 
 });
 

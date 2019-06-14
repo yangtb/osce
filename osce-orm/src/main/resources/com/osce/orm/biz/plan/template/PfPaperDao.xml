@@ -145,37 +145,37 @@
             <if test="idOrg!=null">
                 id_org,
             </if>
-            <if test="naSpCase!=null">
+            <if test="naSpCase!=null and naSpCase!=''">
                 na_sp_case,
             </if>
             <if test="scorePass!=null">
                 score_pass,
             </if>
-            <if test="sdSpCaseCa!=null">
+            <if test="sdSpCaseCa!=null and sdSpCaseCa!=''">
                 sd_sp_case_ca,
             </if>
-            <if test="desSpCase!=null">
+            <if test="desSpCase!=null and desSpCase!=''">
                 des_sp_case,
             </if>
-            <if test="desProb!=null">
+            <if test="desProb!=null and desProb!=''">
                 des_prob,
             </if>
-            <if test="desCurDie!=null">
+            <if test="desCurDie!=null and desCurDie!=''">
                 des_cur_die,
             </if>
-            <if test="desHisDie!=null">
+            <if test="desHisDie!=null and desHisDie!=''">
                 des_his_die,
             </if>
-            <if test="desPatDie!=null">
+            <if test="desPatDie!=null and desPatDie!=''">
                 des_pat_die,
             </if>
-            <if test="desFamDie!=null">
+            <if test="desFamDie!=null and desFamDie!=''">
                 des_fam_die,
             </if>
-            <if test="desPoints!=null">
+            <if test="desPoints!=null and desPoints!=''">
                 des_points,
             </if>
-            <if test="docSp!=null">
+            <if test="docSp!=null and docSp!=''">
                 doc_sp,
             </if>
             <if test="fgActive!=null">
@@ -187,11 +187,11 @@
             <if test="sort!=null">
                 sort,
             </if>
-            <if test="creator!=null">
+            <if test="creator!=null and creator!=''">
                 creator,
             </if>
                 gmt_create,
-            <if test="operator!=null">
+            <if test="operator!=null and operator!=''">
                 operator,
             </if>
                 gmt_modify,
@@ -215,37 +215,37 @@
             <if test="idOrg!=null">
                 #{idOrg},
             </if>
-            <if test="naSpCase!=null">
+            <if test="naSpCase!=null and naSpCase!=''">
                 #{naSpCase},
             </if>
             <if test="scorePass!=null">
                 #{scorePass},
             </if>
-            <if test="sdSpCaseCa!=null">
+            <if test="sdSpCaseCa!=null and sdSpCaseCa!=''">
                 #{sdSpCaseCa},
             </if>
-            <if test="desSpCase!=null">
+            <if test="desSpCase!=null and desSpCase!=''">
                 #{desSpCase},
             </if>
-            <if test="desProb!=null">
+            <if test="desProb!=null and desProb!=''">
                 #{desProb},
             </if>
-            <if test="desCurDie!=null">
+            <if test="desCurDie!=null and desCurDie!=''">
                 #{desCurDie},
             </if>
-            <if test="desHisDie!=null">
+            <if test="desHisDie!=null and desHisDie!=''">
                 #{desHisDie},
             </if>
-            <if test="desPatDie!=null">
+            <if test="desPatDie!=null and desPatDie!=''">
                 #{desPatDie},
             </if>
-            <if test="desFamDie!=null">
+            <if test="desFamDie!=null and desFamDie!=''">
                 #{desFamDie},
             </if>
-            <if test="desPoints!=null">
+            <if test="desPoints!=null and desPoints!=''">
                 #{desPoints},
             </if>
-            <if test="docSp!=null">
+            <if test="docSp!=null and docSp!=''">
                 #{docSp},
             </if>
             <if test="fgActive!=null">
@@ -257,11 +257,11 @@
             <if test="sort!=null">
                 #{sort},
             </if>
-            <if test="creator!=null">
+            <if test="creator!=null and creator!=''">
                 #{creator},
             </if>
                 now(),
-            <if test="operator!=null">
+            <if test="operator!=null and operator!=''">
                 #{operator},
             </if>
                 now(),
