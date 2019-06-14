@@ -65,6 +65,7 @@ layui.config({
                 var sucData = data.data;
                 $('#id').val(sucData.id);
                 $('#idCase').val(sucData.idCase);
+                reloadSpTable();
                 copyCase(sucData.id);
             }, true);
     });
@@ -81,7 +82,6 @@ layui.config({
     }
 
     function loadSheet() {
-        reloadSpTable();
         $('#scoreTag').attr('src', basePath + "/pf/p/plan/paper/item/page?idCase=" + $("#idCase").val());
     }
 

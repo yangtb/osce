@@ -735,15 +735,42 @@
             a.gmt_create ,
             a.operator ,
             a.gmt_modify ,
-            0 AS sheetNum ,
-            0 AS sheetTotalScore,
-	        b.na_sp_case as naSpCaseFrom
+            count(c.id_score_sheet) AS sheetNum ,
+            IFNULL(sum(d.score) , 0) AS sheetTotalScore ,
+            b.na_sp_case AS naSpCaseFrom
         FROM
             td_sp_case a
-        LEFT JOIN cob_sp_case b on a.id_from = b.id
+        LEFT JOIN cob_sp_case b ON a.id_from = b.id
+        LEFT JOIN td_score_sheet c ON c.id_case = a.id_case AND c.fg_active = '1'
+        LEFT JOIN td_score_item d ON c.id_score_sheet = d.id_score_sheet AND d.fg_active = '1'
         WHERE
             a.id_model = #{idModel}
         AND a.fg_valid = '0'
+        GROUP BY
+            a.id ,
+            a.id_case ,
+            a.id_model ,
+            a.id_org ,
+            a.id_from ,
+            a.na_sp_case ,
+            a.score_pass ,
+            a.sd_sp_case_ca ,
+            a.des_sp_case ,
+            a.des_prob ,
+            a.des_cur_die ,
+            a.des_his_die ,
+            a.des_pat_die ,
+            a.des_fam_die ,
+            a.des_points ,
+            a.doc_sp ,
+            a.fg_active ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify ,
+            b.na_sp_case
         limit #{offset}, #{limit}
     </select>
 
