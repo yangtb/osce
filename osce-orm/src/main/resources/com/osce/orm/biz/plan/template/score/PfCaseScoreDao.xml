@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.plan.template.score.PfCaseScoreDao">
+    
+    <insert id="addSheet" useGeneratedKeys="true" keyProperty="idScoreSheet">
+        INSERT INTO td_score_sheet
+        (
+        <trim suffixOverrides=",">
+            <if test="idScoreSheet!=null">
+                id_score_sheet,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="idCase!=null and idCase!=''">
+                id_case,
+            </if>
+            <if test="naScoreSheet!=null">
+                na_score_sheet,
+            </if>
+            <if test="desScoreSheet!=null">
+                des_score_sheet,
+            </if>
+            <if test="scorePass!=null">
+                score_pass,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idScoreSheet!=null">
+                #{idScoreSheet},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="idCase!=null">
+                #{idCase},
+            </if>
+            <if test="naScoreSheet!=null">
+                #{naScoreSheet},
+            </if>
+            <if test="desScoreSheet!=null">
+                #{desScoreSheet},
+            </if>
+            <if test="scorePass!=null">
+                #{scorePass},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
+    <insert id="addItem" useGeneratedKeys="true" keyProperty="idScoreItem">
+        INSERT INTOtd_score_item
+        (
+        <trim suffixOverrides=",">
+            <if test="idScoreItem!=null">
+                id_score_item,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="idScoreSheet!=null">
+                id_score_sheet,
+            </if>
+            <if test="naScoreItem!=null">
+                na_score_item,
+            </if>
+            <if test="sdScoreItemCa!=null">
+                sd_score_item_ca,
+            </if>
+            <if test="desScoreItem!=null">
+                des_score_item,
+            </if>
+            <if test="scoreItemAnalysis!=null">
+                score_item_analysis,
+            </if>
+            <if test="refQuestion!=null">
+                ref_question,
+            </if>
+            <if test="score!=null">
+                score,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idScoreItem!=null">
+                #{idScoreItem},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="idScoreSheet!=null">
+                #{idScoreSheet},
+            </if>
+            <if test="naScoreItem!=null">
+                #{naScoreItem},
+            </if>
+            <if test="sdScoreItemCa!=null">
+                #{sdScoreItemCa},
+            </if>
+            <if test="desScoreItem!=null">
+                #{desScoreItem},
+            </if>
+            <if test="scoreItemAnalysis!=null">
+                #{scoreItemAnalysis},
+            </if>
+            <if test="refQuestion!=null">
+                #{refQuestion},
+            </if>
+            <if test="score!=null">
+                #{score},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
+    <update id="delSheet">
+        UPDATE td_score_sheet
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id_score_sheet in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+    <update id="editItem">
+        UPDATE td_score_item
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="idScoreSheet != null">
+                id_score_sheet = #{idScoreSheet},
+            </if>
+            <if test="naScoreItem != null and naScoreItem!=''">
+                na_score_item = #{naScoreItem},
+            </if>
+            <if test="sdScoreItemCa != null and sdScoreItemCa!=''">
+                sd_score_item_ca = #{sdScoreItemCa},
+            </if>
+            <if test="desScoreItem != null and desScoreItem!=''">
+                des_score_item = #{desScoreItem},
+            </if>
+            <if test="scoreItemAnalysis != null and scoreItemAnalysis!=''">
+                score_item_analysis = #{scoreItemAnalysis},
+            </if>
+            <if test="refQuestion != null and refQuestion!=''">
+                ref_question = #{refQuestion},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id_score_item = #{idScoreItem}
+    </update>
+    <update id="delItem">
+        UPDATE td_score_item
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id_score_item in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
+
+
+    <select id="listSheet" resultType="com.osce.entity.TdScoreSheet">
+        SELECT
+            id_score_sheet ,
+            na_score_sheet
+        FROM
+           td_score_sheet
+        WHERE
+            id_case = #{idCase}
+        AND id_org = #{idOrg}
+        and fg_active = '1'
+    </select>
+    <select id="listItem" resultType="com.osce.entity.TdScoreItem">
+        SELECT
+            a.id_score_item ,
+            a.id_org ,
+            a.id_score_sheet ,
+            a.na_score_item ,
+            a.sd_score_item_ca ,
+            a.des_score_item ,
+            a.score_item_analysis ,
+            a.ref_question ,
+            a.score ,
+            a.fg_active ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify
+        FROM
+           td_score_item a
+        LEFT JOIN td_score_sheet b ON a.id_score_sheet = b.id_score_sheet
+        WHERE
+            b.id_case = #{idCase}
+        AND a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countItem" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+           td_score_item a
+        LEFT JOIN td_score_sheet b ON a.id_score_sheet = b.id_score_sheet
+        WHERE
+            b.id_case = #{idCase}
+        AND a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
+    </select>
+</mapper>

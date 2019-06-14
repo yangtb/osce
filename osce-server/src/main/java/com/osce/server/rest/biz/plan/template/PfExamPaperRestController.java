@@ -4,12 +4,15 @@ import com.osce.api.biz.plan.template.PfPaperService;
 import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdItemStore;
+import com.osce.entity.TdSpCase;
+import com.osce.enums.OperationTypeEnum;
 import com.osce.enums.SysDicGroupEnum;
 import com.osce.server.security.CurrentUserUtils;
 import com.osce.server.utils.EnumUtil;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
 import com.osce.vo.system.dic.PfDicCache;
 import com.sm.open.care.core.ErrorCode;
+import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.ResultObject;
 import com.sm.open.care.core.exception.BizRuntimeException;
 import com.sm.open.care.core.utils.Assert;
@@ -18,6 +21,7 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -80,7 +84,7 @@ public class PfExamPaperRestController {
     }
 
     /**
-     * 增加试题题集
+     * 另存试题题集
      *
      * @param dto
      * @return
@@ -190,5 +194,72 @@ public class PfExamPaperRestController {
         return ResultObject.createSuccess("delPaper", ResultObject.DATA_TYPE_OBJECT,
                 pfPaperService.delPaper(dto));
     }
+
+    /**
+     * add Sp病例
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/p/plan/paper/add/sp/case")
+    public ResultObject addSpCase(@RequestBody TdSpCase dto) {
+        /* 参数校验 */
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        dto.setCreator(CurrentUserUtils.getCurrentUsername());
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        return ResultObject.createSuccess("addSpCase", ResultObject.DATA_TYPE_OBJECT,
+                pfPaperService.addSpCase(dto));
+    }
+
+    /**
+     * 另存Sp病例
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/p/plan/paper/copy/sp/case")
+    public ResultObject copyTdSpCase(@RequestBody PfSpCaseDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getParId() != null, "spId");
+        return ResultObject.createSuccess("copyTdSpCase", ResultObject.DATA_TYPE_OBJECT,
+                pfPaperService.copyTdSpCase(dto));
+    }
+
+    /**
+     * 删除sp
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/paper/sp/del")
+    public ResultObject delSp(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        return pfPaperService.delSp(dto) ? ResultObject.createSuccess("delSp", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("delSp", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+    /**
+     * 停用、启用sp
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/paper/sp/updateStatus")
+    public ResultObject updateSpStatus(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        dto.setOperationType(OperationTypeEnum.UPDATE_STATUS.getCode());
+        return pfPaperService.delSp(dto) ?
+                ResultObject.createSuccess("updateSpStatus", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("updateSpStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
 
 }

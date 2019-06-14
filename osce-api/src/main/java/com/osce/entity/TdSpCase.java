@@ -1,37 +1,39 @@
 package com.osce.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
- * @ClassName: CobSpCase
- * @Description: CobSpCase
+ * @ClassName: TdSpCase
+ * @Description: 模板_SP病例实例
  * @Author yangtongbin
- * @Date 2019-05-15
+ * @Date 2019-06-13
  */
 @Setter
 @Getter
 @ToString
-public class CobSpCase implements Serializable {
+public class TdSpCase implements Serializable {
 
-    private static final long serialVersionUID = 1557887442544L;
+    private static final long serialVersionUID = 1560435539746L;
 
     /**
      * 主键
+     * ID
      */
-    private String id;
+    private Long id;
 
     /**
-     * 主键
+     * 病例ID
      */
     private String idCase;
+
+    /**
+     * 模板ID
+     */
+    private Long idModel;
 
     /**
      * 机构ID
@@ -39,9 +41,19 @@ public class CobSpCase implements Serializable {
     private Long idOrg;
 
     /**
+     * 来源ID
+     */
+    private Long idFrom;
+
+    /**
      * SP病例名称
      */
     private String naSpCase;
+
+    /**
+     * 及格分数
+     */
+    private Integer scorePass;
 
     /**
      * 1 内科 2 外科 3 妇科 4 儿科
@@ -95,11 +107,13 @@ public class CobSpCase implements Serializable {
 
     /**
      * 0 正常 1 删除
+     * ,defaultVal:0
      */
     private String fgValid;
 
     /**
      * 排序
+     * ,defaultVal:999
      */
     private Integer sort;
 
@@ -111,8 +125,7 @@ public class CobSpCase implements Serializable {
     /**
      * 创建时间
      */
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime gmtCreate;
+    private java.time.LocalDateTime gmtCreate;
 
     /**
      * 修改人员
@@ -122,7 +135,6 @@ public class CobSpCase implements Serializable {
     /**
      * 修改时间
      */
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime gmtModify;
+    private java.time.LocalDateTime gmtModify;
 
 }

@@ -55,7 +55,7 @@
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/common/js/jquery.min.js"></script>
-<script src="${contextPath}/biz/js/biz/training/case/sheetFormController.js"></script>
+<script src="${contextPath}/biz/js/biz/plan/template/score/sheetFormController.js"></script>
 
 
 </body>

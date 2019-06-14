@@ -20,7 +20,7 @@ layui.config({
         data.field.fgActive = 1;
         layer.load(2);
         $.ajax({
-            url: basePath + '/pf/r/case/sheet/save',
+            url: basePath + '/pf/r/plan/paper/sheet/save',
             type: 'post',
             dataType: 'json',
             contentType: "application/json",

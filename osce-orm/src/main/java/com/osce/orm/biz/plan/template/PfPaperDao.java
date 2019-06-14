@@ -2,11 +2,13 @@ package com.osce.orm.biz.plan.template;
 
 import com.osce.dto.biz.plan.template.PfPaperDto;
 import com.osce.dto.biz.plan.template.PfParamItemStoreDto;
+import com.osce.dto.biz.plan.template.PfSpCaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.*;
 import com.osce.vo.biz.plan.template.PaperItemTotalVo;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
 import com.osce.vo.biz.plan.template.PfPaperVo;
+import com.osce.vo.biz.plan.template.sp.TdSpCaseVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -196,4 +198,52 @@ public interface PfPaperDao {
      * @return
      */
     int delPaper(PfBachChangeStatusDto dto);
+
+    /**
+     * add sp病例
+     *
+     * @param dto
+     * @return
+     */
+    int addSpCase(TdSpCase dto);
+
+    /**
+     * 编辑sp病例
+     *
+     * @param dto
+     * @return
+     */
+    int editSpCase(TdSpCase dto);
+
+    /**
+     * 另存病例
+     *
+     * @param dto
+     */
+    void callSpCase(PfSpCaseDto dto);
+
+    /**
+     * sp总数
+     *
+     * @param dto
+     * @return
+     */
+    Long countSp(PfPaperDto dto);
+
+    /**
+     * sp list
+     *
+     * @param dto
+     * @return
+     */
+    List<TdSpCaseVo> listSp(PfPaperDto dto);
+
+    /**
+     * 删除sp
+     *
+     * @param dto
+     * @return
+     */
+    int delSp(PfBachChangeStatusDto dto);
+
 }

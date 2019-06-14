@@ -126,6 +126,148 @@
             (#{item.idItemStore}, #{item.sdItemLevel}, #{item.weightLevel})
         </foreach>
     </insert>
+    <insert id="addSpCase" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO td_sp_case
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                id,
+            </if>
+            <if test="idCase!=null">
+                id_case,
+            </if>
+            <if test="idModel!=null">
+                id_model,
+            </if>
+            <if test="idFrom!=null">
+                id_from,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="naSpCase!=null">
+                na_sp_case,
+            </if>
+            <if test="scorePass!=null">
+                score_pass,
+            </if>
+            <if test="sdSpCaseCa!=null">
+                sd_sp_case_ca,
+            </if>
+            <if test="desSpCase!=null">
+                des_sp_case,
+            </if>
+            <if test="desProb!=null">
+                des_prob,
+            </if>
+            <if test="desCurDie!=null">
+                des_cur_die,
+            </if>
+            <if test="desHisDie!=null">
+                des_his_die,
+            </if>
+            <if test="desPatDie!=null">
+                des_pat_die,
+            </if>
+            <if test="desFamDie!=null">
+                des_fam_die,
+            </if>
+            <if test="desPoints!=null">
+                des_points,
+            </if>
+            <if test="docSp!=null">
+                doc_sp,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="idCase!=null">
+                #{idCase},
+            </if>
+            <if test="idModel!=null">
+                #{idModel},
+            </if>
+            <if test="idFrom!=null">
+                #{idFrom},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="naSpCase!=null">
+                #{naSpCase},
+            </if>
+            <if test="scorePass!=null">
+                #{scorePass},
+            </if>
+            <if test="sdSpCaseCa!=null">
+                #{sdSpCaseCa},
+            </if>
+            <if test="desSpCase!=null">
+                #{desSpCase},
+            </if>
+            <if test="desProb!=null">
+                #{desProb},
+            </if>
+            <if test="desCurDie!=null">
+                #{desCurDie},
+            </if>
+            <if test="desHisDie!=null">
+                #{desHisDie},
+            </if>
+            <if test="desPatDie!=null">
+                #{desPatDie},
+            </if>
+            <if test="desFamDie!=null">
+                #{desFamDie},
+            </if>
+            <if test="desPoints!=null">
+                #{desPoints},
+            </if>
+            <if test="docSp!=null">
+                #{docSp},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
 
     <update id="editTdItemStore">
         UPDATE td_item_store
@@ -255,6 +397,99 @@
             gmt_modify = now()
         WHERE
             id_item_store in (
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </update>
+    <update id="editSpCase">
+        UPDATE td_sp_case
+        SET
+        <trim suffixOverrides=",">
+            <if test="idCase != null and idCase!=''">
+                id_case = #{idCase},
+            </if>
+            <if test="idModel != null">
+                id_model = #{idModel},
+            </if>
+            <if test="idFrom != null">
+                id_from = #{idFrom},
+            </if>
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="naSpCase != null and naSpCase!=''">
+                na_sp_case = #{naSpCase},
+            </if>
+            <if test="scorePass != null">
+                score_pass = #{scorePass},
+            </if>
+            <if test="sdSpCaseCa != null and sdSpCaseCa!=''">
+                sd_sp_case_ca = #{sdSpCaseCa},
+            </if>
+            <if test="desSpCase != null and desSpCase!=''">
+                des_sp_case = #{desSpCase},
+            </if>
+            <if test="desProb != null and desProb!=''">
+                des_prob = #{desProb},
+            </if>
+            <if test="desCurDie != null and desCurDie!=''">
+                des_cur_die = #{desCurDie},
+            </if>
+            <if test="desHisDie != null and desHisDie!=''">
+                des_his_die = #{desHisDie},
+            </if>
+            <if test="desPatDie != null and desPatDie!=''">
+                des_pat_die = #{desPatDie},
+            </if>
+            <if test="desFamDie != null and desFamDie!=''">
+                des_fam_die = #{desFamDie},
+            </if>
+            <if test="desPoints != null and desPoints!=''">
+                des_points = #{desPoints},
+            </if>
+            <if test="docSp != null and docSp!=''">
+                doc_sp = #{docSp},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id_case = #{idCase}
+    </update>
+    <update id="delSp">
+        UPDATE td_sp_case
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+            id in (
         <foreach collection="list" item="item" separator=",">
             #{item}
         </foreach>
@@ -457,6 +692,58 @@
             a.na_item_store ,
             c.na_item_store ,
             a.gmt_create
+        limit #{offset}, #{limit}
+    </select>
+    <select id="callSpCase" statementType="CALLABLE">
+         call P_SP_INS(
+            #{parId,mode=IN,jdbcType=INTEGER},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+    <select id="countSp" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            td_sp_case
+        WHERE
+            id_model = #{idModel}
+        and fg_valid = '0'
+    </select>
+    <select id="listSp" resultType="com.osce.vo.biz.plan.template.sp.TdSpCaseVo">
+        SELECT
+            a.id ,
+            a.id_case ,
+            a.id_model ,
+            a.id_org ,
+            a.id_from ,
+            a.na_sp_case ,
+            a.score_pass ,
+            a.sd_sp_case_ca ,
+            a.des_sp_case ,
+            a.des_prob ,
+            a.des_cur_die ,
+            a.des_his_die ,
+            a.des_pat_die ,
+            a.des_fam_die ,
+            a.des_points ,
+            a.doc_sp ,
+            a.fg_active ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify ,
+            0 AS sheetNum ,
+            0 AS sheetTotalScore,
+	        b.na_sp_case as naSpCaseFrom
+        FROM
+            td_sp_case a
+        LEFT JOIN cob_sp_case b on a.id_from = b.id
+        WHERE
+            a.id_model = #{idModel}
+        AND a.fg_valid = '0'
         limit #{offset}, #{limit}
     </select>
 

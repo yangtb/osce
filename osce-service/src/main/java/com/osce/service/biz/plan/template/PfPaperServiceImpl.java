@@ -1,21 +1,21 @@
 package com.osce.service.biz.plan.template;
 
 import com.osce.api.biz.plan.template.PfPaperService;
-import com.osce.dto.biz.plan.template.PfPaperDto;
-import com.osce.dto.biz.plan.template.PfPaperMustDto;
-import com.osce.dto.biz.plan.template.PfPaperParam;
-import com.osce.dto.biz.plan.template.PfParamItemStoreDto;
+import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdItemArgLevel;
 import com.osce.entity.TdItemArgType;
 import com.osce.entity.TdItemStore;
+import com.osce.entity.TdSpCase;
 import com.osce.exception.RestException;
 import com.osce.orm.biz.plan.template.PfPaperDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
+import com.sm.open.care.core.utils.CommonUtil;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -147,6 +147,43 @@ public class PfPaperServiceImpl implements PfPaperService {
     @Override
     public boolean delPaper(PfBachChangeStatusDto dto) {
         int num = pfPaperDao.delPaper(dto);
+        return num >= 1 ? true : false;
+    }
+
+    @Override
+    public TdSpCase addSpCase(TdSpCase dto) {
+        TdSpCase tdSpCaseVo = new TdSpCase();
+        if (StringUtils.isBlank(dto.getIdCase())) {
+            dto.setIdCase(CommonUtil.uuid());
+            pfPaperDao.addSpCase(dto);
+        } else {
+            pfPaperDao.editSpCase(dto);
+        }
+        tdSpCaseVo.setId(dto.getId());
+        tdSpCaseVo.setIdCase(dto.getIdCase());
+        return tdSpCaseVo;
+    }
+
+    @Override
+    public boolean copyTdSpCase(PfSpCaseDto dto) {
+        pfPaperDao.callSpCase(dto);
+        if (dto.getParCode() != 0) {
+            logger.error("调用存储过程另存[sp病例]出错, param : {} ", dto.toString());
+            throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
+        }
+        return true;
+    }
+
+    @Override
+    public PageResult listSp(PfPaperDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfPaperDao.countSp(dto),
+                pfPaperDao.listSp(dto));
+    }
+
+    @Override
+    public boolean delSp(PfBachChangeStatusDto dto) {
+        int num = pfPaperDao.delSp(dto);
         return num >= 1 ? true : false;
     }
 

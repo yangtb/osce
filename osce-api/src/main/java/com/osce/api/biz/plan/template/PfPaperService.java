@@ -1,11 +1,9 @@
 package com.osce.api.biz.plan.template;
 
-import com.osce.dto.biz.plan.template.PfPaperDto;
-import com.osce.dto.biz.plan.template.PfPaperMustDto;
-import com.osce.dto.biz.plan.template.PfPaperParam;
-import com.osce.dto.biz.plan.template.PfParamItemStoreDto;
+import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdItemStore;
+import com.osce.entity.TdSpCase;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -106,5 +104,37 @@ public interface PfPaperService {
      * @return
      */
     boolean delPaper(PfBachChangeStatusDto dto);
+
+    /**
+     * 新增sp病例
+     *
+     * @param dto
+     * @return
+     */
+    TdSpCase addSpCase(TdSpCase dto);
+
+    /**
+     * 另存sp病例
+     *
+     * @param dto
+     * @return
+     */
+    boolean copyTdSpCase(PfSpCaseDto dto);
+
+    /**
+     * sp 列表
+     *
+     * @param dto
+     * @return
+     */
+    PageResult listSp(PfPaperDto dto);
+
+    /**
+     * 删除sp
+     *
+     * @param dto
+     * @return
+     */
+    boolean delSp(PfBachChangeStatusDto dto);
 
 }
