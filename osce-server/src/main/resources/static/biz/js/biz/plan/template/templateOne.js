@@ -263,8 +263,7 @@ layui.config({
             tdAreas : tdAreaList    // 考场
         }
 
-        console.log(JSON.stringify(bizData))
-        //return;
+        //console.log(JSON.stringify(bizData))
 
         $.ajax({
             url: basePath + '/pf/r/plan/template/add',
