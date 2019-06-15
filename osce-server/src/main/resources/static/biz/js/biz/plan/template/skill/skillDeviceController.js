@@ -18,7 +18,7 @@ layui.config({
             {field: 'numDevice', width: 120, title: '数量'},
             {fixed: 'right', width: 180, title: '操作', align: 'center', toolbar: '#skillDeviceBar'}
         ]] //设置表头
-        , url: basePath + '/pf/p/skill/device/list'
+        , url: basePath + '/pf/p/exam/skill/device/list'
         , limit: 500
         , even: true
         //, limits: [15, 30, 100]
@@ -57,11 +57,11 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            var index = common.open('新增设备', basePath + '/pf/p/skill/device/form?formType='
+            var index = common.open('新增设备', basePath + '/pf/p/exam/skill/device/form?formType='
                 + formType + '&idSkillCase=' + idSkillCase, 550, 400);
             layer.full(index);
         } else {
-            var index = common.open('编辑设备', basePath + '/pf/p/skill/device/form?formType='
+            var index = common.open('编辑设备', basePath + '/pf/p/exam/skill/device/form?formType='
                 + formType + '&idSkillCase=' + idSkillCase, 550, 400, _successFunction(currentEditData));
             layer.full(index);
         }
@@ -82,7 +82,7 @@ layui.config({
 
 
     var _delSkill = function (currentData) {
-        var url = basePath + '/pf/r/skill/device/del';
+        var url = basePath + '/pf/r/exam/skill/device/del';
         var reqData = new Array();
         reqData.push(currentData.idSkillDevice);
         var messageTitle = currentData.naDevice;

@@ -8,6 +8,7 @@ import com.osce.entity.*;
 import com.osce.vo.biz.plan.template.PaperItemTotalVo;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
 import com.osce.vo.biz.plan.template.PfPaperVo;
+import com.osce.vo.biz.plan.template.skill.TdSkillCaseVo;
 import com.osce.vo.biz.plan.template.sp.TdSpCaseVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -245,5 +246,53 @@ public interface PfPaperDao {
      * @return
      */
     int delSp(PfBachChangeStatusDto dto);
+
+    /**
+     * add skill病例
+     *
+     * @param dto
+     * @return
+     */
+    int addSkillCase(TdSkillCase dto);
+
+    /**
+     * 编辑Skill病例
+     *
+     * @param dto
+     * @return
+     */
+    int editSkillCase(TdSkillCase dto);
+
+    /**
+     * 另存病例
+     *
+     * @param dto
+     */
+    void callSkillCase(PfSpCaseDto dto);
+
+    /**
+     * Skill总数
+     *
+     * @param dto
+     * @return
+     */
+    Long countSkill(PfPaperDto dto);
+
+    /**
+     * Skill list
+     *
+     * @param dto
+     * @return
+     */
+    List<TdSkillCaseVo> listSkill(PfPaperDto dto);
+
+    /**
+     * 删除Skill
+     *
+     * @param dto
+     * @return
+     */
+    int delSkillCase(PfBachChangeStatusDto dto);
+
 
 }

@@ -61,7 +61,7 @@
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
-<script src="${contextPath}/biz/js/biz/plan/template/templateSkillDeviceController.js"></script>
+<script src="${contextPath}/biz/js/biz/plan/template/skill/skillDeviceController.js"></script>
 
 <script type="text/html" id="skillDeviceBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="add"><i class="iconfont icon-add"></i></a>

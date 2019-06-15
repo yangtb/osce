@@ -4,6 +4,7 @@ import com.osce.api.biz.plan.template.PfPaperService;
 import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdItemStore;
+import com.osce.entity.TdSkillCase;
 import com.osce.entity.TdSpCase;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.enums.SysDicGroupEnum;
@@ -261,5 +262,53 @@ public class PfExamPaperRestController {
                 : ResultObject.create("updateSpStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
+
+    /**
+     * add Skill病例
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/p/plan/paper/add/skill/case")
+    public ResultObject addSkillCase(@RequestBody TdSkillCase dto) {
+        /* 参数校验 */
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        dto.setCreator(CurrentUserUtils.getCurrentUsername());
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        return ResultObject.createSuccess("addSkillCase", ResultObject.DATA_TYPE_OBJECT,
+                pfPaperService.addSkillCase(dto));
+    }
+
+    /**
+     * 另存Skill病例
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/p/plan/paper/copy/skill/case")
+    public ResultObject copyTdSkillCase(@RequestBody PfSpCaseDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getParId() != null, "skillId");
+        return ResultObject.createSuccess("copyTdSkillCase", ResultObject.DATA_TYPE_OBJECT,
+                pfPaperService.copyTdSkillCase(dto));
+    }
+
+    /**
+     * 删除Skill
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/paper/skill/del")
+    public ResultObject delSkillCase(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        return pfPaperService.delSkillCase(dto) ? ResultObject.createSuccess("delSkillCase", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("delSkillCase", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
 
 }

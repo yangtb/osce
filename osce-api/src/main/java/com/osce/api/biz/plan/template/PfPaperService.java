@@ -3,10 +3,10 @@ package com.osce.api.biz.plan.template;
 import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdItemStore;
+import com.osce.entity.TdSkillCase;
 import com.osce.entity.TdSpCase;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -136,5 +136,38 @@ public interface PfPaperService {
      * @return
      */
     boolean delSp(PfBachChangeStatusDto dto);
+
+
+    /**
+     * 新增Skill病例
+     *
+     * @param dto
+     * @return
+     */
+    TdSkillCase addSkillCase(TdSkillCase dto);
+
+    /**
+     * 另存Skill病例
+     *
+     * @param dto
+     * @return
+     */
+    boolean copyTdSkillCase(PfSpCaseDto dto);
+
+    /**
+     * Skill 列表
+     *
+     * @param dto
+     * @return
+     */
+    PageResult listSkill(PfPaperDto dto);
+
+    /**
+     * 删除Skill
+     *
+     * @param dto
+     * @return
+     */
+    boolean delSkillCase(PfBachChangeStatusDto dto);
 
 }

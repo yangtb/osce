@@ -212,6 +212,7 @@
 
     <select id="listSkill" resultType="com.osce.entity.CobSkillCase">
         SELECT
+            id ,
             id_skill_case ,
             id_org ,
             na_skill_case ,

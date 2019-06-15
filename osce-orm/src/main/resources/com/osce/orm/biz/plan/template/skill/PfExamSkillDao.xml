@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.plan.template.skill.PfExamSkillDao">
+    
+    <insert id="addSkillDevice" useGeneratedKeys="true" keyProperty="idSkillDevice">
+        INSERT INTO td_skill_device
+        (
+        <trim suffixOverrides=",">
+            <if test="idSkillDevice!=null">
+                id_skill_device,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="idSkillCase!=null and idSkillCase!=''">
+                id_skill_case,
+            </if>
+            <if test="idDevice!=null">
+                id_device,
+            </if>
+            <if test="numDevice!=null">
+                num_device,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idSkillDevice!=null">
+                #{idSkillDevice},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="idSkillCase!=null">
+                #{idSkillCase},
+            </if>
+            <if test="idDevice!=null">
+                #{idDevice},
+            </if>
+            <if test="numDevice!=null">
+                #{numDevice},
+            </if>
+        </trim>
+        )
+    </insert>
+    <update id="editSkillDevice">
+        UPDATE td_skill_device
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="idSkillCase != null">
+                id_skill_case = #{idSkillCase},
+            </if>
+            <if test="idDevice != null">
+                id_device = #{idDevice},
+            </if>
+            <if test="numDevice != null">
+                num_device = #{numDevice},
+            </if>
+        </trim>
+        WHERE
+            id_skill_device = #{idSkillDevice}
+    </update>
+    <delete id="delSkillDevice">
+        delete from td_skill_device
+        where
+            id_skill_device in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+
+    <select id="listSkillDevice" resultType="com.osce.entity.TdSkillDevice">
+        select 
+            a.id_skill_device,
+            a.id_org,
+            a.id_skill_case,
+            a.id_device,
+            a.num_device,
+            b.na_device
+        from 
+            td_skill_device a
+        left join erp_device b on a.id_device = b.id_device
+        where
+            a.id_skill_case = #{idSkillCase}
+        <if test="naDevice != null and naDevice != '' ">
+            and b.na_device like concat('%',#{naDevice},'%')
+        </if>
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countSkillDevice" resultType="java.lang.Long">
+        select 
+            count(1)
+        from
+            td_skill_device a
+        left join erp_device b on a.id_device = b.id_device
+        where
+            a.id_skill_case = #{idSkillCase}
+        <if test="naDevice != null and naDevice != '' ">
+            and b.na_device like concat('%',#{naDevice},'%')
+        </if>
+    </select>
+</mapper>

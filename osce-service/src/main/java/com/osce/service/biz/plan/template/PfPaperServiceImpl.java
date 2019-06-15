@@ -3,10 +3,7 @@ package com.osce.service.biz.plan.template;
 import com.osce.api.biz.plan.template.PfPaperService;
 import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
-import com.osce.entity.TdItemArgLevel;
-import com.osce.entity.TdItemArgType;
-import com.osce.entity.TdItemStore;
-import com.osce.entity.TdSpCase;
+import com.osce.entity.*;
 import com.osce.exception.RestException;
 import com.osce.orm.biz.plan.template.PfPaperDao;
 import com.osce.param.PageParam;
@@ -184,6 +181,43 @@ public class PfPaperServiceImpl implements PfPaperService {
     @Override
     public boolean delSp(PfBachChangeStatusDto dto) {
         int num = pfPaperDao.delSp(dto);
+        return num >= 1 ? true : false;
+    }
+
+    @Override
+    public TdSkillCase addSkillCase(TdSkillCase dto) {
+        TdSkillCase skillCase = new TdSkillCase();
+        if (StringUtils.isBlank(dto.getIdSkillCase())) {
+            dto.setIdSkillCase(CommonUtil.uuid());
+            pfPaperDao.addSkillCase(dto);
+        } else {
+            pfPaperDao.editSkillCase(dto);
+        }
+        skillCase.setId(dto.getId());
+        skillCase.setIdSkillCase(dto.getIdSkillCase());
+        return skillCase;
+    }
+
+    @Override
+    public boolean copyTdSkillCase(PfSpCaseDto dto) {
+        pfPaperDao.callSkillCase(dto);
+        if (dto.getParCode() != 0) {
+            logger.error("调用存储过程另存[skill病例]出错, param : {} ", dto.toString());
+            throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
+        }
+        return true;
+    }
+
+    @Override
+    public PageResult listSkill(PfPaperDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfPaperDao.countSkill(dto),
+                pfPaperDao.listSkill(dto));
+    }
+
+    @Override
+    public boolean delSkillCase(PfBachChangeStatusDto dto) {
+        int num = pfPaperDao.delSkillCase(dto);
         return num >= 1 ? true : false;
     }
 

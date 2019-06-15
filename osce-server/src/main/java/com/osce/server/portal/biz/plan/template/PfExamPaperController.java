@@ -79,5 +79,11 @@ public class PfExamPaperController extends BaseController {
         return pfPaperService.listSp(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/paper/skill/list")
+    @ResponseBody
+    public PageResult listSkill(PfPaperDto dto) {
+        return pfPaperService.listSkill(dto);
+    }
 
 }

@@ -27,22 +27,25 @@
                 <div class="layui-carousel" id="stepForm" lay-filter="stepForm" style="margin: 0 auto;">
 
                     <div carousel-item>
-                        <div>
-                            <form class="layui-form">
+                        <div class="step-skip">
+                            <form class="layui-form" lay-filter="step1FormFilter">
+                                <input id="id" name="id" hidden/>
+                                <input id="idSkillCase" name="idSkillCase" hidden/>
                                 <hr>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">试卷名称<i class="iconfont icon-required"
                                                                            style="color: #f03f2d"></i></label>
                                     <div class="layui-input-inline">
-                                        <input type="text" placeholder="请输入试卷名称" class="layui-input"/>
-
+                                        <input type="text" name="naSkillCase" id="naSkillCase" placeholder="请输入试卷名称" autocomplete="off"
+                                               class="layui-input" lay-verify="required" lay-vertype="tips"/>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">及格分数<i class="iconfont icon-required"
                                                                            style="color: #f03f2d"></i></label>
                                     <div class="layui-input-inline">
-                                        <input type="number" placeholder="请输入及格分数" class="layui-input">
+                                        <input type="number" name="scorePass" placeholder="请输入及格分数"  autocomplete="off"
+                                               class="layui-input" lay-verify="required" min="0" lay-vertype="tips">
                                     </div>
                                 </div>
                                 <fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 0px;">
@@ -52,9 +55,9 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label">选择病例</label>
                                         <div class="layui-input-inline">
-                                            <select name="sdScoreItemCa">
-                                                <option value="1">todo分类</option>
-                                            </select>
+                                            <input id="idFrom" name="idFrom" hidden>
+                                            <input type="text" name="naSkillCaseFrom" id="naSkillCaseFrom" autocomplete="off"
+                                                   autocomplete="off" class="layui-input">
                                         </div>
                                     </div>
                                 </div>
@@ -63,8 +66,11 @@
                                         <label class="layui-form-label">病例类别<i class="iconfont icon-required"
                                                                                style="color: #f03f2d"></i></label>
                                         <div class="layui-input-inline">
-                                            <select name="sdScoreItemCa">
-                                                <option value="1">todo分类</option>
+                                            <select name="sdSkillCaseCa">
+                                                <option value="1">内科</option>
+                                                <option value="2">外科</option>
+                                                <option value="3">妇科</option>
+                                                <option value="4">儿科</option>
                                             </select>
                                         </div>
                                     </div>
@@ -72,25 +78,30 @@
                                 <div class="layui-form-item layui-form-text">
                                     <label class="layui-form-label">病例描述</label>
                                     <div class="layui-input-block">
-                                        <textarea name="desRoomDevice" class="layui-textarea" lay-verify="desRoomDevice"></textarea>
+                                        <textarea name="desSkillCase" class="layui-textarea" lay-verify="desSkillCase"></textarea>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn" lay-submit lay-filter="formStep">
+                                        <button id="addSkillCase" class="layui-btn" lay-submit lay-filter="formStep">
                                             下一步 ：站点配置
+                                        </button>
+                                    </div>
+                                    <div hidden>
+                                        <button id="reset" type="reset" class="layui-btn layui-btn-danger" hidden>
+                                            <i class="iconfont icon-reset"></i> 重新填写
                                         </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div>
+                        <div class="step-skip">
                             <form class="layui-form">
                                 <hr>
                                 <div hidden>
                                     <input id="idSkillCase" name="idSkillCase" value="1" hidden>
                                 </div>
-                                <iframe id="paperTag" class='layui-col-xs12' frameborder="0" style="height: 400px;"
+                                <iframe id="zdTag" class='layui-col-xs12' frameborder="0" style="height: 400px;"
                                         src="${basePath}/pf/p/plan/device/page?idSkillCase=1"></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
@@ -100,17 +111,16 @@
                                 </div>
                             </form>
                         </div>
-                        <div>
+                        <div class="step-skip">
                             <form class="layui-form">
                                 <hr>
                                 <div hidden>
                                     <input id="idSkillCase" name="idSkillCase" value="1" hidden>
                                 </div>
-                                <iframe id="paperTag" class='layui-col-xs12' frameborder="0" style="height: 400px;"
-                                        src="${basePath}/pf/p/case/item/page?idCase=1"></iframe>
+                                <iframe id="scoreTag" class='layui-col-xs12' frameborder="0" style="height: 400px;"></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn"><i class="iconfont icon-save"></i> 完成</button>
+                                        <button id="finish-btn" class="layui-btn"><i class="iconfont icon-save"></i> 完成</button>
                                     </div>
                                 </div>
                             </form>
@@ -122,7 +132,17 @@
                     <fieldset class="layui-elem-field layui-field-title" style="margin-bottom: 0px;">
                         <legend style="font-size: 14px; font-weight: bold">技能列表</legend>
                     </fieldset>
-                    <table id="itemTable" lay-filter="itemTableFilter">
+                    <form class="layui-form">
+                        <div class="layui-inline">
+                            <button type="button" class="layui-btn layui-btn-sm" id="add">
+                                <i class="iconfont icon-add"></i> 增加
+                            </button>
+                            <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
+                                <i class="layui-icon layui-icon-delete"></i>删除
+                            </button>
+                        </div>
+                    </form>
+                    <table id="skillTable" lay-filter="skillTableFilter">
                     </table>
                 </div>
             </div>
@@ -133,55 +153,11 @@
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/plan/template/paperTwo.js"></script>
-<script src="${contextPath}/common/js/jquery.min.js"></script>
-<script src="${contextPath}/common/js/jquery.formautofill.js"></script>
-<script src="${contextPath}/layui/build/js/step.js"></script>
 
-<script>
-    layui.config({
-        base: basePath + '/layui/build/js/'
-    }).use(['form', 'step', 'element'], function () {
-        var $ = layui.$
-            , form = layui.form
-            , step = layui.step
-            , element = layui.element;
-
-        step.render({
-            elem: '#stepForm',
-            filter: 'stepForm',
-            width: '100%', //设置容器宽度
-            stepWidth: '680px',
-            height: '520px',
-            stepItems: [{
-                title: '病例选择'
-            }, {
-                title: '站点配置'
-            }, {
-                title: '评分表'
-            }]
-        });
-
-
-        form.on('submit(formStep)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        form.on('submit(formStep1)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        $('.pre').click(function () {
-            step.pre('#stepForm');
-        });
-
-        $('.next').click(function () {
-            step.next('#stepForm');
-        });
-    })
+<script type="text/html" id="skillBar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
 </script>
-
 
 </body>
 </html>

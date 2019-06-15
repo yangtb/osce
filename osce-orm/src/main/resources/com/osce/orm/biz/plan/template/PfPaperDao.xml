@@ -268,6 +268,106 @@
         </trim>
         )
     </insert>
+    <insert id="addSkillCase" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO td_skill_case
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                id,
+            </if>
+            <if test="idSkillCase!=null">
+                id_skill_case,
+            </if>
+            <if test="idModel!=null">
+                id_model,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="idFrom!=null">
+                id_from,
+            </if>
+            <if test="naSkillCase!=null and naSkillCase!=''">
+                na_skill_case,
+            </if>
+            <if test="scorePass!=null">
+                score_pass,
+            </if>
+            <if test="sdSkillCaseCa!=null and sdSkillCaseCa!=''">
+                sd_skill_case_ca,
+            </if>
+            <if test="desSkillCase!=null and desSkillCase!=''">
+                des_skill_case,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null and creator!=''">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null and operator!=''">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="id!=null">
+                #{id},
+            </if>
+            <if test="idSkillCase!=null">
+                #{idSkillCase},
+            </if>
+            <if test="idModel!=null">
+                #{idModel},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="idFrom!=null">
+                #{idFrom},
+            </if>
+            <if test="naSkillCase!=null and naSkillCase!=''">
+                #{naSkillCase},
+            </if>
+            <if test="scorePass!=null">
+                #{scorePass},
+            </if>
+            <if test="sdSkillCaseCa!=null and sdSkillCaseCa!=''">
+                #{sdSkillCaseCa},
+            </if>
+            <if test="desSkillCase!=null and desSkillCase!=''">
+                #{desSkillCase},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null and creator!=''">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null and operator!=''">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
 
     <update id="editTdItemStore">
         UPDATE td_item_store
@@ -490,6 +590,78 @@
             gmt_modify = now()
         WHERE
             id in (
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </update>
+    <update id="editSkillCase">
+        UPDATE td_skill_case
+        SET
+        <trim suffixOverrides=",">
+            <if test="idSkillCase != null and idSkillCase!=''">
+                id_skill_case = #{idSkillCase},
+            </if>
+            <if test="idModel != null">
+                id_model = #{idModel},
+            </if>
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="idFrom != null">
+                id_from = #{idFrom},
+            </if>
+            <if test="naSkillCase != null and naSkillCase!=''">
+                na_skill_case = #{naSkillCase},
+            </if>
+            <if test="scorePass != null">
+                score_pass = #{scorePass},
+            </if>
+            <if test="sdSkillCaseCa != null and sdSkillCaseCa!=''">
+                sd_skill_case_ca = #{sdSkillCaseCa},
+            </if>
+            <if test="desSkillCase != null and desSkillCase!=''">
+                des_skill_case = #{desSkillCase},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id = #{id}
+    </update>
+    <update id="delSkillCase">
+        UPDATE td_skill_case
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+            operator = #{operator},
+            gmt_modify = now()
+        WHERE
+        id in (
         <foreach collection="list" item="item" separator=",">
             #{item}
         </foreach>
@@ -772,6 +944,71 @@
             a.gmt_modify ,
             b.na_sp_case
         limit #{offset}, #{limit}
+    </select>
+    <select id="callSkillCase" statementType="CALLABLE">
+         call P_SKILL_INS(
+            #{parId,mode=IN,jdbcType=INTEGER},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+    <select id="countSkill" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            td_skill_case
+        WHERE
+            id_model = #{idModel}
+        and fg_valid = '0'
+    </select>
+    <select id="listSkill" resultType="com.osce.vo.biz.plan.template.skill.TdSkillCaseVo">
+        SELECT
+            a.id ,
+            a.id_skill_case ,
+            a.id_model ,
+            a.id_org ,
+            a.id_from ,
+            a.na_skill_case ,
+            a.score_pass ,
+            a.sd_skill_case_ca ,
+            a.des_skill_case ,
+            a.fg_active ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify ,
+            count(c.id_score_sheet) AS sheetNum ,
+            IFNULL(sum(d.score) , 0) AS sheetTotalScore ,
+            b.na_skill_case AS naSkillCaseFrom
+        FROM
+            td_skill_case a
+        LEFT JOIN cob_skill_case b ON a.id_from = b.id
+        LEFT JOIN td_score_sheet c ON c.id_case = a.id_skill_case AND c.fg_active = '1'
+        LEFT JOIN td_score_item d ON c.id_score_sheet = d.id_score_sheet AND d.fg_active = '1'
+        WHERE
+            a.id_model = #{idModel}
+        AND a.fg_valid = '0'
+        GROUP BY
+            a.id ,
+            a.id_skill_case ,
+            a.id_model ,
+            a.id_org ,
+            a.id_from ,
+            a.na_skill_case ,
+            a.score_pass ,
+            a.sd_skill_case_ca ,
+            a.des_skill_case ,
+            a.fg_active ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify ,
+            b.na_skill_case 
+        LIMIT #{offset}, #{limit}
     </select>
 
 </mapper>
