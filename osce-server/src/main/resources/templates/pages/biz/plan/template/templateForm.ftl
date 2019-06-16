@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/layui/build/css/step.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/css/template/test_define.css">
-    <link rel="stylesheet" type="text/css" href="${contextPath}/biz/css/template/reset.css">
     <link rel="stylesheet" href="${contextPath}/layui/expand/css/formSelects-v4.css">
 
     <script>
@@ -22,6 +21,11 @@
     <style>
         .pageHeight {
             min-height: 850px
+        }
+
+        img, a {
+            display: inline-block;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -180,53 +184,7 @@
 
                                         <!-- 考场信息 -->
                                         <div class="main-right" id="area-main">
-                                            <div class='room-main' id="area_1">
-                                                <div class="room-msg">
-                                                    <div class="room-name" id='room1'>
-                                                        <span id="naArea_1" class="room-num">考场1</span>
-                                                        <img src="${contextPath!}/biz/img/template/set_btn.png"
-                                                             id="set-btn1" alt="设置" class='set-btn'>
-                                                        <input id="currStationNum" hidden>
-                                                    </div>
-                                                </div>
-                                                <div class="content" id="station-main">
-                                                    <div class="room-content" id="station_1">
-                                                        <div class="content-main">
-                                                            <div class="content-header">
-                                                                <span id="naStation_1">考站1-1</span>
-                                                                <a href="javascript:;" class='delete-btn' id="delsStation_1"></a>
-                                                            </div>
-                                                            <div class="content-text" style="margin-top: 5px;">
-                                                                <div class='text-item'>
-                                                                    <img src="${contextPath!}/biz/img/template/edit_btn.png" alt="编辑" class="edit-btn">
-                                                                    <span class="item-desc">请添加基地类型</span>
-                                                                </div>
-                                                                <div class='text-item'>
-                                                                    <img src="${contextPath!}/biz/img/template/edit_btn.png" alt="编辑" class="edit-btn">
-                                                                    <span class="item-desc">请添加技能类型</span>
-                                                                </div>
-                                                                <div class='text-item' id='test1-3'>
-                                                                    <img src="${contextPath!}/biz/img/template/edit_btn.png"
-                                                                         alt="编辑" class="edit-btn">
-                                                                    <span class="item-desc">请添加站点</span>
-                                                                </div>
-                                                                <div class='text-item' style="padding-left: 10px;">
-                                                                    <input type="checkbox" name="" title="必过考站" lay-skin="primary">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="add-box" id="addStation">
-                                                        <div class="add-main">
-                                                            <img src="${contextPath!}/biz/img/template/add_btn.png"
-                                                                 alt="add icon" class='add-btn'>
-                                                            添加考站
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <#--<div class="bottom-line"></div>-->
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="layui-input-block" style="text-align: right; margin-top: 30px; margin-right: 100px;">

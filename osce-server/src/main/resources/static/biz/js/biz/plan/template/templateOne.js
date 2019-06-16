@@ -79,7 +79,8 @@ layui.config({
     // *******************考站操作 begin************************
 
     function bulidAreaHtml(areaIndex) {
-        var html = '<div class=\'room-main\' id="area_' + areaIndex + '">\n' +
+        var room2 = areaIndex >= 2 ? 'room2' : '';
+        var html = '<div class="room-main ' + room2 + '" id="area_' + areaIndex + '">\n' +
             '            <div class="room-msg">\n' +
             '                <div class="room-name">\n' +
             '                    <span id="naArea_' + areaIndex + '" class="room-num">考场' + areaIndex + '</span>\n' +
@@ -155,16 +156,21 @@ layui.config({
                 $("#currStationNum_"+ i).val(1);
             }
             form.render();
-
         } else {
             for (var j = oldNumArea; j > oldNumArea + num; j--) {
                 $("#area_" + j).remove();
             }
+            $("#bottom-line-" + newNumArea).remove();
         }
         $('#stepForm').height(800 + newNumArea * 280);
         if (newNumArea > 1) {
-            for (var i = 1; i <= newNumArea; i++) {
-                $('#set-btn-' + i).css('display','block');
+            for (var k = 1; k <= newNumArea; k++) {
+                $('#set-btn-' + k).css('display','block');
+                if (k > 1) {
+                    if ($('#bottom-line-' + (k - 1)).length == 0) {
+                        $('#area_' + (k - 1)).append('<div id="bottom-line-' + (k - 1) + '" class="bottom-line"></div>\n');
+                    }
+                }
             }
         } else {
             $('#set-btn-1').css('display','none');
@@ -183,8 +189,11 @@ layui.config({
         $('#stepForm').height(800 + i * 280);
 
         if (areaNum > 1) {
-            for (var i = 1; i <= areaNum; i++) {
-                $('#set-btn-' + i).css('display','block');
+            for (var j = 1; j <= areaNum; j++) {
+                $('#set-btn-' + j).css('display','block');
+                if (j > 1) {
+                    $('#area_' + (j - 1)).append('<div id="bottom-line-' + (j - 1) + '" class="bottom-line"></div>\n');
+                }
             }
         } else {
             $('#set-btn-1').css('display','none');
@@ -310,8 +319,8 @@ layui.config({
                     layer.msg(data.msg, {icon: 5});
                     return false;
                 } else {
-                    console.log("=================模板信息=================")
-                    console.log(data.data);
+                    //console.log("=================模板信息=================")
+                    //console.log(data.data);
                     fullTemplateData(data.data);
                     return false;
                 }
