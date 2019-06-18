@@ -116,7 +116,7 @@ public class PfDeptRestController {
      *
      * @return
      */
-    @PreAuthorize("hasAnyRole('ROLE_01_01_002','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_002', 'ROLE_02_02_001','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/dept/tree/select")
     public List<PfTreeSelectVo> selectOrgTreeSelect() {
         return pfDeptService.selectDeptTreeSelect(CurrentUserUtils.getCurrentUserIdOrg());

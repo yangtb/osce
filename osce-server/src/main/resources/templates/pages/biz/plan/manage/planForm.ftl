@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/layui/build/css/step.css">
+    <link rel="stylesheet" type="text/css" href="${contextPath}/biz/css/template/progress.css" />
 
     <script>
         var basePath = '${basePath}';
+        var idPlan = '${idPlan!}';
     </script>
 
     <style>
@@ -33,24 +35,70 @@
                         <div>
                             <hr>
                             <div class="layui-card">
-                                <div class="layui-card-header">卡片面板</div>
+                                <#--<div class="layui-card-header">卡片面板</div>-->
                                 <div class="layui-card-body">
-                                    卡片式面板面板通常用于非白色背景色的主体内<br>
-                                    从而映衬出边框投影
+                                    <div class="container">
+                                        <ul class="step-list">
+                                            <li class="list-item">
+                                                <span class="circle"></span>
+                                                <p class="text">考试定义</p>
+                                                <div class="modal">
+                                                </div>
+                                            </li>
+                                            <li class="list-item space">
+                                                <span class="circle"></span>
+                                                <p class="text">考试发布</p>
+                                                <div class="modal">
+                                                    <p class="modal-item">发布时间&emsp;<span class="item-time">2019-04-01</span></p>
+                                                </div>
+                                            </li>
+                                            <li class="list-item space wait-finish">
+                                                <span class="circle cur-circle"></span>
+                                                <p class="text">物料准备</p>
+                                                <div class="modal">
+                                                    <p class="modal-item">领料完成时间&emsp;<span class="item-time">2019-04-20</span></p>
+                                                    <p class="modal-item">领料完成度 &emsp;&emsp;<span class="item-time">80%</span></p>
+                                                </div>
+                                            </li>
+                                            <li class="list-item space wait-finish">
+                                                <span class="circle unfinished"></span>
+                                                <p class="text">开始考试</p>
+                                                <div class="modal">
+                                                    <p class="modal-item">计划开考事件&emsp;<span class="item-time">2019-05-01</span></p>
+                                                    <p class="modal-item">实际开考时间&emsp;<span class="item-time">2019-05-01</span></p>
+                                                </div>
+                                            </li>
+                                            <li class="list-item last space wait-finish">
+                                                <span class="circle unfinished"></span>
+                                                <p class="text">完成考试</p>
+                                                <diiv class="modal">
+                                                    <p class="modal-item">计划结束时间&emsp;<span class="item-time">2019-05-01</span></p>
+                                                    <p class="modal-item">实际结束时间&emsp;<span class="item-time">2019-05-01</span></p>
+                                                </diiv>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <form class="layui-form">
+                            <form class="layui-form" lay-filter="step1FormFilter">
+                                <input id="idPlan" name="idPlan" hidden>
                                 <hr>
                                 <div class="layui-form-item">
                                     <div class="layui-inline">
                                         <label class="layui-form-label">考试模板<i class="iconfont icon-required"
                                                                                style="color: #f03f2d"></i></label>
                                         <div class="layui-input-inline">
-                                            <select name="sdScoreItemCa">
-                                                <option value="1">todo分类</option>
-                                            </select>
+                                            <input id="idModelFrom" name="idModelFrom" hidden>
+                                            <input id="idModel" name="idModel" hidden>
+                                            <input type="text" class="layui-input" id="naModel" name="naModel"
+                                                   lay-verify="required" lay-vertype="tips" autocomplete="off" placeholder="请选择考试模板"/>
                                         </div>
-                                        <button class="layui-btn layui-btn-normal"><i class="iconfont icon-edit"></i> 编辑模板
+                                        <button type="button" id="editTemplate" class="layui-btn layui-btn-normal"
+                                                style="display: none">
+                                            <i class="iconfont icon-edit"></i> 编辑模板
+                                        </button>
+                                        <button type="button" id="editTemplateHidden" class="layui-btn layui-btn-normal"
+                                                lay-href="" style="display: none">实训模板编辑
                                         </button>
                                     </div>
                                 </div>
@@ -59,15 +107,17 @@
                                         <label class="layui-form-label">考试名称<i class="iconfont icon-required"
                                                                                style="color: #f03f2d"></i></label>
                                         <div class="layui-input-inline">
-                                            <input type="text" placeholder="请输入考试名称" class="layui-input"/>
-
+                                            <input type="text" class="layui-input" id="naPlan" name="naPlan"
+                                                   lay-verify="required|naPlan" lay-vertype="tips" autocomplete="off" placeholder="请输入考试名称"/>
                                         </div>
                                     </div>
                                     <div class="layui-inline">
                                         <label class="layui-form-label">开考时间<i class="iconfont icon-required"
                                                                                style="color: #f03f2d"></i></label>
                                         <div class="layui-input-inline">
-                                            <input type="number" class="layui-input">
+                                            <input type="text" class="layui-input" id="gmtActBegin" name="gmtActBegin"
+                                                   lay-verify="required" lay-vertype="tips" autocomplete="off" placeholder="请输入开考时间"/>
+
                                         </div>
                                     </div>
                                 </div>
@@ -76,31 +126,29 @@
                                         <label class="layui-form-label">考试类别<i class="iconfont icon-required"
                                                                                style="color: #f03f2d"></i></label>
                                         <div class="layui-input-inline">
-                                            <select name="sdScoreItemCa">
-                                                <option value="1">普考</option>
-                                                <option value="2">补考</option>
+                                            <select name="fgReplan" lay-filter="fgReplanFilter">
+                                                <option value="0" selected>普考</option>
+                                                <option value="1">补考</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="layui-inline">
-                                        <label class="layui-form-label">补考来源<i class="iconfont icon-required"
-                                                                               style="color: #f03f2d"></i></label>
+                                        <label class="layui-form-label">补考来源</label>
                                         <div class="layui-input-inline">
-                                            <select name="sdScoreItemCa">
-                                                <option value="1">todo分类</option>
-                                            </select>
+                                            <input type="text" class="layui-input layui-disabled" id="idReplanFrom" name="idReplanFrom"
+                                                   placeholder="前选择补考来源" disabled/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="layui-form-item layui-form-text">
                                     <label class="layui-form-label">考试描述</label>
                                     <div class="layui-input-block" style="width: 514px;">
-                                        <textarea name="desRoomDevice" class="layui-textarea" lay-verify="desRoomDevice"></textarea>
+                                        <textarea name="desPlan" class="layui-textarea" lay-verify="desPlan" placeholder="请输入考试描述"></textarea>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn" lay-submit lay-filter="formStep">
+                                        <button id="savePlan" class="layui-btn" lay-submit lay-filter="formStep">
                                             &emsp;下一步 ：分配学员
                                         </button>
                                     </div>
@@ -114,7 +162,7 @@
                                     <input id="idSkillCase" name="idSkillCase" value="1" hidden>
                                 </div>
                                 <iframe id="assignedStudentIframe" class='layui-col-xs12' frameborder="0" style="height: 700px;"
-                                        src="${basePath}/pf/p/plan/manage/assigned/student/page"></iframe>
+                                        src=""></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
@@ -222,83 +270,7 @@
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
-<script src="${contextPath}/biz/js/system/param/paramFormController.js"></script>
-<script src="${contextPath}/common/js/jquery.min.js"></script>
-<script src="${contextPath}/common/js/jquery.formautofill.js"></script>
-<script src="${contextPath}/layui/build/js/step.js"></script>
-
-<script>
-    layui.config({
-        base: basePath + '/layui/build/js/'
-    }).use([ 'form', 'step'], function () {
-        var $ = layui.$
-            , form = layui.form
-            , step = layui.step;
-
-        step.render({
-            elem: '#stepForm',
-            filter: 'stepForm',
-            width: '100%', //设置容器宽度
-            stepWidth: '850px',
-            height: '1000px',
-            stepItems: [{
-                title: '考试定义'
-            }, {
-                title: '分配学员'
-            }, {
-                title: '排考预览'
-            }, {
-                title: '分配SP'
-            }, {
-                title: '分配考官'
-            }, {
-                title: '领料计划'
-            }, {
-                title: '发布清单'
-            }]
-        });
-
-
-        form.on('submit(formStep)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        form.on('submit(formStep1)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        form.on('submit(formStep2)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        form.on('submit(formStep3)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        form.on('submit(formStep4)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        form.on('submit(formStep5)', function (data) {
-            step.next('#stepForm');
-            return false;
-        });
-
-        $('.pre').click(function () {
-            step.pre('#stepForm');
-        });
-
-        $('.next').click(function () {
-            step.next('#stepForm');
-        });
-    })
-</script>
-
+<script src="${contextPath}/biz/js/biz/plan/manage/planStep.js"></script>
 
 </body>
 </html>

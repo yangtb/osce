@@ -48,7 +48,7 @@
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="designExamPaper">
                     <i class="iconfont icon-kaojuan"></i> 设计考卷
                 </button>
-                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="edit">
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="createExam">
                     <i class="iconfont icon-kaoshi"></i> 创建考试
                 </button>
             </div>
@@ -59,6 +59,9 @@
             </button>
             <button id="designExamPaperHidden" type="button" class="layui-btn layui-btn-normal"
                     lay-href="" style="display: none">设计考卷
+            </button>
+            <button id="editPlan" type="button" class="layui-btn layui-btn-normal"
+                    lay-href="" style="display: none">实训计划编辑
             </button>
         </div>
     </form>

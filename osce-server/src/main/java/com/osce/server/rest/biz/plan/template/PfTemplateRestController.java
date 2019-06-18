@@ -128,7 +128,7 @@ public class PfTemplateRestController extends BaseController {
         Assert.isTrue(dto.getIdModel() != null, "模板id");
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return ResultObject.createSuccess("selectTdModelInfo", ResultObject.DATA_TYPE_OBJECT,
-                pfTemplateService.selectTdModelInfo(dto.getIdModel(), dto.getIdOrg()));
+                pfTemplateService.selectTdModelInfo(Long.valueOf(dto.getIdModel()), dto.getIdOrg()));
     }
 
     /**
@@ -143,7 +143,7 @@ public class PfTemplateRestController extends BaseController {
         /* 参数校验 */
         Assert.isTrue(dto.getIdModel() != null, "模板id");
         return ResultObject.createSuccess("selectTdModelInfo", ResultObject.DATA_TYPE_LIST,
-                pfTemplateService.selectStationInfo(dto.getIdModel()));
+                pfTemplateService.selectStationInfo(Long.valueOf(dto.getIdModel())));
     }
 
     /**
@@ -174,7 +174,7 @@ public class PfTemplateRestController extends BaseController {
         /* 参数校验 */
         Assert.isTrue(dto.getIdModel() != null, "模板id");
         return ResultObject.createSuccess("selectStationDetail", ResultObject.DATA_TYPE_LIST,
-                pfTemplateService.selectStationDetail(dto.getIdModel()));
+                pfTemplateService.selectStationDetail(Long.valueOf(dto.getIdModel())));
     }
 
 

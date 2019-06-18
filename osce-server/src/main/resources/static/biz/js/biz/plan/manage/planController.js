@@ -16,13 +16,13 @@ layui.config({
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
-            {field: 'naGrade', minWidth: 170, title: '考试名称', fixed: true},
-            {field: 'desGrade', minWidth: 170, title: '计划开考时间'},
-            {field: 'desGrade', minWidth: 170, title: '计划结束时间'},
-            {field: 'planNum', minWidth: 100, title: '考场数'},
+            {field: 'naPlan', minWidth: 170, title: '考试名称', fixed: true},
+            {field: 'gmtPlanBegin', minWidth: 170, title: '计划开考时间'},
+            {field: 'gmtPlanEnd', minWidth: 170, title: '计划结束时间'},
+            {field: 'areaNum', minWidth: 100, title: '考场数'},
             {field: 'studentNum', minWidth: 100, title: '学生数'},
             {field: 'gmtCreate', minWidth: 170, title: '考试类型'},
-            {field: 'gmtCreate', minWidth: 170, title: '状态'},
+            {field: 'sdPlanStatus', minWidth: 170, title: '状态'},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#planBar'}
         ]] //设置表头
@@ -43,10 +43,10 @@ layui.config({
 
     //监听提交
     form.on('submit(planSearchFilter)', function (data) {
-        var name = data.field.naGrade;
+        var name = data.field.naPlan;
         table.reload('planTableId', {
             where: {
-                naGrade: name
+                naPlan: name
             }
             , height: 'full-68'
             , page: {
@@ -66,32 +66,18 @@ layui.config({
             layer.tips('请选中一行记录进行编辑', '#edit', {tips: 1});
             return;
         }*/
-        var currentEditData = data[0];
-        //_addOrEdit("edit", currentEditData);
-        $('#editPlan').attr('lay-href', basePath + '/pf/p/plan/manage/form');
-        $('#editPlan').click();
+        editPlan( data[0]);
     });
 
-
-    var _addOrEdit = function (formType, currentEditData) {
-        if (formType == 'add') {
-            common.open('新增学届', basePath + '/pf/p/plan/form?formType=' + formType, 430, 255);
-        } else {
-            common.open('编辑学届', basePath + '/pf/p/plan/form?formType=' + formType, 430, 255, _successFunction(currentEditData));
-        }
-    };
-
-    var _successFunction = function (data) {
-        return function (layero, index) {
-            var iframe = window['layui-layer-iframe' + index];
-            //调用子页面的全局函数
-            iframe.fullForm(data);
-        }
-    };
+    function editPlan(data) {
+        var idPlan = data ? data.idPlan : '';
+        $('#editPlan').attr('lay-href', basePath + '/pf/p/plan/manage/form?idPlan=' + idPlan);
+        $('#editPlan').click();
+    }
 
     //监听行双击事件
     table.on('rowDouble(planTableFilter)', function (obj) {
-        _addOrEdit("edit", obj.data);
+        editPlan(obj.data);
     });
 
     $("#del").on('click', function () {
@@ -101,41 +87,27 @@ layui.config({
             layer.tips('请先选中一行记录', '#del', {tips: 1});
             return;
         }
-        _delGrade(data);
+        _delPlan(data);
     });
 
-    var _delGrade = function (currentData) {
-        var url = basePath + '/pf/r/plan/del';
+    var _delPlan = function (currentData) {
+        var url = basePath + '/pf/r/plan/manage/del';
         var reqData = new Array();
         var messageTitle = '';
-        var delFlag = false, delMsg = '';
         $.each(currentData, function (index, content) {
             if (messageTitle) {
                 messageTitle += ', ';
             }
-            messageTitle += '【' + content.naGrade + '】';
-            reqData.push(content.idGrade);
-
-            if (content.planNum > 0) {
-                delFlag = true;
-                delMsg += '【' + content.naGrade + '】';
-            }
+            messageTitle += '【' + content.naPlan + '】';
+            reqData.push(content.idPlan);
         });
 
-        if(delFlag) {
-            layer.alert(delMsg + '<br><span style="color: red; font-weight: bold">学届下已有班级，不允许删除，请重新选择操作</span>', {
-                title: '删除学届提示',
-                resize: false,
-                btn: ['确定']
-            });
-            return false;
-        }
 
         var data = {};
         data.list = reqData;
         data.status = '1';
         layer.confirm('确定删除' + messageTitle + '么？', {
-            title: '删除学届提示',
+            title: '删除计划提示',
             resize: false,
             btn: ['确定', '取消'],
             btnAlign: 'c',

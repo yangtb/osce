@@ -211,6 +211,20 @@ layui.config({
         $('#designExamPaperHidden').click();
     });
 
+
+    $('#createExam').on('click', function () {
+        var checkStatus = table.checkStatus('templateTableId')
+            , data = checkStatus.data;
+        if (data.length != 1) {
+            layer.tips('请先选中一个模板', '#createExam', {tips: 1});
+            return;
+        }
+        var currentEditData = data[0];
+        $('#editPlan').attr('lay-href',
+            basePath + '/pf/p/plan/manage/form?idModel=' + currentEditData.idModel);
+        $('#editPlan').click();
+    });
+
 });
 
 

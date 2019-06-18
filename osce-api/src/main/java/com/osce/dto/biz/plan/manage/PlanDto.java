@@ -21,6 +21,11 @@ public class PlanDto extends PageParam implements Serializable {
     private static final long serialVersionUID = 4512838127154302689L;
 
     /**
+     * 计划id
+     */
+    private Long idPlan;
+
+    /**
      * 机构id
      */
     private Long idOrg;

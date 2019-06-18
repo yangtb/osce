@@ -32,12 +32,12 @@ public class PfTemplateController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/template/form")
-    public String pageForm(Model model, Long idModel) {
+    public String pageForm(Model model, String idModel) {
         model.addAttribute("idModel", idModel);
         return "pages/biz/plan/template/templateForm";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/plan/template/list")
     @ResponseBody
     public PageResult pageTemplate(TemplateDto dto) {
@@ -47,14 +47,14 @@ public class PfTemplateController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/template/two")
-    public String stepTwo(Model model, Long idModel) {
+    public String stepTwo(Model model, String idModel) {
         model.addAttribute("idModel", idModel);
         return "pages/biz/plan/template/tempTwo";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/template/third")
-    public String stepThird(Model model, Long idModel) {
+    public String stepThird(Model model, String idModel) {
         model.addAttribute("idModel", idModel);
         return "pages/biz/plan/template/tempThird";
     }

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.plan.manage.PfPlanManageDao">
+    <insert id="addPlan" useGeneratedKeys="true" keyProperty="idPlan">
+        INSERT INTO tp_plan
+        (
+        <trim suffixOverrides=",">
+            <if test="idPlan!=null">
+                id_plan,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="idModelFrom!=null">
+                id_model_from,
+            </if>
+            <if test="idModel!=null and idModel!=''">
+                id_model,
+            </if>
+            <if test="naPlan!=null and naPlan!=''">
+                na_plan,
+            </if>
+            <if test="desPlan!=null and desPlan!=''">
+                des_plan,
+            </if>
+            <if test="sdPlanStatus!=null and sdPlanStatus!=''">
+                sd_plan_status,
+            </if>
+            <if test="fgReplan!=null and fgReplan!=''">
+                fg_replan,
+            </if>
+            <if test="idReplanFrom!=null">
+                id_replan_from,
+            </if>
+                gmt_plan_begin,
+            <if test="gmtPlanEnd!=null">
+                gmt_plan_end,
+            </if>
+            <if test="gmtRelease!=null">
+                gmt_release,
+            </if>
+            <if test="gmyPicking!=null">
+                gmy_picking,
+            </if>
+            <if test="gmtActBegin!=null">
+                gmt_act_begin,
+            </if>
+            <if test="gmtActEnd!=null">
+                gmt_act_end,
+            </if>
+            <if test="percentPicking!=null">
+                percent_picking,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null and creator!=''">
+                creator,
+            </if>
+                gmt_create,
+            <if test="operator!=null and operator!=''">
+                operator,
+            </if>
+                gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idPlan!=null">
+                #{idPlan},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="idModelFrom!=null">
+                #{idModelFrom},
+            </if>
+            <if test="idModel!=null and idModel!=''">
+                #{idModel},
+            </if>
+            <if test="naPlan!=null and naPlan!=''">
+                #{naPlan},
+            </if>
+            <if test="desPlan!=null and desPlan!=''">
+                #{desPlan},
+            </if>
+            <if test="sdPlanStatus!=null and sdPlanStatus!=''">
+                #{sdPlanStatus},
+            </if>
+            <if test="fgReplan!=null and fgReplan!=''">
+                #{fgReplan},
+            </if>
+            <if test="idReplanFrom!=null">
+                #{idReplanFrom},
+            </if>
+                now(),
+            <if test="gmtPlanEnd!=null">
+                #{gmtPlanEnd},
+            </if>
+            <if test="gmtRelease!=null">
+                #{gmtRelease},
+            </if>
+            <if test="gmyPicking!=null">
+                #{gmyPicking},
+            </if>
+            <if test="gmtActBegin!=null">
+                #{gmtActBegin},
+            </if>
+            <if test="gmtActEnd!=null">
+                #{gmtActEnd},
+            </if>
+            <if test="percentPicking!=null">
+                #{percentPicking},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null and creator!=''">
+                #{creator},
+            </if>
+                now(),
+            <if test="operator!=null and operator!=''">
+                #{operator},
+            </if>
+                now(),
+        </trim>
+        )
+    </insert>
+    <insert id="addStudent">
+        <foreach collection="idUsers" item="item" index="index" open="" close="" separator=";">
+            INSERT INTO tp_student(id_plan, id_user)
+            VALUES( #{idPlan}, #{item})
+        </foreach>
+    </insert>
+    <update id="editPlan">
+        UPDATE tp_plan
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="idModelFrom != null">
+                id_model_from = #{idModelFrom},
+            </if>
+            <if test="idModel != null">
+                id_model = #{idModel},
+            </if>
+            <if test="naPlan != null and naPlan!=''">
+                na_plan = #{naPlan},
+            </if>
+            <if test="desPlan != null and desPlan!=''">
+                des_plan = #{desPlan},
+            </if>
+            <if test="sdPlanStatus != null and sdPlanStatus!=''">
+                sd_plan_status = #{sdPlanStatus},
+            </if>
+            <if test="fgReplan != null and fgReplan!=''">
+                fg_replan = #{fgReplan},
+            </if>
+            <if test="idReplanFrom != null">
+                id_replan_from = #{idReplanFrom},
+            </if>
+            <if test="gmtPlanBegin != null">
+                gmt_plan_begin = #{gmtPlanBegin},
+            </if>
+            <if test="gmtPlanEnd != null">
+                gmt_plan_end = #{gmtPlanEnd},
+            </if>
+            <if test="gmtRelease != null">
+                gmt_release = #{gmtRelease},
+            </if>
+            <if test="gmyPicking != null">
+                gmy_picking = #{gmyPicking},
+            </if>
+            <if test="gmtActBegin != null">
+                gmt_act_begin = #{gmtActBegin},
+            </if>
+            <if test="gmtActEnd != null">
+                gmt_act_end = #{gmtActEnd},
+            </if>
+            <if test="percentPicking != null">
+                percent_picking = #{percentPicking},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+                gmt_modify = now(),
+        </trim>
+        WHERE
+            id_plan = #{idPlan}
+    </update>
+    <delete id="delStudent">
+        delete from tp_student
+        WHERE
+        id_user in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+        and id_plan = #{extId}
+    </delete>
+
+
+    <select id="countPlanManage" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            tp_plan a
+        WHERE
+            a.id_org = #{idOrg}
+    </select>
+    <select id="listPlanManage" resultType="com.osce.vo.biz.plan.manage.TpPlanVo">
+        SELECT
+            a.id_plan ,
+            a.na_plan ,
+            a.gmt_act_begin ,
+            a.gmt_act_end ,
+            a.sd_plan_status ,
+            a.gmt_create
+        FROM
+            tp_plan a
+        WHERE
+            a.id_org = #{idOrg}
+        limit #{offset}, #{limit}
+    </select>
+    <select id="copyTdModel" statementType="CALLABLE">
+         call P_STATION_PLAN_MODEL_INS(
+            #{parIdPlan,mode=IN,jdbcType=INTEGER},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+    <select id="getIdModel" resultType="java.lang.String">
+        SELECT
+            a.id_model
+        FROM
+            tp_plan a
+        WHERE
+            a.id_plan = #{idPlan}
+    </select>
+    <select id="listAssignedStudent" resultType="com.osce.vo.biz.plan.manage.AssignedStudentVo">
+        SELECT
+            a.id_tp_student ,
+            a.id_plan ,
+            a.id_user ,
+            d.na_grade ,
+            b.username ,
+            b.real_name ,
+            (case b.sex when 1 then '男' when 2 then '女' else '未知' end) as sex,
+            b.phone_no ,
+            b.idcard
+        FROM
+            tp_student a
+        LEFT JOIN user_info b ON a.id_user = b.user_id
+        LEFT JOIN org_student_depart c ON a.id_user = c.id_user
+        LEFT JOIN org_grade d ON c.id_grade = d.id_grade
+        WHERE
+            a.id_plan = #{idPlan}
+    </select>
+    <select id="selectPlan" resultType="com.osce.entity.TpPlan">
+        SELECT
+            a.id_plan ,
+            a.id_org ,
+            a.id_model_from ,
+            a.id_model ,
+            b.na_model ,
+            a.na_plan ,
+            a.des_plan ,
+            a.sd_plan_status ,
+            a.fg_replan ,
+            a.id_replan_from ,
+            a.gmt_plan_begin ,
+            a.gmt_plan_end ,
+            a.gmt_release ,
+            a.gmy_picking ,
+            a.gmt_act_begin ,
+            a.gmt_act_end ,
+            a.percent_picking
+        FROM
+            tp_plan a
+        LEFT JOIN td_model b ON a.id_model = b.id_model
+        WHERE
+            a.id_plan = #{idPlan}
+    </select>
+</mapper>

@@ -12,7 +12,8 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
 
     <script>
-        var basePath = '${basePath}';
+        var basePath = '${basePath!}';
+        var idPlan = '${idPlan!}';
     </script>
 </head>
 
@@ -41,6 +42,10 @@
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/plan/manage/assignedStudentController.js"></script>
+
+<script type="text/html" id="studentBar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+</script>
 
 </body>
 

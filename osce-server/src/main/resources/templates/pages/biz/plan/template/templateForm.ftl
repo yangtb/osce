@@ -50,7 +50,8 @@
                                                                                        style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
                                                     <input type="text" class="layui-input" id="naModel" name="naModel"
-                                                           lay-verify="required" lay-vertype="tips" autocomplete="off"/>                                                </div>
+                                                           lay-verify="required" lay-vertype="tips" autocomplete="off"/>
+                                                </div>
                                             </div>
                                             <div class="layui-col-md4">
                                                 <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">考场数<i class="iconfont icon-required"
