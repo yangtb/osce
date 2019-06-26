@@ -24,7 +24,7 @@ td {
   border-collapse: collapse;
   padding: 0;
   font-size: 16px;
-  font-weight: 600;
+  /*font-weight: 600;*/
 }
 
 .main-wrapper {
@@ -109,6 +109,11 @@ td {
   color: rgb(0, 150, 136);
 }
 
+.font-title {
+  font-weight: bold;
+  width: 50px;
+}
+
 .content-container {
   width: 168px;
   height: 131px;
@@ -126,9 +131,14 @@ td {
   display: inline-block;
   width: 16px;
   height: 16px;
+  /*margin-left: 10px;*/
+  /*margin-right: 10px;*/
+  cursor: pointer;
+}
+
+.edit-btn-paper{
   margin-left: 10px;
   margin-right: 10px;
-  cursor: pointer;
 }
 
 .item-text {
@@ -198,8 +208,12 @@ td {
 
 .tab-content {
   display: inline-block;
-  width: 130px;
+  width: 110px;
   height: 115px;
+}
+
+.tab-content-border{
+  border-right: 1px solid #d2d2d2;
 }
 
 .item-main {
@@ -213,9 +227,17 @@ td {
 
 .item-msg {
   flex: 1;
-  font-size: 10px;
+  font-size: 8px;
   text-align: center;
   padding-left: 10px;
+  font-weight: normal;
+}
+
+.item-msg2 {
+  flex: 1;
+  font-size: 8px;
+  text-align: center;
+  padding-left: 1px;
   font-weight: normal;
 }
 
@@ -230,7 +252,7 @@ td {
 .main-right {
   width: 45px;
   height: 115px;
-  border-right: 1px solid#d2d2d2;;
+  /*border-right: 1px solid#d2d2d2;*/
   /* float: right; */
   display: flex;
   flex-direction: column;
@@ -243,8 +265,11 @@ td {
   height: 20px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
   font-size: 10px;
+  margin: 0;
+  padding-left: 5px;
+
 }
 
 .edit {
