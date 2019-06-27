@@ -131,6 +131,21 @@ public class PfTemplateRestController extends BaseController {
     }
 
     /**
+     * 查询模板名称
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_02_02_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/select/model/name")
+    public ResultObject selectModelName(@RequestBody TemplateDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdModel() != null, "模板id");
+        return ResultObject.createSuccess("selectModelName", ResultObject.DATA_TYPE_OBJECT,
+                pfTemplateService.selectModelName(dto.getIdModel()));
+    }
+
+    /**
      * 获取排站信息
      *
      * @param dto

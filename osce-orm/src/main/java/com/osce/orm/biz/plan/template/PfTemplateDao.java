@@ -229,4 +229,12 @@ public interface PfTemplateDao {
      */
     int saveStationPaper(PfAddTpPaperDto dto);
 
+    /**
+     * 查询模板名称
+     *
+     * @param idModel 模板id
+     * @return
+     */
+    String selectModelName(Long idModel);
+
 }

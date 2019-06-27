@@ -6,7 +6,6 @@ import com.osce.dto.biz.plan.template.TdModelInfo;
 import com.osce.dto.biz.plan.template.TemplateDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.result.PageResult;
-import com.osce.vo.biz.plan.template.TdInsStationDetailVo;
 import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
 
 import java.util.List;
@@ -58,6 +57,14 @@ public interface PfTemplateService {
      * @return
      */
     TdModelInfo selectTdModelInfo(Long idModel, Long idOrg);
+
+    /**
+     * 查询模板名称
+     *
+     * @param idModel 模板id
+     * @return
+     */
+    String selectModelName(Long idModel);
 
     /**
      * 获取排站信息

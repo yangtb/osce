@@ -221,7 +221,7 @@ layui.config({
         }
         var currentEditData = data[0];
         $('#editPlan').attr('lay-href',
-            basePath + '/pf/p/plan/manage/form?idModel=' + currentEditData.idModel);
+            basePath + '/pf/p/plan/manage/form?idModelFrom=' + currentEditData.idModel);
         $('#editPlan').click();
     });
 

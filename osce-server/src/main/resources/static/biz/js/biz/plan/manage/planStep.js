@@ -56,8 +56,45 @@ layui.config({
         if (idPlan) {
             // 加载计划信息
             loadPlanInfo();
+        } else {
+            if (idModelFrom) {
+                // 默认考试模板
+                defaultModel();
+            }
         }
     });
+
+    function defaultModel() {
+        var bizData = {
+            idModel: idModelFrom
+        };
+        $.ajax({
+            url: basePath + '/pf/r/plan/select/model/name',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    common.errorMsg(data.msg);
+                    return false;
+                } else {
+                    var sucData = data.data;
+                    if (sucData) {
+                        $('#idModelFrom').val(idModelFrom);
+                        $('#naModel').val(sucData);
+                        $('#naModel').attr("ts-selected", idModelFrom);
+                    }
+                    return true;
+                }
+            },
+            error: function () {
+                common.errorMsg("查询失败");
+                return false;
+            }
+        });
+    }
 
     function loadPlanInfo(){
         var bizData = {

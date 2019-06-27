@@ -772,5 +772,13 @@
             floor(a.time_section) ,
             date_format(d.time_begin , '%H:%i')
     </select>
+    <select id="selectModelName" resultType="java.lang.String">
+        SELECT
+            na_model
+        FROM
+            td_model
+        WHERE
+            id_model = #{idModel}
+    </select>
 
 </mapper>

@@ -147,6 +147,11 @@ public class PfTemplateServiceImpl implements PfTemplateService {
     }
 
     @Override
+    public String selectModelName(Long idModel) {
+        return pfTemplateDao.selectModelName(idModel);
+    }
+
+    @Override
     public List<TdStationInfoVo> selectStationInfo(Long idModel) {
         List<TdStationInfoVo> stationVos = pfTemplateDao.selectStationInfo(idModel);
         stationVos.forEach(tdInsStationVo -> tdInsStationVo.getDayData().forEach(tdDayInfo -> { tdDayInfo.getAreaData().forEach(tdAreaInfo -> tdAreaInfo.getStationData().forEach(tdStation -> {

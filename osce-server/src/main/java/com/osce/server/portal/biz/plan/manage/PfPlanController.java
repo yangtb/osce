@@ -37,8 +37,9 @@ public class PfPlanController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/manage/form")
-    public String planForm(Model model, String idPlan) {
+    public String planForm(Model model, String idPlan, String idModelFrom) {
         model.addAttribute("idPlan", idPlan);
+        model.addAttribute("idModelFrom", idModelFrom);
         return "pages/biz/plan/manage/planForm";
     }
 
