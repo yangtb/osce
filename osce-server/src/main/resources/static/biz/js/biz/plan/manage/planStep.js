@@ -76,6 +76,7 @@ layui.config({
                     return false;
                 } else {
                     var sucData = data.data;
+                    fullProgress(sucData);
                     // 表单值
                     form.val("step1FormFilter", sucData);
                     $('#naModel').attr("ts-selected", bizData.idModelFrom);
@@ -93,6 +94,47 @@ layui.config({
                 return false;
             }
         });
+    }
+
+    function fullProgress(data){
+        if (data.gmtRelease) {
+            $("#gmtRelease").text(data.gmtRelease);
+        } else {
+            $("#examPublish").addClass("unfinished");
+        }
+
+
+        if (data.gmyPicking) {
+            $("#gmyPicking").text(data.gmyPicking);
+            $("#percentPicking").text(data.percentPicking + '%');
+        }
+        if (data.percentPicking != 100) {
+            $("#pickingCircle").addClass("cur-circle");
+        }
+
+
+        if (data.gmtActBegin) {
+            $("#gmtActBegin").text(data.gmtActBegin);
+        }
+        if (data.gmtActEnd) {
+            $("#gmtActEnd").text(data.gmtActEnd);
+        }
+        if (data.gmtActBegin && !data.gmtActEnd) {
+            $("#gmtAct").addClass("cur-circle");
+        } else if (!data.gmtActBegin && !data.gmtActEnd) {
+            $("#gmtAct").addClass("unfinished");
+        }
+
+
+        if (data.gmtPlanBegin) {
+            $("#gmtPlanBegin").text(data.gmtPlanBegin);
+        }
+        if (data.gmtPlanEnd) {
+            $("#gmtPlanEnd").text(data.gmtPlanEnd);
+        }
+        if (!data.gmtPlanEnd) {
+            $("#gmtPlan").addClass("unfinished");
+        }
     }
 
     tableSelect.render({
@@ -233,6 +275,14 @@ layui.config({
         $('#pickIframe').attr("src", basePath + "/pf/p/plan/manage/tpPicking/page?idPlan=" + $('#idPlan').val())
     }
 
+    // 计划发布
+    $('#publishPlan').on('click', function () {
+        var bizData = {
+            parIdPlan : idPlan
+        }
+        common.commonPost(basePath + '/pf/r/plan/publish',
+            bizData, '发布', 'publishPlan', null, true);
+    });
 
 });
 

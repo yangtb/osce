@@ -131,4 +131,12 @@ public interface PfPlanManageDao {
      */
     List<TpPickingVo> listPick(PlanDto dto);
 
+    /**
+     * 发布计划
+     *
+     * @param idPlan
+     * @return
+     */
+    int publishPlan(@Param("idPlan") Long idPlan);
+
 }

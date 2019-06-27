@@ -230,12 +230,6 @@ layui.config({
         });
     }
 
-    table.reload('idTest', {
-        url: '/api/table/search'
-        ,where: {} //设定异步数据接口的额外参数
-        //,height: 300
-    });
-
     function addPaper(idInsStation, data) {
         var bizData = {
             idInsStation: idInsStation,

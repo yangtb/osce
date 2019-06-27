@@ -284,5 +284,82 @@
         </if>
         limit #{offset}, #{limit}
     </select>
+    <select id="listStudentItem" resultType="com.osce.vo.biz.plan.manage.PlanPublishItemVo">
+        SELECT
+            d.real_name ,
+            d.phone_no ,
+            e.na_area ,
+            f.na_station ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = b.sd_station_ca) AS sdStationCaText ,
+            (case  b.sd_skill_ca when '1' then '理论试题' when '2' then '技能操作' when '3' then '病史采集' end) as sdSkillCaText,
+            g.na_room,
+            concat(date_format(h.gmt_plan_begin , '%Y-%m-%d'),(CASE WHEN((b.`time_section` - floor(b.`time_section`)) = 0 ) THEN ' 上午' ELSE ' 下午' END)) planTime,
+            date_format(a.time_begin , '%H:%i') AS time_begin ,
+                date_format(a.time_end , '%H:%i') AS time_end
+        FROM
+            tp_ins_station_detail a
+        LEFT JOIN tp_ins_station b ON a.id_ins_station = b.id_ins_station
+        LEFT JOIN user_info d ON a.id_user = d.user_id
+        LEFT JOIN td_area e ON b.id_area = e.id_area
+        LEFT JOIN td_station f ON b.id_area = f.id_area
+        LEFT JOIN erp_room g ON b.id_room = g.id_room
+        LEFT JOIN tp_plan h ON b.id_plan = h.id_plan
+        WHERE
+            b.id_plan = #{idPlan}
+    </select>
+    <select id="listSpItem" resultType="com.osce.vo.biz.plan.manage.PlanPublishItemVo">
+        SELECT
+            d.real_name ,
+            d.phone_no ,
+            e.na_area ,
+            f.na_station ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = b.sd_station_ca) AS sdStationCaText ,
+            (case  b.sd_skill_ca when '1' then '理论试题' when '2' then '技能操作' when '3' then '病史采集' end) as sdSkillCaText,
+            g.na_room,
+            concat(date_format(h.gmt_plan_begin , '%Y-%m-%d'),(CASE WHEN((b.`time_section` - floor(b.`time_section`)) = 0 ) THEN ' 上午' ELSE ' 下午' END)) planTime
+        FROM
+            tp_ins_station_detail a
+        LEFT JOIN tp_ins_station b ON a.id_ins_station = b.id_ins_station
+        LEFT JOIN tp_sp c ON b.id_plan = c.id_plan
+        AND b.id_area = c.id_area
+        AND b.id_station = c.id_station
+        AND b.time_section = c.time_section
+        AND b.id_room = c.id_room
+        LEFT JOIN user_info d ON c.id_user = d.user_id
+        LEFT JOIN td_area e ON b.id_area = e.id_area
+        LEFT JOIN td_station f ON b.id_area = f.id_area
+        LEFT JOIN erp_room g ON b.id_room = g.id_room
+        LEFT JOIN tp_plan h ON b.id_plan = h.id_plan
+        WHERE
+            b.id_plan = #{idPlan}
+        AND c.id_user IS NOT NULL
+    </select>
+    <select id="listAssistantItem" resultType="com.osce.vo.biz.plan.manage.PlanPublishItemVo">
+        SELECT
+            d.real_name ,
+            d.phone_no ,
+            e.na_area ,
+            f.na_station ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = b.sd_station_ca) AS sdStationCaText ,
+            (case  b.sd_skill_ca when '1' then '理论试题' when '2' then '技能操作' when '3' then '病史采集' end) as sdSkillCaText,
+            g.na_room,
+            concat(date_format(h.gmt_plan_begin , '%Y-%m-%d'),(CASE WHEN((b.`time_section` - floor(b.`time_section`)) = 0 ) THEN ' 上午' ELSE ' 下午' END)) planTime
+        FROM
+            tp_ins_station_detail a
+        LEFT JOIN tp_ins_station b ON a.id_ins_station = b.id_ins_station
+        LEFT JOIN tp_assistant c ON b.id_plan = c.id_plan
+        AND b.id_area = c.id_area
+        AND b.id_station = c.id_station
+        AND b.time_section = c.time_section
+        AND b.id_room = c.id_room
+        LEFT JOIN user_info d ON c.id_user_manager = d.user_id
+        LEFT JOIN td_area e ON b.id_area = e.id_area
+        LEFT JOIN td_station f ON b.id_area = f.id_area
+        LEFT JOIN erp_room g ON b.id_room = g.id_room
+        LEFT JOIN tp_plan h ON b.id_plan = h.id_plan
+        WHERE
+            b.id_plan = #{idPlan}
+        AND c.id_user_manager IS NOT NULL
+    </select>
 
 </mapper>

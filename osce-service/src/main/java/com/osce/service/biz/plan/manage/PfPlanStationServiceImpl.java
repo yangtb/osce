@@ -10,6 +10,7 @@ import com.osce.orm.biz.plan.template.PfTemplateDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
+import com.osce.vo.biz.plan.manage.PlanPublishItemVo;
 import com.osce.vo.biz.plan.template.station.PlanAssistant;
 import com.osce.vo.biz.plan.template.station.PlanSp;
 import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
@@ -120,5 +121,20 @@ public class PfPlanStationServiceImpl implements PfPlanStationService {
                 dto.getIdStation(),
                 dto.getTimeSection(),
                 dto.getIdRoom());
+    }
+
+    @Override
+    public List<PlanPublishItemVo> listStudentItem(String idPlan) {
+        return pfPlanStationDao.listStudentItem(idPlan);
+    }
+
+    @Override
+    public List<PlanPublishItemVo> listSpItem(String idPlan) {
+        return pfPlanStationDao.listSpItem(idPlan);
+    }
+
+    @Override
+    public List<PlanPublishItemVo> listAssistantItem(String idPlan) {
+        return pfPlanStationDao.listAssistantItem(idPlan);
     }
 }

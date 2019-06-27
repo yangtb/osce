@@ -46,34 +46,34 @@
                                                 </div>
                                             </li>
                                             <li class="list-item space">
-                                                <span class="circle"></span>
+                                                <span class="circle" id="examPublish"></span>
                                                 <p class="text">考试发布</p>
                                                 <div class="modal">
-                                                    <p class="modal-item">发布时间&emsp;<span class="item-time">2019-04-01</span></p>
+                                                    <p class="modal-item">发布时间&emsp;<span class="item-time" id="gmtRelease"></span></p>
                                                 </div>
                                             </li>
                                             <li class="list-item space wait-finish">
-                                                <span class="circle cur-circle"></span>
+                                                <span class="circle" id="pickingCircle"></span>
                                                 <p class="text">物料准备</p>
                                                 <div class="modal">
-                                                    <p class="modal-item">领料完成时间&emsp;<span class="item-time">2019-04-20</span></p>
-                                                    <p class="modal-item">领料完成度 &emsp;&emsp;<span class="item-time">80%</span></p>
+                                                    <p class="modal-item">领料完成时间&emsp;<span class="item-time" id="gmyPicking"></span></p>
+                                                    <p class="modal-item">领料完成度 &emsp;&emsp;<span class="item-time" id="percentPicking"></span></p>
                                                 </div>
                                             </li>
                                             <li class="list-item space wait-finish">
-                                                <span class="circle unfinished"></span>
+                                                <span class="circle" id="gmtAct"></span>
                                                 <p class="text">开始考试</p>
                                                 <div class="modal">
-                                                    <p class="modal-item">计划开考事件&emsp;<span class="item-time">2019-05-01</span></p>
-                                                    <p class="modal-item">实际开考时间&emsp;<span class="item-time">2019-05-01</span></p>
+                                                    <p class="modal-item">计划开考事件&emsp;<span class="item-time" id="gmtActBegin"></span></p>
+                                                    <p class="modal-item">实际开考时间&emsp;<span class="item-time" id="gmtActEnd"></span></p>
                                                 </div>
                                             </li>
                                             <li class="list-item last space wait-finish">
-                                                <span class="circle unfinished"></span>
+                                                <span class="circle" id="gmtPlan"></span>
                                                 <p class="text">完成考试</p>
                                                 <diiv class="modal">
-                                                    <p class="modal-item">计划结束时间&emsp;<span class="item-time">2019-05-01</span></p>
-                                                    <p class="modal-item">实际结束时间&emsp;<span class="item-time">2019-05-01</span></p>
+                                                    <p class="modal-item">计划结束时间&emsp;<span class="item-time" id="gmtPlanBegin"></span></p>
+                                                    <p class="modal-item">实际结束时间&emsp;<span class="item-time" id="gmtPlanEnd"></span></p>
                                                 </diiv>
                                             </li>
                                         </ul>
@@ -236,8 +236,8 @@
                                     src=""></iframe>
                             <div style="text-align: center;margin-top: 50px;">
                                 <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                <button class="layui-btn"><i class="iconfont icon-save"></i> 发布</button>
-                                <button class="layui-btn layui-btn-normal"><i class="iconfont icon-daochuExcel"></i> 导出</button>
+                                <button id="publishPlan" class="layui-btn"><i class="iconfont icon-save"></i> 发布</button>
+                                <#--<button class="layui-btn layui-btn-normal"><i class="iconfont icon-daochuExcel"></i> 导出</button>-->
                             </div>
                         </div>
                     </div>

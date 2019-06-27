@@ -117,4 +117,10 @@ public class PfPlanManageServiceImpl implements PfPlanManageService {
                 pfPlanManageDao.listPick(dto));
     }
 
+    @Override
+    public boolean publishPlan(PlanDto dto) {
+        int num = pfPlanManageDao.publishPlan(dto.getIdPlan());
+        return num == 1 ? true : false;
+    }
+
 }

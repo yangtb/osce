@@ -154,5 +154,19 @@ public class PfPlanRestController {
         return ResultObject.createSuccess("callStationPlanPick", ResultObject.DATA_TYPE_OBJECT, true);
     }
 
+    /**
+     * 发布计划
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/publish")
+    public ResultObject publishPlan(@RequestBody PlanDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdPlan() != null, "idPlan");
+        return ResultObject.createSuccess("publishPlan", ResultObject.DATA_TYPE_OBJECT,
+                pfPlanManageService.publishPlan(dto));
+    }
 
 }

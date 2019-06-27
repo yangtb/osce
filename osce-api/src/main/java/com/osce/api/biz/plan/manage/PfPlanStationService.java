@@ -5,6 +5,7 @@ import com.osce.dto.biz.plan.manage.PlanDto;
 import com.osce.entity.TpAssistant;
 import com.osce.entity.TpSp;
 import com.osce.result.PageResult;
+import com.osce.vo.biz.plan.manage.PlanPublishItemVo;
 import com.osce.vo.biz.plan.template.station.PlanAssistant;
 import com.osce.vo.biz.plan.template.station.PlanSp;
 import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
@@ -75,5 +76,29 @@ public interface PfPlanStationService {
      */
     List<PlanSp> selectStationSp(TpSp dto);
 
+    /**
+     * 发布清单 - 学员
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<PlanPublishItemVo> listStudentItem(String idPlan);
+
+    /**
+     * 发布清单 - sp
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<PlanPublishItemVo> listSpItem(String idPlan);
+
+
+    /**
+     * 发布清单 - 考官
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<PlanPublishItemVo> listAssistantItem(String idPlan);
 
 }

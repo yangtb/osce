@@ -9,6 +9,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpPlan;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.manage.AssignedStudentVo;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -107,5 +108,13 @@ public interface PfPlanManageService {
      * @return
      */
     PageResult pagePick(PlanDto dto);
+
+    /**
+     * 发布计划
+     *
+     * @param dto
+     * @return
+     */
+    boolean publishPlan(PlanDto dto);
 
 }

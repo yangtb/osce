@@ -4,6 +4,7 @@ import com.osce.dto.biz.plan.manage.AssistantDto;
 import com.osce.entity.TpAssistant;
 import com.osce.entity.TpSp;
 import com.osce.entity.UserInfo;
+import com.osce.vo.biz.plan.manage.PlanPublishItemVo;
 import com.osce.vo.biz.plan.template.station.PlanAssistant;
 import com.osce.vo.biz.plan.template.station.PlanSp;
 import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
@@ -115,6 +116,31 @@ public interface PfPlanStationDao {
      * @return
      */
     List<UserInfo> listAssistant(AssistantDto dto);
+
+    /**
+     * 发布清单 - 学员
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<PlanPublishItemVo> listStudentItem(@Param("idPlan") String idPlan);
+
+    /**
+     * 发布清单 - sp
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<PlanPublishItemVo> listSpItem(@Param("idPlan") String idPlan);
+
+
+    /**
+     * 发布清单 - 考官
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<PlanPublishItemVo> listAssistantItem(@Param("idPlan") String idPlan);
 
 
 }

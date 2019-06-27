@@ -32,21 +32,21 @@ public class PfPlanStationController extends BaseController {
         return "pages/biz/plan/manage/stationPreview";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/station/sp")
     public String planSp(Model model, String idPlan) {
         model.addAttribute("idPlan", idPlan);
         return "pages/biz/plan/manage/planSp";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/station/assistant")
     public String planAssistant(Model model, String idPlan) {
         model.addAttribute("idPlan", idPlan);
         return "pages/biz/plan/manage/planAssistant";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/station/assigned/sp")
     public String assignedSp(Model model, String idPlan, String sq) {
         model.addAttribute("idPlan", idPlan);
@@ -54,7 +54,7 @@ public class PfPlanStationController extends BaseController {
         return "pages/biz/plan/manage/assignedSp";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/station/assigned/assistant")
     public String assignedAssistant(Model model, String idPlan, String sq) {
         model.addAttribute("idPlan", idPlan);
@@ -62,7 +62,7 @@ public class PfPlanStationController extends BaseController {
         return "pages/biz/plan/manage/assignedAssistant";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_02_01_001','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/assistant/list")
     @ResponseBody
     public PageResult listAssistant(AssistantDto dto) {
@@ -70,11 +70,33 @@ public class PfPlanStationController extends BaseController {
         return pfPlanStationService.pageAssistant(dto);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/station/publish/item/page")
     public String pagePublishItem(Model model, String idPlan) {
         model.addAttribute("idPlan", idPlan);
         return "pages/biz/plan/manage/publishItemPage";
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/publish/item/student/list")
+    @ResponseBody
+    public PageResult listStudentItem(String idPlan) {
+        return PageResult.create(pfPlanStationService.listStudentItem(idPlan));
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/publish/item/sp/list")
+    @ResponseBody
+    public PageResult listSpItem(String idPlan) {
+        return PageResult.create(pfPlanStationService.listSpItem(idPlan));
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/publish/item/assistant/list")
+    @ResponseBody
+    public PageResult listAssistantItem(String idPlan) {
+        return PageResult.create(pfPlanStationService.listAssistantItem(idPlan));
+    }
+
 
 }

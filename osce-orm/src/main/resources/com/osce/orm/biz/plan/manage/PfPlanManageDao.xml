@@ -221,6 +221,9 @@
         WHERE
             id_plan = #{idPlan}
     </update>
+    <update id="publishPlan">
+        update tp_plan set gmt_release = now(), sd_plan_status = '2' where id_plan = #{idPlan}
+    </update>
     <delete id="delStudent">
         delete from tp_student
         WHERE
