@@ -3,9 +3,11 @@ layui.config({
 }).extend({
     index: 'lib/index', //主入口模块
     formSelects: 'formSelects-v4'
-}).use(['layer', 'index', 'form'], function () {
+}).use(['layer', 'index', 'form', 'tableSelect', 'common'], function () {
     var $ = layui.$
-        , form = layui.form;
+        , form = layui.form
+        , common = layui.common
+        , tableSelect = layui.tableSelect;
 
     $(document).ready(function () {
         // 加载排站信息
@@ -85,7 +87,7 @@ layui.config({
                 }
             });
             if (!flag) {
-                $('#' + elemId).append('<td></td>');
+                $('#' + elemId).append('<td class="td-my"></td>');
             }
         }
     }
@@ -93,7 +95,7 @@ layui.config({
     function buildDayHtml(days) {
         var html = '';
         for (var i = 1; i <= days; i++) {
-            html += '<th>第' + i + '天</th>';
+            html += '<th class="th-my">第' + i + '天</th>';
         }
         return html;
     }
@@ -101,10 +103,10 @@ layui.config({
     function buildAreaHtml(areaData) {
         var html = '';
         $.each(areaData, function (index, content) {
-            html += '<td>\n' +
+            html += '<td class="td-my">\n' +
                 '       <div class="main-wrapper">\n' +
                 '          <div class=\'header\' id="area-' + content.idArea + '">' + content.naArea + '</div>\n' +
-                           buildStationDataHtml(content.stationData) +
+                buildStationDataHtml(content.stationData) +
                 '       </div>\n' +
                 '    </td>';
         });
@@ -124,14 +126,14 @@ layui.config({
             }
             html += '<div class="main-content" id="idStation-' + content.idStation + '">\n' +
                 '       <p class="header-text" id="sdSkillCa-' + content.sdSkillCa + '">' + content.naStation + ' ' + content.sdStationCaText + ' ' + sdSkillCaText + '</p>\n' +
-                            buildRoomDataHtml(content.roomData) +
+                buildRoomDataHtml(content.roomData, content.sdSkillCa) +
                 '       </div>\n' +
                 '    </div>\n';
         });
         return html;
     }
 
-    function buildRoomDataHtml(roomData) {
+    function buildRoomDataHtml(roomData, sdSkillCa) {
         var html = '<div class="content">\n' +
             '        <div class="nav">\n' ;
 
@@ -151,9 +153,10 @@ layui.config({
             } else {
                 html +=' style="display: none;"';
             }
+            var idPaperText = content.idPaperText ? content.idPaperText : '请选择试卷';
             html += '    >\n' +
-                '        <img class="edit-btn edit-btn-paper" data-id="' + content.idInsStation + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
-                '        <p class="item-text item-text-paper" data-id="' + content.idInsStation + '">考试'+ content.idRoomText +'卷</p>\n' +
+                '        <img class="edit-btn edit-btn-paper" id="stable-' + content.idInsStation +'" data-id="' + content.idInsStation + '-' + sdSkillCa + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
+                '        <p class="item-text item-text-paper" id="paper-' + content.idInsStation +'" data-id="' + content.idInsStation  + '-' + sdSkillCa + '">'+ idPaperText +'</p>\n' +
                 '      </div>\n';
         });
 
@@ -164,7 +167,7 @@ layui.config({
     function changeRoom(elem, sq, idRoom) {
         var roomContent = document.querySelectorAll(".content-item" + sq);
         for (var i = 0; i < roomContent.length; i++) {
-            $(".content-item" + sq).hide()
+            $(".content-item" + sq).hide();
         }
         $("#tab-" + sq + "-" + idRoom + "-main").show();
     }
@@ -174,16 +177,75 @@ layui.config({
         var editBtnPapers = document.querySelectorAll(".edit-btn-paper");
         var itemTextPapers = document.querySelectorAll(".item-text-paper");
         for (var i = 0; i < editBtnPapers.length; i++) {
-            editBtnPapers[i].addEventListener('click', function () {
-                alert(this.getAttribute('data-id'));
-            });
+            initSelectTable(editBtnPapers[i].getAttribute("data-id"))
         }
 
         for (var j = 0; j < itemTextPapers.length; j++) {
+            initSelectTable(itemTextPapers[j].getAttribute("data-id"))
             itemTextPapers[j].addEventListener('click', function () {
-                alert(this.getAttribute('data-id'));
+                var arr = this.getAttribute('data-id').split("-");
+                var idInsStation = arr[0];
+                $('#stable-' + idInsStation).trigger("click");
             });
         }
+    }
+
+    function initSelectTable(data) {
+        var arr = data.split("-");
+        var idInsStation = arr[0];
+        var sdSkillCa = arr[1];
+        var name = '';
+        if (sdSkillCa == 1) {
+            name = '题集';
+        }
+        if (sdSkillCa == 2) {
+            name = '技能病例';
+        }
+        if (sdSkillCa == 3) {
+            name = 'SP病例';
+        }
+        tableSelect.render({
+            elem: '#stable-' + idInsStation,
+            checkedKey: 'id',
+            searchKey: 'keywords',
+            searchPlaceholder: '请输入' + name + '名称',
+            table: {
+                url: basePath + '/pf/p/plan/exam/paper/list?sdSkillCa=' + sdSkillCa,
+                height: 280,
+                size: 'sm',
+                cols: [[
+                    {type: 'radio'},
+                    {field: 'paperName', minWidth: 170, title: name + '名称'},
+                    {field: 'paperDesc', minWidth: 170, title: name + '描述'},
+                ]]
+                , limits: [10, 20, 50]
+                , page: true
+            },
+            done: function (elem, data) {
+                var bizData = data.data[0];
+                if (bizData) {
+                    addPaper(idInsStation, bizData)
+                }
+            }
+        });
+    }
+
+    table.reload('idTest', {
+        url: '/api/table/search'
+        ,where: {} //设定异步数据接口的额外参数
+        //,height: 300
+    });
+
+    function addPaper(idInsStation, data) {
+        var bizData = {
+            idInsStation: idInsStation,
+            idPaper: data.id
+        }
+        common.commonPost(basePath + '/pf/r/plan/station/save/paper',
+            bizData, '保存', 'stable-' + idInsStation, null, true);
+
+        $('#paper-' + idInsStation).text(data.paperName);
+        $('#stable-' + idInsStation).attr("ts-selected", data.id);
     }
 
 });

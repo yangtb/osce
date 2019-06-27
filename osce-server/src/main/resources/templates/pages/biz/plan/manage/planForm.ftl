@@ -232,14 +232,8 @@
                         </div>
                         <div>
                             <hr>
-                            <div style="text-align: center;margin-top: 90px;">
-                                <i class="layui-icon layui-circle"
-                                   style="color: white;font-size:30px;font-weight:bold;background: #52C41A;padding: 20px;line-height: 80px;">&#xe605;</i>
-                                <div style="font-size: 24px;color: #333;font-weight: 500;margin-top: 30px;">
-                                    入款成功
-                                </div>
-                                <div style="font-size: 14px;color: #666;margin-top: 20px;">预计两小时到账</div>
-                            </div>
+                            <iframe id="publishItemIframe" class='layui-col-xs12' frameborder="0" style="height: 700px;"
+                                    src=""></iframe>
                             <div style="text-align: center;margin-top: 50px;">
                                 <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
                                 <button class="layui-btn"><i class="iconfont icon-save"></i> 发布</button>

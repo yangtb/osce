@@ -195,6 +195,7 @@ layui.config({
 
     form.on('submit(formStep5)', function (data) {
         step.next('#stepForm');
+        $('#publishItemIframe').attr("src", basePath + "/pf/p/plan/station/publish/item/page?idPlan=" + $('#idPlan').val())
         return false;
     });
 

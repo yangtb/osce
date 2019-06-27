@@ -1,5 +1,6 @@
 package com.osce.api.biz.plan.template;
 
+import com.osce.dto.biz.plan.template.PfAddTpPaperDto;
 import com.osce.dto.biz.plan.template.TdInsStationDto;
 import com.osce.dto.biz.plan.template.TdModelInfo;
 import com.osce.dto.biz.plan.template.TemplateDto;
@@ -98,5 +99,12 @@ public interface PfTemplateService {
      */
     boolean cancelStation(TemplateDto dto);
 
+    /**
+     * 保存排站试卷
+     *
+     * @param dto
+     * @return
+     */
+    boolean saveStationPaper(PfAddTpPaperDto dto);
 
 }

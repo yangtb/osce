@@ -221,4 +221,12 @@ public interface PfTemplateDao {
      */
     int delTdInsStation(@Param("idModel") Long idModel);
 
+    /**
+     * 保存排站试卷
+     *
+     * @param dto
+     * @return
+     */
+    int saveStationPaper(PfAddTpPaperDto dto);
+
 }

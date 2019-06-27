@@ -209,4 +209,20 @@ public class PfTemplateRestController extends BaseController {
                 : ResultObject.create("cancelStation", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
+    /**
+     * 保存排站试卷
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/station/save/paper")
+    public ResultObject saveStationPaper(@RequestBody PfAddTpPaperDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdInsStation() != null, "idInsStation");
+        Assert.isTrue(dto.getIdPaper() != null, "idPaper");
+        return ResultObject.createSuccess("saveTdPaper", ResultObject.DATA_TYPE_OBJECT,
+                pfTemplateService.saveStationPaper(dto));
+    }
+
 }

@@ -29,8 +29,8 @@ layui.config({
             {field: 'numPlan', width: 120, title: '总消耗数量'},
         ]] //设置表头
         , url: basePath + '/pf/p/plan/pick/list'
-        , limit: 15
-        , limits: [15, 30, 100]
+        , limit: 30
+        , limits: [30, 50, 100]
         , page: true
         , where: {
             idPlan: idPlan

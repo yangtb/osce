@@ -70,4 +70,11 @@ public class PfPlanStationController extends BaseController {
         return pfPlanStationService.pageAssistant(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping("/pf/p/plan/station/publish/item/page")
+    public String pagePublishItem(Model model, String idPlan) {
+        model.addAttribute("idPlan", idPlan);
+        return "pages/biz/plan/manage/publishItemPage";
+    }
+
 }

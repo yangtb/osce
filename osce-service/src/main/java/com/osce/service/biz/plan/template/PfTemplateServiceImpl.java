@@ -188,4 +188,10 @@ public class PfTemplateServiceImpl implements PfTemplateService {
         return true;
     }
 
+    @Override
+    public boolean saveStationPaper(PfAddTpPaperDto dto) {
+        int num = pfTemplateDao.saveStationPaper(dto);
+        return num >= 1 ? true : false;
+    }
+
 }

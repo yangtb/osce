@@ -210,7 +210,7 @@ layui.config({
             searchKey: 'keywords',
             searchPlaceholder: '请输入' + name + '名称',
             table: {
-                url: basePath + '/pf/p/plan/exam/paper/list',
+                url: basePath + '/pf/p/plan/exam/paper/list?sdSkillCa=' + sdSkillCa,
                 height: 280,
                 size: 'sm',
                 cols: [[
@@ -220,9 +220,6 @@ layui.config({
                 ]]
                 , limits: [10, 20, 50]
                 , page: true
-                , where: {
-                    sdSkillCa: sdSkillCa
-                }
             },
             done: function (elem, data) {
                 var bizData = data.data[0];
