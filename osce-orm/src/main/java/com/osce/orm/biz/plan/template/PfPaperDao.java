@@ -1,5 +1,6 @@
 package com.osce.orm.biz.plan.template;
 
+import com.osce.dto.biz.plan.template.PfAddTpPaperDto;
 import com.osce.dto.biz.plan.template.PfPaperDto;
 import com.osce.dto.biz.plan.template.PfParamItemStoreDto;
 import com.osce.dto.biz.plan.template.PfSpCaseDto;
@@ -7,6 +8,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.*;
 import com.osce.vo.biz.plan.template.PaperItemTotalVo;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
+import com.osce.vo.biz.plan.template.PfExamPaperVo;
 import com.osce.vo.biz.plan.template.PfPaperVo;
 import com.osce.vo.biz.plan.template.skill.TdSkillCaseVo;
 import com.osce.vo.biz.plan.template.sp.TdSpCaseVo;
@@ -294,5 +296,28 @@ public interface PfPaperDao {
      */
     int delSkillCase(PfBachChangeStatusDto dto);
 
+    /**
+     * paper总数
+     *
+     * @param dto
+     * @return
+     */
+    Long countExamPaper(PfPaperDto dto);
+
+    /**
+     * exam paper list
+     *
+     * @param dto
+     * @return
+     */
+    List<PfExamPaperVo> listExamPaper(PfPaperDto dto);
+
+    /**
+     * 保存排站试卷
+     *
+     * @param dto
+     * @return
+     */
+    int saveTdPaper(PfAddTpPaperDto dto);
 
 }

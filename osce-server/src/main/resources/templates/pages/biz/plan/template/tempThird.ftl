@@ -14,22 +14,22 @@
 
 <body>
 
-<div class="wrapper" style="height: 650px;">
-    <table cellpadding="10000" style="width: 100%; height: 630px;">
+<div class="wrapper" style="height: 670px;">
+    <table cellpadding="10000" style="width: 100%; height: 650px;">
         <thead>
-        <tr id="days">
+        <tr id="days" style="height: 50px;">
             <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr id="area-am">
-            <td class="time-line">
-                <p>&emsp;上&emsp;</p>
-                <p style="margin-top: 20px;">&emsp;午&emsp;</p>
+        <tr id="area-am" style="height: 300px;">
+            <td class="font-title">
+                <p>上</p>
+                <p style="margin-top: 20px;">午</p>
             </td>
         </tr>
-        <tr id="area-pm">
-            <td class="time-line">
+        <tr id="area-pm" style="height: 300px;">
+            <td class="font-title">
                 <p>下</p>
                 <p style="margin-top: 20px;">午</p>
             </td>

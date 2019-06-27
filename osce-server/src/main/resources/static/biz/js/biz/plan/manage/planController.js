@@ -37,7 +37,7 @@ layui.config({
     table.on('tool(planTableFilter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
-            _addOrEdit("edit", data);
+            editPlan(data);
         }
     });
 

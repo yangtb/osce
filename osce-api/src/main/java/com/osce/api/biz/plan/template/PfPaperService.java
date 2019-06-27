@@ -7,6 +7,7 @@ import com.osce.entity.TdSkillCase;
 import com.osce.entity.TdSpCase;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -169,5 +170,21 @@ public interface PfPaperService {
      * @return
      */
     boolean delSkillCase(PfBachChangeStatusDto dto);
+
+    /**
+     * 试卷
+     *
+     * @param dto
+     * @return
+     */
+    PageResult pagePaper(PfPaperDto dto);
+
+    /**
+     * 保存排站试卷
+     *
+     * @param dto
+     * @return
+     */
+    boolean saveTdPaper(PfAddTpPaperDto dto);
 
 }

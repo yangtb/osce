@@ -15,7 +15,6 @@ import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -88,7 +87,7 @@ public class PfTemplateRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
-    @RequestMapping(value = "/pf/r/plan/template/del")
+    @PostMapping(value = "/pf/r/plan/template/del")
     public ResultObject delTemplate(@RequestBody PfBachChangeStatusDto dto) {
         /* 参数校验 */
         Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
@@ -104,7 +103,7 @@ public class PfTemplateRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
-    @RequestMapping(value = "/pf/r/plan/template/updateStatus")
+    @PostMapping(value = "/pf/r/plan/template/updateStatus")
     public ResultObject updateTemplateStatus(@RequestBody PfBachChangeStatusDto dto) {
         /* 参数校验 */
         Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
@@ -122,7 +121,7 @@ public class PfTemplateRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
-    @RequestMapping(value = "/pf/r/plan/template/select")
+    @PostMapping(value = "/pf/r/plan/template/select")
     public ResultObject selectTdModelInfo(@RequestBody TemplateDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdModel() != null, "模板id");
@@ -138,7 +137,7 @@ public class PfTemplateRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
-    @RequestMapping(value = "/pf/r/plan/template/selectStationInfo")
+    @PostMapping(value = "/pf/r/plan/template/selectStationInfo")
     public ResultObject selectStationInfo(@RequestBody TemplateDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdModel() != null, "模板id");
@@ -153,7 +152,7 @@ public class PfTemplateRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
-    @RequestMapping(value = "/pf/r/plan/template/editSkill")
+    @PostMapping(value = "/pf/r/plan/template/editSkill")
     public ResultObject editSkill(@RequestBody TdInsStationDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdInsStation() != null, "排站id");
@@ -169,7 +168,7 @@ public class PfTemplateRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
-    @RequestMapping(value = "/pf/r/plan/template/selectStationDetail")
+    @PostMapping(value = "/pf/r/plan/template/selectStationDetail")
     public ResultObject selectStationDetail(@RequestBody TemplateDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdModel() != null, "模板id");
@@ -185,7 +184,7 @@ public class PfTemplateRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
-    @RequestMapping(value = "/pf/r/plan/template/del/station")
+    @PostMapping(value = "/pf/r/plan/template/del/station")
     public ResultObject delStation(@RequestBody TemplateDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdStation() != null, "idStation");
@@ -201,7 +200,7 @@ public class PfTemplateRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
-    @RequestMapping(value = "/pf/r/plan/template/station/cancel")
+    @PostMapping(value = "/pf/r/plan/template/station/cancel")
     public ResultObject cancelStation(@RequestBody TemplateDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdModel() != null, "模板id");

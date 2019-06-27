@@ -38,7 +38,7 @@ layui.config({
 
     //时间选择器
     laydate.render({
-        elem: '#gmtActBegin'
+        elem: '#gmtPlanBegin'
         //,value: new Date()
         ,type: 'datetime'
     });
@@ -53,12 +53,6 @@ layui.config({
                 });
             }
         }
-        if ($("#idModel").val()) {
-            $("#editTemplate").css("display", "block");
-        } else {
-            $("#editTemplate").css("display", "none");
-        }
-
         if (idPlan) {
             // 加载计划信息
             loadPlanInfo();
@@ -85,8 +79,12 @@ layui.config({
                     // 表单值
                     form.val("step1FormFilter", sucData);
                     $('#naModel').attr("ts-selected", bizData.idModelFrom);
-                    // 进度条
 
+                    if ($("#idModel").val()) {
+                        $("#editTemplate").css("display", "block");
+                    } else {
+                        $("#editTemplate").css("display", "none");
+                    }
                     return true;
                 }
             },
@@ -160,27 +158,38 @@ layui.config({
 
 
     form.on('submit(formStep)', function (data) {
-        savePlan(data);
+        common.commonPost(basePath + '/pf/r/plan/manage/add',
+            data.field, null, 'savePlan', savePlanCallback, true);
         return false;
     });
 
     form.on('submit(formStep1)', function (data) {
-        step.next('#stepForm');
+        var bizData = {
+            parIdPlan : idPlan
+        }
+        common.commonPost(basePath + '/pf/r/plan/call/station/order',
+            bizData, null, 'planOrder', callStationPlanOrderCallback, true);
         return false;
     });
 
     form.on('submit(formStep2)', function (data) {
         step.next('#stepForm');
+        $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val())
         return false;
     });
 
     form.on('submit(formStep3)', function (data) {
         step.next('#stepForm');
+        $('#assistantIframe').attr("src", basePath + "/pf/p/plan/station/assistant?idPlan=" + $('#idPlan').val())
         return false;
     });
 
     form.on('submit(formStep4)', function (data) {
-        step.next('#stepForm');
+        var bizData = {
+            parIdPlan : idPlan
+        }
+        common.commonPost(basePath + '/pf/r/plan/call/station/pick',
+            bizData, null, 'pickStep', callStationPickCallback, true);
         return false;
     });
 
@@ -198,40 +207,31 @@ layui.config({
     });
 
 
-    function savePlan(data){
-        console.log(data.field)
-        $.ajax({
-            url: basePath + '/pf/r/plan/manage/add',
-            type: 'post',
-            dataType: 'json',
-            contentType: "application/json",
-            data: JSON.stringify(data.field),
-            success: function (data) {
-                layer.closeAll('loading');
-                if (data.code != 0) {
-                    layer.tips(data.msg, '#savePlan', {tips: [2, '#FF5722']});
-                    return false;
-                } else {
-                    var sucData = data.data;
-                    console.log(sucData)
-                    if (sucData) {
-                        $('#idPlan').val(sucData.idPlan);
-                        $('#idModel').val(sucData.idModel);
-                        if ($("#idModel").val()) {
-                            $("#editTemplate").css("display", "block");
-                        }
-                        $('#assignedStudentIframe').attr("src", basePath + "/pf/p/plan/manage/assigned/student/page?idPlan=" + sucData.idPlan)
-                    }
-                    step.next('#stepForm');
-                    return false;
-                }
-            },
-            error: function () {
-                layer.tips("保存计划失败", '#savePlan', {tips: [2, '#FF5722']});
-                return false;
+    function savePlanCallback(data){
+        var sucData = data.data;
+        //console.log(sucData)
+        if (sucData) {
+            idPlan = sucData.idPlan;
+            $('#idPlan').val(sucData.idPlan);
+            $('#idModel').val(sucData.idModel);
+            if ($("#idModel").val()) {
+                $("#editTemplate").css("display", "block");
             }
-        });
+            $('#assignedStudentIframe').attr("src", basePath + "/pf/p/plan/manage/assigned/student/page?idPlan=" + sucData.idPlan)
+        }
+        step.next('#stepForm');
     }
+
+    function callStationPlanOrderCallback() {
+        step.next('#stepForm');
+        $('#stationPreviewIframe').attr("src", basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val())
+    }
+
+    function callStationPickCallback() {
+        step.next('#stepForm');
+        $('#pickIframe').attr("src", basePath + "/pf/p/plan/manage/tpPicking/page?idPlan=" + $('#idPlan').val())
+    }
+
 
 });
 

@@ -115,7 +115,7 @@
                                         <label class="layui-form-label">开考时间<i class="iconfont icon-required"
                                                                                style="color: #f03f2d"></i></label>
                                         <div class="layui-input-inline">
-                                            <input type="text" class="layui-input" id="gmtActBegin" name="gmtActBegin"
+                                            <input type="text" class="layui-input" id="gmtPlanBegin" name="gmtPlanBegin"
                                                    lay-verify="required" lay-vertype="tips" autocomplete="off" placeholder="请输入开考时间"/>
 
                                         </div>
@@ -158,16 +158,13 @@
                         <div>
                             <form class="layui-form">
                                 <hr>
-                                <div hidden>
-                                    <input id="idSkillCase" name="idSkillCase" value="1" hidden>
-                                </div>
                                 <iframe id="assignedStudentIframe" class='layui-col-xs12' frameborder="0" style="height: 700px;"
                                         src=""></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                        <button class="layui-btn" lay-submit lay-filter="formStep1">
-                                            &emsp;下一步 ：排考预览&emsp;
+                                        <button id="planOrder" class="layui-btn" lay-submit lay-filter="formStep1">
+                                            &emsp;下一步 ：排考&emsp;
                                         </button>
                                     </div>
                                 </div>
@@ -176,12 +173,8 @@
                         <div>
                             <form class="layui-form">
                                 <hr>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">备注说明:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">备注说明</div>
-                                    </div>
-                                </div>
+                                <iframe id="stationPreviewIframe" class='layui-col-xs12' frameborder="0" style="height: 670px;"
+                                        src="" scrolling="no"></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
@@ -195,12 +188,8 @@
                         <div>
                             <form class="layui-form">
                                 <hr>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">备注说明:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">备注说明</div>
-                                    </div>
-                                </div>
+                                <iframe id="spIframe" class='layui-col-xs12' frameborder="0" style="height: 670px;"
+                                        src="" scrolling="no"></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
@@ -214,16 +203,12 @@
                         <div>
                             <form class="layui-form">
                                 <hr>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">备注说明:</label>
-                                    <div class="layui-input-block">
-                                        <div class="layui-form-mid layui-word-aux">备注说明</div>
-                                    </div>
-                                </div>
+                                <iframe id="assistantIframe" class='layui-col-xs12' frameborder="0" style="height: 670px;"
+                                        src="" scrolling="no"></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
-                                        <button class="layui-btn" lay-submit lay-filter="formStep4">
+                                        <button id="pickStep" class="layui-btn" lay-submit lay-filter="formStep4">
                                             下一步 ：领料计划
                                         </button>
                                     </div>
@@ -233,8 +218,8 @@
                         <div>
                             <form class="layui-form">
                                 <hr>
-                                <iframe id="assignedStudentIframe" class='layui-col-xs12' frameborder="0" style="height: 700px;"
-                                        src="${basePath}/pf/p/plan/manage/tpPicking/page"></iframe>
+                                <iframe id="pickIframe" class='layui-col-xs12' frameborder="0" style="height: 700px;"
+                                        src=""></iframe>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>

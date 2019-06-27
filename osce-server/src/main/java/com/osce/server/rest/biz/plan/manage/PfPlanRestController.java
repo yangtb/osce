@@ -1,12 +1,12 @@
 package com.osce.server.rest.biz.plan.manage;
 
 import com.osce.api.biz.plan.manage.PfPlanManageService;
+import com.osce.dto.biz.plan.manage.PfCallPlanDto;
 import com.osce.dto.biz.plan.manage.PfCopyModelDto;
 import com.osce.dto.biz.plan.manage.PlanDto;
 import com.osce.dto.biz.plan.manage.TpStudentDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpPlan;
-import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
 import com.osce.vo.biz.plan.manage.TpPlanAddVo;
 import com.sm.open.care.core.ErrorCode;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2019-06-17
  */
 @RestController
-public class PfPlanRestController extends BaseController {
+public class PfPlanRestController {
 
     @Reference
     private PfPlanManageService pfPlanManageService;
@@ -47,10 +47,11 @@ public class PfPlanRestController extends BaseController {
         dto.setCreator(CurrentUserUtils.getCurrentUsername());
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
 
+        boolean addFlag = dto.getIdPlan() == null ? true : false;
         Long idPlan = pfPlanManageService.addPlan(dto);
         PfCopyModelDto pfCopyModelDto = new PfCopyModelDto();
         pfCopyModelDto.setParIdPlan(idPlan);
-        String idModel = pfPlanManageService.copyTdModel(pfCopyModelDto);
+        String idModel = pfPlanManageService.copyTdModel(pfCopyModelDto, addFlag);
 
         TpPlanAddVo tpPlanAddVo = new TpPlanAddVo();
         tpPlanAddVo.setIdPlan(idPlan);
@@ -91,7 +92,6 @@ public class PfPlanRestController extends BaseController {
                 pfPlanManageService.selectPlan(dto));
     }
 
-
     /**
      * 分配学员
      *
@@ -124,6 +124,35 @@ public class PfPlanRestController extends BaseController {
                 : ResultObject.create("delStudent", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
+    /**
+     * 实训计划排站
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/call/station/order")
+    public ResultObject callStationPlanOrder(@RequestBody PfCallPlanDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getParIdPlan() != null, "parIdPlan");
+        pfPlanManageService.callStationPlanOrder(dto);
+        return ResultObject.createSuccess("callStationPlanOrder", ResultObject.DATA_TYPE_OBJECT, true);
+    }
+
+    /**
+     * 生成领料计划
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/call/station/pick")
+    public ResultObject callStationPlanPick(@RequestBody PfCallPlanDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getParIdPlan() != null, "parIdPlan");
+        pfPlanManageService.callStationPlanPick(dto);
+        return ResultObject.createSuccess("callStationPlanPick", ResultObject.DATA_TYPE_OBJECT, true);
+    }
 
 
 }

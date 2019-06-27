@@ -311,4 +311,20 @@ public class PfExamPaperRestController {
                 : ResultObject.create("delSkillCase", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
+    /**
+     * 保存排站试卷
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/p/plan/paper/save/paper")
+    public ResultObject saveTdPaper(@RequestBody PfAddTpPaperDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdInsStation() != null, "idInsStation");
+        Assert.isTrue(dto.getIdPaper() != null, "idPaper");
+        return ResultObject.createSuccess("saveTdPaper", ResultObject.DATA_TYPE_OBJECT,
+                pfPaperService.saveTdPaper(dto));
+    }
+
 }

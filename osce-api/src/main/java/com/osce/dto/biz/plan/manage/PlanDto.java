@@ -40,4 +40,9 @@ public class PlanDto extends PageParam implements Serializable {
      */
     private Long idModel;
 
+    /**
+     * sp assistant
+     */
+    private String spFlag;
+
 }

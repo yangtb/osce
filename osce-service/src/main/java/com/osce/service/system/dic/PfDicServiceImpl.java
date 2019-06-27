@@ -72,7 +72,11 @@ public class PfDicServiceImpl implements PfDicService {
 
     @Override
     public boolean addEnum(SysDictionary dto) {
-        return pfDicDao.addDic(dto) == 1 ? true : false;
+        if (dto.getId() == null) {
+            return pfDicDao.addDic(dto) == 1 ? true : false;
+        } else {
+            return pfDicDao.editDic(dto) == 1 ? true : false;
+        }
     }
 
     @Override

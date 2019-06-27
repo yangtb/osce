@@ -2,8 +2,10 @@ package com.osce.server.portal.biz.plan.template;
 
 import com.osce.api.biz.plan.template.PfPaperService;
 import com.osce.dto.biz.plan.template.PfPaperDto;
+import com.osce.dto.biz.plan.template.TemplateDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
+import com.osce.server.security.CurrentUserUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -86,4 +88,11 @@ public class PfExamPaperController extends BaseController {
         return pfPaperService.listSkill(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_02_02_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/exam/paper/list")
+    @ResponseBody
+    public PageResult pagePaper(PfPaperDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfPaperService.pagePaper(dto);
+    }
 }

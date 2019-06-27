@@ -32,7 +32,9 @@
             <if test="idReplanFrom!=null">
                 id_replan_from,
             </if>
+            <if test="gmtPlanBegin!=null">
                 gmt_plan_begin,
+            </if>
             <if test="gmtPlanEnd!=null">
                 gmt_plan_end,
             </if>
@@ -100,7 +102,9 @@
             <if test="idReplanFrom!=null">
                 #{idReplanFrom},
             </if>
-                now(),
+            <if test="gmtPlanBegin!=null">
+                #{gmtPlanBegin},
+            </if>
             <if test="gmtPlanEnd!=null">
                 #{gmtPlanEnd},
             </if>
@@ -309,5 +313,47 @@
         LEFT JOIN td_model b ON a.id_model = b.id_model
         WHERE
             a.id_plan = #{idPlan}
+    </select>
+    <select id="callStationPlanOrder" statementType="CALLABLE">
+         call P_STATION_PLAN_ORDER(
+            #{parIdPlan,mode=IN,jdbcType=INTEGER},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+    <select id="callStationPlanPick" statementType="CALLABLE">
+        call P_STATION_PLAN_PICK(
+            #{parIdPlan,mode=IN,jdbcType=INTEGER},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+    <select id="countPick" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            v_tp_pick_list a
+        WHERE
+            a.id_plan = #{idPlan}
+    </select>
+    <select id="listPick" resultType="com.osce.vo.biz.plan.manage.TpPickingVo">
+        SELECT
+            a.id_plan ,
+            a.plan_day ,
+            a.plan_section ,
+            b.na_room ,
+            a.na_skill_case ,
+            a.num_skill_case ,
+            a.na_device ,
+            a.fg_consumables ,
+            a.sd_device_unit ,
+            a.num_device ,
+            a.num_plan
+        FROM
+            v_tp_pick_list a
+        LEFT JOIN erp_room b ON a.id_room = b.id_room
+        WHERE
+            a.id_plan = #{idPlan}
+        limit #{offset}, #{limit}
     </select>
 </mapper>

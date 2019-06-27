@@ -26,6 +26,11 @@ public class TdDayInfo implements Serializable {
     private int dayNum;
 
     /**
+     * 时间：上午、下午
+     */
+    private float timeSection;
+
+    /**
      * 考场信息
      */
     private List<TdAreaInfo> areaData;

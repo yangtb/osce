@@ -80,4 +80,14 @@ public class PfPlanController extends BaseController {
         return PageResult.create(pfPlanManageService.listAssignedStudent(dto));
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/pick/list")
+    @ResponseBody
+    public PageResult pagePick(PlanDto dto) {
+        Assert.isTrue(dto.getIdPlan() != null, "idPlan");
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfPlanManageService.pagePick(dto);
+    }
+
+
 }

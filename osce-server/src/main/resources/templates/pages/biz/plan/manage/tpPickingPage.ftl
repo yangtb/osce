@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>分配学员</title>
+    <title>领料清单</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,6 +13,7 @@
 
     <script>
         var basePath = '${basePath}';
+        var idPlan = '${idPlan!}';
     </script>
 </head>
 

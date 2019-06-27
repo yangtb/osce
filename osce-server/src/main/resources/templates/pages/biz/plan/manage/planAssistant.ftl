@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>排站</title>
-    <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
+    <title>分配考官</title>
     <link rel="stylesheet" href="${contextPath}/biz/css/template/preview.css">
     <script>
         var basePath = '${basePath!}';
-        var idModel = '${idModel!}';
+        var idPlan = '${idPlan!}';
     </script>
 </head>
 
@@ -23,25 +22,25 @@
         </tr>
         </thead>
         <tbody>
-        <tr id="area-am" style="height: 300px;">
-            <td class="font-title">
+        <tr id="area-am" style="height: 300px">
+            <td class="time-line font-title">
                 <p>上</p>
                 <p style="margin-top: 20px;">午</p>
             </td>
         </tr>
-
-        <tr id="area-pm" style="height: 300px;">
-            <td class="font-title">
+        <tr id="area-pm" style="height: 300px">
+            <td class="time-line font-title">
                 <p>下</p>
                 <p style="margin-top: 20px;">午</p>
             </td>
         </tr>
         </tbody>
     </table>
+
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
-<script src="${contextPath}/biz/js/biz/plan/template/templateTwo.js"></script>
+<script src="${contextPath}/biz/js/biz/plan/manage/planAssistant.js"></script>
 
 </body>
 </html>

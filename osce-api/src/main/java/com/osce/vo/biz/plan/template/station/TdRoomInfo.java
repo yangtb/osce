@@ -57,4 +57,14 @@ public class TdRoomInfo implements Serializable {
      */
     private List<TdInsStationDetail> spList;
 
- }
+    /**
+     * 分配的sp
+     */
+    private List<PlanSp> planSp;
+
+    /**
+     * 分配的考官
+     */
+    private PlanAssistant planAssistant;
+
+}

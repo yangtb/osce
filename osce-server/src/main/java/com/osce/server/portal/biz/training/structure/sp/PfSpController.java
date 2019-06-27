@@ -46,7 +46,7 @@ public class PfSpController extends BaseController {
         return "pages/biz/training/structure/sp/spForm";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/sp/list")
     @ResponseBody
     public PageResult listSp(SpDto dto) {

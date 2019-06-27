@@ -707,10 +707,10 @@
                 select na_item_store from td_item_store where id_item_store = #{idPaper}
             </when>
             <when test='sdSkillCa == "2".toString()'>
-                select na_skill_case from td_skill_case where id_skill_case = #{idPaper}
+                select na_skill_case from td_skill_case where id = #{idPaper}
             </when>
             <otherwise>
-                select na_sp_case from td_sp_case where id_case = #{idPaper}
+                select na_sp_case from td_sp_case where id = #{idPaper}
             </otherwise>
         </choose>
     </select>

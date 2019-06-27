@@ -221,4 +221,17 @@ public class PfPaperServiceImpl implements PfPaperService {
         return num >= 1 ? true : false;
     }
 
+    @Override
+    public PageResult pagePaper(PfPaperDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfPaperDao.countExamPaper(dto),
+                pfPaperDao.listExamPaper(dto));
+    }
+
+    @Override
+    public boolean saveTdPaper(PfAddTpPaperDto dto) {
+        int num = pfPaperDao.saveTdPaper(dto);
+        return num >= 1 ? true : false;
+    }
+
 }

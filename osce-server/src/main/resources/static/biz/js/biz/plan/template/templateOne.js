@@ -87,7 +87,7 @@ layui.config({
             '                    <img src="/osce/biz/img/template/set_btn.png"\n' +
             '                         id="set-btn-' + areaIndex + '" alt="设置" class=\'set-btn\' onclick="setAreaLoop(' + areaIndex + ')" style="display: none">\n' +
             '                    <input id="idArea_' + areaIndex + '" hidden>\n' +
-            '                    <input id="currStationNum_' + areaIndex + '" hidden>\n' +
+            '                    <input id="currStationNum_' + areaIndex + '" value="1" hidden>\n' +
             '                    <input id="sdAreaLoopBegin_' + areaIndex + '" value="1" hidden>\n' +
             '                    <input id="sdAreaLoopEnd_' + areaIndex + '" value="1" hidden>\n' +
             '                </div>\n' +
@@ -154,6 +154,7 @@ layui.config({
             for (var i = 1; i <= num; i++) {
                 $("#area-main").append(bulidAreaHtml(oldNumArea + i));
                 $("#currStationNum_"+ i).val(1);
+                console.log("初始化currStationNum_"+ i + ":" + $("#currStationNum_"+ i).val())
             }
             form.render();
         } else {
@@ -422,6 +423,7 @@ layui.config({
 
 function addStation(areaIndex) {
     var stationIndex = $("#currStationNum_"+ areaIndex).val();
+    console.log(areaIndex + '------' + stationIndex)
     $(bulidStationHtml(areaIndex, parseInt(stationIndex) + 1)).insertBefore($("#addStation_"+ areaIndex + ""));
     $("#currStationNum_"+ areaIndex).val(parseInt(stationIndex) + 1);
 

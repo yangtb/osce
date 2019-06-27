@@ -667,6 +667,9 @@
         </foreach>
         )
     </update>
+    <update id="saveTdPaper">
+        update tp_ins_station set id_paper = #{idPaper} where id_ins_station = #{idInsStation}
+    </update>
 
     <select id="listLeft" resultType="com.osce.vo.biz.plan.template.PaperLeftVo">
         SELECT
@@ -1008,6 +1011,75 @@
             a.operator ,
             a.gmt_modify ,
             b.na_skill_case 
+        LIMIT #{offset}, #{limit}
+    </select>
+    <select id="countExamPaper" resultType="java.lang.Long">
+        <choose>
+            <when test='sdSkillCa == "1".toString()'>
+                select count(1) from td_item_store where id_org = #{idOrg} and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_item_store like concat('%',#{keywords},'%')
+                </if>
+            </when>
+            <when test='sdSkillCa == "2".toString()'>
+                select count(1) from td_skill_case where id_org = #{idOrg} and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_skill_case like concat('%',#{keywords},'%')
+                </if>
+            </when>
+            <otherwise>
+                select count(1) from td_sp_case where id_org = #{idOrg} and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_sp_case like concat('%',#{keywords},'%')
+                </if>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="listExamPaper" resultType="com.osce.vo.biz.plan.template.PfExamPaperVo">
+        <choose>
+            <when test='sdSkillCa == "1".toString()'>
+                select
+                    id_item_store as id,
+                    na_item_store as paperName,
+                    des_item_store as paperDes
+                from
+                    td_item_store
+                where
+                    id_org = #{idOrg}
+                and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_item_store like concat('%',#{keywords},'%')
+                </if>
+            </when>
+            <when test='sdSkillCa == "2".toString()'>
+                select
+                    id,
+                    na_skill_case as paperName,
+                    des_skill_case as paperDes
+                from
+                    td_skill_case
+                where
+                    id_org = #{idOrg}
+                and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_skill_case like concat('%',#{keywords},'%')
+                </if>
+            </when>
+            <otherwise>
+                select
+                    id,
+                    na_sp_case as paperName,
+                    des_sp_case as paperDes
+                from
+                    td_sp_case
+                where
+                    id_org = #{idOrg}
+                and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_sp_case like concat('%',#{keywords},'%')
+                </if>
+            </otherwise>
+        </choose>
         LIMIT #{offset}, #{limit}
     </select>
 

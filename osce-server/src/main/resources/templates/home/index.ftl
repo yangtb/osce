@@ -117,7 +117,8 @@
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
                 <div class="layui-logo">
-                    <strong>${homeInfo.websiteName!}</strong>
+                    <#--<strong>${homeInfo.websiteName!}</strong>-->
+                    <strong>Medmod</strong>
                 </div>
 
                 <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"

@@ -1,8 +1,10 @@
 package com.osce.api.biz.plan.manage;
 
+import com.osce.dto.biz.plan.manage.PfCallPlanDto;
 import com.osce.dto.biz.plan.manage.PfCopyModelDto;
 import com.osce.dto.biz.plan.manage.PlanDto;
 import com.osce.dto.biz.plan.manage.TpStudentDto;
+import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpPlan;
 import com.osce.result.PageResult;
@@ -46,9 +48,10 @@ public interface PfPlanManageService {
      * 另存模板
      *
      * @param dto
+     * @param addFlag
      * @return
      */
-    String copyTdModel(PfCopyModelDto dto);
+    String copyTdModel(PfCopyModelDto dto, boolean addFlag);
 
     /**
      * 获取计划
@@ -81,4 +84,28 @@ public interface PfPlanManageService {
      * @return
      */
     boolean delStudent(PfBachChangeStatusDto dto);
+
+    /**
+     * 实训计划排站
+     *
+     * @param dto
+     * @return
+     */
+    void callStationPlanOrder(PfCallPlanDto dto);
+
+    /**
+     * 生成领料计划
+     *
+     * @param dto
+     */
+    void callStationPlanPick(PfCallPlanDto dto);
+
+    /**
+     * 领料清单
+     *
+     * @param dto
+     * @return
+     */
+    PageResult pagePick(PlanDto dto);
+
 }

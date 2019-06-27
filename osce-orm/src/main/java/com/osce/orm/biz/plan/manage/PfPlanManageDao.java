@@ -1,11 +1,13 @@
 package com.osce.orm.biz.plan.manage;
 
+import com.osce.dto.biz.plan.manage.PfCallPlanDto;
 import com.osce.dto.biz.plan.manage.PfCopyModelDto;
 import com.osce.dto.biz.plan.manage.PlanDto;
 import com.osce.dto.biz.plan.manage.TpStudentDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpPlan;
 import com.osce.vo.biz.plan.manage.AssignedStudentVo;
+import com.osce.vo.biz.plan.manage.TpPickingVo;
 import com.osce.vo.biz.plan.manage.TpPlanVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -98,5 +100,35 @@ public interface PfPlanManageDao {
      * @return
      */
     int delStudent(PfBachChangeStatusDto dto);
+
+    /**
+     * 实训计划排站
+     *
+     * @param dto
+     */
+    void callStationPlanOrder(PfCallPlanDto dto);
+
+    /**
+     * 生成领料计划
+     *
+     * @param dto
+     */
+    void callStationPlanPick(PfCallPlanDto dto);
+
+    /**
+     * 领料清单总数
+     *
+     * @param dto
+     * @return
+     */
+    Long countPick(PlanDto dto);
+
+    /**
+     * 领料清单
+     *
+     * @param dto
+     * @return
+     */
+    List<TpPickingVo> listPick(PlanDto dto);
 
 }

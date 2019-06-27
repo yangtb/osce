@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.plan.manage.PfPlanStationDao">
+    <insert id="saveStationSp">
+        INSERT INTO tp_sp(id_plan , id_area , id_station , time_section , id_room , id_user)
+        VALUES
+        <foreach collection="idUsers" item="item" separator="," >
+            (#{idPlan}, #{idArea}, #{idStation}, #{timeSection}, #{idRoom}, #{item})
+        </foreach>
+    </insert>
+
+    <insert id="saveStationAssistant" useGeneratedKeys="true" keyProperty="idTpAssistant">
+        INSERT INTO tp_assistant
+        (
+        <trim suffixOverrides=",">
+            <if test="idTpAssistant!=null">
+                id_tp_assistant,
+            </if>
+            <if test="idPlan!=null">
+                id_plan,
+            </if>
+            <if test="idArea!=null">
+                id_area,
+            </if>
+            <if test="idStation!=null">
+                id_station,
+            </if>
+            <if test="timeSection!=null">
+                time_section,
+            </if>
+            <if test="idRoom!=null">
+                id_room,
+            </if>
+            <if test="idUserManager!=null">
+                id_user_manager,
+            </if>
+            <if test="idUserAssistant!=null">
+                id_user_assistant,
+            </if>
+            <if test="idUserRemote!=null">
+                id_user_remote,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idTpAssistant!=null">
+                #{idTpAssistant},
+            </if>
+            <if test="idPlan!=null">
+                #{idPlan},
+            </if>
+            <if test="idArea!=null">
+                #{idArea},
+            </if>
+            <if test="idStation!=null">
+                #{idStation},
+            </if>
+            <if test="timeSection!=null">
+                #{timeSection},
+            </if>
+            <if test="idRoom!=null">
+                #{idRoom},
+            </if>
+            <if test="idUserManager!=null">
+                #{idUserManager},
+            </if>
+            <if test="idUserAssistant!=null">
+                #{idUserAssistant},
+            </if>
+            <if test="idUserRemote!=null">
+                #{idUserRemote},
+            </if>
+        </trim>
+        )
+    </insert>
+    <delete id="delStationSp">
+        delete from tp_sp
+        WHERE
+            id_plan = #{idPlan}
+        AND id_area = #{idArea}
+        AND id_station = #{idStation}
+        AND time_section = #{timeSection}
+        AND id_room = #{idRoom}
+    </delete>
+    <delete id="delStationAssistant">
+        delete from tp_assistant
+        WHERE
+            id_plan = #{idPlan}
+        AND id_area = #{idArea}
+        AND id_station = #{idStation}
+        AND time_section = #{timeSection}
+        AND id_room = #{idRoom}
+    </delete>
+
+    <resultMap id="stationResultMap" type="com.osce.vo.biz.plan.template.station.TdStationInfoVo">
+        <id property="timeFlag" column="timeFlag" />
+        <collection property="dayData" ofType="com.osce.vo.biz.plan.template.station.TdDayInfo">
+            <result property="dayNum" column="dayNum" />
+            <collection property="areaData" ofType="com.osce.vo.biz.plan.template.station.TdAreaInfo">
+                <result property="idArea" column="id_area" />
+                <result property="naArea" column="na_area" />
+                <collection property="stationData" ofType="com.osce.vo.biz.plan.template.station.TdStation">
+                    <result property="idStation" column="id_station" />
+                    <result property="naStation" column="na_station" />
+                    <result property="sdStationCa" column="sd_station_ca" />
+                    <result property="sdStationCaText" column="sdStationCaText" />
+                    <result property="sdSkillCa" column="sd_skill_ca" />
+                    <collection property="roomData" ofType="com.osce.vo.biz.plan.template.station.TdRoomInfo">
+                        <result property="idInsStation" column="id_ins_station" />
+                        <result property="idRoom" column="id_room" />
+                        <result property="idRoomText" column="idRoomText" />
+                        <result property="idPaper" column="id_paper" />
+                        <result property="idPaperText" column="idPaperText"/>
+                        <result property="sq" column="sq"/>
+                    </collection>
+                </collection>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectStationInfo" resultMap="stationResultMap">
+        SELECT
+            if((a.time_section mod 1) = 0, 1, 2) as timeFlag ,
+            floor(a.time_section) as dayNum ,
+            a.id_area ,
+            b.na_area ,
+            a.id_station ,
+            c.na_station ,
+            a.sd_station_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = a.sd_station_ca) AS sdStationCaText ,
+            a.sd_skill_ca ,
+            a.id_ins_station ,
+            a.id_room ,
+            d.na_room as idRoomText ,
+            a.id_paper,
+            concat(if((a.time_section mod 1) = 0, 1, 2), '-', floor(a.time_section), '-', a.id_area, '-', a.id_station) as sq
+        FROM
+            tp_ins_station a
+        LEFT JOIN td_area b ON a.id_area = b.id_area
+        LEFT JOIN td_station c ON a.id_station = c.id_station
+        left join erp_room d on a.id_room = d.id_room
+        WHERE
+            a.id_plan = #{idPlan}
+        order by (a.time_section mod 1), floor(a.time_section)
+    </select>
+
+    <resultMap id="stationDetailMap" type="com.osce.vo.biz.plan.template.station.TdStationInfoVo">
+        <id property="timeFlag" column="timeFlag" />
+        <collection property="dayData" ofType="com.osce.vo.biz.plan.template.station.TdDayInfo">
+            <result property="dayNum" column="dayNum" />
+            <result property="timeSection" column="time_section" />
+            <collection property="areaData" ofType="com.osce.vo.biz.plan.template.station.TdAreaInfo">
+                <result property="idArea" column="id_area" />
+                <result property="naArea" column="na_area" />
+                <collection property="stationData" ofType="com.osce.vo.biz.plan.template.station.TdStation">
+                    <result property="idStation" column="id_station" />
+                    <result property="naStation" column="na_station" />
+                    <result property="sdStationCaText" column="sdStationCaText" />
+                    <result property="sdSkillCa" column="sd_skill_ca" />
+                    <collection property="roomData" ofType="com.osce.vo.biz.plan.template.station.TdRoomInfo">
+                        <result property="idRoom" column="id_room" />
+                        <result property="idRoomText" column="idRoomText" />
+                        <result property="sq" column="sq" />
+                        <collection property="spList" ofType="com.osce.entity.TdInsStationDetail">
+                            <result property="idInsStationDetail" column="id_ins_station_detail" />
+                            <result property="cdInventedStudent" column="cd_invented_student" />
+                            <result property="timeBegin" column="time_begin" />
+                            <result property="timeEnd" column="time_end" />
+                        </collection>
+                    </collection>
+                </collection>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectStationSpDetail" resultMap="stationDetailMap">
+        SELECT
+            IF((a.time_section mod 1) = 0, 1, 2) as timeFlag ,
+            floor(a.time_section) AS dayNum ,
+            a.time_section ,
+            b.id_area ,
+            b.na_area ,
+            c.id_station ,
+            c.na_station ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = a.sd_station_ca) AS sdStationCaText ,
+            a.sd_skill_ca ,
+            f.id_room ,
+            f.na_room AS idRoomText ,
+            concat(a.id_area, '-', a.id_station, '-',a.time_section) as sq ,
+            d.id_ins_station_detail ,
+            g.real_name as cd_invented_student ,
+            date_format(d.time_begin , '%H:%i') AS time_begin ,
+            date_format(d.time_end , '%H:%i') AS time_end
+        FROM
+            tp_ins_station_detail d
+        LEFT JOIN tp_ins_station a ON d.id_ins_station = a.id_ins_station
+        LEFT JOIN td_area b ON a.id_area = b.id_area
+        LEFT JOIN td_station c ON a.id_station = c.id_station
+        LEFT JOIN erp_room f ON a.id_room = f.id_room
+        LEFT JOIN user_info g on d.id_user = g.user_id
+        WHERE
+            a.id_plan = #{idPlan}
+        ORDER BY
+            (a.time_section MOD 1) ,
+            floor(a.time_section) ,
+            date_format(d.time_begin , '%H:%i')
+    </select>
+    <select id="listPlanSp" resultType="com.osce.vo.biz.plan.template.station.PlanSp">
+        SELECT
+            a.id_user ,
+            b.real_name
+        FROM
+            tp_sp a
+        LEFT JOIN user_info b ON a.id_user = b.user_id
+        WHERE
+            a.id_plan = #{idPlan}
+        AND a.id_area = #{idArea}
+        AND a.id_station = #{idStation}
+        AND a.time_section = #{timeSection}
+        AND a.id_room = #{idRoom}
+    </select>
+    <select id="selectPlanAssistant" resultType="com.osce.vo.biz.plan.template.station.PlanAssistant">
+        SELECT
+            a.id_user_manager ,
+            a.id_user_assistant ,
+            a.id_user_remote ,
+            b.real_name as managerName,
+            c.real_name as assistantName,
+            d.real_name as remoteName
+        FROM
+            tp_assistant a
+        LEFT JOIN user_info b ON a.id_user_manager = b.user_id
+        LEFT JOIN user_info c ON a.id_user_assistant = c.user_id
+        LEFT JOIN user_info d ON a.id_user_remote = d.user_id
+        WHERE
+            a.id_plan = #{idPlan}
+        AND a.id_area = #{idArea}
+        AND a.id_station = #{idStation}
+        AND a.time_section = #{timeSection}
+        AND a.id_room = #{idRoom}
+    </select>
+    <select id="countAssistant" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            user_info b
+        LEFT JOIN user_role a ON a.user_id = b.user_id AND a.is_deleted = 'N'
+        LEFT JOIN sys_role c ON a.role_id = a.role_id AND c.is_deleted = 'N'
+        WHERE
+            b.id_org = #{idOrg}
+        AND c.code = 'MCTE'
+        AND b.is_deleted = 'N'
+        <if test="keywords != null and keywords != '' ">
+            and (b.phone_no like concat('%',#{keywords},'%')
+            or b.real_name like concat('%',#{keywords},'%'))
+        </if>
+    </select>
+    <select id="listAssistant" resultType="com.osce.entity.UserInfo">
+        SELECT
+            b.user_id ,
+            b.username ,
+            b.real_name ,
+            b.sex ,
+            b.phone_no ,
+            b.id_org ,
+            b.email ,
+            b.idcard ,
+            b.enabled ,
+            b.operator ,
+            b.gmt_create
+        FROM
+            user_info b
+        LEFT JOIN user_role a ON a.user_id = b.user_id AND a.is_deleted = 'N'
+        LEFT JOIN sys_role c ON a.role_id = a.role_id AND c.is_deleted = 'N'
+        WHERE
+            b.id_org = #{idOrg}
+        AND c.code = 'MCTE'
+        AND b.is_deleted = 'N'
+        <if test="keywords != null and keywords != '' ">
+            and (b.phone_no like concat('%',#{keywords},'%')
+            or b.real_name like concat('%',#{keywords},'%'))
+        </if>
+        limit #{offset}, #{limit}
+    </select>
+
+</mapper>

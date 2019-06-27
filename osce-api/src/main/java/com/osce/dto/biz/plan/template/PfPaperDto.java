@@ -40,4 +40,14 @@ public class PfPaperDto extends PageParam implements Serializable {
      */
     private String fgActive;
 
+    /**
+     * 搜索关键字
+     */
+    private String keywords;
+
+    /**
+     * 技能类型
+     */
+    private String sdSkillCa;
+
 }
