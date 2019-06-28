@@ -11,7 +11,7 @@
     <select id="listMyMenus" resultType="com.osce.entity.SysFunction">
         SELECT
             sf.id, sf.function_url, sf.name, sf.level,
-            sf.icon_source, sf.code, sf.parent_code, sf.position
+            sf.icon_source, sf.code, sf.parent_code, sf.position, sf.target
         FROM
             user_role ur
         INNER JOIN sys_role_menu srm ON srm.role_id = ur.role_id
@@ -30,7 +30,7 @@
     <select id="listAllMenus" resultType="com.osce.entity.SysFunction">
         SELECT
             sf.id, sf.function_url, sf.name, sf.level,
-            sf.icon_source, sf.code, sf.parent_code, sf.position
+            sf.icon_source, sf.code, sf.parent_code, sf.position, sf.target
         FROM
             sys_function sf
         WHERE
@@ -97,12 +97,12 @@
         INSERT INTO sys_function (
           	name , code , parent_code , sys_function_code , level ,
             function_url , sort_num , function_type , platform_type ,
-            status , icon_type , icon_source , position ,  gmt_create , gmt_modify
+            status , icon_type , icon_source , position , target,  gmt_create , gmt_modify
         )
         VALUES(
           #{name}, #{code} , #{parentCode} , #{sysFunctionCode} , #{level} ,
           #{functionUrl} , #{sortNum} , #{functionType} , #{platformType} ,
-          #{status} , #{iconType} , #{iconSource} , #{position} ,  NOW() , NOW()
+          #{status} , #{iconType} , #{iconSource} , #{position} , #{target} , NOW() , NOW()
         )
     </insert>
 
@@ -122,6 +122,7 @@
             icon_type = #{iconType} ,
             icon_source = #{iconSource} ,
             position = #{position} ,
+            target = #{target} ,
             gmt_modify = NOW()
         WHERE
             id = #{id}
@@ -171,7 +172,7 @@
     <select id="listAnonymousUserMenus" resultType="com.osce.entity.SysFunction">
         SELECT
             sf.id, sf.function_url, sf.name, sf.level,
-            sf.icon_source, sf.code, sf.parent_code, sf.position
+            sf.icon_source, sf.code, sf.parent_code, sf.position, sf.target
         FROM
             sys_function sf
         LEFT JOIN sys_role_menu srm ON srm.menu_id = sf.id

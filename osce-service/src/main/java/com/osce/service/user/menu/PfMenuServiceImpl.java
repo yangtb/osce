@@ -81,6 +81,7 @@ public class PfMenuServiceImpl implements PfMenuService {
                 pfMenuVo.setParentImg(sysMenu.getIconSource());
                 pfMenuVo.setParentUrl(sysMenu.getFunctionUrl());
                 pfMenuVo.setPosition(sysMenu.getPosition());
+                pfMenuVo.setTarget(sysMenu.getTarget());
                 parentMenuList.add(pfMenuVo);
             }
         }
@@ -101,6 +102,7 @@ public class PfMenuServiceImpl implements PfMenuService {
                     pfBaseMenuVo.setName(sysMenu.getName());
                     pfBaseMenuVo.setUrl(sysMenu.getFunctionUrl());
                     pfBaseMenuVo.setImg(sysMenu.getIconSource());
+                    pfBaseMenuVo.setTarget(sysMenu.getTarget());
                     // 三级菜单
                     thirdList = new ArrayList<>();
                     for (SysFunction thirdMenu : menus) {
@@ -114,6 +116,7 @@ public class PfMenuServiceImpl implements PfMenuService {
                             thirdMenuVo.setName(thirdMenu.getName());
                             thirdMenuVo.setUrl(thirdMenu.getFunctionUrl());
                             thirdMenuVo.setImg(thirdMenu.getIconSource());
+                            thirdMenuVo.setTarget(thirdMenu.getTarget());
                             thirdList.add(thirdMenuVo);
                         }
                     }

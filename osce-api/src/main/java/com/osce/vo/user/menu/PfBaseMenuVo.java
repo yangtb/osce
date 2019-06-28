@@ -19,6 +19,7 @@ public class PfBaseMenuVo implements Serializable {
     private String name;       // 菜单名称
     private String img;        // 图片
     private String position;   // 菜单位置left=左边，top=顶部
+    private String target;      // 菜单打开方式
 
     private String code;
 

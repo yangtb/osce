@@ -21,20 +21,19 @@ import javax.annotation.Resource;
  * @Date 2017/9/8 09:57
  */
 @Controller
-@RequestMapping(value = "/pf/p/menu")
 public class PfMenuController extends BaseController {
 
     @Reference
     private PfMenuService pfMenuService;
 
     @PreAuthorize("hasAnyRole('ROLE_MENU_MG','ROLE_SUPER')")
-    @RequestMapping("/page")
+    @RequestMapping("/pf/p/menu/page")
     public String menu() {
         return "pages/user/menu/menu";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_MENU_MG','ROLE_SUPER')")
-    @RequestMapping("/form")
+    @RequestMapping("/pf/p/menu/form")
     public String form(String formType, Model model) {
         model.addAttribute("formType", formType);
         return "pages/user/menu/menuForm";
@@ -44,7 +43,7 @@ public class PfMenuController extends BaseController {
      * 获取系统菜单
      */
     @PreAuthorize("hasAnyRole('ROLE_MENU_MG','ROLE_SUPER')")
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/pf/p/menu/list")
     @ResponseBody
     public PageResult listMenus(MenuDto dto) {
         return ResultFactory.initPageResultWithSuccess(pfMenuService.countMenus(dto),

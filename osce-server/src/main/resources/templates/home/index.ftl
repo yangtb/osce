@@ -46,8 +46,8 @@
                             <#if element.groupList?? && (element.groupList?size > 0)>
                             <dl class="layui-nav-child">
                                 <#list element.groupList as menu>
-                                <dd><a lay-href="${contextPath!}${menu.url!}">
-                                        &nbsp;&nbsp;&nbsp;<i class="iconfont ${menu.img!}"></i> ${menu.name!}&nbsp;&nbsp;&nbsp;</a>
+                                <dd>
+                                    <a lay-href="${contextPath!}${menu.url!}">&nbsp;&nbsp;&nbsp;<i class="iconfont ${menu.img!}"></i> ${menu.name!}&nbsp;&nbsp;&nbsp;</a>
                                 </dd>
                                 </#list>
                             </dl>
@@ -139,13 +139,23 @@
                                                 <a href="javascript:;" ><i class="iconfont ${menu.img!}"></i> ${menu.name!}</a>
                                                 <dl class="layui-nav-child">
                                                     <#list menu.children as thirdMenu>
-                                                    <dd data-name="${thirdMenu.name!}"><a lay-href="${contextPath!}${thirdMenu.url!}">${thirdMenu.name!}</a></dd>
+                                                    <dd data-name="${thirdMenu.name!}">
+                                                        <#if (menu.target = 'blank')>
+                                                            <a href="${contextPath!}${thirdMenu.url!}" target="_blank">${thirdMenu.name!}</a>
+                                                        <#else>
+                                                            <a lay-href="${contextPath!}${thirdMenu.url!}">${thirdMenu.name!}</a>
+                                                        </#if>
+                                                    </dd>
                                                     </#list>
                                                 </dl>
                                             </dd>
                                         <#else>
                                             <dd data-name="${menu.name!}">
-                                                <a lay-href="${contextPath!}${menu.url!}"><i class="iconfont ${menu.img!}"></i> ${menu.name!}</a>
+                                                <#if (menu.target = 'blank')>
+                                                    <a href="${contextPath!}${menu.url!}" target="_blank"><i class="iconfont ${menu.img!}"></i> ${menu.name!}</a>
+                                                <#else>
+                                                    <a lay-href="${contextPath!}${menu.url!}"><i class="iconfont ${menu.img!}"></i> ${menu.name!}</a>
+                                                </#if>
                                             </dd>
                                         </#if>
                                     </#list>

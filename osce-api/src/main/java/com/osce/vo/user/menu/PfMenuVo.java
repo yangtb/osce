@@ -25,6 +25,7 @@ public class PfMenuVo extends PfBaseMenuVo implements Serializable {
     private String                      parentMenuName;
     private String                      parentImg;
     private String                      parentCode;
+    private String                      parentTarget;
     /**
      * 菜单list
      */

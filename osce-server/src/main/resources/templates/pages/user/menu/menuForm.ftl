@@ -126,12 +126,19 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">所属平台<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
+                <label class="layui-form-label">打开方式<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <select name="platformType" lay-verify="required" lay-vertype="tips">
-                        <option value="pfprod">管理平台</option>
+                    <select name="target" lay-verify="required" lay-vertype="tips">
+                        <option value="self" selected>默认</option>
+                        <option value="blank">新窗口中打开</option>
                     </select>
                 </div>
+                <#--<label class="layui-form-label">所属平台<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
+                <div class="layui-input-inline">
+                    <select name="platformType" lay-verify="required" lay-vertype="tips">
+                        <option value="pfprod" selected>管理平台</option>
+                    </select>
+                </div>-->
             </div>
         </div>
 
