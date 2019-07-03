@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.show.PfShowDao">
+
+    <select id="selectBigScreenMain" resultType="com.osce.vo.biz.show.ShowBigScreenMainVo">
+        SELECT
+            v.id_plan, v.id_area, v.time_section,
+            b.na_org ,
+            v.na_plan ,
+            if(v.fg_replan = 0 , '普考' , '补考') as fgReplan,
+            c.na_area ,
+            v.plan_day ,
+            date_format(v.time_begin , '%H:%i') time_begin ,
+            date_format(v.time_end , '%H:%i') time_end
+        FROM
+            sys_org b
+        LEFT JOIN v_we_show_main v ON v.id_org = b.id_org AND v.time_begin &lt;= TIME(now()) and v.time_end >= TIME(now())
+        LEFT JOIN td_area c ON v.id_area = c.id_area
+        WHERE
+            b.id_org = #{idOrg}
+        LIMIT 1
+    </select>
+    <select id="selectBigScreenDetail" resultType="com.osce.vo.biz.show.ShowBigScreenDetailVo">
+        SELECT
+            @rownum :=@rownum + 1 rownum ,
+            v.user_cd ,
+            v.real_name ,
+            concat(c.na_station , '（' ,b.na_room, '）') AS siteName ,
+            v.status
+        FROM
+            (SELECT @rownum := 0) r ,
+            v_we_show_detail v
+        LEFT JOIN td_site a ON v.site = a.id_site
+        LEFT JOIN erp_room b ON a.id_room = b.id_room
+        LEFT JOIN td_station c ON a.id_station = c.id_station
+        WHERE
+            v.id_plan = #{idPlan}
+        AND v.id_area = #{idArea}
+        AND v.time_section = #{timeSection}
+        ORDER BY
+            v.id_ins_station_detail
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countBigScreenDetail" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            v_we_show_detail v
+        WHERE
+            v.id_plan = #{idPlan}
+        AND v.id_area = #{idArea}
+        AND v.time_section = #{timeSection}
+    </select>
+</mapper>
