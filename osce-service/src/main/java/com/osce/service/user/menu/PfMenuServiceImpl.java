@@ -4,6 +4,9 @@ import com.osce.api.user.menu.PfMenuService;
 import com.osce.dto.user.menu.MenuDto;
 import com.osce.entity.SysFunction;
 import com.osce.orm.user.menu.PfMenuDao;
+import com.osce.param.PageParam;
+import com.osce.result.PageResult;
+import com.osce.result.ResultFactory;
 import com.osce.vo.user.menu.PfBaseMenuVo;
 import com.osce.vo.user.menu.PfMenuVo;
 import com.osce.vo.user.menu.PfMenuZtreeVo;
@@ -22,13 +25,10 @@ public class PfMenuServiceImpl implements PfMenuService {
     private PfMenuDao pfMenuDao;
 
     @Override
-    public List<SysFunction> listMenus(MenuDto dto) {
-        return pfMenuDao.listMenus(dto);
-    }
-
-    @Override
-    public Long countMenus(MenuDto dto) {
-        return pfMenuDao.countMenus(dto);
+    public PageResult pageMenus(MenuDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfMenuDao.countMenus(dto),
+                pfMenuDao.listMenus(dto));
     }
 
     @Override

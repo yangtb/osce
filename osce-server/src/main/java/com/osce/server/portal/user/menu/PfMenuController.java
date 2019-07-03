@@ -46,8 +46,7 @@ public class PfMenuController extends BaseController {
     @RequestMapping(value = "/pf/p/menu/list")
     @ResponseBody
     public PageResult listMenus(MenuDto dto) {
-        return ResultFactory.initPageResultWithSuccess(pfMenuService.countMenus(dto),
-                pfMenuService.listMenus(dto));
+        return pfMenuService.pageMenus(dto);
     }
 
 }

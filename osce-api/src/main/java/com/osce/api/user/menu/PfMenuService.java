@@ -2,6 +2,7 @@ package com.osce.api.user.menu;
 
 import com.osce.dto.user.menu.MenuDto;
 import com.osce.entity.SysFunction;
+import com.osce.result.PageResult;
 import com.osce.vo.user.menu.PfMenuVo;
 import com.osce.vo.user.menu.PfMenuZtreeVo;
 
@@ -18,14 +19,10 @@ public interface PfMenuService {
     /**
      * 获取菜单
      *
+     * @param dto
      * @return
      */
-    List<SysFunction> listMenus(MenuDto dto);
-
-    /**
-     * 菜单总数
-     */
-    Long countMenus(MenuDto dto);
+    PageResult pageMenus(MenuDto dto);
 
     /**
      * 新增菜单
