@@ -132,21 +132,27 @@ layui.config({
         return html;
     }
 
+    var pageNum = 1;
     setInterval(function () {
-        timeoutPage();
+        var pageTotal = Math.ceil(itemNum / limit);
+        timeoutPage(pageNum);
+        if (pageNum == pageTotal)  {
+            pageNum = 1;
+        } else {
+            pageNum ++;
+        }
     }, 10000);
 
-    function timeoutPage() {
+    function timeoutPage(pageNum) {
         var nowTime = nowTimeStr(2);
         if (nowTime === "00:00" || nowTime === "12:00") {
             queryHeader();
         } else {
-            refreshStudent();
+            refreshStudent(pageNum);
         }
     }
 
-    function refreshStudent() {
-        var pageNum = Math.ceil(itemNum / limit);
+    function refreshStudent(pageNum) {
         var bizData = {
             idPlan: idPlan,
             idArea: idArea,
