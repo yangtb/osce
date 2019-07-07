@@ -5,6 +5,7 @@ import com.osce.dto.user.PfUserDto;
 import com.osce.dto.user.login.RegisterDto;
 import com.osce.dto.user.login.UpdatePswDto;
 import com.osce.entity.UserInfo;
+import com.osce.result.PageResult;
 import com.osce.vo.user.login.PfStudentVo;
 import com.osce.vo.user.login.PfUsersVo;
 
@@ -24,7 +25,7 @@ public interface PfUserService {
      * @param dto
      * @return
      */
-    List<PfUsersVo> listUsers(PfUserDto dto);
+    PageResult listUsers(PfUserDto dto);
 
     /**
      * 用户总数

@@ -5,6 +5,9 @@ import com.osce.dto.system.dic.PfDicDto;
 import com.osce.entity.SysDictionary;
 import com.osce.enums.SysEnum;
 import com.osce.orm.system.dic.PfDicDao;
+import com.osce.param.PageParam;
+import com.osce.result.PageResult;
+import com.osce.result.ResultFactory;
 import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
@@ -22,13 +25,17 @@ public class PfDicServiceImpl implements PfDicService {
     }
 
     @Override
-    public List<SysDictionary> listDicGroups(PfDicDto dto) {
-        return pfDicDao.listDicGroups(dto);
+    public PageResult listDicGroups(PfDicDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfDicDao.countDicGroup(dto),
+                pfDicDao.listDicGroups(dto));
     }
 
     @Override
-    public List<SysDictionary> listEnums(PfDicDto dto) {
-        return pfDicDao.listEnums(dto);
+    public PageResult listEnums(PfDicDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfDicDao.countEnum(dto),
+                pfDicDao.listEnums(dto));
     }
 
     @Override

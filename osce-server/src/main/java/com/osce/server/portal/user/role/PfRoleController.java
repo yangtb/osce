@@ -48,8 +48,7 @@ public class PfRoleController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public PageResult listRoles(PfRoleDto dto) {
-        return ResultFactory.initPageResultWithSuccess(pfRoleService.countRoles(dto),
-                pfRoleService.listRoles(dto));
+        return pfRoleService.listRoles(dto);
     }
 
 }

@@ -52,8 +52,7 @@ public class PfDicController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public PageResult listDicGroups(PfDicDto dto) {
-        return ResultFactory.initPageResultWithSuccess(pfDicService.countDicGroup(dto),
-                pfDicService.listDicGroups(dto));
+        return pfDicService.listDicGroups(dto);
     }
 
     /**
@@ -63,7 +62,6 @@ public class PfDicController extends BaseController {
     @RequestMapping(value = "/enum/list")
     @ResponseBody
     public PageResult listEnums(PfDicDto dto) {
-        return ResultFactory.initPageResultWithSuccess(pfDicService.countEnum(dto),
-                pfDicService.listEnums(dto));
+        return pfDicService.listEnums(dto);
     }
 }

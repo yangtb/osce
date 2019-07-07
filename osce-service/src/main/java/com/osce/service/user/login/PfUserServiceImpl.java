@@ -9,6 +9,9 @@ import com.osce.entity.UserInfo;
 import com.osce.exception.RestErrorCode;
 import com.osce.exception.RestException;
 import com.osce.orm.user.login.PfUserDao;
+import com.osce.param.PageParam;
+import com.osce.result.PageResult;
+import com.osce.result.ResultFactory;
 import com.osce.vo.user.login.PfStudentVo;
 import com.osce.vo.user.login.PfUsersVo;
 import com.sm.open.care.core.ErrorCode;
@@ -33,13 +36,15 @@ public class PfUserServiceImpl implements PfUserService {
     private PfUserDao pfUserDao;
 
     @Override
-    public List<PfUsersVo> listUsers(PfUserDto dto) {
-        return pfUserDao.listUsers(dto);
+    public PageResult listUsers(PfUserDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfUserDao.countUsers(dto),
+                pfUserDao.listUsers(dto));
     }
 
     @Override
     public Long countUsers(PfUserDto dto) {
-        return pfUserDao.countUsers();
+        return pfUserDao.countUsers(dto);
     }
 
     @Transactional(rollbackFor = Exception.class)

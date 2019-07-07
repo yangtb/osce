@@ -4,6 +4,9 @@ import com.osce.api.system.param.PfParamService;
 import com.osce.dto.system.param.ParamDto;
 import com.osce.entity.SysParam;
 import com.osce.orm.system.param.PfParamDao;
+import com.osce.param.PageParam;
+import com.osce.result.PageResult;
+import com.osce.result.ResultFactory;
 import com.sm.open.care.core.enums.Status;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
@@ -18,11 +21,13 @@ public class PfParamServiceImpl implements PfParamService {
     private PfParamDao pfParamDao;
 
     @Override
-    public List<SysParam> listParams(ParamDto dto) {
+    public PageResult listParams(ParamDto dto) {
         if (StringUtils.isBlank(dto.getStatus())) {
             dto.setStatus(Status.ENABLED.getCode());
         }
-        return pfParamDao.listParams(dto);
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfParamDao.count(dto),
+                pfParamDao.listParams(dto));
     }
 
     @Override

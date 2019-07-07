@@ -2,6 +2,7 @@ package com.osce.api.system.param;
 
 import com.osce.dto.system.param.ParamDto;
 import com.osce.entity.SysParam;
+import com.osce.result.PageResult;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface PfParamService {
      * @param dto
      * @return
      */
-    List<SysParam> listParams(ParamDto dto);
+    PageResult listParams(ParamDto dto);
 
     /**
      * 获取参数总数

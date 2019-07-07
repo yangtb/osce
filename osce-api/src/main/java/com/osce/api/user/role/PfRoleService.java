@@ -3,6 +3,7 @@ package com.osce.api.user.role;
 import com.osce.dto.user.role.PfRoleDto;
 import com.osce.entity.SysRole;
 import com.osce.entity.SysRoleMenu;
+import com.osce.result.PageResult;
 import com.osce.vo.user.role.PfRoleVo;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface PfRoleService {
      *
      * @return
      */
-    List<PfRoleVo> listRoles(PfRoleDto dto);
+    PageResult listRoles(PfRoleDto dto);
 
     /**
      * 查询角色列表

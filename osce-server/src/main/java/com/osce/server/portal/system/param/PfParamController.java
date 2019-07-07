@@ -53,8 +53,7 @@ public class PfParamController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public PageResult listDicGroups(ParamDto dto) {
-        return ResultFactory.initPageResultWithSuccess(pfParamService.count(dto),
-                pfParamService.listParams(dto));
+        return pfParamService.listParams(dto);
     }
 
 }

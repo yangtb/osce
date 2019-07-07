@@ -3,6 +3,7 @@ package com.osce.api.system.dic;
 
 import com.osce.dto.system.dic.PfDicDto;
 import com.osce.entity.SysDictionary;
+import com.osce.result.PageResult;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface PfDicService {
      * @param dto
      * @return
      */
-    List<SysDictionary> listDicGroups(PfDicDto dto);
+    PageResult listDicGroups(PfDicDto dto);
 
     /**
      * 获取字典枚举
@@ -36,7 +37,7 @@ public interface PfDicService {
      * @param dto
      * @return
      */
-    List<SysDictionary> listEnums(PfDicDto dto);
+    PageResult listEnums(PfDicDto dto);
 
     /**
      * 获取字典枚举总数

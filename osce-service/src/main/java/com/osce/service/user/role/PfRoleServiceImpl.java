@@ -5,6 +5,9 @@ import com.osce.dto.user.role.PfRoleDto;
 import com.osce.entity.SysRole;
 import com.osce.entity.SysRoleMenu;
 import com.osce.orm.user.role.PfRoleDao;
+import com.osce.param.PageParam;
+import com.osce.result.PageResult;
+import com.osce.result.ResultFactory;
 import com.osce.vo.user.role.PfRoleVo;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.stereotype.Component;
@@ -26,8 +29,10 @@ public class PfRoleServiceImpl implements PfRoleService {
     private PfRoleDao pfRoleDao;
 
     @Override
-    public List<PfRoleVo> listRoles(PfRoleDto dto) {
-        return pfRoleDao.listRoles(dto);
+    public PageResult listRoles(PfRoleDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfRoleDao.countRoles(dto),
+                pfRoleDao.listRoles(dto));
     }
 
     @Override

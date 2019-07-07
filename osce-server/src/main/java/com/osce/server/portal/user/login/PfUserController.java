@@ -194,8 +194,7 @@ public class PfUserController extends BaseController {
         }
         dto.setUserId(user.getUserId());
         dto.setSuper(SysUserAuthUtils.isSuper());
-        return ResultFactory.initPageResultWithSuccess(pfUserService.countUsers(dto),
-                pfUserService.listUsers(dto));
+        return pfUserService.listUsers(dto);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER_MG','ROLE_SUPER')")

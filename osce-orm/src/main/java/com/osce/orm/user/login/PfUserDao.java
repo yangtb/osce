@@ -24,7 +24,7 @@ public interface PfUserDao {
      *
      * @return
      */
-    Long countUsers();
+    Long countUsers(PfUserDto dto);
 
     /**
      * 保存用户信息
