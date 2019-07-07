@@ -40,4 +40,9 @@ public class ShowDto extends PageParam implements Serializable {
      */
     private float timeSection;
 
+    /**
+     * 学生id
+     */
+    private Long idUserStudent;
+
 }

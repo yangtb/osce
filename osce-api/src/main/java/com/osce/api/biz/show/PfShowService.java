@@ -1,8 +1,9 @@
 package com.osce.api.biz.show;
 
+import com.osce.dto.biz.show.PfAioStationDto;
+import com.osce.dto.biz.show.PfAioStuRegisterDto;
 import com.osce.dto.biz.show.ShowDto;
-import com.osce.vo.biz.show.ShowBigScreenDetailVo;
-import com.osce.vo.biz.show.ShowBigScreenMainVo;
+import com.osce.vo.biz.show.*;
 
 import java.util.List;
 
@@ -29,5 +30,61 @@ public interface PfShowService {
      * @return
      */
     List<ShowBigScreenDetailVo> selectBigScreenDetail(ShowDto dto);
+
+    /**
+     * 待考区一体机首页
+     *
+     * @param dto
+     * @return
+     */
+    ShowAioMainVo selectAioMain(ShowDto dto);
+
+    /**
+     * 待考区一体机首页 - 列表
+     *
+     * @param dto
+     * @return
+     */
+    List<ShowAioMainVo> listAioMain(ShowDto dto);
+
+    /**
+     * 待考登记
+     *
+     * @param dto
+     * @return
+     */
+    boolean aioStudentRegister(PfAioStuRegisterDto dto);
+
+    /**
+     * 待考区- 已登记
+     *
+     * @param dto
+     * @return
+     */
+    List<ShowAioRegisteredVo> listAioRegistered(ShowDto dto);
+
+    /**
+     * 学员待考队列
+     *
+     * @param dto
+     * @return
+     */
+    List<ShowAioExecQueueVo> listAioExecQueue(ShowDto dto);
+
+    /**
+     * 查询房间的考试信息
+     *
+     * @param dto
+     * @return
+     */
+    ShowStationVo selectStationRoomInfo(PfAioStationDto dto);
+
+    /**
+     * 房间学员列表
+     *
+     * @param dto
+     * @return
+     */
+    List<ShowRoomStudentVo> listRoomStudent(PfAioStationDto dto);
 
 }

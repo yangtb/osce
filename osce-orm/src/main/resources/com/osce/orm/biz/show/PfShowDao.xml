@@ -14,7 +14,7 @@
             date_format(v.time_end , '%H:%i') time_end
         FROM
             sys_org b
-        LEFT JOIN v_we_show_main v ON v.id_org = b.id_org AND v.time_begin &lt;= TIME(now()) and v.time_end >= TIME(now())
+        LEFT JOIN v_we_show_main v ON v.id_org = b.id_org AND plan_day = DATE(NOW()) AND v.time_begin &lt;= TIME(now()) and v.time_end >= TIME(now())
         LEFT JOIN td_area c ON v.id_area = c.id_area
         WHERE
             b.id_org = #{idOrg}
@@ -51,4 +51,109 @@
         AND v.id_area = #{idArea}
         AND v.time_section = #{timeSection}
     </select>
+    <select id="listAioMain" resultType="com.osce.vo.biz.show.ShowAioMainVo">
+        SELECT
+            v.id_plan, v.id_area, v.time_section,
+            v.na_plan ,
+            if(v.fg_replan = 0 , '普考' , '补考') as fgReplan,
+            c.na_area ,
+            CONCAT('第',floor(v.time_section),'天',(CASE WHEN((v.time_section - floor(v.time_section)) = 0 ) THEN '上午' ELSE '下午' END)) AS planTime,
+            v.plan_day ,
+            date_format(v.time_begin , '%H:%i') time_begin ,
+            date_format(v.time_end , '%H:%i') time_end
+        FROM
+            v_we_show_main v
+        LEFT JOIN td_area c ON v.id_area = c.id_area
+        WHERE
+            v.id_org = #{idOrg}
+    </select>
+    <select id="aioStudentRegister" statementType="CALLABLE">
+         call P_WAITING_REG(
+            #{parIdPlan,mode=IN,jdbcType=INTEGER},
+            #{parIdArea,mode=IN,jdbcType=INTEGER},
+            #{parTimeSection,mode=IN,jdbcType=FLOAT},
+            #{parIdCard,mode=IN,jdbcType=VARCHAR},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+    <select id="listAioRegistered" resultType="com.osce.vo.biz.show.ShowAioRegisteredVo">
+        SELECT
+            a.id_waiting_reg ,
+            b.real_name ,
+            a.no_reg ,
+            b.phone_no ,
+            CONCAT(LEFT(b.idcard,2), '**************', RIGHT(b.idcard,2)) as idcard ,
+            date_format(a.gmt_reg , '%H:%i:%s') as gmt_reg
+        FROM
+            we_waiting_reg a
+        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.id_plan = #{idPlan}
+        AND a.id_area = #{idArea}
+        AND a.time_section = #{timeSection}
+    </select>
+    <select id="listAioExecQueue" resultType="com.osce.vo.biz.show.ShowAioExecQueueVo">
+        SELECT
+            a.id_exec_queue ,
+            b.na_station ,
+            c.na_room ,
+            a.sd_skill_ca ,
+            a.id_paper ,
+            a.plan_begin ,
+            a.plan_end
+        FROM
+            es_exec_queue a
+        LEFT JOIN td_station b ON a.id_station = b.id_station
+        LEFT JOIN erp_room c ON a.id_room = c.id_room
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.id_plan = #{idPlan}
+        AND a.id_area = #{idArea}
+        AND a.time_section = #{timeSection}
+        AND a.id_user_student = #{idUserStudent}
+    </select>
+    <select id="selectStationRoomInfo" resultType="com.osce.vo.biz.show.ShowStationVo">
+        SELECT
+            na_station ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = sd_station_ca) AS sdStationCaText ,
+            sd_skill_ca ,
+            na_paper ,
+            des_paper ,
+            min_cost ,
+            fg_must ,
+            num_concur
+        FROM
+            v_es_get_site_infor
+        WHERE
+            id_plan = #{idPlan}
+        AND id_area = #{idArea}
+        AND time_section = #{timeSection}
+        AND id_room = #{idRoom}
+    </select>
+    <select id="listRoomStudent" resultType="com.osce.vo.biz.show.ShowRoomStudentVo">
+        SELECT
+            queue.id_user_student ,
+            queue.cd_student ,
+            user.real_name ,
+            user.phone_no ,
+            user.idcard ,
+            user.user_cd ,
+            queue.plan_begin ,
+            queue.plan_end ,
+            queue.sd_exec_queue ,
+            queue.act_begin ,
+            queue.act_end
+        FROM
+            es_exec_queue queue
+        JOIN user_info user ON queue.id_user_student = user.user_id
+        WHERE
+            queue.id_plan = #{idPlan}
+        AND queue.id_area =  #{idArea}
+        AND queue.time_section = #{timeSection}
+        AND queue.id_room = #{idRoom}
+        AND queue.sd_exec_queue &lt;= 4
+    </select>
+
 </mapper>
