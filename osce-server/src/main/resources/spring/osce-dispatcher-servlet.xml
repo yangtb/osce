@@ -32,68 +32,19 @@
         </property>
     </bean>
 
-    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
-        <property name="resourceLoaderPath">
-            <value>/views/</value>
-        </property>
-        <property name="velocityProperties">
-            <props>
-                <prop key="input.encoding">UTF-8</prop>
-                <prop key="output.encoding">UTF-8</prop>
-            </props>
-        </property>
-    </bean>
-
-    <bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
-        <property name="order" value="0" />
-        <property name="cache" value="false" />
-        <property name="prefix" value="" />
-        <property name="suffix" value=".vm" />
-        <property name="contentType" value="text/html;charset=UTF-8"/>
-        <property name="requestContextAttribute" value="rc" />
-        <property name="exposeSpringMacroHelpers" value="true" />
-        <property name="exposeSessionAttributes" value="true" />
-        <!-- 		<property name="dateToolAttribute" value="dateTool" /> -->
-        <property name="allowSessionOverride" value="true" />
-        <property name="exposeRequestAttributes" value="true"/>
-    </bean>
-
 
     <security:global-method-security pre-post-annotations="enabled" jsr250-annotations="enabled" proxy-target-class="true"/>
     <mvc:view-controller path="/" view-name="redirect:/login" />
     <mvc:view-controller path="/logout/success" view-name="redirect:/login" />
 
-    <mvc:interceptors>
-        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
-        <mvc:interceptor>
-            <mvc:mapping path="/**/**" />
-            <mvc:exclude-mapping path="/login**" />
-            <mvc:exclude-mapping path="/login/**" />
-            <mvc:exclude-mapping path="/logout/**" />
-            <mvc:exclude-mapping path="/error**" />
-            <mvc:exclude-mapping path="/public/**" />
-            <mvc:exclude-mapping path="/help/**" />
-            <mvc:exclude-mapping path="/" />
-            <mvc:exclude-mapping path="/login" />
-            <mvc:exclude-mapping path="/403" />
-            <mvc:exclude-mapping path="/404" />
-            <mvc:exclude-mapping path="/500" />
-            <mvc:exclude-mapping path="/pf/p/user/register/page" />
-            <mvc:exclude-mapping path="/pf/r/user/register/**" />
-            <mvc:exclude-mapping path="/index" />
-            <mvc:exclude-mapping path="/main.html" />
-            <bean class="com.osce.server.interceptor.SessionTimeOutInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>
-
 
     <!-- 文件上传配置 -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- 默认编码 -->
+   <!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        &lt;!&ndash; 默认编码 &ndash;&gt;
         <property name="defaultEncoding" value="UTF-8"/>
-        <!-- 上传文件大小限制为31M，31*1024*1024 -->
+        &lt;!&ndash; 上传文件大小限制为31M，31*1024*1024 &ndash;&gt;
         <property name="maxUploadSize" value="32505856"/>
-        <!-- 内存中的最大值 -->
+        &lt;!&ndash; 内存中的最大值 &ndash;&gt;
         <property name="maxInMemorySize" value="4096"/>
-    </bean>
+    </bean>-->
 </beans>

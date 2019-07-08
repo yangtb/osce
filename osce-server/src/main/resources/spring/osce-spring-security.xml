@@ -19,8 +19,8 @@
     <http pattern="/404" security="none"></http>
     <http pattern="/500" security="none"></http>
     <http pattern="/login/**" security="none"></http>
+    <http pattern="/r/**" security="none"></http>
     <http pattern="/logout/success" security="none"></http>
-    <!--<http pattern="/" security="none"></http>-->
 
     <http use-expressions="true" entry-point-ref="http403RestfulEntryPoint"
           authentication-manager-ref="authenticationManager">

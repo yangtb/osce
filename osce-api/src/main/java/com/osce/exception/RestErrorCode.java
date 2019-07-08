@@ -27,13 +27,20 @@ public enum RestErrorCode {
 	/** 学员管理 */
 	USER_NAME_USED("0101003001", "该手机号已被使用"),
 
-
 	// ========== end 业务具体错误编码 end ==========
+
+
+
+	// ========== start 移动端错误编码 start ==========
+	/** 简易登陆 */
+	AUTH_CODE_NOT_SET("1000101001", "授权码参数未配置"),
+	AUTH_CODE_ERROR("1000101002", "授权码不正确，请重新输入"),
+
+	// ========== end 移动端错误编码 start ==========
 
 	/** 未知异常、错误 */
 	UNKNOWN_ERROR("1000", "未知错误"),
 	ACCESS_RESTRICTED_ERROR("1001", "没有访问权限"),
-
 
 	/** rpc接口integration层发生异常 */
 	RPC_INTEGRATION_ERROR("3000", "rpc接口integration层发生异常");

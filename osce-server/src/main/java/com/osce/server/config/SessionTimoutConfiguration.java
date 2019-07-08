@@ -44,6 +44,7 @@ public class SessionTimoutConfiguration implements WebMvcConfigurer {
         registration.excludePathPatterns("/500");
         registration.excludePathPatterns("/pf/p/user/register/page");
         registration.excludePathPatterns("/pf/r/user/register/**");
+        registration.excludePathPatterns("/r/**");
         registration.excludePathPatterns("/index");
         registration.excludePathPatterns("/main.html");
     }
