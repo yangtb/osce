@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * @ClassName: PfShowRestController
- * @Description: 显示屏
+ * @ClassName: PfMobileRestController
+ * @Description: 移动端
  * @Author yangtongbin
- * @Date 2019-06-30
+ * @Date 2019-07-08
  */
 @RestController
 public class PfMobileRestController {
