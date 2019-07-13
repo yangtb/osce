@@ -49,4 +49,14 @@ public class PfAioStuRegisterDto implements Serializable {
      */
     private String parMsg;
 
+    /**
+     * 机构id
+     */
+    private Long idOrg;
+
+    /**
+     * 用户id
+     */
+    private Long userId;
+
 }

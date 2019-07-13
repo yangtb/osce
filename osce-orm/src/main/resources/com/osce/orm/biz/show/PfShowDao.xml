@@ -57,6 +57,7 @@
             v.na_plan ,
             if(v.fg_replan = 0 , '普考' , '补考') as fgReplan,
             c.na_area ,
+            v.sd_plan_status,
             CONCAT('第',floor(v.time_section),'天',(CASE WHEN((v.time_section - floor(v.time_section)) = 0 ) THEN '上午' ELSE '下午' END)) AS planTime,
             v.plan_day ,
             date_format(v.time_begin , '%H:%i') time_begin ,
@@ -66,6 +67,7 @@
         LEFT JOIN td_area c ON v.id_area = c.id_area
         WHERE
             v.id_org = #{idOrg}
+        and v.sd_plan_status in (3, 4)
     </select>
     <select id="aioStudentRegister" statementType="CALLABLE">
          call P_WAITING_REG(
@@ -84,7 +86,8 @@
             a.no_reg ,
             b.phone_no ,
             CONCAT(LEFT(b.idcard,2), '**************', RIGHT(b.idcard,2)) as idcard ,
-            date_format(a.gmt_reg , '%H:%i:%s') as gmt_reg
+            date_format(a.gmt_reg , '%H:%i:%s') as gmt_reg,
+            b.user_id
         FROM
             we_waiting_reg a
         LEFT JOIN user_info b ON a.id_user_student = b.user_id
@@ -101,8 +104,8 @@
             c.na_room ,
             a.sd_skill_ca ,
             a.id_paper ,
-            a.plan_begin ,
-            a.plan_end
+            date_format(a.plan_begin , '%H:%i') plan_begin ,
+            date_format(a.plan_end , '%H:%i') plan_end
         FROM
             es_exec_queue a
         LEFT JOIN td_station b ON a.id_station = b.id_station
@@ -154,6 +157,30 @@
         AND queue.time_section = #{timeSection}
         AND queue.id_room = #{idRoom}
         AND queue.sd_exec_queue &lt;= 4
+    </select>
+    <select id="selectNoReg" resultType="java.lang.Integer">
+        SELECT
+            a.no_reg
+        FROM
+            we_waiting_reg a
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.id_plan = #{parIdPlan}
+        AND a.id_area = #{parIdArea}
+        AND a.time_section = #{parTimeSection}
+        AND a.id_user_student = #{userId}
+        limit 1
+    </select>
+    <select id="countRegisterNum" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            we_waiting_reg
+        WHERE
+            id_org = #{idOrg}
+        AND id_plan = #{idPlan}
+        AND id_area = #{idArea}
+        AND time_section = #{timeSection}
     </select>
 
 </mapper>

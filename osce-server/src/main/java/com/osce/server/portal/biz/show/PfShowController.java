@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * @ClassName: PfShowController
  * @Description: 显示屏
@@ -37,11 +40,6 @@ public class PfShowController extends BaseController {
         return "pages/biz/show/aioMain";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_03_01','ROLE_SUPER')")
-    @RequestMapping("/pf/p/aio/detail")
-    public String aioDetailPage(Model model) {
-        return "pages/biz/show/aioDetail";
-    }
 
     /**
      * 待考区- 已登记列表

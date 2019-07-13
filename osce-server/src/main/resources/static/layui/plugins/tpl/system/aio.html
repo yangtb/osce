@@ -2,21 +2,122 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>待考区一体列表</title>
 
+    <style>
+        ul li {
+            font-size: 13px;
+            margin: 2px;
+        }
+
+        ul {
+            color: #0C0C0C;
+            cursor: pointer;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgb(217, 217, 217);
+        }
+
+        .select {
+            font-weight: bold;
+            color: #1890FF;
+            border-bottom: 1px solid #1890FF;
+        }
+
+        .left {
+            padding-left: 10px;
+            padding-top: 5px;
+            width: 280px
+        }
+
+        #rightMenu {
+            display: inline-block;
+
+        }
+    </style>
 </head>
 <body style="overflow: hidden">
-<div>
-    <ul>
-        <li>
 
-        </li>
-        <li>Tea</li>
-        <li>Milk</li>
+<div id="rightMenu" class="left">
+    <!--<ul class="paper-ul select">
+        <li>2019内科期末考试 第1天上午 考场1</li>
+        <li>普考 正在考试</li>
+        <li>2019-05-01 08:30~11:30</li>
     </ul>
+
+    <ul class="paper-ul">
+        <li>2019内科期末考试 第1天下午 考场1</li>
+        <li>普考 正在考试</li>
+        <li>2019-05-01 08:30~11:30</li>
+    </ul>
+
+    <ul class="paper-ul">
+        <li>2019内科期末考试 第2天上午 考场1</li>
+        <li>普考 正在考试</li>
+        <li>2019-05-01 08:30~11:30</li>
+    </ul>-->
 </div>
+
+<script>
+    layui.use(['layer'], function () {
+        var $ = layui.$;
+
+        var bizData = {}
+        $.ajax({
+            url: basePath + '/pf/r/aio/main/list',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg, {icon: 5});
+                    return false;
+                } else {
+                    fullData(data.data);
+                    return false;
+                }
+            },
+            error: function () {
+                layer.msg("加载失败", {icon: 5});
+                return false;
+            }
+        });
+
+        function fullData(data) {
+            $('#rightMenu').empty();
+            $('#rightMenu').append(appendHtml(data));
+        }
+
+        function appendHtml(data) {
+            var html = '';
+            if (!data) {
+                return html;
+            }
+            $.each(data, function (index, content) {
+                var sdPlanStatusText = '', styleCss = '';
+                if (content.sdPlanStatus == 3) {
+                    sdPlanStatusText = '待考';
+                    styleCss = 'select';
+                } else if (content.sdPlanStatus == 4) {
+                    sdPlanStatusText = '正在考试';
+                }
+                html += '<ul class="paper-ul ' + styleCss + '">\n' +
+                    '        <li>' + content.naPlan + ' ' + content.planTime + ' ' + content.naArea + '</li>\n' +
+                    '        <li>' + content.fgReplan + ' ' + sdPlanStatusText + '</li>\n' +
+                    '        <li>' + content.planDay + ' ' + content.timeBegin + '~' + content.timeEnd + '</li>\n' +
+                    '    </ul>';
+            });
+            return html;
+        }
+
+    });
+
+</script>
 
 </body>
 </html>

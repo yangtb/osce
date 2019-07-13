@@ -22,7 +22,7 @@ public interface PfRoomService {
      * @param dto
      * @return
      */
-    PageResult pageRooms(RoomDto dto);
+    PageResult<ErpRoom> pageRooms(RoomDto dto);
 
     /**
      * 增加

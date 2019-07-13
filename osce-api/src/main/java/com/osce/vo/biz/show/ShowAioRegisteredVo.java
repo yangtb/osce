@@ -49,5 +49,9 @@ public class ShowAioRegisteredVo implements Serializable {
      */
     private String gmtReg;
 
+    /**
+     * 用户ID
+     */
+    private Long userId;
 
 }

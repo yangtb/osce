@@ -64,6 +64,7 @@
 </script>
 
 <script type="text/html" id="roomBar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="roomLink"><i class="layui-icon layui-icon-link"></i>房间链接</a>
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
 </script>
 

@@ -1,0 +1,98 @@
+header {
+  position: relative;
+  width: 100vw;
+  height: 96px;
+  background-color: rgba(37, 127, 211, 1);
+  border: 1px solid rgba(121, 121, 121, 1);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.header-top-main {
+  width: 100%;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.icon {
+  display: inline-block;
+  width: 10px;
+  height: 14px;
+}
+
+.num {
+  font-weight: 400;
+  color: #00FF00;
+}
+
+.header-main {
+  width: 100%;
+  flex: 1;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-icon {
+  width: 61px;
+  height: 54px;
+}
+
+.main-text {
+  flex: 1;
+  margin-left: 50px;
+  text-align: center;
+}
+
+.text-info {
+  margin-top: 10px;
+}
+
+.more {
+  margin-right: 50px;
+  width: 60px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.link-arrow {
+  width: 25px;
+  height: 27px;
+}
+
+
+
+.name {
+  font-size: 16px;
+  height: 20px;
+  font-weight: 500;
+}
+
+.main {
+  flex: 1;
+  position: relative;
+  width: 100%;
+}
+
+.manage-btn {
+  position: absolute;
+  width: 355px;
+  height: 70px;
+  line-height: 70px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+}

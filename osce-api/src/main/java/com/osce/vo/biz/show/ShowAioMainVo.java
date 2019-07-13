@@ -35,6 +35,11 @@ public class ShowAioMainVo implements Serializable {
     private String fgReplan;
 
     /**
+     * 1 未发布 2 已发布-待领料 3 已领料-待考 4 正在考试 5 考试完成
+     */
+    private String sdPlanStatus;
+
+    /**
      * 考场
      */
     private String naArea;

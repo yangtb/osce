@@ -287,5 +287,18 @@
         WHERE
             a.user_id = #{idStudent}
     </select>
+    <select id="selectStudentByIdCard" resultType="com.osce.vo.biz.show.ShowStuVo">
+        SELECT
+            a.user_id ,
+            a.real_name ,
+            a.phone_no ,
+            a.idcard ,
+            a.photo_addr
+        FROM
+            user_info a
+        WHERE
+            a.idcard = #{idCard}
+        limit 1
+    </select>
 
 </mapper>

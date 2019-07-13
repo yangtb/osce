@@ -123,8 +123,31 @@ public class PfShowRestController {
     @PreAuthorize("hasAnyRole('ROLE_03_01','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/aio/student/register")
     public ResultObject aioStudentRegister(@RequestBody PfAioStuRegisterDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        Assert.isTrue(dto.getParIdPlan() != null, "parIdPlan");
+        Assert.isTrue(dto.getParIdArea() != null, "parIdArea");
+        Assert.isTrue(dto.getParTimeSection() >= 0, "parTimeSection");
+        Assert.isTrue(StringUtils.isNotBlank(dto.getParIdCard()), "parIdCard");
         return ResultObject.createSuccess("aioStudentRegister", ResultObject.DATA_TYPE_OBJECT,
                 pfShowService.aioStudentRegister(dto));
+    }
+
+    /**
+     * 学员登记数目
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_03_01','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/aio/student/register/num")
+    @ResponseBody
+    public ResultObject countAioStuRegisterNum(@RequestBody ShowDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        Assert.isTrue(dto.getIdPlan() != null, "idPlan");
+        Assert.isTrue(dto.getIdArea() != null, "idArea");
+        Assert.isTrue(dto.getTimeSection() >= 0, "timeSection");
+        return ResultObject.createSuccess("countAioStuRegisterNum", ResultObject.DATA_TYPE_OBJECT,
+                pfShowService.countAioStuRegisterNum(dto));
     }
 
     /**
@@ -136,7 +159,8 @@ public class PfShowRestController {
     @PreAuthorize("hasAnyRole('ROLE_03_01','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/aio/student/exec/queue")
     @ResponseBody
-    public ResultObject listAioExecQueue(ShowDto dto) {
+    public ResultObject listAioExecQueue(@RequestBody ShowDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         Assert.isTrue(dto.getIdPlan() != null, "idPlan");
         Assert.isTrue(dto.getIdArea() != null, "idArea");
         Assert.isTrue(dto.getTimeSection() >= 0, "timeSection");

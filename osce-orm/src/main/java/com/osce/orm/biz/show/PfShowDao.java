@@ -37,7 +37,7 @@ public interface PfShowDao {
      * @param dto
      * @return
      */
-     Long countBigScreenDetail(ShowDto dto);
+    Long countBigScreenDetail(ShowDto dto);
 
     /**
      * 待考区一体机首页 - 列表
@@ -64,6 +64,14 @@ public interface PfShowDao {
     List<ShowAioRegisteredVo> listAioRegistered(ShowDto dto);
 
     /**
+     * 已登记数目
+     *
+     * @param dto
+     * @return
+     */
+    Integer countRegisterNum(ShowDto dto);
+
+    /**
      * 学员待考队列
      *
      * @param dto
@@ -86,5 +94,13 @@ public interface PfShowDao {
      * @return
      */
     List<ShowRoomStudentVo> listRoomStudent(PfAioStationDto dto);
+
+    /**
+     * 获取入场序号
+     *
+     * @param dto
+     * @return
+     */
+    Integer selectNoReg(PfAioStuRegisterDto dto);
 
 }

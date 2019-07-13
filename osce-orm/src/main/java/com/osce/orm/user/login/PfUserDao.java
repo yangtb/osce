@@ -2,6 +2,7 @@ package com.osce.orm.user.login;
 
 import com.osce.dto.user.PfUserDto;
 import com.osce.entity.UserInfo;
+import com.osce.vo.biz.show.ShowStuVo;
 import com.osce.vo.user.login.PfStudentVo;
 import com.osce.vo.user.login.PfUsersVo;
 import org.apache.ibatis.annotations.Param;
@@ -123,5 +124,13 @@ public interface PfUserDao {
      * @return
      */
     PfStudentVo selectStudentInfo(Long idStudent);
+
+    /**
+     * 根据身份证号-查询学生信息
+     *
+     * @param idCard 身份证号
+     * @return
+     */
+    ShowStuVo selectStudentByIdCard(@Param("idCard") String idCard);
 
 }

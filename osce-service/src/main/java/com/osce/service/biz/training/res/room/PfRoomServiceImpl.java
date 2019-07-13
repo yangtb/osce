@@ -29,7 +29,7 @@ public class PfRoomServiceImpl implements PfRoomService {
     private PfRoomDao pfRoomDao;
 
     @Override
-    public PageResult pageRooms(RoomDto dto) {
+    public PageResult<ErpRoom> pageRooms(RoomDto dto) {
         PageParam.initPageDto(dto);
         return ResultFactory.initPageResultWithSuccess(pfRoomDao.countRoom(dto),
                 pfRoomDao.listRooms(dto));

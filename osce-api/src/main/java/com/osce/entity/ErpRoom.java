@@ -86,4 +86,9 @@ public class ErpRoom implements Serializable {
      */
     private Long deviceNum;
 
+    /**
+     * 站点url
+     */
+    private String stationQrCodeUrl;
+
 }

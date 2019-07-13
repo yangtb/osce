@@ -1,0 +1,385 @@
+header {
+  width: 100vw;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 15px;
+  box-sizing: border-box;
+  background: rgba(37, 127, 211, 1);
+  border: 1px solid rgba(121, 121, 121, 1);
+  color: #ffffff;
+}
+
+.test-num {
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.test-room {
+  width: 132px;
+  height: 49px;
+  background: url(/osce/biz/img/show/room_bg.png) no-repeat center;
+  background-size: 100% auto;
+  text-align: center;
+  line-height: 49px;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.header-main {
+  height: 100%;
+  position: relative;
+  text-align: left;
+  font-size: 12px;
+}
+
+.text {
+  margin-top: 20px;
+}
+
+.details {
+  margin-top: 5px;
+}
+
+.cur-time {
+  position: absolute;
+  right: 60px;
+  top: 5px;
+  font-size: 400;
+}
+
+.notice {
+  position: absolute;
+  right: 0px;
+  top: 5px;
+  color: #00FF00;
+  font-size: 400;
+}
+
+/* 主要内容 */
+section {
+  flex: 1;
+  width: 99%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px auto;
+}
+
+/* 科目区域 */
+.main-left {
+  width: 310px;
+  height: 100%;
+  border: 1px solid rgba(0, 204, 255, 1);
+  /*box-shadow: 5px 5px 5px rgba(214, 98, 98, 0.34);*/
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  color: #333333;
+}
+
+.header-text {
+  width: 100%;
+}
+
+.text-item {
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 25px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.text-item-last {
+  border-bottom: 2px solid #cccccc;
+}
+
+.text-name, .text-info {
+  width: 50%;
+  height: 100%;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.text-info {
+  color: #999999;
+}
+
+.test-desc {
+  width: 100%;
+  padding: 30px 10px;
+  text-indent: 24px;
+  text-align: left;
+  color: #cccccc;
+  font-size: 13px;
+  font-weight: 400;
+  box-sizing: border-box;
+  border-bottom: 2px solid #cccccc;
+  min-height: 200px;
+}
+
+.qr-qrea {
+  flex: 1;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 10px;
+  justify-content: center;
+}
+
+.qr-left {
+  margin-top: 20px;
+}
+
+.scan-icon {
+  display: block;
+  width: 65px;
+  height: 83px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.qr-icon {
+  display: block;
+  width: 160px;
+  height: 160px;
+  margin-left: 20px;
+}
+
+
+
+.gap-line {
+  width: 3px;
+  height: 100%;
+  /*background: #cc9901;*/
+  margin-left: 5px;
+}
+
+/* 考试区域 */
+.main-right {
+  flex: 1;
+  height: 100%;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.right-header, .right-content {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 204, 255, 1);
+  /*-moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.35);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.35);*/
+}
+
+.right-header {
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cur-text {
+  height: 100%;
+  width: 35px;
+  position: relative;
+  border-right: 1px solid rgba(0, 204, 255, 1);
+}
+
+.tester-info {
+  flex: 1;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 10px 20px;
+}
+
+.primary-info {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.tester {
+  display: inline-block;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.tester-name, .tester-num {
+  font-size: 28px;
+  color: #999999;
+  font-weight: 600;
+}
+
+.cur-tester {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: 400;
+  width: 12px;
+  color: #333333;
+}
+
+.identify-btn {
+  width: 97px;
+  height: 35px;
+  line-height: 35px;
+  /*background-color: rgba(0, 102, 255, 1);
+  border: 1px solid rgba(121, 121, 121, 1);*/
+  text-align: center;
+  color: #FFFFFF;
+  border-radius: 5px;
+}
+
+.details-info {
+  position: relative;
+  color: #333333;
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: 1px solid #d2d2d2;
+  text-align: left;
+}
+
+.tel-text, .id-text, .test-time, .status {
+  height: 22px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-header {
+  width: 70px;
+}
+
+.tel, .cardid, .time, .status-text {
+  flex: 1;
+  color: #999999;
+}
+
+.left-time {
+  position: absolute;
+  width: 100px;
+  top: 20px;
+  right: 30px;
+  text-align: center;
+  color: #cccccc;
+}
+
+.left-text {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.left-second {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* 等待学员 */
+.right-content {
+  flex: 1;
+  margin-top: 10px;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.await-info {
+  width: 32px;
+  height: 100%;
+  position: relative;
+  border-right: 1px solid rgba(0, 204, 255, 1)
+}
+
+.await-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #333333;
+}
+
+.await-box {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.await-num, .await-item {
+  width: 100%;
+  font-size: 12px;
+  font-weight: 400;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+.await-num {
+  height: 35px;
+  line-height: 35px;
+  border-bottom: 2px solid #d2d2d2;
+  color: #33CCFF;
+  text-align: left;
+}
+
+.await-item {
+  height: 30px;
+  line-height: 30px;
+  border-bottom: 1px solid #d2d2d2;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.actived {
+  color: #3333FF;
+}
+
+.awaiter-left, .awaiter-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.awaiter-left {
+  justify-content: flex-start;
+}
+
+.awaiter-num {
+  margin-left: 50px;
+}
+
+.awaiter-tel {
+  margin-left: 50px;
+}
+
+.join-time {
+  font-size: 12px;
+  font-weight: lighter;
+}
+
+.awaiter-right {
+  justify-content: space-between;
+}

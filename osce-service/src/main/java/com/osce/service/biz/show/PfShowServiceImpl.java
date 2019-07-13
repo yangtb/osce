@@ -4,9 +4,11 @@ import com.osce.api.biz.show.PfShowService;
 import com.osce.dto.biz.show.PfAioStationDto;
 import com.osce.dto.biz.show.PfAioStuRegisterDto;
 import com.osce.dto.biz.show.ShowDto;
+import com.osce.exception.RestErrorCode;
 import com.osce.exception.RestException;
 import com.osce.orm.biz.plan.template.PfTemplateDao;
 import com.osce.orm.biz.show.PfShowDao;
+import com.osce.orm.user.login.PfUserDao;
 import com.osce.vo.biz.show.*;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
@@ -32,6 +34,9 @@ public class PfShowServiceImpl implements PfShowService {
 
     @Resource
     private PfShowDao pfShowDao;
+
+    @Resource
+    private PfUserDao pfUserDao;
 
     @Override
     public ShowBigScreenMainVo selectBigScreenMain(ShowDto dto) {
@@ -66,13 +71,32 @@ public class PfShowServiceImpl implements PfShowService {
     }
 
     @Override
-    public boolean aioStudentRegister(PfAioStuRegisterDto dto) {
-        pfShowDao.aioStudentRegister(dto);
-        if (dto.getParCode() != 0) {
-            logger.error("调用存储过程[P_WAITING_REG][待考登记]出错, param : {} ", dto.toString());
-            throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
+    public ShowStuVo aioStudentRegister(PfAioStuRegisterDto dto) {
+        // 获取考试信息
+        ShowStuVo showStuVo = pfUserDao.selectStudentByIdCard(dto.getParIdCard());
+        if (showStuVo == null) {
+            throw new RestException(RestErrorCode.STUDENT_NOT_EXIST);
         }
-        return true;
+        // 查询入场序号
+        dto.setUserId(showStuVo.getUserId());
+        Integer noReg = pfShowDao.selectNoReg(dto);
+        if (noReg == null) {
+            pfShowDao.aioStudentRegister(dto);
+            if (dto.getParCode() != 0) {
+                logger.error("调用存储过程[P_WAITING_REG][待考登记]出错, param : {} ", dto.toString());
+                throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
+            }
+        }
+        showStuVo.setNoReg(noReg == null ? pfShowDao.selectNoReg(dto) : noReg);
+        return showStuVo;
+    }
+
+    @Override
+    public ShowStuVo countAioStuRegisterNum(ShowDto dto) {
+        ShowStuVo showStuVo = new ShowStuVo();
+        showStuVo.setRegisterNum(pfShowDao.countRegisterNum(dto));
+        showStuVo.setStuTotalNum(0);
+        return showStuVo;
     }
 
     @Override

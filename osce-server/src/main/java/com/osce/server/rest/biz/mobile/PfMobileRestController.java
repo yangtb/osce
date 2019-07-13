@@ -49,7 +49,7 @@ public class PfMobileRestController {
     public ResultObject mobileLogin(@RequestBody MobileLoginDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getAuthCode() != null, "authCode");
-        // 二维码链接参数
+        // 授权码参数
         SysParam sysParam = paramUtil.getParamInfo(SysParamEnum.MOBILE_AUTH_CODE.getCode());
         String mobileAuthCode = null;
         if (sysParam != null) {

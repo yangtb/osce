@@ -53,7 +53,15 @@ public interface PfShowService {
      * @param dto
      * @return
      */
-    boolean aioStudentRegister(PfAioStuRegisterDto dto);
+    ShowStuVo aioStudentRegister(PfAioStuRegisterDto dto);
+
+    /**
+     * 学员登记数目
+     *
+     * @param dto
+     * @return
+     */
+    ShowStuVo countAioStuRegisterNum(ShowDto dto);
 
     /**
      * 待考区- 已登记
