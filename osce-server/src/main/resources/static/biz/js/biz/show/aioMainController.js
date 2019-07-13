@@ -86,12 +86,6 @@ layui.config({
         currentFgReplan = '',
         currentPlanDay = '';
     function fullPageHead(data) {
-        // todo
-        data.idPlan = 1;
-        data.idArea = 10;
-        data.timeSection = 1;
-        data.naPlan = "测试";
-        // todo
         $("#naOrg").text(data.naOrg);
         $("#naOrg-1").text(data.naOrg);
         $("#naOrg-2").text(data.naOrg);
@@ -461,25 +455,30 @@ layui.config({
         });
     }
 
+
+    var translate = new transition({
+        $main: $('#pt-main'),
+        loop: true,
+        callback: function (index) {
+
+        }
+    });
+
+    $('#back').click(function () {
+        translate.nextPage(2);
+    });
+
+    $('#manage').click(function () {
+        if (!idPlan) {
+            layer.msg("当前无考试");
+            return;
+        }
+        translate.nextPage(1);
+    });
+
 });
 
 
-
-var translate = new transition({
-    $main: $('#pt-main'),
-    loop: true,
-    callback: function (index) {
-
-    }
-});
-
-$('#back').click(function () {
-    translate.nextPage(2);
-});
-
-$('#manage').click(function () {
-    translate.nextPage(1);
-});
 
 
 
