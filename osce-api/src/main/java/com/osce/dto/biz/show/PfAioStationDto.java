@@ -39,5 +39,10 @@ public class PfAioStationDto implements Serializable {
      */
     private Long idRoom;
 
+    /**
+     * 每页数据量
+     */
+    private Integer limit;
+
 
 }

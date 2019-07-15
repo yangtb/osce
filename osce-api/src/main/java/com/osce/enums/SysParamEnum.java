@@ -11,6 +11,7 @@ public enum SysParamEnum {
     VISITOR_SWITCH("visitorSwitch", "是否开启游客功能"),
     BIG_SCREEN_NUM("bigScreenNum", "待考区大屏显示条数"),
     STATION_QR_CODE_URL("stationQrCodeUrl", "站点房间二维码链接"),
+    ROOM_SHOW_NUM("roomShowNum", "考站等待学员展示条数"),
     MOBILE_AUTH_CODE("mobileAuthCode", "移动端授权码");
 
     private String code;

@@ -214,12 +214,27 @@ public class PfShowRestController {
     @PreAuthorize("hasAnyRole('ROLE_03_01','ROLE_SUPER')")
     @RequestMapping(value = "/pf/r/aio/station/room/student/list")
     @ResponseBody
-    public ResultObject listRoomStudent(PfAioStationDto dto) {
+    public ResultObject listRoomStudent(@RequestBody PfAioStationDto dto) {
         Assert.isTrue(dto.getIdPlan() != null, "idPlan");
         Assert.isTrue(dto.getIdArea() != null, "idArea");
         Assert.isTrue(dto.getTimeSection() >= 0, "timeSection");
         Assert.isTrue(dto.getIdRoom() != null, "idRoom");
-        return ResultObject.createSuccess("listRoomStudent", ResultObject.DATA_TYPE_LIST,
+        SysParam sysParam = paramUtil.getParamInfo(SysParamEnum.ROOM_SHOW_NUM.getCode());
+        Integer roomShowNum = 10;
+        if (sysParam != null) {
+            try {
+                if (StringUtils.isNotBlank(sysParam.getParamValue())) {
+                    roomShowNum = Integer.parseInt(sysParam.getParamValue());
+                }
+                if (roomShowNum == null) {
+                    roomShowNum = Integer.parseInt(sysParam.getDefaultValue());
+                }
+            } catch (NumberFormatException e) {
+                throw new RestException(ErrorCode.ERROR_GENERAL_110001, "参数配置有误：考站等待学员展示条数必须是数字");
+            }
+        }
+        dto.setLimit(roomShowNum);
+        return ResultObject.createSuccess("listRoomStudent", ResultObject.DATA_TYPE_OBJECT,
                 pfShowService.listRoomStudent(dto));
     }
 

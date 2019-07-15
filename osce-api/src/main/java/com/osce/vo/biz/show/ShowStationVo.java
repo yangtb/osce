@@ -31,6 +31,11 @@ public class ShowStationVo implements Serializable {
     private String sdStationCa;
 
     /**
+     * 科目text
+     */
+    private String sdStationCaText;
+
+    /**
      * 类型
      */
     private String sdSkillCa;

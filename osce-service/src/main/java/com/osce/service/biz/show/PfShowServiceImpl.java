@@ -10,12 +10,14 @@ import com.osce.orm.biz.plan.template.PfTemplateDao;
 import com.osce.orm.biz.show.PfShowDao;
 import com.osce.orm.user.login.PfUserDao;
 import com.osce.vo.biz.show.*;
+import com.sm.open.care.core.utils.DateUtil;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -120,8 +122,12 @@ public class PfShowServiceImpl implements PfShowService {
     }
 
     @Override
-    public List<ShowRoomStudentVo> listRoomStudent(PfAioStationDto dto) {
-        return  pfShowDao.listRoomStudent(dto);
+    public ShowStationRightVo listRoomStudent(PfAioStationDto dto) {
+        ShowStationRightVo showStationRightVo = new ShowStationRightVo();
+        showStationRightVo.setStudentNum(pfShowDao.countRoomStudent(dto));
+        showStationRightVo.setRoomStudents(pfShowDao.listRoomStudent(dto));
+        showStationRightVo.setNowTime(DateUtil.getCurrentDateTime());
+        return showStationRightVo;
     }
 
 }

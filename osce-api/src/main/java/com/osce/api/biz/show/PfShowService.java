@@ -93,6 +93,6 @@ public interface PfShowService {
      * @param dto
      * @return
      */
-    List<ShowRoomStudentVo> listRoomStudent(PfAioStationDto dto);
+    ShowStationRightVo listRoomStudent(PfAioStationDto dto);
 
 }

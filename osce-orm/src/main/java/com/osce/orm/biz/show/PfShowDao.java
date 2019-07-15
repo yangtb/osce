@@ -96,6 +96,14 @@ public interface PfShowDao {
     List<ShowRoomStudentVo> listRoomStudent(PfAioStationDto dto);
 
     /**
+     * 房间等待学员数
+     *
+     * @param dto
+     * @return
+     */
+    Integer countRoomStudent(PfAioStationDto dto);
+
+    /**
      * 获取入场序号
      *
      * @param dto

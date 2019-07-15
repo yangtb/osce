@@ -147,7 +147,8 @@
             queue.plan_end ,
             queue.sd_exec_queue ,
             queue.act_begin ,
-            queue.act_end
+            queue.act_end ,
+            queue.min_cost
         FROM
             es_exec_queue queue
         JOIN user_info user ON queue.id_user_student = user.user_id
@@ -157,6 +158,19 @@
         AND queue.time_section = #{timeSection}
         AND queue.id_room = #{idRoom}
         AND queue.sd_exec_queue &lt;= 4
+        limit #{limit}
+    </select>
+    <select id="countRoomStudent" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            es_exec_queue queue
+        WHERE
+            queue.id_plan = #{idPlan}
+        AND queue.id_area =  #{idArea}
+        AND queue.time_section = #{timeSection}
+        AND queue.id_room = #{idRoom}
+        AND queue.sd_exec_queue = 1
     </select>
     <select id="selectNoReg" resultType="java.lang.Integer">
         SELECT

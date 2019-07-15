@@ -18,11 +18,11 @@
 <body>
 <div class="wrapper">
     <header>
-        <span class="test-num">考站1-1</span>
+        <span class="test-num" id="naStation"></span>
         <p class="test-room">${naRoom!}</p>
         <div class="header-main">
-            <p class='text'>古美社区卫生服务中心</p>
-            <p class='details'>2019内科期末测试 | 考场1 | 普考 | 2019-05-1 08:30~11:30</p>
+            <p class='text' id="naOrg"></p>
+            <p class='details' id="headInfo"></p>
             <span class="cur-time" id="nowtime"></span>
             <span class="notice">
                  <a href="javascript:;" layadmin-event="fullscreen" id="full">
@@ -36,19 +36,18 @@
             <div class="header-text">
                 <p class="text-item">
                     <span class="text-name">科目</span>
-                    <span class="text-info">内科</span>
+                    <span class="text-info" id="sdStationCaText"></span>
                 </p>
                 <p class="text-item">
                     <span class="text-name">类型</span>
-                    <span class="text-info">技能操作</span>
+                    <span class="text-info" id="sdSkillCa"></span>
                 </p>
                 <p class="text-item text-item-last">
                     <span class="text-name">试题</span>
-                    <span class="text-info">腹部穿刺训练</span>
+                    <span class="text-info" id="naPaper"></span>
                 </p>
             </div>
-            <div class='test-desc'>
-                腹腔穿刺术是通过穿刺针或导管直接从腹前壁刺入腹膜腔抽取腹腔积液，用以协助诊断和治疗疾病的一项技术。该技术是确定有无腹水及鉴别腹水性质的简易方法，分为诊断性腹腔穿刺和治疗性腹腔穿刺。
+            <div class='test-desc' id="desPaper">
             </div>
             <div class="qr-qrea">
                 <div class='qr-left'>
@@ -69,19 +68,19 @@
                 </p>
                 <div class="tester-info">
                     <div class="primary-info">
-                        <span class="tester">学员</span>
-                        <span class="tester-name">张三</span>
-                        <span class="tester-num">08</span>
-                        <button type="button" class="layui-btn layui-btn-normal identify-btn">身份认证</button>
+                        <span class="tester" >学员</span>
+                        <span class="tester-name" id="currStudentName"></span>
+                        <span class="tester-num" id="currStudentCd"></span>
+                        <button type="button" class="layui-btn layui-btn-normal identify-btn" id="authentication">身份认证</button>
                     </div>
                     <div class="details-info">
-                        <p class="tel-text"><span class="text-header">联系方式：</span><span class="tel">18279188319</span></p>
-                        <p class="id-text"><span class="text-header">身份证：</span><span class="cardid">622727199501184116</span></p>
-                        <p class="test-time"><span class="text-header">考时：</span><span class="time">9:15-9:25</span></p>
-                        <p class="status"><span class="text-header">状态：</span><span class="status-text">叫号待认证</span></p>
+                        <p class="tel-text"><span class="text-header">联系方式：</span><span class="tel" id="currStudentPhoneNo"></span></p>
+                        <p class="id-text"><span class="text-header">身份证：</span><span class="cardid" id="currStudentIdCard"></span></p>
+                        <p class="test-time"><span class="text-header">考时：</span><span class="time" id="currStudentTime"></span></p>
+                        <p class="status"><span class="text-header">状态：</span><span class="status-text" id="currStudentStatus"></span></p>
                         <div class="left-time">
                             <p class='left-text'>剩余时间</p>
-                            <p class="left-second">218 s</p>
+                            <p class="left-second"><span id="countdown"></span> s</p>
                         </div>
                     </div>
                 </div>
@@ -90,75 +89,8 @@
                 <p class='await-info'>
                     <span class="await-text">等待学员</span>
                 </p>
-                <div class="await-box">
-                    <p class="await-num">等待人数 12</p>
-                    <div class="await-item actived">
-                        <p class="awaiter-left">
-                            <span class="awaiter-name">李四</span>
-                            <span class="awaiter-num">09</span>
-                            <span class="awaiter-tel">18279183319</span>
-                        </p>
-                        <p class="awaiter-right">
-                            <span class="awaiter-id">622727199501184116</span>
-                            <span class="join-time">08:30:58</span>
-                        </p>
-                    </div>
-                    <div class="await-item">
-                        <p class="awaiter-left">
-                            <span class="awaiter-name">李四</span>
-                            <span class="awaiter-num">09</span>
-                            <span class="awaiter-tel">18279183319</span>
-                        </p>
-                        <p class="awaiter-right">
-                            <span class="awaiter-id">622727199501184116</span>
-                            <span class="join-time">08:30:58</span>
-                        </p>
-                    </div>
-                    <div class="await-item">
-                        <p class="awaiter-left">
-                            <span class="awaiter-name">李四</span>
-                            <span class="awaiter-num">09</span>
-                            <span class="awaiter-tel">18279183319</span>
-                        </p>
-                        <p class="awaiter-right">
-                            <span class="awaiter-id">622727199501184116</span>
-                            <span class="join-time">08:30:58</span>
-                        </p>
-                    </div>
-                    <div class="await-item">
-                        <p class="awaiter-left">
-                            <span class="awaiter-name">李四</span>
-                            <span class="awaiter-num">09</span>
-                            <span class="awaiter-tel">18279183319</span>
-                        </p>
-                        <p class="awaiter-right">
-                            <span class="awaiter-id">622727199501184116</span>
-                            <span class="join-time">08:30:58</span>
-                        </p>
-                    </div>
-                    <div class="await-item">
-                        <p class="awaiter-left">
-                            <span class="awaiter-name">李四</span>
-                            <span class="awaiter-num">09</span>
-                            <span class="awaiter-tel">18279183319</span>
-                        </p>
-                        <p class="awaiter-right">
-                            <span class="awaiter-id">622727199501184116</span>
-                            <span class="join-time">08:30:58</span>
-                        </p>
-                    </div>
-                    <div class="await-item">
-                        <p class="awaiter-left">
-                            <span class="awaiter-name">李四</span>
-                            <span class="awaiter-num">09</span>
-                            <span class="awaiter-tel">18279183319</span>
-                        </p>
-                        <p class="awaiter-right">
-                            <span class="awaiter-id">622727199501184116</span>
-                            <span class="join-time">08:30:58</span>
-                        </p>
-                    </div>
-
+                <div class="await-box" id="rightWait">
+                    <p class="await-num">等待人数 <span id="studentNum"></span></p>
                 </div>
             </div>
         </div>

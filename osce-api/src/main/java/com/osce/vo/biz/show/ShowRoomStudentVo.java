@@ -62,7 +62,7 @@ public class ShowRoomStudentVo implements Serializable {
     /**
      * 状态     1 待考,2 叫号待认证,3 叫号已认证,4 考试开始,5 考试结束,6 缺考
      */
-    private String sdExecQueue;
+    private Integer sdExecQueue;
 
     /**
      * 实际开始时间
@@ -74,5 +74,9 @@ public class ShowRoomStudentVo implements Serializable {
      */
     private String actEnd;
 
+    /**
+     * 站点耗时（可用来计算倒计时）
+     */
+    private Integer minCost;
 
 }
