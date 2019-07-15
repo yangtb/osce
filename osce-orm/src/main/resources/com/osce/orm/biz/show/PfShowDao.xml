@@ -147,8 +147,8 @@
             queue.plan_end ,
             queue.sd_exec_queue ,
             queue.act_begin ,
-            queue.act_end ,
-            queue.min_cost
+            DATE_ADD(queue.act_begin , INTERVAL queue.min_cost MINUTE) as countdownTime ,
+            queue.act_end
         FROM
             es_exec_queue queue
         JOIN user_info user ON queue.id_user_student = user.user_id

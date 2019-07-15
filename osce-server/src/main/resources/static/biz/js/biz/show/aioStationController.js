@@ -184,7 +184,7 @@ layui.config({
 
                         var arrYmd = ymd.split("-"),
                             arrHms = hms.split(":");
-                        var actBegin = content.actBegin, arrActBegin;
+                        var actBegin = content.countdownTime, arrActBegin;
                         if (actBegin) {
                             arrActBegin = actBegin.split(":");
 

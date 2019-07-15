@@ -75,8 +75,8 @@ public class ShowRoomStudentVo implements Serializable {
     private String actEnd;
 
     /**
-     * 站点耗时（可用来计算倒计时）
+     * 倒计时时间
      */
-    private Integer minCost;
+    private String countdownTime;
 
 }
