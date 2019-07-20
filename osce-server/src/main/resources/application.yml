@@ -53,8 +53,16 @@ website:
   copyright: 版权所有 Copyright © Since2018 上海嘉奕医学科技有限公司
   ipBlacklist:
 
+
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
     default-property-inclusion: non_null
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 1024MB
+
+# oss设置
+
