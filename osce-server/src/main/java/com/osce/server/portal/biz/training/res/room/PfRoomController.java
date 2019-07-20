@@ -81,22 +81,16 @@ public class PfRoomController extends BaseController {
         PageResult<ErpRoom> roomPageResult = pfRoomService.pageRooms(dto);
         List<ErpRoom> rooms = roomPageResult.getData();
         if (CollectionUtils.isNotEmpty(rooms)) {
-            // 二维码链接参数
-            SysParam sysParam = paramUtil.getParamInfo(SysParamEnum.STATION_QR_CODE_URL.getCode());
-            String stationQrCodeUrl = null;
-            if (sysParam != null) {
-                stationQrCodeUrl = sysParam.getParamValue();
-                if (StringUtils.isBlank(stationQrCodeUrl)) {
-                    stationQrCodeUrl = sysParam.getDefaultValue();
-                }
-            }
-            if (StringUtils.isNotBlank(stationQrCodeUrl)) {
+            // 房间链接参数
+            String stationRoomUrl = paramUtil.getParamValue(SysParamEnum.STATION_ROOM_URL.getCode());
+            String testUrl = paramUtil.getParamValue(SysParamEnum.TEST_URL.getCode());
+            if (StringUtils.isNotBlank(stationRoomUrl) || StringUtils.isNotBlank(testUrl)) {
                 for (ErpRoom erpRoom : rooms) {
-                    erpRoom.setStationQrCodeUrl(stationQrCodeUrl);
+                    erpRoom.setStationQrCodeUrl(stationRoomUrl);
+                    erpRoom.setTestUrl(testUrl);
                 }
             }
         }
-
         return roomPageResult;
     }
 

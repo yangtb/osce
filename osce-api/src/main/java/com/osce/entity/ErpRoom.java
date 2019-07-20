@@ -91,4 +91,9 @@ public class ErpRoom implements Serializable {
      */
     private String stationQrCodeUrl;
 
+    /**
+     * 理论考试首页url
+     */
+    private String testUrl;
+
 }

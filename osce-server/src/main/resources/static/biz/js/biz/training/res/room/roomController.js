@@ -15,11 +15,11 @@ layui.config({
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
-            {field: 'naRoom', minWidth: 170, title: '房号', fixed: true},
+            {field: 'naRoom', minWidth: 120, title: '房号', fixed: true},
             {field: 'desRoom', minWidth: 200, title: '描述'},
             {field: 'deviceNum', minWidth: 100, title: '设备数量', align: "right"},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
-            {fixed: 'right', width: 200, title: '操作', align: 'center', toolbar: '#roomBar'}
+            {fixed: 'right', width: 300, title: '操作', align: 'center', toolbar: '#roomBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/room/list'
         , limit: 15
@@ -36,6 +36,9 @@ layui.config({
         }
         if (obj.event === 'roomLink') {
             openLink(data);
+        }
+        if (obj.event === 'testLink') {
+            openTestLink(data);
         }
     });
 
@@ -60,6 +63,30 @@ layui.config({
             }
         });
     }
+
+
+    function openTestLink(data){
+        layer.open({
+            title: '理论考试首页链接',
+            type: 1,
+            closeBtn: 0, //不显示关闭按钮
+            anim: 5,
+            shadeClose: true, //开启遮罩关闭
+            resize : false,
+            area: ['320px', '220px'],
+            btn: ['打开链接', '关闭'],
+            content: '<div style="margin: 10px">\n' +
+                '      <textarea id="testUrl" class="layui-textarea"></textarea>\n' +
+                '    </div>'
+            ,yes: function(){
+                window.open(data.testUrl + "?idRoom=" + data.idRoom + "&idOrg=" + data.idOrg, '_blank').location;
+                layer.closeAll();
+            }, success: function(layero, index){
+                $('#testUrl').val(data.testUrl + "?idRoom=" + data.idRoom + "&idOrg=" + data.idOrg);
+            }
+        });
+    }
+
 
     //监听提交
     form.on('submit(roomSearchFilter)', function (data) {

@@ -37,9 +37,9 @@
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
                     <i class="layui-icon layui-icon-delete"></i>删除
                 </button>
-                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="record">
+                <#--<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="record">
                     <i class="layui-icon layui-icon-table"></i>使用记录
-                </button>
+                </button>-->
             </div>
         </div>
         <div class="layui-inline">
@@ -64,6 +64,7 @@
 </script>
 
 <script type="text/html" id="roomBar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="testLink"><i class="layui-icon layui-icon-link"></i>理论考试链接</a>
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="roomLink"><i class="layui-icon layui-icon-link"></i>房间链接</a>
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
 </script>
