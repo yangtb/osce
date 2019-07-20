@@ -62,11 +62,11 @@
 
     </div>
 
-    <div class="layui-row layui-col-space15">
-        <div class="layui-row layui-col-space15" id="testCard">
+    <div class="layui-row layui-col-space15" id="testCard">
 
-        </div>
     </div>
+</div>
+
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/execute/execMainController.js"></script>
