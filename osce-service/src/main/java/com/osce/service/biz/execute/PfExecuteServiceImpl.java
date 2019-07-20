@@ -49,11 +49,11 @@ public class PfExecuteServiceImpl implements PfExecuteService {
         execAuthDto.setParIdExecQueue(execAuthVo.getIdExecQueue());
         execAuthDto.setParSdExecQueue(execAuthVo.getSdExecQueue());
 
-        /*pfExecDao.execAuth(execAuthDto);
+        pfExecDao.execAuth(execAuthDto);
         if (execAuthDto.getParCode() != 0) {
-            logger.error("调用存储过程[P_STATION_MODEL_ORDER]出错, param : {} ", execAuthDto.toString());
+            logger.error("调用存储过程[P_QUEUE_UPDATE]认证出错, param : {} ", execAuthDto.toString());
             throw new RestException(String.valueOf(execAuthDto.getParCode()), execAuthDto.getParMsg());
-        }*/
+        }
         return pfExecDao.selectStuInfo(dto);
     }
 
