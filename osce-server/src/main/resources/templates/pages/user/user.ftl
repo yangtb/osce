@@ -123,12 +123,12 @@
         <button type="button" class="layui-btn layui-btn-sm" id="freeze" lay-event="freeze">
             <i class="iconfont icon-freeze"></i> 冻结
         </button>
-        <button type="button" class="layui-btn layui-btn-sm" lay-event="downloadExcel">
+        <#--<button type="button" class="layui-btn layui-btn-sm" lay-event="downloadExcel">
             <i class="iconfont icon-Excel"></i> 下载模板
         </button>
         <button type="button" class="layui-btn layui-btn-sm" id="uploadUser">
             <i class="layui-icon">&#xe67c;</i>上传文件
-        </button>
+        </button>-->
     </div>
 </script>
 

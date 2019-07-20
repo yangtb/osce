@@ -126,15 +126,16 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">状态</label>
-                <div class="layui-input-block">
-                    <input type="checkbox" checked="" name="enabled" lay-skin="switch"
-                           lay-filter="userEnabledSwitch" value="true" lay-text="活动|锁定">
+                <label class="layui-form-label">学号<i class="iconfont icon-required"
+                                                       style="color: #f03f2d"></i></label>
+                <div class="layui-input-inline">
+                    <input type="text" name="userCd" lay-verify="required" lay-vertype="tips"
+                           placeholder="" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
 
-        <div class="layui-form-item form-item-my5">
+        <div class="layui-form-item form-item-my">
             <label class="layui-form-label">头像</label>
             <div class="layui-input-inline">
                 <input name="photoAddr"
@@ -148,17 +149,26 @@
             </div>
         </div>
 
+        <div class="layui-form-item form-item-my">
+            <div class="layui-inline">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" checked="" name="enabled" lay-skin="switch"
+                           lay-filter="userEnabledSwitch" value="true" lay-text="活动|锁定">
+                </div>
+            </div>
+        </div>
 
-        <div class="layui-form-item form-item-my5">
+        <div class="layui-form-item form-item-my">
             <label class="layui-form-label">用户角色</label>
             <div class="layui-input-block">
-                <#list roles as role>
-                    <#if (role.level != 0)>
-                        <input type="checkbox" name="role" value="${role.roleId}"
-                               lay-skin="primary" title="${role.name}"
-                               <#if (role.checked == true)>checked</#if>
-                    </#if>
-                </#list>
+                <#if roles?? && (roles?size > 0)>
+                    <#list roles as element>
+                         <input type="checkbox" name="role" value="${element.roleId}"
+                               lay-skin="primary" title="${element.name}"
+                               <#if (element.checked == true)>checked</#if>/>
+                    </#list>
+                </#if>
             </div>
         </div>
 

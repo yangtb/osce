@@ -161,9 +161,10 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            common.open('新增用户', 'form?formType=' + formType, 700, 475);
+            var index = common.open('新增用户', 'form?formType=' + formType, 700, 475);
+            layer.full(index);
         } else {
-            common.open('编辑用户', 'form?formType=' + formType + "&userId=" + currentEditData.userId, 700, 395, _successFunction(currentEditData));
+            common.open('编辑用户', 'form?formType=' + formType + "&userId=" + currentEditData.userId, 700, 420, _successFunction(currentEditData));
         }
     };
 
