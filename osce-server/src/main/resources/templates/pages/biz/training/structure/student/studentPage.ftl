@@ -12,7 +12,14 @@
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
     <style>
-
+        .layui-input, .layui-select {
+            height: 30px;
+            line-height: 1.3;
+            background-color: rgb(255, 255, 255);
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 2px;
+        }
     </style>
 </head>
 
@@ -39,7 +46,7 @@
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <button id="queryDept" type="button" class="layui-btn" lay-submit lay-filter="deptSearchFilter">
+                <button id="queryDept" type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="deptSearchFilter">
                     <i class="iconfont icon-query"></i> 查询
                 </button>
             </div>

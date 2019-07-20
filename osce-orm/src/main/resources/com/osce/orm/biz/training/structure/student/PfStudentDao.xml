@@ -102,7 +102,7 @@
         SELECT
             a.id_student_depart, a.id_depart, b.user_id, c.na_grade,
             b.username, b.real_name, b.sex, b.phone_no, b.id_org, b.email ,
-            b.idcard, b.enabled, b.gmt_create
+            b.idcard, b.enabled, b.gmt_create, b.user_cd, b.photo_addr
         FROM
             org_student_depart a
         LEFT JOIN user_info b ON a.id_user = b.user_id

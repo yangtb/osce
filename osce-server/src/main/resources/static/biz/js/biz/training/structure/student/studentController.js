@@ -159,9 +159,9 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            common.open('新增学员', basePath + '/pf/p/student/form?formType=' + formType, 700, 420);
+            common.open('新增学员', basePath + '/pf/p/student/form?formType=' + formType, 700, 520);
         } else {
-            common.open('编辑学员', basePath + '/pf/p/student/form?formType=' + formType, 700, 295, _successFunction(currentEditData));
+            common.open('编辑学员', basePath + '/pf/p/student/form?formType=' + formType, 700, 390, _successFunction(currentEditData));
         }
     };
 

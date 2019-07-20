@@ -85,4 +85,14 @@ public class StudentVo implements Serializable {
      */
     private String email;
 
+    /**
+     * 头像地址
+     */
+    private String photoAddr;
+
+    /**
+     * 学号
+     */
+    private String userCd;
+
 }

@@ -1,10 +1,11 @@
 layui.config({
     base: basePath + '/layui/build/js/'
-}).use(['form', 'layer', 'table', 'jquery', 'treeSelect', 'common'], function () {
+}).use(['form', 'layer', 'table', 'jquery', 'treeSelect', 'common', "upload"], function () {
     var $ = layui.$,
         form = layui.form,
         common = layui.common,
         layer = layui.layer,
+        upload = layui.upload,
         treeSelect = layui.treeSelect;
 
     if (formType == 'add') {
@@ -148,6 +149,53 @@ layui.config({
             }
         });
         return false;
+    });
+
+    // 上传头像
+    upload.render({
+        elem: '#LAY_avatarUpload'
+        , url: basePath + '/upload'
+        , field: 'file'
+        , accept: 'images' //普通文件
+        , exts: 'jpg|png|bmp|jpeg'
+        , before: function (obj) {
+            layer.msg('正在上传图片', {icon: 16, shade: 0.01});
+        }
+        , done: function (res) {
+            if (res.code != '0') {
+                layer.tips(res.msg, '#LAY_avatarUpload', {
+                    tips: [1, '#FF5722'],
+                    time: 5000
+                });
+                return;
+            }
+            $('#LAY_avatarSrc').val(res.data.path);
+            layer.closeAll('loading');
+        }
+        , error: function () {
+            layer.closeAll('loading');
+        }
+    });
+
+    $('#reviewPhoto').on('click', function () {
+        var i = $("#LAY_avatarSrc").val();
+        if (!i) {
+            layer.tips("请先上传头像", '#reviewPhoto', {
+                tips: [1, '#FF5722']
+            });
+            return;
+        }
+        layui.layer.photos({
+            photos: {
+                title: "查看头像",
+                data: [{
+                    src: i
+                }]
+            },
+            shade: .01,
+            closeBtn: 1,
+            anim: 5
+        })
     });
 });
 

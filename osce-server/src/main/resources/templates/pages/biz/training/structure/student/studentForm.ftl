@@ -108,6 +108,31 @@
             </div>
         </div>
 
+        <div class="layui-form-item form-item-my">
+            <label class="layui-form-label">头像</label>
+            <div class="layui-input-inline">
+                <input name="photoAddr"
+                       id="LAY_avatarSrc" placeholder="图片地址" class="layui-input">
+            </div>
+            <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="reviewPhoto">查看图片</button>
+            </div>
+        </div>
+
+        <div class="layui-form-item form-item-my">
+            <div class="layui-inline">
+                <label class="layui-form-label">学号<i class="iconfont icon-required"
+                                                     style="color: #f03f2d"></i></label>
+                <div class="layui-input-inline">
+                    <input type="text" name="userCd" lay-verify="required" lay-vertype="tips"
+                           placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
         <#if (formType == 'add')>
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
