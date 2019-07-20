@@ -25,13 +25,42 @@ layui.config({
     });
 
     // *******************日期 begin**************************
-    lay('.time-box').each(function(){
+    /*lay('.time-box').each(function(){
         laydate.render({
             elem: this
             , type: 'time'
             , format: 'HH:mm'
             ,trigger: 'click'
         });
+    });*/
+
+    laydate.render({
+        elem: '#morningBegin'
+        , type: 'time'
+        , format: 'HH:mm'
+        , max: '12:00:00'
+        , trigger: 'click'
+    });
+    laydate.render({
+        elem: '#morningEnd'
+        , type: 'time'
+        , format: 'HH:mm'
+        , max: '12:00:00'
+        , trigger: 'click'
+    });
+    laydate.render({
+        elem: '#afternoonBegin'
+        , type: 'time'
+        , format: 'HH:mm'
+        , min: '12:01:00'
+        , trigger: 'click'
+    });
+    laydate.render({
+        elem: '#afternoonEnd'
+        , type: 'time'
+        , format: 'HH:mm'
+        , min: '12:01:00'
+        , trigger: 'click'
     });
     // *******************日期 end**************************
 
