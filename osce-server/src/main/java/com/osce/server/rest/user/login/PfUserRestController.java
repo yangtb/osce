@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
  * @Date 2018/9/14 21:22
  */
 @Controller
-@RequestMapping(value = "/pf/r/user")
 public class PfUserRestController extends BaseController {
 
     @Reference
@@ -57,7 +56,7 @@ public class PfUserRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_USER_ADD','ROLE_SUPER')")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/user/add", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject saveUser(@RequestBody RegisterDto dto, HttpServletRequest request) {
         /* 参数校验 */
@@ -87,7 +86,7 @@ public class PfUserRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_USER_EDIT','ROLE_SUPER')")
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/user/edit", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject updateUser(@RequestBody RegisterDto dto) {
         /* 参数校验 */
@@ -110,7 +109,7 @@ public class PfUserRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_USER_FREEZE','ROLE_SUPER')")
-    @RequestMapping(value = "/freeze", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/user/freeze", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject freezeUser(@RequestBody PfCommonListDto dto) {
         /* 参数校验 */
@@ -128,7 +127,7 @@ public class PfUserRestController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_USER_DEL','ROLE_SUPER')")
-    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/user/del", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject delUser(@RequestBody PfCommonListDto dto) {
         /* 参数校验 */
@@ -145,7 +144,7 @@ public class PfUserRestController extends BaseController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/updatePsw", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/user/updatePsw", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject updatePsw(HttpServletRequest request, @RequestBody UpdatePswDto dto) {
         /* 参数校验 */

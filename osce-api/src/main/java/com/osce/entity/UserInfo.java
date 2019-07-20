@@ -55,4 +55,14 @@ public class UserInfo implements Serializable {
      * 身份证号
      */
     private String idcard;
+
+    /**
+     * 头像地址
+     */
+    private String photoAddr;
+
+    /**
+     * 学号
+     */
+    private String userCd;
 }

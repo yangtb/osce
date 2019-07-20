@@ -121,7 +121,7 @@
   line-height: 170px;
 }
 .face-img {
-  width: 169px;
+  /*width: 169px;*/
   height: 169px;
   background: rgba(242, 242, 242, 1);
   text-align: center;

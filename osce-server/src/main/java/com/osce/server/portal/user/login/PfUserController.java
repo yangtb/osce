@@ -49,7 +49,6 @@ import java.util.stream.Collectors;
  * @Date 2018-12-26
  */
 @Controller
-@RequestMapping(value = "/pf/p/user")
 public class PfUserController extends BaseController {
 
     @Reference
@@ -81,7 +80,7 @@ public class PfUserController extends BaseController {
      */
     private static final String PUBLIC_KEY = "publicKey";
 
-    @RequestMapping("/register/page")
+    @RequestMapping("/pf/p/user/register/page")
     public String registerPage(Model model, HttpServletRequest request) {
         RsaKeyPair keyPair = rsaKeyPairQueue.getRsaKeyQueue(request);
         model.addAttribute(PUBLIC_KEY, keyPair.getPublicKey());
@@ -94,7 +93,7 @@ public class PfUserController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER_MG','ROLE_SUPER')")
-    @RequestMapping("/page")
+    @RequestMapping("/pf/p/user/page")
     public String page(Model model) {
         // 机构处理, 平台级别保留全部，平台以下级别只保留当前机构
         User user = CurrentUserUtils.getCurrentUser();
@@ -110,7 +109,7 @@ public class PfUserController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_MODIFY_PASS','ROLE_SUPER')")
-    @RequestMapping("/modifyPass")
+    @RequestMapping("/pf/p/user/modifyPass")
     public String modifyPass(Model model, HttpServletRequest request) {
         RsaKeyPair keyPair = rsaKeyPairQueue.getRsaKeyQueue(request);
         model.addAttribute(PUBLIC_KEY, keyPair.getPublicKey());
@@ -118,7 +117,7 @@ public class PfUserController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER_MG','ROLE_SUPER')")
-    @RequestMapping("/form")
+    @RequestMapping("/pf/p/user/form")
     public String form(String formType, Long userId, Model model, HttpServletRequest request) {
         model.addAttribute("formType", formType);
         RsaKeyPair keyPair = rsaKeyPairQueue.getRsaKeyQueue(request);
@@ -164,7 +163,7 @@ public class PfUserController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER_RESET_PSW','ROLE_SUPER')")
-    @RequestMapping("/resetPassword")
+    @RequestMapping("/pf/p/user/resetPassword")
     public String resetPassword(Model model, HttpServletRequest request) {
         RsaKeyPair keyPair = rsaKeyPairQueue.getRsaKeyQueue(request);
         model.addAttribute(PUBLIC_KEY, keyPair.getPublicKey());
@@ -172,7 +171,7 @@ public class PfUserController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER_MG','ROLE_SUPER')")
-    @RequestMapping("/userDetail")
+    @RequestMapping("/pf/p/user/userDetail")
     public String userDetail(Model model) {
         return "pages/user/userDetail";
     }
@@ -185,7 +184,7 @@ public class PfUserController extends BaseController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_USER_MG','ROLE_SUPER')")
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/pf/p/user/list")
     @ResponseBody
     public PageResult listUsers(PfUserDto dto) {
         User user = CurrentUserUtils.getCurrentUser();
@@ -198,7 +197,7 @@ public class PfUserController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER_MG','ROLE_SUPER')")
-    @RequestMapping("/download/userExcel")
+    @RequestMapping("/pf/p/user/download/userExcel")
     @ResponseBody
     public String downloadUserExcel(HttpServletResponse response, HttpServletRequest request) {
         List<List<String>> sheets = new ArrayList<>();
@@ -213,7 +212,7 @@ public class PfUserController extends BaseController {
 
 
     @PreAuthorize("hasAnyRole('ROLE_USER_MG','ROLE_SUPER')")
-    @RequestMapping(value = "/upload/userExcel")
+    @RequestMapping(value = "/pf/p/user/upload/userExcel")
     @ResponseBody
     public ResultObject uploadUserExcel(HttpServletRequest request) {
         // 转型为MultipartHttpRequest：

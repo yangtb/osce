@@ -18,7 +18,7 @@ public class PfUsersVo implements Serializable {
     @JSONField(name = "user_id")
     private Long        userId;         // 用户ID
     @JSONField(name = "user_name")
-    private String      userName;       // 用户名
+    private String      username;       // 用户名
     private String      email;          // 电邮
     @JSONField(name = "phone_no")
     private String      phoneNo;        // 联系电话
@@ -55,4 +55,18 @@ public class PfUsersVo implements Serializable {
      */
     private Long        idOrg;
 
+    /**
+     * 身份证号
+     */
+    private String idcard;
+
+    /**
+     * 头像地址
+     */
+    private String photoAddr;
+
+    /**
+     * 学号
+     */
+    private String userCd;
 }

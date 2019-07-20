@@ -16,10 +16,8 @@
             <if test="sex!=0">
                 sex,
             </if>
-            <if test="idcard != null and idcard != ''">
-                idcard ,
-            </if>
-            remark , gmt_create , gmt_modify , operator
+            remark , gmt_create , gmt_modify , operator ,
+            idcard , photo_addr , user_cd
         )
         VALUES
             (
@@ -28,10 +26,8 @@
               <if test="sex!=0">
                 #{sex} ,
               </if>
-            <if test="idcard != null and idcard != ''">
-                #{idcard},
-            </if>
-              #{remark} , now() , now() , #{operator}
+              #{remark} , now() , now() , #{operator}  ,
+              #{idcard} , #{photoAddr} , #{userCd}
             );
     </insert>
 
@@ -131,6 +127,8 @@
             <if test="idcard != null and idcard != ''">
                 idcard = #{idcard},
             </if>
+            photo_addr  = #{photoAddr},
+            user_cd = #{userCd},
             gmt_modify = NOW()
         WHERE
             user_id = #{userId};
@@ -181,7 +179,10 @@
             ui.gmt_create ,
             ui.gmt_modify ,
             ui.operator ,
-            ui.id_org
+            ui.id_org,
+            ui.idcard,
+            ui.user_cd,
+            ui.photo_addr
         FROM
           user_info ui
         <if test='isSuper == false'>

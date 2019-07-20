@@ -31,7 +31,7 @@
                 <label class="layui-form-label">登录账号<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <input type="text" name="userName" lay-verify="required|username" lay-vertype="tips" autocomplete="off"
+                    <input type="text" name="username" lay-verify="required|username" lay-vertype="tips" autocomplete="off"
                            class="layui-input <#if (formType == 'edit')>layui-disabled</#if>"
                            <#if (formType == 'edit')>disabled</#if>>
                 </div>
@@ -118,14 +118,36 @@
 
         <div class="layui-form-item form-item-my">
             <div class="layui-inline">
+                <label class="layui-form-label">身份证号<i class="iconfont icon-required"
+                                                       style="color: #f03f2d"></i></label>
+                <div class="layui-input-inline">
+                    <input type="text" name="idcard" lay-verify="required|identity" lay-vertype="tips"
+                           placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label">状态</label>
                 <div class="layui-input-block">
                     <input type="checkbox" checked="" name="enabled" lay-skin="switch"
                            lay-filter="userEnabledSwitch" value="true" lay-text="活动|锁定">
                 </div>
             </div>
-
         </div>
+
+        <div class="layui-form-item form-item-my5">
+            <label class="layui-form-label">头像</label>
+            <div class="layui-input-inline">
+                <input name="photoAddr"
+                       id="LAY_avatarSrc" placeholder="图片地址" class="layui-input">
+            </div>
+            <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
+                    <i class="layui-icon">&#xe67c;</i>上传图片
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="reviewPhoto">查看图片</button>
+            </div>
+        </div>
+
 
         <div class="layui-form-item form-item-my5">
             <label class="layui-form-label">用户角色</label>

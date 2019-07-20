@@ -20,7 +20,7 @@ layui.config({
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             //{field: 'user_id', width: 80, hidden: true, title: 'ID'},
-            {field: 'userName', width: 130, title: '账号', fixed: true},
+            {field: 'username', width: 130, title: '账号', fixed: true},
             {field: 'realName', width: 140, title: '姓名'},
             {field: 'sex', width: 70, templet: '#sexTpl', title: '性别'},
             {field: 'phoneNo', width: 120, title: '手机号'},
@@ -161,9 +161,9 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            common.open('新增用户', 'form?formType=' + formType, 700, 420);
+            common.open('新增用户', 'form?formType=' + formType, 700, 475);
         } else {
-            common.open('编辑用户', 'form?formType=' + formType + "&userId=" + currentEditData.userId, 700, 360, _successFunction(currentEditData));
+            common.open('编辑用户', 'form?formType=' + formType + "&userId=" + currentEditData.userId, 700, 395, _successFunction(currentEditData));
         }
     };
 

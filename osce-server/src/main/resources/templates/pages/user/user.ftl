@@ -16,6 +16,17 @@
         var contextPath = '${contextPath}';
     </script>
 
+    <style>
+        .layui-input, .layui-select {
+            height: 30px;
+            line-height: 1.3;
+            background-color: rgb(255, 255, 255);
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 2px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -24,9 +35,9 @@
     <form id="exportForm" action="${basePath}/pf/p/user/download/userExcel" method="post">
 
     </form>
-    <form class="layui-form">
+    <form class="layui-form" style="margin-left: -10px">
         <div class="layui-inline">
-            <div class="layui-input-inline" style="width: 90px;">
+            <div class="layui-input-inline layui-btn-sm" style="width: 90px;">
                 <select name="type">
                     <option value="0">请选择</option>
                     <option value="1">账号</option>
@@ -35,7 +46,7 @@
                 </select>
             </div>
             <div class="layui-input-inline" style="width: 150px;">
-                <input type="text" name="queryCondition" autocomplete="off" class="layui-input">
+                <input type="text" name="queryCondition" autocomplete="off" class="layui-input  btn-sm-my">
             </div>
         </div>
         <div class="layui-input-inline">
@@ -48,10 +59,10 @@
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn" lay-submit lay-filter="userSearchFilter">
+                <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="userSearchFilter">
                     <i class="iconfont icon-query"></i> 查询
                 </button>
-                <button type="reset" class="layui-btn layui-btn-primary">
+                <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
                     <i class="iconfont icon-reset"></i> 重新填写
                 </button>
             </div>

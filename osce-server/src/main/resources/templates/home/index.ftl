@@ -59,13 +59,13 @@
             <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
 
                 <#if showMessage == true>
-                    <li class="layui-nav-item" lay-unselect>
+                    <#--<li class="layui-nav-item" lay-unselect>
                         <a lay-href="${contextPath!}/pf/p/notice/page?type=see" layadmin-event="message" lay-text="消息中心">
                             <i class="layui-icon layui-icon-notice"></i>
-                            <!-- 如果有新消息，则显示小圆点 -->
+                            <!-- 如果有新消息，则显示小圆点 &ndash;&gt;
                             <span class="layui-badge-dot"></span>
                         </a>
-                    </li>
+                    </li>-->
                 </#if>
 
                 <li class="layui-nav-item layui-hide-xs" lay-unselect>

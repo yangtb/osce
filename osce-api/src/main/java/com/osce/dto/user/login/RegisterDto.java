@@ -7,6 +7,12 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @ClassName: RegisterDto
+ * @Description: 注册dto
+ * @Author yangtongbin
+ * @Date 2019-07-20
+ */
 @Setter
 @Getter
 @ToString(exclude = {"password"})
@@ -78,6 +84,16 @@ public class RegisterDto implements Serializable {
      * 身份证号
      */
     private String idcard;
+
+    /**
+     * 头像地址
+     */
+    private String photoAddr;
+
+    /**
+     * 学号
+     */
+    private String userCd;
 
     /**
      * 用户所在机构

@@ -9,9 +9,12 @@ import com.aliyun.oss.event.ProgressListener;
 import com.aliyun.oss.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -28,27 +31,32 @@ import java.util.UUID;
  * @Author yangtongbin
  * @Date 2018/10/8
  */
+@Component
 @SuppressWarnings("unused")
 public class OssUploadUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(OssUploadUtil.class);
 
 
-    private static OSSClient ossClient;
+    private String endpoint;
 
-    private static String endpoint = "https://oss-cn-beijing.aliyuncs.com";
-    private static String accessKeyId = "";
-    private static String accessKeySecret = "";
+    private String accessKeyId;
 
-    private static String bucketName = "";
+    private String accessKeySecret;
 
-    static {
-        //暂时这么处理 后期优化
-        ossClient = new OSSClient("https://oss-cn-beijing.aliyuncs.com/",
-                "",
-                "");
+    @Value("${oss.bucketName}")
+    private String bucketName;
+
+    private OSSClient ossClient;
+
+    public OssUploadUtil(@Value("${oss.endpoint}") String endpoint,
+                         @Value("${oss.accessKeyId}") String accessKeyId,
+                         @Value("${oss.accessKeySecret}") String accessKeySecret) {
+        this.endpoint = endpoint;
+        this.accessKeyId = accessKeyId;
+        this.accessKeySecret = accessKeySecret;
+        ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
     }
-
 
     /**
      * OSS单文件上传
@@ -59,8 +67,8 @@ public class OssUploadUtil {
      * @param sum
      * @return 文件地址
      */
-    public static String uploadFile(MultipartFile file, String fileType,
-                                    String ossConfigKey, HttpServletRequest request, int sum) {
+    public String uploadFile(MultipartFile file, String fileType,
+                             String ossConfigKey, HttpServletRequest request, int sum) {
         // 文件名，根据UUID来
         String fileName = UUID.randomUUID().toString().toUpperCase().replace("-", "") + "." + fileType;
         return putObject(file, fileType, fileName, request, sum, false);
@@ -75,8 +83,8 @@ public class OssUploadUtil {
      * @param sum
      * @return 文件地址
      */
-    public static String uploadFileProgress(MultipartFile file, String fileType,
-                                            String ossConfigKey, HttpServletRequest request, int sum) {
+    public String uploadFileProgress(MultipartFile file, String fileType,
+                                     String ossConfigKey, HttpServletRequest request, int sum) {
         // 文件名，根据UUID来
         String fileName = UUID.randomUUID().toString().toUpperCase().replace("-", "") + "." + fileType;
         return putObject(file, fileType, fileName, request, sum, true);
@@ -93,8 +101,8 @@ public class OssUploadUtil {
      * @param sum
      * @return
      */
-    public static String updateFile(CommonsMultipartFile file, String fileType,
-                                    String oldUrl, HttpServletRequest request, int sum) {
+    public String updateFile(CommonsMultipartFile file, String fileType,
+                             String oldUrl, HttpServletRequest request, int sum) {
         String fileName = getFileName(oldUrl);
         if (fileName == null) {
             return null;
@@ -114,9 +122,9 @@ public class OssUploadUtil {
      * @param sum
      * @return
      */
-    public static String replaceFile(CommonsMultipartFile file,
-                                     String fileType, String oldUrl, String ossConfigKey,
-                                     HttpServletRequest request, int sum) {
+    public String replaceFile(CommonsMultipartFile file,
+                              String fileType, String oldUrl, String ossConfigKey,
+                              HttpServletRequest request, int sum) {
         // 先删除原文件
         boolean flag = deleteFile(oldUrl);
         if (!flag) {
@@ -132,7 +140,7 @@ public class OssUploadUtil {
      * @param fileUrl 需要删除的文件url
      * @return
      */
-    public static boolean deleteFile(String fileUrl) {
+    public boolean deleteFile(String fileUrl) {
         // 根据url获取bucketName
         String bucketName = OssUploadUtil.getBucketName(fileUrl);
         // 根据url获取fileName
@@ -160,13 +168,13 @@ public class OssUploadUtil {
      * @param fileUrls 需要删除的文件url集合
      * @return
      */
-    public static int deleteFile(List<String> fileUrls) {
+    public int deleteFile(List<String> fileUrls) {
         // 成功删除的个数
         int deleteCount = 0;
         // 根据url获取bucketName
         String bucketName = OssUploadUtil.getBucketName(fileUrls.get(0));
         // 根据url获取fileName
-        List<String> fileNames = OssUploadUtil.getFileName(fileUrls);
+        List<String> fileNames = getFileName(fileUrls);
         if (bucketName == null || fileNames.size() <= 0) {
             return 0;
         }
@@ -194,7 +202,7 @@ public class OssUploadUtil {
      * @param fileUrls 需要删除的文件url集合
      * @return
      */
-    public static int deleteFiles(List<String> fileUrls) {
+    public int deleteFiles(List<String> fileUrls) {
         int count = 0;
         for (String url : fileUrls) {
             if (deleteFile(url)) {
@@ -215,8 +223,8 @@ public class OssUploadUtil {
      * @param progress
      * @return
      */
-    private static String putObject(MultipartFile file, String fileType,
-                                    String fileName, HttpServletRequest request1, int sum, boolean progress) {
+    private String putObject(MultipartFile file, String fileType,
+                             String fileName, HttpServletRequest request1, int sum, boolean progress) {
         String url = null;
         try {
 
@@ -224,7 +232,7 @@ public class OssUploadUtil {
             // 创建上传Object的Metadata
             ObjectMetadata meta = new ObjectMetadata();
             // 设置上传内容类型
-            meta.setContentType(OssUploadUtil.contentType(fileType));
+            meta.setContentType(contentType(fileType));
             // 被下载时网页的缓存行为
             meta.setCacheControl("no-cache");
 
@@ -280,7 +288,7 @@ public class OssUploadUtil {
      * @param fileType
      * @return
      */
-    private static String contentType(String fileType) {
+    private String contentType(String fileType) {
         fileType = fileType.toLowerCase();
         String contentType = "";
         if (fileType.equals("bmp")) {
@@ -361,14 +369,14 @@ public class OssUploadUtil {
         return fileUrl.substring(beginIndex + str.length());
     }
 
-   
+
     /**
      * 根据url获取fileNames集合
      *
      * @param fileUrls 文件url
      * @return
      */
-    private static List<String> getFileName(List<String> fileUrls) {
+    private List<String> getFileName(List<String> fileUrls) {
         List<String> names = new ArrayList<>();
         for (String url : fileUrls) {
             names.add(getFileName(url));
@@ -376,7 +384,7 @@ public class OssUploadUtil {
         return names;
     }
 
-    public static class PutObjectProgressListener implements ProgressListener {
+    public class PutObjectProgressListener implements ProgressListener {
         private HttpSession session;
         private long bytesWritten = 0;
         private long totalBytes = -1;
