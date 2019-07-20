@@ -37,7 +37,7 @@ layui.config({
         });
     }
 
-    var idPlan, idArea, timeSection, itemNum, limit;
+    var idPlan, idArea, timeSection, limit;
 
     function fullPageHead(data) {
         $("#naOrg").text(data.naOrg);
@@ -50,7 +50,6 @@ layui.config({
             idPlan = data.idPlan;
             idArea = data.idArea;
             timeSection = data.timeSection;
-            itemNum = data.itemNum;
             limit = data.limit;
             data.page = 1;
             loadStudentInfo(data);
@@ -132,15 +131,8 @@ layui.config({
         return html;
     }
 
-    var pageNum = 1;
     setInterval(function () {
-        var pageTotal = Math.ceil(itemNum / limit);
-        timeoutPage(pageNum);
-        if (pageNum == pageTotal)  {
-            pageNum = 1;
-        } else {
-            pageNum ++;
-        }
+        timeoutPage(1);
     }, 10000);
 
     function timeoutPage(pageNum) {
