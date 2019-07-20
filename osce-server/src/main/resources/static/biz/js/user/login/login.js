@@ -40,6 +40,10 @@ $(function () {
         }
     });
 
+    $('#register').click(function () {
+        alert('请联系管理员');
+    })
+
 });
 
 var _valueOfEncryptPassword = function (value) {
