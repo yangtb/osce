@@ -1,7 +1,6 @@
 package com.osce.server.portal.biz.execute;
 
 import com.osce.server.portal.BaseController;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +14,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PfExecuteController extends BaseController {
 
-    @PreAuthorize("hasAnyRole('ROLE_03_01','ROLE_SUPER')")
-    @RequestMapping("/pf/p/sho")
-    public String page(Model model) {
-        return "pages/biz/show/bigScreen";
+    /**
+     * 理论考试首页
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping("/m/exec/main")
+    public String execMain(Model model, Long idRoom, Long idOrg) {
+        model.addAttribute("idRoom", idRoom);
+        model.addAttribute("idOrg", idOrg);
+        return "pages/biz/execute/execMain";
     }
 
+    /**
+     * 理论考试
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping("/m/exec/test")
+    public String execTest(Model model, Long idExecQueue) {
+        model.addAttribute("idExecQueue", idExecQueue);
+        return "pages/biz/execute/execTest";
+    }
 
 }

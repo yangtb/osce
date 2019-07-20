@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link href="${basePath!}/biz/img/logo/favicon.ico" rel="shortcut icon">
+   <#-- <link href="${basePath!}/biz/img/logo/favicon.ico" rel="shortcut icon">-->
     <title>${homeInfo.websiteName!}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

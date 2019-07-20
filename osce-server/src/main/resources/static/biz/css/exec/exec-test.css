@@ -1,0 +1,64 @@
+
+.details-info {
+    position: relative;
+    color: #333333;
+    margin-top: 5px;
+    padding-top: 5px;
+    text-align: left;
+}
+
+.tel-text, .id-text, .test-time, .status {
+    height: 22px;
+    line-height: 22px;
+    /*display: flex;*/
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-header {
+    width: 70px;
+}
+
+.tel, .cardid, .time, .status-text {
+    /*flex: 1;*/
+    color: #999999;
+}
+
+.card-border {
+    border: 1px solid #1E9FFF
+}
+
+
+.card-font {
+    font-size: 20px;
+}
+
+.card-title {
+    text-align: center;
+    font-weight: bold
+}
+
+.item-question {
+    cursor: pointer;
+    font-weight: bold
+}
+
+.item-right {
+    background-color: #5FB878;
+}
+
+.item-error {
+    background-color: #FF5722;
+}
+
+.item-not-done {
+    background-color: #C5C5C5;
+}
+
+.mouseOver {
+    background-color: rgb(24, 144, 255);
+}
+
+.select {
+    background-color: rgb(24, 144, 255);
+}

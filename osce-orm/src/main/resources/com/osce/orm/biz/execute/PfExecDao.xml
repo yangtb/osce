@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.execute.PfExecDao">
+    <insert id="saveItem" useGeneratedKeys="true" keyProperty="idWeItem">
+        INSERT INTO we_item
+        (
+        <trim suffixOverrides=",">
+            <if test="idWeItem!=null">
+                id_we_item,
+            </if>
+            <if test="idExec!=null">
+                id_exec,
+            </if>
+            <if test="cdIteStr!=null">
+                cd_ite_str,
+            </if>
+            <if test="idItem!=null">
+                id_item,
+            </if>
+            <if test="score!=null">
+                score,
+            </if>
+            <if test="scoreResult!=null">
+                score_result,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idWeItem!=null">
+                #{idWeItem},
+            </if>
+            <if test="idExec!=null">
+                #{idExec},
+            </if>
+            <if test="cdIteStr!=null">
+                #{cdIteStr},
+            </if>
+            <if test="idItem!=null">
+                #{idItem},
+            </if>
+            <if test="score!=null">
+                #{score},
+            </if>
+            <if test="scoreResult!=null">
+                #{scoreResult},
+            </if>
+        </trim>
+        )
+    </insert>
+    <update id="updateWeItem">
+        UPDATE we_item
+        SET
+        <trim suffixOverrides=",">
+            <if test="idExec != null">
+                id_exec = #{idExec},
+            </if>
+            <if test="cdIteStr != null and cdIteStr!=''">
+                cd_ite_str = #{cdIteStr},
+            </if>
+            <if test="idItem != null">
+                id_item = #{idItem},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+            <if test="scoreResult != null">
+                score_result = #{scoreResult},
+            </if>
+        </trim>
+        WHERE
+            id_we_item = #{idWeItem}
+    </update>
+
+    <select id="selectStuInfo" resultType="com.osce.vo.biz.execute.ExecAuthVo">
+        SELECT
+            a.id_exec_queue ,
+            a.sd_exec_queue ,
+            b.user_id ,
+            b.real_name ,
+            b.phone_no ,
+            b.idcard AS idCard ,
+            a.plan_begin ,
+            a.plan_end ,
+            c.no_reg
+        FROM
+            es_exec_queue a
+        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+        left join we_waiting_reg c on a.id_waiting_reg = c.id_waiting_reg
+        WHERE
+            b.idcard = #{idCard}
+        AND a.id_room = #{idRoom}
+        AND a.id_org = #{idOrg}
+    </select>
+
+    <select id="execAuth" statementType="CALLABLE">
+        call P_QUEUE_UPDATE(
+            #{parIdExecQueue,mode=IN,jdbcType=INTEGER},
+            #{parSdExecQueue,mode=IN,jdbcType=VARCHAR},
+            #{parCode,mode=OUT,jdbcType=INTEGER},
+            #{parMsg,mode=OUT,jdbcType=VARCHAR}
+        )
+    </select>
+    <select id="listTested" resultType="com.osce.vo.biz.execute.ExecTestVo">
+        SELECT
+            a.id_exec_queue ,
+            b.sd_station_ca ,
+            a.sd_skill_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = b.sd_station_ca) AS sdStationCaText ,
+            na_item_store AS naPaper ,
+            d.min_cost ,
+            2 status
+        FROM
+            we_exec a
+        LEFT JOIN td_station b ON a.id_station = b.id_station
+        LEFT JOIN td_item_store c ON c.id_item_store = a.id_paper
+        LEFT JOIN es_exec_queue d ON a.id_exec_queue = d.id_exec_queue
+        WHERE
+            a.sd_skill_ca = '1'
+        AND a.id_user_student = #{userId}
+        AND a.id_room = #{idRoom}
+        AND a.id_org = #{idOrg}
+    </select>
+    <select id="selectTest" resultType="com.osce.vo.biz.execute.ExecTestVo">
+        SELECT
+            a.id_exec_queue ,
+            b.sd_station_ca ,
+            a.sd_skill_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = b.sd_station_ca) AS sdStationCaText ,
+            na_item_store AS naPaper ,
+            d.min_cost ,
+            1 status
+        FROM
+            es_exec_queue a
+        LEFT JOIN td_station b ON a.id_station = b.id_station
+        LEFT JOIN td_item_store c ON c.id_item_store = a.id_paper
+        LEFT JOIN es_exec_queue d ON a.id_exec_queue = d.id_exec_queue
+        WHERE
+            a.sd_skill_ca = '1'
+        AND a.id_user_student = #{userId}
+        AND a.id_room = 5
+        AND a.id_org = #{idOrg}
+        AND a.id_area = #{idArea}
+        AND a.time_section = #{timeSection}
+    </select>
+    <select id="selectsStuTestInfo" resultType="com.osce.vo.biz.execute.TestStuVo">
+        SELECT
+            a.id_exec_queue ,
+            a.sd_exec_queue ,
+            b.user_id ,
+            b.real_name ,
+            b.phone_no ,
+            b.idcard AS idCard ,
+            a.act_begin ,
+            a.act_end ,
+            c.no_reg ,
+            a.id_paper ,
+            a.min_cost ,
+            DATE_ADD(a.act_begin , INTERVAL a.min_cost MINUTE) as countdownTime ,
+            d.id_exec
+        FROM
+            es_exec_queue a
+        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+        LEFT JOIN we_waiting_reg c ON a.id_waiting_reg = c.id_waiting_reg
+        LEFT JOIN we_exec d ON a.id_exec_queue = d.id_exec_queue
+        WHERE
+            a.id_exec_queue = #{idExecQueue}
+    </select>
+
+    <resultMap id="itemMap" type="com.osce.vo.biz.execute.TestItemVo">
+        <id property="idItem" column="id_item"/>
+        <id property="mainItem" column="main_item"/>
+        <id property="idWeItem" column="id_we_item"/>
+        <id property="answer" column="answer"/>
+        <id property="scoreResult" column="score_result"/>
+        <collection property="itemOptions" ofType="com.osce.vo.biz.execute.TestItemOptionVo">
+            <result property="idItemOption" column="id_item_option" />
+            <result property="cdIteStr" column="cd_ite_str" />
+            <result property="naOption" column="na_option" />
+        </collection>
+    </resultMap>
+
+    <select id="selectsItemInfo" resultMap="itemMap">
+        SELECT
+            a.id_item ,
+            a.main_item ,
+            b.id_item_option ,
+            b.cd_ite_str ,
+            b.na_option ,
+            c.id_we_item ,
+            <if test="sdExecQueue!= null and sdExecQueue!= '' and sdExecQueue == '5'.toString()">
+                c.score_result ,
+            </if>
+            c.cd_ite_str AS answer
+        FROM
+            td_item a
+        LEFT JOIN td_item_option b ON a.id_item = b.id_item
+        LEFT JOIN we_item c ON a.id_item = c.id_item
+        WHERE
+            a.id_item_store = #{dto.idPaper}
+        AND a.fg_active = '1'
+        order by id_item
+    </select>
+    <select id="selectScore" resultType="com.osce.vo.biz.execute.TestItemAnswerVo">
+        SELECT
+            a.score_default ,
+            GROUP_CONCAT(b.cd_ite_str, ';') as cd_ite_str
+        FROM
+            td_item a
+        LEFT JOIN td_item_option b ON a.id_item = b.id_item AND fg_right = 1
+        WHERE
+            a.id_item = #{idItem}
+    </select>
+    <select id="selectSdExecQueue" resultType="java.lang.String">
+        select sd_exec_queue from es_exec_queue where id_exec_queue = #{idExecQueue}
+    </select>
+    <select id="countTestResult" resultType="com.osce.vo.biz.execute.TestResultVo">
+        SELECT
+            sum(if(c.score_result >= 1, 1 , 0)) rightNum ,
+            sum(if(c.score_result = 0, 1 , 0)) errorNum ,
+            sum(if(c.score_result is null, 1, 0)) noDoneNum ,
+            sum(c.score_result) totalScore
+        FROM
+            td_item a
+        LEFT JOIN we_item c ON a.id_item = c.id_item
+        WHERE
+            a.id_item_store = #{idPaper}
+        AND a.fg_active = '1'
+    </select>
+
+
+</mapper>

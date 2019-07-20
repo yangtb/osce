@@ -1,0 +1,76 @@
+
+.details-info {
+    position: relative;
+    color: #333333;
+    margin-top: 5px;
+    padding-top: 5px;
+    text-align: left;
+}
+
+.tel-text, .id-text, .test-time, .status {
+    height: 22px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text-header {
+    width: 70px;
+}
+
+.tel, .cardid, .time, .status-text {
+    flex: 1;
+    color: #999999;
+}
+
+.card-border {
+    border: 1px solid #1E9FFF
+}
+
+.card-border-big-active {
+    border: 2px solid #5FB878
+}
+
+.card-border-big {
+    border: 2px solid #1E9FFF
+}
+
+.card-font {
+    font-size: 20px;
+}
+
+.card-title {
+    text-align: center;
+    font-weight: bold
+}
+
+.li-normal {
+    border-bottom: 1px solid #d2d2d2;
+    padding: 5px 0px 5px 0px;
+}
+
+.li-bottom {
+    border-bottom: 2px solid #d2d2d2;
+    padding: 5px 0px 5px 0px
+}
+
+.li-last {
+    text-align: center;
+    padding-bottom: 20px;
+    cursor: pointer;
+}
+
+.img-query {
+    width: 60px;
+    height: 60px;
+    padding-top: 20px;
+}
+
+.right-label {
+    padding-left: 100px;
+}
+
+.left-label {
+    color: #0C0C0C;
+}
