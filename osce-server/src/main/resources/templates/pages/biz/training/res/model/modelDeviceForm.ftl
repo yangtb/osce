@@ -170,9 +170,9 @@
                         <button class="layui-btn" lay-submit="" id="save" lay-filter="addModelDevice">
                             <i class="iconfont icon-save-copy"></i>保存
                         </button>
-                        <button type="button" class="layui-btn layui-btn-normal" id="QRCode">
+                        <#--<button type="button" class="layui-btn layui-btn-normal" id="QRCode">
                             <i class="iconfont icon-erweima"></i>生成二维码
-                        </button>
+                        </button>-->
                         <button type="button" class="layui-btn layui-btn-danger" id="fault">
                             <i class="iconfont icon-guzhang"></i> 故障登记
                         </button>

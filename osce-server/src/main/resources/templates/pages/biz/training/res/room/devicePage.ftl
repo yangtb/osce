@@ -34,9 +34,9 @@
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
                     <i class="layui-icon layui-icon-delete"></i>删除
                 </button>
-                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="record">
+               <#-- <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="record">
                     <i class="iconfont icon-erweima"></i> 生成二维码
-                </button>
+                </button>-->
             </div>
         </div>
     </form>

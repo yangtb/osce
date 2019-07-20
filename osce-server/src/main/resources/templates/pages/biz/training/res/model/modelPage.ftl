@@ -37,9 +37,9 @@
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
                     <i class="layui-icon layui-icon-delete"></i>删除
                 </button>
-                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="record">
+                <#--<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="record">
                     <i class="layui-icon layui-icon-table"></i>使用记录
-                </button>
+                </button>-->
             </div>
         </div>
         <div class="layui-inline">
