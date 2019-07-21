@@ -81,21 +81,21 @@ public class PfUploadController extends BaseController {
             Assert.isTrue(Long.valueOf(picMaxUploadValue) >= fileSize, ErrorCode.FILE_SIZE_ERROR_CODE, "图片文件不能超过" + Long.valueOf(picMaxUploadValue) / 1024 + "M");
         } else if (fileTypeNum.equals(FileTypeUtil.FileTypeEnum.AUDIO.getCode())) {
             Assert.isTrue(audioUploadType.indexOf(fileType) != -1, ErrorCode.FILE_TYPE_ERROR_CODE, "目前暂支持类型为[" + audioUploadType + "]的音频文件");
-            Assert.isTrue(Long.valueOf(audioMaxUploadValue) >= fileSize, ErrorCode.FILE_SIZE_ERROR_CODE, "音频文件不能超过" + Long.valueOf(audioMaxUploadValue) + "M");
+            Assert.isTrue(Long.valueOf(audioMaxUploadValue) >= fileSize, ErrorCode.FILE_SIZE_ERROR_CODE, "音频文件不能超过" + Long.valueOf(audioMaxUploadValue)/ 1024 + "M");
         } else if (fileTypeNum.equals(FileTypeUtil.FileTypeEnum.VIDEO.getCode())) {
             Assert.isTrue(videoUploadType.indexOf(fileType) != -1, ErrorCode.FILE_TYPE_ERROR_CODE, "目前暂支持类型为[" + picUploadType + "]的视频文件");
-            Assert.isTrue(Long.valueOf(videoMaxUploadValue) >= fileSize, ErrorCode.FILE_SIZE_ERROR_CODE, "视频文件不能超过" + Long.valueOf(videoMaxUploadValue) + "M");
+            Assert.isTrue(Long.valueOf(videoMaxUploadValue) >= fileSize, ErrorCode.FILE_SIZE_ERROR_CODE, "视频文件不能超过" + Long.valueOf(videoMaxUploadValue)/ 1024 + "M");
         } else {
             throw new BizRuntimeException(ErrorCode.FILE_TYPE_ERROR_CODE, "不支持的文件类型");
         }
 
-        String url;
-        if (fileTypeNum.equals(FileTypeUtil.FileTypeEnum.IMG.getCode())) {
+        String url = ossUploadUtil.uploadFile(file, fileType, null, request, 1);
+        /*if (fileTypeNum.equals(FileTypeUtil.FileTypeEnum.IMG.getCode())) {
             // 此处可选择没有进度条上传
             url = ossUploadUtil.uploadFile(file, fileType, null, request, 1);
         } else {
             url = ossUploadUtil.uploadFileProgress(file, fileType, null, request, 1);
-        }
+        }*/
 
         // 上传后url保存至数据库
         BasMedia dto = new BasMedia();

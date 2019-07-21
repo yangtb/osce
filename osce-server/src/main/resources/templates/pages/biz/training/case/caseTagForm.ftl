@@ -124,9 +124,9 @@
                         <label class="layui-form-label">剧本</label>
                         <div class="layui-input-inline" style="vertical-align: middle;width: 317px;">
                             <input id="docSp" name="docSp" placeholder="请上传文件" autocomplete="off"
-                                   class="layui-input layui-disabled" disabled>
+                                   class="layui-input">
                         </div>
-                        <button type="button" class="layui-btn layui-btn-primary" id="test3">
+                        <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
                             <i class="layui-icon" style="color: #009688; font-weight: bold">&#xe608;</i>上传
                         </button>
                         <button type="button" class="layui-btn layui-btn-primary" id="preview">

@@ -1,10 +1,11 @@
 layui.config({
     base: basePath + '/layui/build/js/'
-}).use(['element', 'jquery', 'form', 'jquery', 'common'], function () {
+}).use(['element', 'jquery', 'form', 'jquery', 'common', "upload"], function () {
     var element = layui.element;
     var $ = jQuery = layui.jquery
         , form = layui.form
-        , common = layui.common;
+        , common = layui.common
+        , upload = layui.upload;
 
     FrameWH();
 
@@ -102,6 +103,52 @@ layui.config({
         return false;
     }
 
+    // 上传剧本
+    upload.render({
+        elem: '#LAY_avatarUpload'
+        , url: basePath + '/upload'
+        , field: 'file'
+        , accept: 'file' //普通文件
+        //, exts: 'jpg|png|bmp|jpeg'
+        , before: function (obj) {
+            layer.msg('正在上传剧本', {icon: 16, shade: 0.01});
+        }
+        , done: function (res) {
+            if (res.code != '0') {
+                layer.tips(res.msg, '#LAY_avatarUpload', {
+                    tips: [1, '#FF5722'],
+                    time: 5000
+                });
+                return;
+            }
+            $('#docSp').val(res.data.path);
+            layer.closeAll('loading');
+        }
+        , error: function () {
+            layer.closeAll('loading');
+        }
+    });
+
+    $('#preview').on('click', function () {
+        var i = $("#docSp").val();
+        if (!i) {
+            layer.tips("请先上传剧本", '#preview', {
+                tips: [1, '#FF5722']
+            });
+            return;
+        }
+        layui.layer.photos({
+            photos: {
+                title: "查看布局图",
+                data: [{
+                    src: i
+                }]
+            },
+            shade: .01,
+            closeBtn: 1,
+            anim: 5
+        })
+    });
 
 });
 
