@@ -62,10 +62,10 @@
                             <input id="picRoom" name="picRoom" placeholder="请上传文件" autocomplete="off"
                                    class="layui-input layui-disabled" disabled>
                         </div>
-                        <button type="button" class="layui-btn layui-btn-primary" id="test3">
+                        <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
                             <i class="layui-icon" style="color: #009688; font-weight: bold">&#xe608;</i>上传
                         </button>
-                        <button type="button" class="layui-btn layui-btn-primary" id="preview">
+                        <button type="button" class="layui-btn layui-btn-primary" id="reviewPhoto">
                             <i class="iconfont icon-look1" style="color: #009688; font-weight: bold"></i> 预览
                         </button>
                     </div>
