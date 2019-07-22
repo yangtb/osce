@@ -2,10 +2,7 @@ package com.osce.orm.biz.training.caseku;
 
 import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
-import com.osce.entity.CobScoreItem;
-import com.osce.entity.CobScoreSheet;
-import com.osce.entity.CobSpCase;
-import com.osce.result.PageResult;
+import com.osce.entity.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -121,5 +118,78 @@ public interface PfCaseDao {
      * @return
      */
     int delItem(PfBachChangeStatusDto dto);
+
+    /**
+     * 保存评量表
+     *
+     * @param dto
+     * @return
+     */
+    int addCobEvaluate(CobEvaluate dto);
+
+    /**
+     * 编辑评量表
+     *
+     * @param dto
+     * @return
+     */
+    int editCobEvaluate(CobEvaluate dto);
+
+    /**
+     * 删除评量表
+     *
+     * @param dto
+     * @return
+     */
+    int delCobEvaluate(PfBachChangeStatusDto dto);
+
+    /**
+     * 保存评量明细
+     *
+     * @param dto
+     * @return
+     */
+    Long addCobEvaluateDetail(CobEvaluateDetail dto);
+
+    /**
+     * 编辑评量表
+     *
+     * @param dto
+     * @return
+     */
+    int editCobEvaluateDetail(CobEvaluateDetail dto);
+
+    /**
+     * 删除评量明细
+     *
+     * @param dto
+     * @return
+     */
+    int delCobEvaluateDetail(PfBachChangeStatusDto dto);
+
+    /**
+     * 删除评量明细
+     *
+     * @param dto
+     * @return
+     */
+    int delCobEvaluateDetailByIdCob(PfBachChangeStatusDto dto);
+
+    /**
+     * 评量表list
+     *
+     * @param cdCobEvaluate
+     * @return
+     */
+    List<CobEvaluate> listCobEvaluate(@Param("cdCobEvaluate") String cdCobEvaluate);
+
+    /**
+     * 评量明细list
+     *
+     * @param idCobEvaluate
+     * @return
+     */
+    List<CobEvaluateDetail> listCobEvaluateDetail(@Param("idCobEvaluate") Long idCobEvaluate);
+
 
 }

@@ -34,11 +34,22 @@
                     <i class="iconfont icon-edit"></i> 编辑
                 </button>
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
-                    <i class="layui-icon layui-icon-delete"></i>删除
+                    <i class="iconfont icon-batch-del"></i> 删除
                 </button>
-
             </div>
         </div>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="MiniCEX">
+                <i class="layui-icon">&#xe642;</i>Mini-CEX
+            </button>
+        </div>
+
+        <div>
+            <button id="MiniCEXHidden" type="button" class="layui-btn layui-btn-normal"
+                    lay-href="" style="display: none">Mini-CEX
+            </button>
+        </div>
+
     </form>
 
     <table id="caseTable" lay-filter="caseTableFilter">

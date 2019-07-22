@@ -1,6 +1,8 @@
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['layer', 'index', 'table', 'form', 'jquery', 'common'], function () {
     var $ = layui.$
         , table = layui.table
         , form = layui.form
@@ -185,6 +187,18 @@ layui.config({
             data.status = '0';
         }
         common.commonPost(basePath + '/pf/r/case/updateStatus', data, '设置', obj.othis);
+    });
+
+    $('#MiniCEX').on('click', function () {
+        /*var checkStatus = table.checkStatus('caseTableId')
+            , data = checkStatus.data;
+        if (data.length != 1) {
+            layer.tips('请先选中一条病例', '#MiniCEX', {tips: 1});
+            return;
+        }
+        var currentEditData = data[0];*/
+        $('#MiniCEXHidden').attr('lay-href', basePath + '/pf/p/case/miniCex/page?cdCobEvaluate=1');
+        $('#MiniCEXHidden').click();
     });
 
 });

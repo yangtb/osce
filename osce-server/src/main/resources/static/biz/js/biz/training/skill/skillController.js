@@ -1,6 +1,8 @@
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['layer', 'index', 'table', 'form', 'jquery', 'common'], function () {
     var $ = layui.$
         , table = layui.table
         , form = layui.form
@@ -190,6 +192,11 @@ layui.config({
             data.status = '0';
         }
         common.commonPost(basePath + '/pf/r/skill/updateStatus', data, '设置', obj.othis);
+    });
+
+    $('#DOPS').on('click', function () {
+        $('#DOPSHidden').attr('lay-href', basePath + '/pf/p/case/miniCex/page?cdCobEvaluate=2');
+        $('#DOPSHidden').click();
     });
 
 });

@@ -307,6 +307,78 @@
         </trim>
         )
     </insert>
+    <insert id="addCobEvaluate" useGeneratedKeys="true" keyProperty="idCobEvaluate">
+        INSERT INTO cob_evaluate
+        (
+        <trim suffixOverrides=",">
+            <if test="idCobEvaluate!=null">
+                id_cob_evaluate,
+            </if>
+            <if test="cdCobEvaluate!=null and cdCobEvaluate!=''">
+                cd_cob_evaluate,
+            </if>
+            <if test="naCobEvaluate!=null and naCobEvaluate!=''">
+                na_cob_evaluate,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idCobEvaluate!=null">
+                #{idCobEvaluate},
+            </if>
+            <if test="cdCobEvaluate!=null and cdCobEvaluate!=''">
+                #{cdCobEvaluate},
+            </if>
+            <if test="naCobEvaluate!=null and naCobEvaluate!=''">
+                #{naCobEvaluate},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+        </trim>
+        )
+    </insert>
+    <insert id="addCobEvaluateDetail"  useGeneratedKeys="true" keyProperty="idCobEvaluateDetail">
+        INSERT INTO cob_evaluate_detail
+        (
+        <trim suffixOverrides=",">
+            <if test="idCobEvaluateDetail!=null">
+                id_cob_evaluate_detail,
+            </if>
+            <if test="idCobEvaluate!=null">
+                id_cob_evaluate,
+            </if>
+            <if test="naCobEvaluateDetail!=null and naCobEvaluateDetail!=''">
+                na_cob_evaluate_detail,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idCobEvaluateDetail!=null">
+                #{idCobEvaluateDetail},
+            </if>
+            <if test="idCobEvaluate!=null">
+                #{idCobEvaluate},
+            </if>
+            <if test="naCobEvaluateDetail!=null and naCobEvaluateDetail!=''">
+                #{naCobEvaluateDetail},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+        </trim>
+        )
+    </insert>
     <update id="editCase">
         UPDATE cob_sp_case
         SET
@@ -481,6 +553,67 @@
         </foreach>
         )
     </update>
+    <update id="editCobEvaluate">
+        UPDATE cob_evaluate
+        SET
+        <trim suffixOverrides=",">
+            <if test="cdCobEvaluate != null and cdCobEvaluate!=''">
+                cd_cob_evaluate = #{cdCobEvaluate},
+            </if>
+            <if test="naCobEvaluate != null and naCobEvaluate!=''">
+                na_cob_evaluate = #{naCobEvaluate},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+        </trim>
+        WHERE
+            id_cob_evaluate = #{idCobEvaluate}
+    </update>
+    <update id="editCobEvaluateDetail">
+        UPDATE cob_evaluate_detail
+        SET
+        <trim suffixOverrides=",">
+            <if test="idCobEvaluate != null">
+                id_cob_evaluate = #{idCobEvaluate},
+            </if>
+            <if test="naCobEvaluateDetail != null and naCobEvaluateDetail!=''">
+                na_cob_evaluate_detail = #{naCobEvaluateDetail},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+        </trim>
+        WHERE
+            id_cob_evaluate_detail = #{idCobEvaluateDetail}
+    </update>
+    <delete id="delCobEvaluate">
+        delete from cob_evaluate
+        WHERE
+            id_cob_evaluate in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="delCobEvaluateDetail">
+        delete from cob_evaluate_detail
+        WHERE
+            id_cob_evaluate_detail in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="delCobEvaluateDetailByIdCob">
+        delete from cob_evaluate_detail
+        WHERE
+            id_cob_evaluate in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
 
 
     <select id="listCase" resultType="com.osce.entity.CobSpCase">
@@ -576,4 +709,28 @@
         AND a.id_org = #{idOrg}
         AND a.fg_valid = '0'
     </select>
+    <select id="listCobEvaluate" resultType="com.osce.entity.CobEvaluate">
+        SELECT
+            id_cob_evaluate ,
+            na_cob_evaluate ,
+            sort
+        FROM
+            cob_evaluate
+        WHERE
+            cd_cob_evaluate = #{cdCobEvaluate}
+        order by sort
+    </select>
+    <select id="listCobEvaluateDetail" resultType="com.osce.entity.CobEvaluateDetail">
+        SELECT
+            id_cob_evaluate_detail ,
+            id_cob_evaluate ,
+            na_cob_evaluate_detail ,
+            sort
+        FROM
+            cob_evaluate_detail
+        WHERE
+            id_cob_evaluate = #{idCobEvaluate}
+        order by sort
+    </select>
+
 </mapper>

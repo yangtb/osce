@@ -50,8 +50,19 @@
                     <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">
                         <i class="iconfont icon-reset"></i> 重置
                     </button>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="DOPS">
+                        <i class="layui-icon">&#xe642;</i>DOPS
+                    </button>
                 </div>
+
+                <div>
+                    <button id="DOPSHidden" type="button" class="layui-btn layui-btn-normal"
+                            lay-href="" style="display: none">DOPS
+                    </button>
+                </div>
+
             </div>
+
         </div>
     </form>
 

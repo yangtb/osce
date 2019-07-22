@@ -2,9 +2,7 @@ package com.osce.api.biz.training.caseku;
 
 import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
-import com.osce.entity.CobScoreItem;
-import com.osce.entity.CobScoreSheet;
-import com.osce.entity.CobSpCase;
+import com.osce.entity.*;
 import com.osce.result.PageResult;
 
 import java.util.List;
@@ -88,5 +86,53 @@ public interface PfCaseService {
      * @return
      */
     boolean delItem(PfBachChangeStatusDto dto);
+
+    /**
+     * 保存评量表
+     *
+     * @param dto
+     * @return
+     */
+    Long saveCobEvaluate(CobEvaluate dto);
+
+    /**
+     * 删除评量表
+     *
+     * @param dto
+     * @return
+     */
+    boolean delCobEvaluate(PfBachChangeStatusDto dto);
+
+    /**
+     * 保存评量明细
+     *
+     * @param dto
+     * @return
+     */
+    Long saveCobEvaluateDetail(CobEvaluateDetail dto);
+
+    /**
+     * 删除评量明细
+     *
+     * @param dto
+     * @return
+     */
+    boolean delCobEvaluateDetail(PfBachChangeStatusDto dto);
+
+    /**
+     * 评量表list
+     *
+     * @param cdCobEvaluate
+     * @return
+     */
+    List<CobEvaluate> listCobEvaluate(String cdCobEvaluate);
+
+    /**
+     * 评量明细list
+     *
+     * @param idCobEvaluate
+     * @return
+     */
+    List<CobEvaluateDetail> listCobEvaluateDetail(Long idCobEvaluate);
 
 }

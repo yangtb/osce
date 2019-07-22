@@ -3,9 +3,7 @@ package com.osce.service.biz.training.caseku;
 import com.osce.api.biz.training.caseku.PfCaseService;
 import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
-import com.osce.entity.CobScoreItem;
-import com.osce.entity.CobScoreSheet;
-import com.osce.entity.CobSpCase;
+import com.osce.entity.*;
 import com.osce.orm.biz.training.caseku.PfCaseDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
@@ -13,6 +11,7 @@ import com.osce.result.ResultFactory;
 import com.sm.open.care.core.utils.CommonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -96,5 +95,50 @@ public class PfCaseServiceImpl implements PfCaseService {
         int num = pfCaseDao.delItem(dto);
         return num >= 1 ? true : false;
     }
+
+    @Override
+    public Long saveCobEvaluate(CobEvaluate dto) {
+        if (dto.getIdCobEvaluate() == null) {
+            pfCaseDao.addCobEvaluate(dto);
+        } else {
+            pfCaseDao.editCobEvaluate(dto);
+        }
+        return dto.getIdCobEvaluate();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean delCobEvaluate(PfBachChangeStatusDto dto) {
+        int num = pfCaseDao.delCobEvaluate(dto);
+        pfCaseDao.delCobEvaluateDetailByIdCob(dto);
+        return num >= 1 ? true : false;
+    }
+
+    @Override
+    public Long saveCobEvaluateDetail(CobEvaluateDetail dto) {
+        if (dto.getIdCobEvaluateDetail() == null) {
+            pfCaseDao.addCobEvaluateDetail(dto);
+        } else {
+            pfCaseDao.editCobEvaluateDetail(dto);
+        }
+        return dto.getIdCobEvaluateDetail();
+    }
+
+    @Override
+    public boolean delCobEvaluateDetail(PfBachChangeStatusDto dto) {
+        int num = pfCaseDao.delCobEvaluateDetail(dto);
+        return num >= 1 ? true : false;
+    }
+
+    @Override
+    public List<CobEvaluate> listCobEvaluate(String cdCobEvaluate) {
+        return pfCaseDao.listCobEvaluate(cdCobEvaluate);
+    }
+
+    @Override
+    public List<CobEvaluateDetail> listCobEvaluateDetail(Long idCobEvaluate) {
+        return pfCaseDao.listCobEvaluateDetail(idCobEvaluate);
+    }
+
 
 }
