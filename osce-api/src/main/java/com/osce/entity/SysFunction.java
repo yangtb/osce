@@ -8,7 +8,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 系统功能权限资源库
+ * @ClassName: SysFunction
+ * @Description: 系统功能权限资源库
+ * @Author yangtongbin
+ * @Date 2019-07-22
  */
 @Setter
 @Getter

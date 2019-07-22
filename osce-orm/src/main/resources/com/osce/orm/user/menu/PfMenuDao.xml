@@ -44,7 +44,7 @@
             resultType="com.osce.entity.SysFunction">
         SELECT  id , name , code , parent_code , sys_function_code , level , function_url ,
                 sort_num , function_type , platform_type , status ,
-                icon_type , icon_source , position , gmt_create , gmt_modify
+                icon_type , icon_source , position , target, gmt_create , gmt_modify
         FROM
             sys_function sf
         WHERE
