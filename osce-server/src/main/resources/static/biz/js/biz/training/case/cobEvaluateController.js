@@ -180,7 +180,7 @@ layui.config({
         var index = layui.layer.open({
             title: '<b>评分项目【' + naCobEvaluate + '】</b>',
             type: 2,
-            area: ['659px', '325px'],
+            area: ['660px', '400px'],
             fixed: false,
             content: basePath + '/pf/p/cob/evaluate/detail/page?idCobEvaluate=' + idCobEvaluate,
             shadeClose: true,

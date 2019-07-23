@@ -1,12 +1,16 @@
 package com.osce.server.portal.biz.monitor;
 
-import com.osce.api.biz.show.PfShowService;
+import com.osce.api.biz.monitor.PfAreaMonitorService;
+import com.osce.dto.biz.monitor.MonitorDto;
+import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
+import com.osce.server.security.CurrentUserUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @ClassName: PfMonitorController
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PfAreaMonitorController extends BaseController {
 
     @Reference
-    private PfShowService pfShowService;
+    private PfAreaMonitorService pfAreaMonitorService;
 
     @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
     @RequestMapping("/pf/p/monitor/area/page")
@@ -26,6 +30,53 @@ public class PfAreaMonitorController extends BaseController {
         return "pages/biz/monitor/monitor";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
+    @RequestMapping("/pf/p/monitor/addStu/page")
+    public String addStuPage(Model model) {
+        return "pages/biz/monitor/addStudent";
+    }
+
+    /**
+     * 待考学员
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/monitor/area/list/toBeExamined")
+    @ResponseBody
+    public PageResult listToBeExaminedStu(MonitorDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return PageResult.create(pfAreaMonitorService.listToBeExaminedStu(dto));
+    }
+
+    /**
+     * 场内学员
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/monitor/area/list/onSite")
+    @ResponseBody
+    public PageResult listOnSiteStu(MonitorDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return PageResult.create(pfAreaMonitorService.listOnSiteStu(dto));
+    }
+
+    /**
+     * 结束学员
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/monitor/area/list/end")
+    @ResponseBody
+    public PageResult listEndStu(MonitorDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return PageResult.create(pfAreaMonitorService.listEndStu(dto));
+    }
 
 }
 

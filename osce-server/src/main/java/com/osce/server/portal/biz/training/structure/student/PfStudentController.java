@@ -94,7 +94,7 @@ public class PfStudentController extends BaseController {
         return "pages/biz/training/structure/student/studentForm";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_01_01_003','ROLE_SUPER')")
+    @PreAuthorize("hasAnyRole('ROLE_01_01_002', 'ROLE_02_02_001','ROLE_01_01_003','ROLE_05_01','ROLE_SUPER')")
     @RequestMapping(value = "/pf/p/student/list")
     @ResponseBody
     public PageResult listStudent(StudentDto dto) {

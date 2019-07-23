@@ -1,8 +1,18 @@
 package com.osce.server.rest.biz.monitor;
 
 import com.osce.api.biz.monitor.PfAreaMonitorService;
+import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.server.portal.BaseController;
+import com.osce.server.security.CurrentUserUtils;
+import com.sm.open.care.core.ErrorCode;
+import com.sm.open.care.core.ErrorMessage;
+import com.sm.open.care.core.ResultObject;
+import com.sm.open.care.core.utils.Assert;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,5 +27,36 @@ public class PfAreaMonitorRestController extends BaseController {
     @Reference
     private PfAreaMonitorService pfAreaMonitorService;
 
+    /**
+     * 删除学员
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/monitor/area/student/del")
+    public ResultObject delAreaStu(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        return pfAreaMonitorService.delAreaStu(dto) ? ResultObject.createSuccess("delAreaStu", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("delAreaStu", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+    /**
+     * 恢复考试
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/monitor/area/student/recovery")
+    public ResultObject recoveryTest(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        return pfAreaMonitorService.recoveryTest(dto) ? ResultObject.createSuccess("recoveryTest", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("recoveryTest", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
 
 }

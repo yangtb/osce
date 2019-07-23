@@ -16,10 +16,9 @@
     </script>
 
     <style>
-        /*.right-label {
-            display:inline-block;
-
-        }*/
+        .right-label {
+            color: #656565;
+        }
 
         .left-label {
             display:inline-block; width:80px;
@@ -31,10 +30,15 @@
 
 <div class="wrapper-content" style="margin-top: -10px;">
 
-    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <div class="layui-tab layui-tab-brief" lay-filter="monitorFilter">
         <ul class="layui-tab-title">
             <li class="layui-this">站点监控</li>
             <li>学员管控</li>
+            <li class="layui-nav-item layui-hide-xs" style="float: right;" lay-unselect>
+                <a href="javascript:;" layadmin-event="fullscreen">
+                    <i class="layui-icon layui-icon-screen-full"></i>
+                </a>
+            </li>
         </ul>
         <div class="layui-tab-content">
 
@@ -380,13 +384,30 @@
 
 
             <div class="layui-tab-item" style="margin-top: -20px;">
-                <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <div class="layui-tab layui-tab-brief" lay-filter="stuTabFilter">
                     <ul class="layui-tab-title">
                         <li class="layui-this">待考学员</li>
                         <li>场内学员</li>
                         <li>结束学员</li>
                     </ul>
-                    <div class="layui-tab-content"></div>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-hide" id="toBeExaminedTable" lay-filter="toBeExaminedTableFilter"></table>
+
+                            </table>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-hide" id="onSiteTable" lay-filter="onSiteTableFilter"></table>
+
+                            </table>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-hide" id="endTable" lay-filter="endTableFilter"></table>
+
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -395,24 +416,33 @@
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
-<script src="${contextPath}/biz/js/biz/statistics/testResultController.js"></script>
+<script src="${contextPath}/biz/js/biz/monitor/areaMonitorController.js"></script>
 
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm layui-btn-normal" id="addStudent" lay-event="addStudent"><i class="layui-icon">&#xe654;</i>添加学员</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger" id="delStudent" lay-event="delStudent"><i class="layui-icon">&#xe640;</i>删除学员</button>
+    </div>
+</script>
 
-<script>
-    layui.use(['carousel', 'form'], function(){
-        var carousel = layui.carousel
-            ,form = layui.form;
+<script type="text/html" id="endBar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm layui-btn-normal" id="recoveryTest" lay-event="recoveryTest"><i class="iconfont icon-huifu"></i> 恢复考试</button>
+    </div>
+</script>
 
-        //常规轮播
-        carousel.render({
-            elem: '#test1'
-            , arrow: 'hover'
-            , width: '100%' //设置容器宽度
-            , height: '650px' //设置容器宽度
-            , interval: 5000
-        });
+<script type="text/html" id="endStatusTpl">
+    {{#  if(d.endStatus == 1){ }}
+    <button type="button" class="layui-btn layui-btn-xs" style="background-color: #5FB878">正常结束</button>
+    {{#  } else { }}
+    <button type="button" class="layui-btn layui-btn-xs layui-btn-danger">缺考</button>
+    {{#  } }}
+</script>
 
-    });
+<script type="text/html" id="toBeExaminedBar">
+        <i class="iconfont icon-shangyi" style="color: #35aefc; cursor: pointer;"></i>
+        <i class="iconfont icon-xiayi" style="color: #3170d1; cursor: pointer;"></i>
+        <i class="iconfont icon-zhiding" style="color: #3ca2d6; cursor: pointer;"></i>
 </script>
 
 </body>

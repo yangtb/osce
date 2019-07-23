@@ -1,5 +1,11 @@
 package com.osce.api.biz.monitor;
 
+import com.osce.dto.biz.monitor.MonitorDto;
+import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.vo.biz.monitor.MonitorStuVo;
+
+import java.util.List;
+
 /**
  * @ClassName: PfAreaMonitorService
  * @Description: PfAreaMonitorService
@@ -8,6 +14,43 @@ package com.osce.api.biz.monitor;
  */
 public interface PfAreaMonitorService {
 
+    /**
+     * 待考学员
+     *
+     * @param dto
+     * @return
+     */
+    List<MonitorStuVo> listToBeExaminedStu(MonitorDto dto);
 
+    /**
+     * 场内学员
+     *
+     * @param dto
+     * @return
+     */
+    List<MonitorStuVo> listOnSiteStu(MonitorDto dto);
 
+    /**
+     * 结束学员
+     *
+     * @param dto
+     * @return
+     */
+    List<MonitorStuVo> listEndStu(MonitorDto dto);
+
+    /**
+     * 删除学员
+     *
+     * @param dto
+     * @return
+     */
+    boolean delAreaStu(PfBachChangeStatusDto dto);
+
+    /**
+     * 恢复考试
+     *
+     * @param dto
+     * @return
+     */
+    boolean recoveryTest(PfBachChangeStatusDto dto);
 }
