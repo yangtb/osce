@@ -20,7 +20,7 @@ layui.config({
     }
 
     $("#addTag").on('click', function () {
-        common.open('标签管理', basePath + '/pf/p/sp/tag/form', 490, 465);
+        common.open('标签管理', basePath + '/pf/p/sp/tag/form', 490, 500);
     });
 
     //监听提交

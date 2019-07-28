@@ -1,9 +1,10 @@
 layui.config({
     base: basePath + '/layui/build/js/'
-}).use(['layer', 'form', 'jquery', 'common'], function () {
-    var $ = layui.$,
-        form = layui.form,
-        common = layui.common;
+}).use(['layer', 'form', 'jquery', 'common', "upload"], function () {
+    var $ = layui.$
+        , form = layui.form
+        , common = layui.common
+        , upload = layui.upload;
 
     if (!common.readLocalStorage('tip-org-mg')) {
         layer.msg('左侧区域鼠标点击右键可新增分类', {
@@ -330,6 +331,53 @@ layui.config({
             iframe.fullForm(data);
         }
     };
+
+    // 上传头像
+    upload.render({
+        elem: '#LAY_avatarUpload'
+        , url: basePath + '/upload'
+        , field: 'file'
+        , accept: 'images' //普通文件
+        , exts: 'jpg|png|bmp|jpeg'
+        , before: function (obj) {
+            layer.msg('正在上传布局图', {icon: 16, shade: 0.01});
+        }
+        , done: function (res) {
+            if (res.code != '0') {
+                layer.tips(res.msg, '#LAY_avatarUpload', {
+                    tips: [1, '#FF5722'],
+                    time: 5000
+                });
+                return;
+            }
+            $('#examRoomUrl').val(res.data.path);
+            layer.closeAll('loading');
+        }
+        , error: function () {
+            layer.closeAll('loading');
+        }
+    });
+
+    $('#reviewPhoto').on('click', function () {
+        var i = $("#examRoomUrl").val();
+        if (!i) {
+            layer.tips("请先上传布局图", '#reviewPhoto', {
+                tips: [1, '#FF5722']
+            });
+            return;
+        }
+        layui.layer.photos({
+            photos: {
+                title: "查看布局图",
+                data: [{
+                    src: i
+                }]
+            },
+            shade: .01,
+            closeBtn: 1,
+            anim: 5
+        })
+    });
 
 });
 

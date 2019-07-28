@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.osce.orm.biz.statistics.PfStatisticsDao">
     <update id="delTest">
-        UPDATE todo
+        UPDATE tp_plan
         SET
             <choose>
                 <when test="operationType == 'updateStatus'">
@@ -16,7 +16,7 @@
             operator = #{operator},
             gmt_modify = now()
         WHERE
-            id_item_store in (
+            id_plan in (
         <foreach collection="list" item="item" separator="," >
             #{item}
         </foreach>
@@ -24,9 +24,47 @@
     </update>
 
     <select id="listStatistics" resultType="com.osce.vo.biz.statistics.StatisticsTestResultVo">
-
+        SELECT
+            a.id_plan ,
+            a.na_plan ,
+            a.gmt_plan_begin ,
+            a.gmt_plan_end ,
+            a.fg_replan ,
+            a.sd_plan_status ,
+            a.gmt_create ,
+            COUNT(DISTINCT b.id_area) AS areaNum ,
+            COUNT(DISTINCT c.id_tp_student) AS studentNum
+        FROM
+            tp_plan a
+        LEFT JOIN td_area b ON a.id_model = b.id_model
+        LEFT JOIN tp_student c ON a.id_plan = c.id_plan
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.sd_plan_status IN(4 , 5)
+        AND a.fg_valid = '0'
+        <if test="naPlan != null and naPlan != '' ">
+            and a.na_plan like concat('%',#{naPlan},'%')
+        </if>
+        GROUP BY
+            a.na_plan ,
+            a.gmt_plan_begin ,
+            a.gmt_plan_end ,
+            a.fg_replan ,
+            a.sd_plan_status ,
+            a.gmt_create
+        limit #{offset}, #{limit}
     </select>
     <select id="countStatistics" resultType="java.lang.Long">
-
+        SELECT
+            count(1)
+        FROM
+            tp_plan a
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.sd_plan_status IN(4 , 5)
+        AND a.fg_valid = '0'
+        <if test="naPlan != null and naPlan != '' ">
+            and a.na_plan like concat('%',#{naPlan},'%')
+        </if>
     </select>
 </mapper>

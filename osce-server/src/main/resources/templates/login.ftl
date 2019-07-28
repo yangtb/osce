@@ -28,10 +28,10 @@
     <div class="row">
         <div class="col-sm-7">
             <div class="signin-info">
-                <div class="logopanel m-b">
+                <#--<div class="logopanel m-b">
                     <h1>${websiteName!}</h1>
-                </div>
-                <div class="m-b"></div>
+                </div>-->
+               <#-- <div class="m-b"></div>
                 <h4>欢迎使用 <strong>${websiteName!}</strong></h4>
                 <ul class="m-b">
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势一</li>
@@ -40,7 +40,7 @@
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势四</li>
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势五</li>
                 </ul>
-                <strong>还没有账号？ <a href="#" id="register">立即注册&raquo;</a></strong>
+                <strong>还没有账号？ <a href="#" id="register">立即注册&raquo;</a></strong>-->
             </div>
         </div>
         <div class="col-sm-5">
@@ -75,12 +75,13 @@
             </div>
         </div>
     </div>
-    <div class="signup-footer">
-        <div class="pull-left">
-            技术服务电话：XXXX-XXXXXXX
-            <br>
-            ${websiteCopyright!}.
-        </div>
+
+</div>
+<div  style="float: bottom; padding-top: 150px; text-align: center ">
+    <div>
+        <#-- 技术服务电话：XXXX-XXXXXXX-->
+        <br>
+        ${websiteCopyright!}.
     </div>
 </div>
 

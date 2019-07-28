@@ -7,7 +7,6 @@ import com.osce.entity.TdSkillCase;
 import com.osce.entity.TdSpCase;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

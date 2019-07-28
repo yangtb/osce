@@ -4,20 +4,21 @@ import com.osce.api.biz.training.structure.dept.PfDeptService;
 import com.osce.api.biz.training.structure.grade.PfGradeService;
 import com.osce.api.biz.training.structure.student.PfStudentService;
 import com.osce.api.system.org.PfOrgService;
-import com.osce.dto.biz.training.structure.grade.GradeDto;
 import com.osce.dto.biz.training.structure.student.StudentDto;
-import com.osce.entity.SysOrg;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
 import com.osce.server.security.User;
 import com.osce.server.security.rsa.RsaKeyPairQueue;
+import com.osce.server.utils.DownloadFileUtil;
 import com.osce.server.utils.SysUserAuthUtils;
 import com.osce.vo.PfTreeSelectVo;
 import com.osce.vo.biz.training.structure.grade.GradeVo;
 import com.sm.open.care.core.enums.YesOrNoNum;
 import com.sm.open.care.core.utils.rsa.RsaKeyPair;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -100,6 +101,24 @@ public class PfStudentController extends BaseController {
     public PageResult listStudent(StudentDto dto) {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return pfStudentService.pageStudents(dto);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
+    @RequestMapping("/pf/p/student/template/download")
+    public Object templateDownLoad() {
+        ResponseEntity<InputStreamResource> response = null;
+        try {
+            response = DownloadFileUtil.download("user", "userTemplate.xlsx", "OSCE学员批量导入模板1.0");
+        } catch (Exception e) {
+            logger.error("下载模板失败");
+        }
+        return response;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_01_01_003','ROLE_SUPER')")
+    @RequestMapping("/pf/p/student/move/page")
+    public String moveStudentPage(Model model) {
+        return "pages/biz/training/structure/student/studentMovePage";
     }
 
 }

@@ -3,6 +3,7 @@ package com.osce.service.biz.training.structure.student;
 import com.osce.api.biz.training.structure.student.PfStudentService;
 import com.osce.dto.biz.training.structure.student.StudentDepartDto;
 import com.osce.dto.biz.training.structure.student.StudentDto;
+import com.osce.dto.biz.training.structure.student.StudentMoveDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.dto.user.login.RegisterDto;
 import com.osce.enums.PfRoleEnum;
@@ -13,6 +14,7 @@ import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.service.user.login.PfUserServiceImpl;
 import com.osce.vo.biz.training.structure.student.StudentDepartVo;
+import com.osce.vo.biz.training.structure.student.StudentVo;
 import com.osce.vo.user.role.PfRoleVo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
@@ -85,6 +87,27 @@ public class PfStudentServiceImpl implements PfStudentService {
     public boolean delStudent(PfBachChangeStatusDto dto) {
         pfStudentDao.delStudent(dto);
         pfStudentDao.delUser(dto);
+        return true;
+    }
+
+    @Override
+    public List<StudentVo> listStudentByIdGrade(StudentDto dto) {
+        return pfStudentDao.listStudentByIdGrade(dto);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean moveStudent(StudentMoveDto dto) {
+        List<Long> idDeparts = dto.getIdDeparts();
+        List<Long> idUsers = dto.getIdUsers();
+        for (Long idDepart : idDeparts) {
+            for (Long idUser : idUsers) {
+                if (pfStudentDao.isExistDeptStu(idDepart, idUser)) {
+                    continue;
+                }
+                pfStudentDao.moveStudent(idDepart, idUser);
+            }
+        }
         return true;
     }
 

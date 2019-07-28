@@ -52,6 +52,11 @@ public class SysOrg implements Serializable {
     private String email;
 
     /**
+     * 布局图
+     */
+    private String examRoomUrl;
+
+    /**
      * 上级机构
      */
     private Long idOrgPar;

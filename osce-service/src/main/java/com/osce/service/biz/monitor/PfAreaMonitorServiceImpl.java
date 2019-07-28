@@ -4,10 +4,14 @@ import com.osce.api.biz.monitor.PfAreaMonitorService;
 import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.orm.biz.monitor.PfAreaMonitorDao;
+import com.osce.vo.biz.monitor.MonitorAreaVo;
 import com.osce.vo.biz.monitor.MonitorStuVo;
+import com.osce.vo.biz.show.ShowAioMainVo;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,18 +28,71 @@ public class PfAreaMonitorServiceImpl implements PfAreaMonitorService {
 
 
     @Override
+    public List<MonitorAreaVo> listMonitorArea(MonitorDto dto) {
+        List<ShowAioMainVo> planList = pfAreaMonitorDao.listCurrentPlan();
+        if (CollectionUtils.isEmpty(planList)) {
+            return null;
+        }
+        List<MonitorAreaVo> list = new ArrayList<>();
+        for (ShowAioMainVo showAioMainVo : planList) {
+            List<MonitorAreaVo> monitorAreaVos = pfAreaMonitorDao.listMonitorArea(showAioMainVo.getIdPlan(),
+                    showAioMainVo.getIdArea(), showAioMainVo.getTimeSection());
+            if (CollectionUtils.isNotEmpty(monitorAreaVos)) {
+                list.addAll(monitorAreaVos);
+            }
+        }
+        return list;
+    }
+
+    @Override
     public List<MonitorStuVo> listToBeExaminedStu(MonitorDto dto) {
-        return pfAreaMonitorDao.listToBeExaminedStu(dto);
+        List<ShowAioMainVo> planList = pfAreaMonitorDao.listCurrentPlan();
+        if (CollectionUtils.isEmpty(planList)) {
+            return null;
+        }
+        List<MonitorStuVo> list = new ArrayList<>();
+        for (ShowAioMainVo showAioMainVo : planList) {
+            List<MonitorStuVo> monitorStuVos = pfAreaMonitorDao.listToBeExaminedStu(showAioMainVo.getIdPlan(),
+                    showAioMainVo.getIdArea(), showAioMainVo.getTimeSection());
+            if (CollectionUtils.isNotEmpty(monitorStuVos)) {
+                list.addAll(monitorStuVos);
+            }
+        }
+        return list;
     }
 
     @Override
     public List<MonitorStuVo> listOnSiteStu(MonitorDto dto) {
-        return pfAreaMonitorDao.listOnSiteStu(dto);
+        List<ShowAioMainVo> planList = pfAreaMonitorDao.listCurrentPlan();
+        if (CollectionUtils.isEmpty(planList)) {
+            return null;
+        }
+        List<MonitorStuVo> list = new ArrayList<>();
+        for (ShowAioMainVo showAioMainVo : planList) {
+            List<MonitorStuVo> monitorStuVos = pfAreaMonitorDao.listOnSiteStu(showAioMainVo.getIdPlan(),
+                    showAioMainVo.getIdArea(), showAioMainVo.getTimeSection());
+            if (CollectionUtils.isNotEmpty(monitorStuVos)) {
+                list.addAll(monitorStuVos);
+            }
+        }
+        return list;
     }
 
     @Override
     public List<MonitorStuVo> listEndStu(MonitorDto dto) {
-        return pfAreaMonitorDao.listEndStu(dto);
+        List<ShowAioMainVo> planList = pfAreaMonitorDao.listCurrentPlan();
+        if (CollectionUtils.isEmpty(planList)) {
+            return null;
+        }
+        List<MonitorStuVo> list = new ArrayList<>();
+        for (ShowAioMainVo showAioMainVo : planList) {
+            List<MonitorStuVo> monitorStuVos = pfAreaMonitorDao.listEndStu(showAioMainVo.getIdPlan(),
+                    showAioMainVo.getIdArea(), showAioMainVo.getTimeSection());
+            if (CollectionUtils.isNotEmpty(monitorStuVos)) {
+                list.addAll(monitorStuVos);
+            }
+        }
+        return list;
     }
 
     @Override

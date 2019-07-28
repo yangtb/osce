@@ -184,7 +184,7 @@ layui.config({
             if (username) {
                 username += ', ';
             }
-            username += content.userName;
+            username += content.username;
             reqData.push(content.userId);
         });
         var data = {};
@@ -208,7 +208,7 @@ layui.config({
             if (username) {
                 username += ', ';
             }
-            username += content.userName;
+            username += content.username;
             reqData.push(content.userId);
         });
         var data = {};

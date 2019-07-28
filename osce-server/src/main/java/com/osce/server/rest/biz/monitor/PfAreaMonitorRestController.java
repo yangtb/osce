@@ -1,7 +1,9 @@
 package com.osce.server.rest.biz.monitor;
 
 import com.osce.api.biz.monitor.PfAreaMonitorService;
+import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.param.PageParam;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
 import com.sm.open.care.core.ErrorCode;
@@ -11,6 +13,7 @@ import com.sm.open.care.core.utils.Assert;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +29,20 @@ public class PfAreaMonitorRestController extends BaseController {
 
     @Reference
     private PfAreaMonitorService pfAreaMonitorService;
+
+    /**
+     * 考场监控主页
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/monitor/area/list")
+    public ResultObject listMonitorArea(@RequestBody MonitorDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return ResultObject.createSuccess("listMonitorArea", ResultObject.DATA_TYPE_LIST,
+                pfAreaMonitorService.listMonitorArea(dto));
+    }
 
     /**
      * 删除学员

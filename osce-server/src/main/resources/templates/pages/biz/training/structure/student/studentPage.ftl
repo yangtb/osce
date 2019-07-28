@@ -35,7 +35,7 @@
     <form class="layui-form" style="margin: 5px 0px 5px 0px; padding-bottom: 5px; border-bottom: 1px solid #d2d2d2">
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <select name="idGrade" lay-verify="required">
+                <select id="idGrade" name="idGrade" lay-verify="required">
                     <#if allGrade?? && (allGrade?size > 0)>
                         <#list allGrade as grade >
                             <option value="${grade.idGrade!}" <#if grade.fgActive='1'>selected</#if>>${grade.naGrade!}</option>
@@ -61,34 +61,59 @@
         </div>
     </div>
     <div class="layui-col-xs9" style="padding-left: 5px;">
+        <form id="exportForm" action="${basePath}/pf/p/student/template/download" method="post">
+        </form>
         <form class="layui-form">
-            <div class="layui-inline">
-                <div class="layui-btn-group">
-                    <button type="button" class="layui-btn layui-btn-sm" id="add">
-                        <i class="iconfont icon-add"></i> 增加
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-sm" id="edit">
-                        <i class="iconfont icon-edit"></i> 编辑
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
-                        <i class="layui-icon layui-icon-delete"></i>删除
-                    </button>
+            <div class="layui-row">
+                <div class="layui-inline">
+                    <div class="layui-btn-group">
+                        <button type="button" class="layui-btn layui-btn-sm" id="add">
+                            <i class="iconfont icon-add"></i> 增加
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-sm" id="edit">
+                            <i class="iconfont icon-edit"></i> 编辑
+                        </button>
+                        <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
+                            <i class="layui-icon layui-icon-delete"></i>删除
+                        </button>
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="text" name="keywords" class="layui-input" autocomplete="off"
+                               placeholder="请输入姓名或手机号" style="height:30px;">
+                    </div>
                 </div>
-                <div class="layui-input-inline">
-                    <input type="text" name="keywords" class="layui-input" autocomplete="off"
-                           placeholder="请输入姓名或手机号" style="height:30px;">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="studentSearchFilter">
+                            <i class="iconfont icon-query"></i> 查询
+                        </button>
+                        <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">
+                            <i class="iconfont icon-reset"></i> 重置
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="layui-inline">
-                <div class="layui-input-inline">
-                    <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="studentSearchFilter">
-                        <i class="iconfont icon-query"></i> 查询
-                    </button>
-                    <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">
-                        <i class="iconfont icon-reset"></i> 重置
+
+            <div class="layui-row" style="padding-top: 2px;">
+                <div class="layui-inline">
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="moveStudent">
+                        <i class="iconfont icon-renyuanqianyi"></i>往届学员迁移
                     </button>
                 </div>
+                <div class="layui-input-inline" style="padding-left: 10px;">
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="templateDownLoad">
+                        <i class="iconfont icon-mobanxiazai"></i> 模板下载
+                    </button>
+                    &nbsp;批量导入
+                </div>
+                <div class="layui-input-inline">
+                    <div class="layui-form-block">
+                        <input type="file" name="file" class="layui-btn layui-btn-primary"
+                               id="itemImport">
+                    </div>
+                </div>
             </div>
+
         </form>
 
         <table id="studentTable" lay-filter="studentTableFilter">
@@ -124,6 +149,44 @@
 <script type="text/html" id="studentBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
 </script>
+
+<script type="text/html" id="LAY-excel-export-ans">
+    {{# layui.each(d.data, function(index, item){ }}
+    <blockquote class="layui-elem-quote">{{d.files[index].name}}</blockquote>
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            {{# layui.each(item, function(sheetname, content) { }}
+            <li class="layui-this">{{sheetname}}</li>
+            {{# }); }}
+        </ul>
+
+        <div class="layui-tab-content" style="overflow: auto">
+            {{# layui.each(item, function(sheetname, content) { }}
+            <div class="layui-tab-item layui-show">
+                <table class="layui-table" style="width: 900px; height: auto">
+                    {{# layui.each(content, function(index, value) { }}
+                    <tr>
+                        {{#  if(index == 0){ }}
+                        <td style="color: #009688">学届</td>
+                        <td style="color: #009688">班级</td>
+                        {{#  } else { }}
+                        <td style="color: #009688">{{d.naGrade}}</td>
+                        <td style="color: #009688">{{d.naDepart}}</td>
+                        {{#  } }}
+                        {{# layui.each(value, function(key, val) { }}
+                        <td>{{val}}</td>
+                        {{# });}}
+                    </tr>
+                    {{# });}}
+                </table>
+                <#--<pre class="layui-code">{{JSON.stringify(content, null, 2)}}</pre>-->
+            </div>
+            {{# }); }}
+        </div>
+    </div>
+    {{# }) }}
+</script>
+
 
 </body>
 </html>

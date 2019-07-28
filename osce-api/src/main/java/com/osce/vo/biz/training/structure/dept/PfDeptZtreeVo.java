@@ -24,6 +24,16 @@ public class PfDeptZtreeVo extends PfCommonZtreeVo implements Serializable {
     private Long idDepart;
 
     /**
+     * 年级
+     */
+    private Long idGrade;
+
+    /**
+     * 1 院系 2 专业 3 班级
+     */
+    private String sdDepartCa;
+
+    /**
      * 激活标志
      */
     private String fgActive;

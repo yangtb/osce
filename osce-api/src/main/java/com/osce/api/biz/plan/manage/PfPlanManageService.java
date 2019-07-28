@@ -4,12 +4,10 @@ import com.osce.dto.biz.plan.manage.PfCallPlanDto;
 import com.osce.dto.biz.plan.manage.PfCopyModelDto;
 import com.osce.dto.biz.plan.manage.PlanDto;
 import com.osce.dto.biz.plan.manage.TpStudentDto;
-import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpPlan;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.manage.AssignedStudentVo;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

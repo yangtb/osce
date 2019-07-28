@@ -2,6 +2,7 @@ package com.osce.api.biz.monitor;
 
 import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.vo.biz.monitor.MonitorAreaVo;
 import com.osce.vo.biz.monitor.MonitorStuVo;
 
 import java.util.List;
@@ -13,6 +14,14 @@ import java.util.List;
  * @Date 2019-07-20
  */
 public interface PfAreaMonitorService {
+
+    /**
+     * 考场监控
+     *
+     * @param dto
+     * @return
+     */
+    List<MonitorAreaVo> listMonitorArea(MonitorDto dto);
 
     /**
      * 待考学员

@@ -8,7 +8,6 @@ import com.osce.dto.user.PfUserDto;
 import com.osce.entity.PfEmailSet;
 import com.osce.entity.SysOrg;
 import com.osce.result.PageResult;
-import com.osce.result.ResultFactory;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
 import com.osce.server.security.SecurityContext;
@@ -16,11 +15,7 @@ import com.osce.server.security.User;
 import com.osce.server.security.rsa.RsaKeyPairQueue;
 import com.osce.server.utils.SysUserAuthUtils;
 import com.osce.vo.user.role.PfRoleVo;
-import com.sm.open.care.core.ResultObject;
 import com.sm.open.care.core.enums.YesOrNo;
-import com.sm.open.care.core.utils.Assert;
-import com.sm.open.care.core.utils.ExcelUtils;
-import com.sm.open.care.core.utils.ImportExcel;
 import com.sm.open.care.core.utils.rsa.RsaKeyPair;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
@@ -30,15 +25,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -196,47 +185,5 @@ public class PfUserController extends BaseController {
         return pfUserService.listUsers(dto);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER_MG','ROLE_SUPER')")
-    @RequestMapping("/pf/p/user/download/userExcel")
-    @ResponseBody
-    public String downloadUserExcel(HttpServletResponse response, HttpServletRequest request) {
-        List<List<String>> sheets = new ArrayList<>();
-        String[] titles = {"姓名", "手机号", "邮箱", "真实姓名"};
-        int[] size = {1000, 1000, 1000, 1000};
-        String fileName = "用户注册批量导入表格模版";
 
-        ExcelUtils.setFileDownloadHeader(response, request, fileName + ".xls");
-        ExcelUtils.createXlsFile(response, titles, sheets, size);
-        return null;
-    }
-
-
-    @PreAuthorize("hasAnyRole('ROLE_USER_MG','ROLE_SUPER')")
-    @RequestMapping(value = "/pf/p/user/upload/userExcel")
-    @ResponseBody
-    public ResultObject uploadUserExcel(HttpServletRequest request) {
-        // 转型为MultipartHttpRequest：
-        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        // 获得文件：
-        MultipartFile file = multipartRequest.getFile("file");
-
-        Assert.isTrue(!file.isEmpty(), "请选择要上传文件");
-
-        InputStream is = null;
-        try {
-            is = file.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String originalFilename = file.getOriginalFilename();
-
-
-        ImportExcel importExcel = new ImportExcel();
-        List<Object> list = importExcel.importDataFromExcel(is, originalFilename);
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).toString());
-        }
-
-        return ResultObject.createSuccess("/uploadFile", ResultObject.DATA_TYPE_OBJECT, null);
-    }
 }

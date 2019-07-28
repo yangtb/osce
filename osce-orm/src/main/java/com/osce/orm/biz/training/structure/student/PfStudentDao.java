@@ -6,6 +6,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgGrade;
 import com.osce.vo.biz.training.structure.student.StudentDepartVo;
 import com.osce.vo.biz.training.structure.student.StudentVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -65,5 +66,32 @@ public interface PfStudentDao {
      */
     int delUser(PfBachChangeStatusDto dto);
 
+    /**
+     * 获取班级下所有学员信息
+     *
+     * @param dto
+     * @return
+     */
+    List<StudentVo> listStudentByIdGrade(StudentDto dto);
+
+    /**
+     * 半机械下已有该学生
+     *
+     * @param idDepart
+     * @param idUser
+     * @return
+     */
+    boolean isExistDeptStu(@Param("idDepart") Long idDepart,
+                           @Param("idUser") Long idUser);
+
+    /**
+     * 学生迁移
+     *
+     * @param idDepart
+     * @param idUser
+     * @return
+     */
+    int moveStudent(@Param("idDepart") Long idDepart,
+                    @Param("idUser") Long idUser);
 
 }

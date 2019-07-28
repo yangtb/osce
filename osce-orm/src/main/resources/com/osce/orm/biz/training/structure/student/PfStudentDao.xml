@@ -38,6 +38,20 @@
         </trim>
         )
     </insert>
+    <insert id="moveStudent">
+        INSERT INTO org_student_depart(
+            id_user ,
+            id_depart ,
+            id_grade
+        ) SELECT
+            #{idUser} ,
+            id_depart ,
+            id_grade
+        FROM
+            org_depart
+        WHERE
+            id_depart = #{idDepart}
+    </insert>
     <update id="editStudent">
         UPDATE org_student_depart
         SET
@@ -100,13 +114,13 @@
 
     <select id="listStudents" resultType="com.osce.vo.biz.training.structure.student.StudentVo">
         SELECT
-            a.id_student_depart, a.id_depart, b.user_id, c.na_grade,
+            a.id_student_depart, a.id_depart, b.user_id, c.na_depart,
             b.username, b.real_name, b.sex, b.phone_no, b.id_org, b.email ,
             b.idcard, b.enabled, b.gmt_create, b.user_cd, b.photo_addr
         FROM
             org_student_depart a
         LEFT JOIN user_info b ON a.id_user = b.user_id
-        LEFT JOIN org_grade c ON a.id_grade = c.id_grade
+        LEFT JOIN org_depart c ON a.id_depart = c.id_depart
         WHERE
             b.id_org = #{idOrg}
         AND b.is_deleted = 'N'
@@ -137,6 +151,30 @@
             and (phone_no like concat('%',#{keywords},'%')
             or real_name like concat('%',#{keywords},'%'))
         </if>
+    </select>
+    <select id="listStudentByIdGrade" resultType="com.osce.vo.biz.training.structure.student.StudentVo">
+        SELECT
+            a.id_student_depart ,
+            b.user_id ,
+            b.real_name ,
+            b.sex ,
+            b.phone_no
+        FROM
+            org_student_depart a
+        LEFT JOIN user_info b ON a.id_user = b.user_id
+        WHERE
+            b.id_org = #{idOrg}
+        AND b.is_deleted = 'N'
+        AND a.id_depart = #{idDepart}
+    </select>
+    <select id="isExistDeptStu" resultType="java.lang.Boolean">
+        SELECT
+            count(1)
+        FROM
+            org_student_depart
+        WHERE
+            id_depart = #{idDepart}
+        and id_user = #{idUser}
     </select>
 
 </mapper>

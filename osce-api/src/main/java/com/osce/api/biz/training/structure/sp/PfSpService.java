@@ -5,7 +5,6 @@ import com.osce.dto.biz.training.structure.sp.UserSpDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgSpDefine;
 import com.osce.result.PageResult;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link href="${basePath!}/biz/img/logo/favicon.ico" rel="shortcut icon">
+    <#--<link href="${basePath!}/biz/img/logo/favicon.ico" rel="shortcut icon">-->
     <title>${homeInfo.websiteName!}</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -47,7 +47,11 @@
                             <dl class="layui-nav-child">
                                 <#list element.groupList as menu>
                                 <dd>
-                                    <a lay-href="${contextPath!}${menu.url!}">&nbsp;&nbsp;&nbsp;<i class="iconfont ${menu.img!}"></i> ${menu.name!}&nbsp;&nbsp;&nbsp;</a>
+                                    <#if (menu.target = 'blank')>
+                                        <a href="${contextPath!}${menu.url!}" target="_blank">&nbsp;&nbsp;&nbsp;<i class="iconfont ${menu.img!}"></i> ${menu.name!}&nbsp;&nbsp;&nbsp;</a>
+                                    <#else>
+                                        <a lay-href="${contextPath!}${menu.url!}">&nbsp;&nbsp;&nbsp;<i class="iconfont ${menu.img!}"></i> ${menu.name!}&nbsp;&nbsp;&nbsp;</a>
+                                    </#if>
                                 </dd>
                                 </#list>
                             </dl>

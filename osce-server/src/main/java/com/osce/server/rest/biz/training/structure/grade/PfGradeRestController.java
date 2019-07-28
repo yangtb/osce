@@ -13,7 +13,6 @@ import com.sm.open.care.core.utils.Assert;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,5 +95,33 @@ public class PfGradeRestController extends BaseController {
         return pfGradeService.delGrade(dto) ? ResultObject.createSuccess("updateGradeStatus", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("updateGradeStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
+
+    /**
+     * 学届list
+     *
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_01_001', 'ROLE_01_01_003', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/grade/list/all")
+    public ResultObject listAllGrades() {
+        /* 参数校验 */
+        return ResultObject.createSuccess("listAllGrades", ResultObject.DATA_TYPE_OBJECT,
+                pfGradeService.listAllGrades(CurrentUserUtils.getCurrentUserIdOrg()));
+    }
+
+    /**
+     * 学届班级tree
+     *
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_01_001', 'ROLE_01_01_003', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/grade/list/all/tree")
+    public ResultObject listAllGradeTree() {
+        /* 参数校验 */
+        return ResultObject.createSuccess("listAllGradeTree", ResultObject.DATA_TYPE_OBJECT,
+                pfGradeService.listAllGradeTree(CurrentUserUtils.getCurrentUserIdOrg()));
+    }
+
+
 
 }

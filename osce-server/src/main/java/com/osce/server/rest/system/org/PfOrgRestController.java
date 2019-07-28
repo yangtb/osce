@@ -55,7 +55,7 @@ public class PfOrgRestController {
     @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/org/detail")
     public ResultObject selectOrgDetail(@RequestBody SysOrg dto) {
-        return ResultObject.createSuccess("selectOrgDetail", ResultObject.DATA_TYPE_LIST,
+        return ResultObject.createSuccess("selectOrgDetail", ResultObject.DATA_TYPE_OBJECT,
                 pfOrgService.selectOrgDetail(dto.getIdOrg()));
     }
 
@@ -122,4 +122,19 @@ public class PfOrgRestController {
     public List<PfTreeSelectVo> selectOrgTreeSelect() {
         return pfOrgService.selectOrgTreeSelect();
     }
+
+    /**
+     * 当前机构详情
+     *
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/org/current/detail")
+    public ResultObject selectCurrOrgDetail() {
+        Long idOrg = CurrentUserUtils.getCurrentUserIdOrg();
+        return ResultObject.createSuccess("selectCurrOrgDetail", ResultObject.DATA_TYPE_OBJECT,
+                pfOrgService.selectOrgInfoById(idOrg));
+    }
+
+
 }

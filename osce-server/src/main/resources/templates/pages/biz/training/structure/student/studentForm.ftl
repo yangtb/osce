@@ -99,10 +99,9 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">邮箱<i class="iconfont icon-required"
-                                                     style="color: #f03f2d"></i></label>
+                <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="email" lay-verify="required|email" lay-vertype="tips"
+                    <input type="text" name="email" lay-vertype="tips"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>

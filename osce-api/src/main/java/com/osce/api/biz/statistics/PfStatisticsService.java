@@ -28,4 +28,12 @@ public interface PfStatisticsService {
      */
     boolean delTest(PfBachChangeStatusDto dto);
 
+    /**
+     * 学生成绩
+     *
+     * @param dto
+     * @return
+     */
+    PageResult pageTestScore(StatisticsDto dto);
+
 }

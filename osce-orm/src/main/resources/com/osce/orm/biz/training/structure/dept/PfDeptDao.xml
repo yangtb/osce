@@ -154,8 +154,10 @@
             id_depart ,
             id_depart AS id ,
             id_depart_par AS pId ,
-            na_depart as name,
-            fg_active,
+            na_depart as name ,
+            fg_active ,
+            id_grade ,
+            sd_depart_ca ,
             true as open
         FROM
             org_depart

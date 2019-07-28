@@ -73,8 +73,8 @@
                                                 <span class="circle" id="gmtPlan"></span>
                                                 <p class="text">完成考试</p>
                                                 <diiv class="modal">
-                                                    <p class="modal-item">计划结束时间&emsp;<span class="item-time" id="gmtPlanBegin"></span></p>
-                                                    <p class="modal-item">实际结束时间&emsp;<span class="item-time" id="gmtPlanEnd"></span></p>
+                                                    <p class="modal-item">计划结束时间&emsp;<span class="item-time" id="gmtPlanBeginBar"></span></p>
+                                                    <p class="modal-item">实际结束时间&emsp;<span class="item-time" id="gmtPlanEndBar"></span></p>
                                                 </diiv>
                                             </li>
                                         </ul>

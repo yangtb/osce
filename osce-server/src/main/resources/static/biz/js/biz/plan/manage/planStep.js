@@ -40,7 +40,8 @@ layui.config({
     laydate.render({
         elem: '#gmtPlanBegin'
         //,value: new Date()
-        ,type: 'datetime'
+        , type: 'datetime'
+        , trigger: 'click'
     });
 
     $(document).ready(function () {
@@ -164,10 +165,10 @@ layui.config({
 
 
         if (data.gmtPlanBegin) {
-            $("#gmtPlanBegin").text(data.gmtPlanBegin);
+            $("#gmtPlanBeginBar").text(data.gmtPlanBegin);
         }
         if (data.gmtPlanEnd) {
-            $("#gmtPlanEnd").text(data.gmtPlanEnd);
+            $("#gmtPlanEndBar").text(data.gmtPlanEnd);
         }
         if (!data.gmtPlanEnd) {
             $("#gmtPlan").addClass("unfinished");

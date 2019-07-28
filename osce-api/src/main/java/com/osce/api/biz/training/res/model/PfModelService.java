@@ -9,9 +9,6 @@ import com.osce.entity.ErpDeviceCase;
 import com.osce.entity.ErpDeviceFault;
 import com.osce.entity.ErpDeviceRepair;
 import com.osce.result.PageResult;
-import com.sm.open.care.core.ResultObject;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 

@@ -24,6 +24,9 @@
             <if test="email!=null">
                 email,
             </if>
+            <if test="examRoomUrl!=null and examRoomUrl != ''">
+                exam_room_url,
+            </if>
             <if test="idOrgPar!=null">
                 id_org_par,
             </if>
@@ -67,6 +70,9 @@
             <if test="email!=null">
                 #{email},
             </if>
+            <if test="examRoomUrl!=null and examRoomUrl != ''">
+                #{examRoomUrl},
+            </if>
             <if test="idOrgPar!=null">
                 #{idOrgPar},
             </if>
@@ -109,6 +115,9 @@
             </if>
             <if test="email != null and email!=''">
                 email = #{email},
+            </if>
+            <if test="examRoomUrl!=null and examRoomUrl != ''">
+                exam_room_url = #{examRoomUrl} ,
             </if>
             <if test="idOrgPar != null">
                 id_org_par = #{idOrgPar},
@@ -171,7 +180,7 @@
         SELECT
             id_org, na_org , des_org , address ,
             tell , email , id_org_par ,
-            fg_active , fg_valid , sort ,
+            fg_active , fg_valid , sort , exam_room_url ,
             creator , operator , gmt_create , gmt_modify
         FROM
             sys_org
@@ -195,7 +204,7 @@
     <select id="selectOrgDetail" resultType="com.osce.entity.SysOrg">
         SELECT
             id_org , na_org, des_org, address, tell, email, id_org_par, fg_active,
-            fg_valid, sort, creator, gmt_create, operator, gmt_modify
+            fg_valid, sort, creator, exam_room_url, gmt_create, operator, gmt_modify
         FROM
             sys_org
         WHERE

@@ -56,7 +56,7 @@
                         </div>
                     </div>
 
-                    <div class="layui-form-item">
+                    <#--<div class="layui-form-item">
                         <label class="layui-form-label">布局图</label>
                         <div class="layui-input-inline" style="vertical-align: middle;width: 317px;">
                             <input id="picRoom" name="picRoom" placeholder="请上传文件" autocomplete="off"
@@ -68,7 +68,7 @@
                         <button type="button" class="layui-btn layui-btn-primary" id="reviewPhoto">
                             <i class="iconfont icon-look1" style="color: #009688; font-weight: bold"></i> 预览
                         </button>
-                    </div>
+                    </div>-->
 
                     <div class="layui-form-item form-item-my">
                         <div class="layui-inline">

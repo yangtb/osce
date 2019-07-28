@@ -28,15 +28,18 @@
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
                     <i class="iconfont icon-batch-del"></i>删除
                 </button>
+                <button type="button" id="testRecordHidden" class="layui-btn layui-btn-normal"
+                        lay-href="" style="display: none">记录明细
+                </button>
             </div>
             <div class="layui-input-inline">
-                <input type="text" name="naModel" class="layui-input btn-sm-my" autocomplete="off"
+                <input type="text" name="naPlan" class="layui-input btn-sm-my" autocomplete="off"
                        placeholder="请输入考试名称">
             </div>
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="templateSearchFilter">
+                <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="testSearchFilter">
                     <i class="iconfont icon-query"></i> 查询
                 </button>
                 <button type="reset" class="layui-btn layui-btn-sm layui-btn-danger">
@@ -58,6 +61,23 @@
 <script type="text/html" id="testBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
     <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+</script>
+
+<script type="text/html" id="fgReplanTpl">
+    {{#  if(d.fgReplan == '1'){ }}
+    <span style="color: red">补考</span>
+    {{#  } else { }}
+    普考
+    {{#  } }}
+</script>
+
+<script type="text/html" id="sdPlanStatusTpl">
+    {{#  if(d.sdPlanStatus == 4){ }}
+    <button type="button" class="layui-btn layui-btn-xs" style="background-color: #5FB878">正在考试</button>
+    {{#  } }}
+    {{#  if(d.sdPlanStatus == 5){ }}
+    <button type="button" class="layui-btn layui-btn-xs">考试完成</button>
+    {{#  } }}
 </script>
 
 </body>

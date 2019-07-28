@@ -31,9 +31,14 @@ public class StudentVo implements Serializable {
     private Long userId;
 
     /**
-     * 班级
+     * 学届
      */
     private String naGrade;
+
+    /**
+     * 班级
+     */
+    private String naDepart;
 
     /**
      * 账号

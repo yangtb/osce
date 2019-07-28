@@ -56,7 +56,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">机构名称<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
-                <div class="layui-input-block" style="width: 440px;">
+                <div class="layui-input-block" style="width: 514px;">
                     <input type="text" name="naOrg" id="naOrg" lay-verify="required|commonLength" lay-vertype="tips"
                            autocomplete="off"
                            class="layui-input" placeholder="机构名称">
@@ -64,21 +64,21 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">机构描述</label>
-                <div class="layui-input-block" style="width: 440px;">
+                <div class="layui-input-block" style="width: 514px;">
                     <input type="text" name="desOrg" id="desOrg" autocomplete="off" lay-verify="commonLength255" lay-vertype="tips"
                            class="layui-input" placeholder="机构描述">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">上级机构</label>
-                <div class="layui-input-block" style="width: 440px;">
+                <div class="layui-input-block" style="width: 514px;">
                     <input type="text" name="idOrgParName" id="idOrgParName" autocomplete="off"
                            class="layui-input" placeholder="上级机构（点击左侧选择）">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">机构地址</label>
-                <div class="layui-input-block" style="width: 440px;">
+                <div class="layui-input-block" style="width: 514px;">
                     <input type="text" name="address" id="address" lay-verify="commonLength255" lay-vertype="tips" autocomplete="off"
                            class="layui-input" placeholder="机构地址">
                 </div>
@@ -86,18 +86,31 @@
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">电话</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="text" name="tell" lay-verify="commonLength" lay-vertype="tips" autocomplete="off"
                                class="layui-input" placeholder="电话">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="text" name="email" lay-verify="commonLength" lay-vertype="tips" autocomplete="off"
                                class="layui-input" placeholder="邮箱">
                     </div>
                 </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">布局图</label>
+                <div class="layui-input-inline" style="vertical-align: middle;">
+                    <input id="examRoomUrl" name="examRoomUrl" placeholder="请上传文件" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
+                    <i class="layui-icon" style="color: #009688; font-weight: bold">&#xe608;</i>上传
+                </button>
+                <button type="button" class="layui-btn layui-btn-primary" id="reviewPhoto">
+                    <i class="iconfont icon-look1" style="color: #009688; font-weight: bold"></i> 预览
+                </button>
             </div>
             <div class="layui-form-item">
 
@@ -105,14 +118,14 @@
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">排序</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="text" name="sort" id="sort" autocomplete="off" class="layui-input"
                                lay-verify="sort" lay-vertype="tips">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">激活状态</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="checkbox" checked="" name="fgActive" lay-skin="switch"
                                lay-filter="fgActiveSwitch" value="1" lay-text="激活|停用">
                     </div>
@@ -122,14 +135,14 @@
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">创建人</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="text" name="creator" autocomplete="off" class="layui-input layui-disabled"
                                disabled>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">创建时间</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="text" name="gmtCreate" autocomplete="off" class="layui-input layui-disabled"
                                disabled>
                     </div>
@@ -138,14 +151,14 @@
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">修改人</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="text" name="operator" autocomplete="off" class="layui-input layui-disabled"
                                disabled>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">修改时间</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="text" name="gmtModify" autocomplete="off" class="layui-input layui-disabled"
                                disabled>
                     </div>

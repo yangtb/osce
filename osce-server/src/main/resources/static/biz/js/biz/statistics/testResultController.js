@@ -16,18 +16,18 @@ layui.config({
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
-            {field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
-            {field: 'naModel', minWidth: 170, title: '模板名称', fixed: true},
-            {field: 'numStudentMax', minWidth: 100, title: '最大学生数'},
-            {field: 'numArea', width: 100, title: '考场数'},
-            {field: 'weightManager', minWidth: 150, title: '主考官权重（%）'},
-            {field: 'weightAssistant', minWidth: 160, title: '现场考官权重（%）'},
-            {field: 'weightRemote', minWidth: 160, title: '中控考官权重（%）'},
-            {field: 'minInterval', minWidth: 165, title: '考试间隔时间（min）'},
+            //-- 考试名称 计划开考时间 计划结束时间 考场数 学生数 考试类型 状态 创建时间
+            {field: 'naPlan', minWidth: 170, title: '考试名称', fixed: true},
+            {field: 'gmtPlanBegin', minWidth: 170, title: '计划开考时间'},
+            {field: 'gmtPlanEnd', width: 170, title: '计划结束时间'},
+            {field: 'areaNum', minWidth: 100, align:'right', title: '考场数'},
+            {field: 'studentNum', minWidth: 100, align:'right', title: '学生数'},
+            {field: 'fgReplan', width: 100, title: '考试类型', align:'center', templet: '#fgReplanTpl'},
+            {field: 'sdPlanStatus', minWidth: 165, title: '状态', templet: '#sdPlanStatusTpl'},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
-            {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#testBar'}
+            {fixed: 'right', width: 160, title: '操作', align: 'center', toolbar: '#testBar'}
         ]] //设置表头
-        , url: basePath + '/pf/p/plan/template/list'
+        , url: basePath + '/pf/p/statistics/test/list'
         , limit: 15
         , even: true
         , limits: [15, 30, 100]
@@ -35,20 +35,23 @@ layui.config({
     });
 
     //监听工具条
-    table.on('tool(ttestTableFilter)', function (obj) {
+    table.on('tool(testTableFilter)', function (obj) {
         var data = obj.data;
         if (obj.event === 'edit') {
             _addOrEdit("edit", data);
+        }else if (obj.event === 'del') {
+            var currentData = new Array();
+            currentData.push(data)
+            _delTest(currentData);
         }
     });
 
     //监听提交
-    form.on('submit(templateSearchFilter)', function (data) {
-        var name = data.field.naGrade;
-        var fgActive = data.field.fgActive;
-        table.reload('ttestTableId', {
+    form.on('submit(testSearchFilter)', function (data) {
+        var name = data.field.naPlan;
+        table.reload('testTableId', {
             where: {
-                naGrade: name
+                naPlan: name
             }
             , height: 'full-68'
             , page: {
@@ -58,7 +61,7 @@ layui.config({
     });
 
     $('#edit').on('click', function () {
-        var checkStatus = table.checkStatus('ttestTableId')
+        var checkStatus = table.checkStatus('testTableId')
             , data = checkStatus.data;
         if (data.length == 0) {
             layer.tips('请先选中一行记录', '#edit', {tips: 1});
@@ -73,36 +76,36 @@ layui.config({
     });
 
     var _addOrEdit = function (formType, currentEditData) {
-        var idModel = currentEditData ? currentEditData.idModel : '';
-        $('#editTemplate').attr('lay-href', basePath + '/pf/p/plan/template/form?idModel=' + idModel);
-        $('#editTemplate').click();
+        var idPlan = currentEditData ? currentEditData.idPlan : '';
+        $('#testRecordHidden').attr('lay-href', basePath + '/pf/p/statistics/test/score/page?idPlan=' + idPlan);
+        $('#testRecordHidden').click();
     };
 
     //监听行双击事件
-    table.on('rowDouble(ttestTableFilter)', function (obj) {
+    table.on('rowDouble(testTableFilter)', function (obj) {
         _addOrEdit("edit", obj.data);
     });
 
     $("#del").on('click', function () {
-        var checkStatus = table.checkStatus('ttestTableId')
+        var checkStatus = table.checkStatus('testTableId')
             , data = checkStatus.data;
         if (data.length == 0) {
             layer.tips('请先选中一行记录', '#del', {tips: 1});
             return;
         }
-        _delGrade(data);
+        _delTest(data);
     });
 
-    var _delGrade = function (currentData) {
-        var url = basePath + '/pf/r/plan/template/del';
+    var _delTest = function (currentData) {
+        var url = basePath + '/pf/r/statistics/test/del';
         var reqData = new Array();
         var messageTitle = '';
         $.each(currentData, function (index, content) {
             if (messageTitle) {
                 messageTitle += ', ';
             }
-            messageTitle += '【' + content.naModel + '】';
-            reqData.push(content.idModel);
+            messageTitle += '【' + content.naPlan + '】';
+            reqData.push(content.idPlan);
 
         });
 
@@ -110,7 +113,7 @@ layui.config({
         data.list = reqData;
         data.status = '1';
         layer.confirm('确定删除' + messageTitle + '么？', {
-            title: '删除实训模板提示',
+            title: '删除实训记录提示',
             resize: false,
             btn: ['确定', '取消'],
             btnAlign: 'c',
@@ -138,7 +141,7 @@ layui.config({
                     if (index) {
                         layer.close(index);
                     }
-                    _ttestTableReload();
+                    _testTableReload();
                     return true;
                 }
             },
@@ -150,48 +153,9 @@ layui.config({
         });
     }
 
-    var _ttestTableReload = function () {
-        table.reload('ttestTableId', {
-            where: {
-                //type: type
-            },
-            height: 'full-68'
-        });
+    var _testTableReload = function () {
+        table.reload('testTableId');
     }
-
-    //监听删除操作
-    form.on('switch(fgActiveCheckFilter)', function (obj) {
-        var reqData = new Array();
-        var bizData = {};
-        reqData.push(this.value);
-        bizData.list = reqData;
-        if (obj.elem.checked) {
-            bizData.status = '1';
-        } else {
-            bizData.status = '0';
-        }
-        $.ajax({
-            url: basePath + '/pf/r/plan/template/updateStatus',
-            type: 'post',
-            dataType: 'json',
-            contentType: "application/json",
-            data: JSON.stringify(bizData),
-            success: function (data) {
-                layer.closeAll('loading');
-                if (data.code != 0) {
-                    layer.tips(data.msg, obj.othis);
-                    return false;
-                } else {
-                    layer.tips("设置成功", obj.othis);
-                    return true;
-                }
-            },
-            error: function () {
-                common.errorMsg("设置失败");
-                return false;
-            }
-        });
-    });
 
 
 });

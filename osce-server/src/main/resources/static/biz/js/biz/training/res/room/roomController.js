@@ -6,11 +6,38 @@ layui.config({
         , form = layui.form
         , common = layui.common;
 
+    $(document).ready(function () {
+        $.ajax({
+            url: basePath + '/pf/r/org/current/detail',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    common.errorMsg(data.msg);
+                    return false;
+                } else {
+                    var sucData = data.data;
+                    if (sucData && sucData.examRoomUrl) {
+                        $('#roomUrl').append('<img style="width: 100%; max-height: 515px;" src="' + sucData.examRoomUrl + '">');
+                    }
+                    return true;
+                }
+            },
+            error: function () {
+                layer.closeAll('loading');
+                common.errorMsg("网络异常");
+                return false;
+            }
+        });
+    });
+
     //执行渲染
     table.render({
         elem: '#roomTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'roomTableId'
-        , height: 'full-68' //容器高度
+        , height: '650' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -42,46 +69,46 @@ layui.config({
         }
     });
 
-    function openLink(data){
+    function openLink(data) {
         layer.open({
             title: '房间链接',
             type: 1,
             closeBtn: 0, //不显示关闭按钮
             anim: 5,
             shadeClose: true, //开启遮罩关闭
-            resize : false,
+            resize: false,
             area: ['320px', '220px'],
             btn: ['打开链接', '关闭'],
             content: '<div style="margin: 10px">\n' +
                 '      <textarea id="roomUrl" class="layui-textarea"></textarea>\n' +
                 '    </div>'
-            ,yes: function(){
+            , yes: function () {
                 window.open(data.stationQrCodeUrl + "?idRoom=" + data.idRoom + "&naRoom=" + data.naRoom, '_blank').location;
                 layer.closeAll();
-            }, success: function(layero, index){
+            }, success: function (layero, index) {
                 $('#roomUrl').val(data.stationQrCodeUrl + "?idRoom=" + data.idRoom + "&naRoom=" + data.naRoom);
             }
         });
     }
 
 
-    function openTestLink(data){
+    function openTestLink(data) {
         layer.open({
             title: '理论考试首页链接',
             type: 1,
             closeBtn: 0, //不显示关闭按钮
             anim: 5,
             shadeClose: true, //开启遮罩关闭
-            resize : false,
+            resize: false,
             area: ['320px', '220px'],
             btn: ['打开链接', '关闭'],
             content: '<div style="margin: 10px">\n' +
                 '      <textarea id="testUrl" class="layui-textarea"></textarea>\n' +
                 '    </div>'
-            ,yes: function(){
+            , yes: function () {
                 window.open(data.testUrl + "?idRoom=" + data.idRoom + "&idOrg=" + data.idOrg, '_blank').location;
                 layer.closeAll();
-            }, success: function(layero, index){
+            }, success: function (layero, index) {
                 $('#testUrl').val(data.testUrl + "?idRoom=" + data.idRoom + "&idOrg=" + data.idOrg);
             }
         });
@@ -91,7 +118,7 @@ layui.config({
     //监听提交
     form.on('submit(roomSearchFilter)', function (data) {
         table.reload('roomTableId', {
-            height: 'full-68'
+            height: '650'
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -228,7 +255,7 @@ layui.config({
             where: {
                 //type: type
             },
-            height: 'full-68'
+            height: '650'
         });
     }
 

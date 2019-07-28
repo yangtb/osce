@@ -36,4 +36,9 @@ public class PfStatisticsServiceImpl implements PfStatisticsService {
         return num >= 1 ? true : false;
     }
 
+    @Override
+    public PageResult pageTestScore(StatisticsDto dto) {
+        return null;
+    }
+
 }

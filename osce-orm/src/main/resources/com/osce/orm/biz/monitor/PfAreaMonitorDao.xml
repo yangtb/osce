@@ -10,48 +10,113 @@
 
     <select id="listToBeExaminedStu" resultType="com.osce.vo.biz.monitor.MonitorStuVo">
         SELECT
-            a.id_waiting_reg ,
-            b.real_name ,
-            a.no_reg ,
+            v.user_cd ,
+            v.real_name ,
             b.phone_no ,
             CONCAT(LEFT(b.idcard,2), '**************', RIGHT(b.idcard,2)) as idCard ,
-            date_format(a.gmt_reg , '%H:%i:%s') as gmt_reg,
-            b.user_id
+            v.status ,
+            c.id_waiting_reg ,
+            c.no_reg ,
+            date_format(c.gmt_reg , '%H:%i:%s') as gmt_reg
         FROM
-            we_waiting_reg a
-        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+            v_we_show_detail v
+        LEFT JOIN user_info b ON v.id_user = b.user_id
+        left join we_waiting_reg c on v.id_plan = c.id_plan and v.id_area = c.id_area and v.time_section = c.time_section
         WHERE
-            a.id_org = 1
+            v.id_plan = #{idPlan}
+        AND v.id_area = #{idArea}
+        AND v.time_section = #{timeSection}
+        AND v.status = '请准备入场'
+        ORDER BY
+            v.id_ins_station_detail
     </select>
     <select id="listOnSiteStu" resultType="com.osce.vo.biz.monitor.MonitorStuVo">
         SELECT
-            a.id_waiting_reg ,
-            b.real_name ,
-            a.no_reg ,
+            v.user_cd ,
+            v.real_name ,
             b.phone_no ,
             CONCAT(LEFT(b.idcard,2), '**************', RIGHT(b.idcard,2)) as idCard ,
-            date_format(a.gmt_reg , '%H:%i:%s') as gmt_reg,
-            b.user_id
+            v.status ,
+            c.id_waiting_reg ,
+            c.no_reg ,
+            date_format(c.gmt_reg , '%H:%i:%s') as gmt_reg
         FROM
-            we_waiting_reg a
-        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+            v_we_show_detail v
+        LEFT JOIN user_info b ON v.id_user = b.user_id
+        left join we_waiting_reg c on v.id_plan = c.id_plan and v.id_area = c.id_area and v.time_section = c.time_section
         WHERE
-            a.id_org = 1
+            v.id_plan = #{idPlan}
+        AND v.id_area = #{idArea}
+        AND v.time_section = #{timeSection}
+        AND v.status in ('叫号待认证', '叫号已认证', '考试考核', '本场提交，下场未开始')
+        ORDER BY
+            v.id_ins_station_detail
     </select>
     <select id="listEndStu" resultType="com.osce.vo.biz.monitor.MonitorStuVo">
         SELECT
-            a.id_waiting_reg ,
-            b.real_name ,
-            a.no_reg ,
+            v.user_cd ,
+            v.real_name ,
             b.phone_no ,
             CONCAT(LEFT(b.idcard,2), '**************', RIGHT(b.idcard,2)) as idCard ,
-            date_format(a.gmt_reg , '%H:%i:%s') as gmt_reg,
-            b.user_id ,
-            no_reg as endStatus
+            v.status ,
+            c.id_waiting_reg ,
+            c.no_reg ,
+            date_format(c.gmt_reg , '%H:%i:%s') as gmt_reg
         FROM
-            we_waiting_reg a
-        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+            v_we_show_detail v
+        LEFT JOIN user_info b ON v.id_user = b.user_id
+        left join we_waiting_reg c on v.id_plan = c.id_plan and v.id_area = c.id_area and v.time_section = c.time_section
         WHERE
-            a.id_org = 1
+            v.id_plan = #{idPlan}
+        AND v.id_area = #{idArea}
+        AND v.time_section = #{timeSection}
+        AND v.status in ('考试结束', '缺考')
+        ORDER BY
+            v.id_ins_station_detail
+    </select>
+    <select id="listMonitorArea" resultType="com.osce.vo.biz.monitor.MonitorAreaVo">
+        SELECT
+            v.na_station ,
+            v.id_room ,
+            b.na_room ,
+            v.min_cost ,
+            v.sd_station_ca ,
+            v.sd_skill_ca ,
+            v.na_paper ,
+            v.des_paper ,
+            v.id_user_manager ,
+            c.real_name ,
+            (
+                SELECT
+                    sd_exec_queue
+                FROM
+                    es_exec_queue
+                WHERE
+                    v.id_plan = es_exec_queue.id_plan
+                AND v.id_area = es_exec_queue.id_area
+                AND v.time_section = es_exec_queue.time_section
+                AND v.id_station = es_exec_queue.id_station
+                AND v.id_room = es_exec_queue.id_room
+                AND sd_exec_queue IN ('2' , '3' , '4')
+            ) AS sd_exec_queue
+        FROM
+            v_es_get_site_infor v
+        LEFT JOIN erp_room b ON v.id_room = b.id_room
+        LEFT JOIN user_info c ON v.id_user_manager = c.user_id
+        WHERE
+            v.id_plan = #{idPlan}
+        AND v.id_area = #{idArea}
+        AND v.time_section = #{timeSection}
+    </select>
+    <select id="listCurrentPlan" resultType="com.osce.vo.biz.show.ShowAioMainVo">
+        SELECT
+            id_plan ,
+            id_area ,
+            time_section
+        FROM
+            v_we_show_main
+        WHERE
+            id_org = 1
+        AND plan_day = DATE(NOW())
     </select>
 </mapper>

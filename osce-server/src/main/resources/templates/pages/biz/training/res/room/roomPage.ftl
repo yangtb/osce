@@ -24,17 +24,22 @@
 <body>
 
 <div class="wrapper-content">
+    
+    <div style="width: 100%;" id="roomUrl">
+        <#--<img src="https://jy-osce.oss-cn-beijing.aliyuncs.com/23A1A8C95A394371BDAE17A5F1686190.jpg">-->
+        <#--<img style="width: 100%; max-height: 515px;" >-->
+    </div>
 
     <form class="layui-form">
         <div class="layui-inline">
             <div class="layui-btn-group">
-                <button type="button" class="layui-btn layui-btn-sm" id="add">
+                <button type="button" class="layui-btn" id="add">
                     <i class="iconfont icon-add"></i> 增加
                 </button>
-                <button type="button" class="layui-btn layui-btn-sm" id="edit">
+                <button type="button" class="layui-btn" id="edit">
                     <i class="iconfont icon-edit"></i> 编辑
                 </button>
-                <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
+                <button type="button" class="layui-btn layui-btn-danger" id="del">
                     <i class="layui-icon layui-icon-delete"></i>删除
                 </button>
                 <#--<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="record">
@@ -44,7 +49,7 @@
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="roomSearchFilter">
+                <button type="button" class="layui-btn" lay-submit lay-filter="roomSearchFilter">
                     <i class="iconfont icon-refresh"></i> 刷新
                 </button>
             </div>

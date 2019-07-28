@@ -2,7 +2,10 @@ package com.osce.orm.biz.monitor;
 
 import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.vo.biz.monitor.MonitorAreaVo;
 import com.osce.vo.biz.monitor.MonitorStuVo;
+import com.osce.vo.biz.show.ShowAioMainVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,28 +18,59 @@ import java.util.List;
 public interface PfAreaMonitorDao {
 
     /**
-     * 待考学员
+     * 查出当天计划、考场、时段
      *
-     * @param dto
      * @return
      */
-    List<MonitorStuVo> listToBeExaminedStu(MonitorDto dto);
+    List<ShowAioMainVo> listCurrentPlan();
+
+    /**
+     * 考场监控
+     *
+     * @param idPlan
+     * @param idArea
+     * @param timeSection
+     * @return
+     */
+    List<MonitorAreaVo> listMonitorArea(@Param("idPlan") Long idPlan,
+                                        @Param("idArea") Long idArea,
+                                        @Param("timeSection") float timeSection);
+
+    /**
+     * 待考学员
+     *
+     * @param idPlan
+     * @param idArea
+     * @param timeSection
+     * @return
+     */
+    List<MonitorStuVo> listToBeExaminedStu(@Param("idPlan") Long idPlan,
+                                           @Param("idArea") Long idArea,
+                                           @Param("timeSection") float timeSection);
 
     /**
      * 场内学员
      *
-     * @param dto
+     * @param idPlan
+     * @param idArea
+     * @param timeSection
      * @return
      */
-    List<MonitorStuVo> listOnSiteStu(MonitorDto dto);
+    List<MonitorStuVo> listOnSiteStu(@Param("idPlan") Long idPlan,
+                                     @Param("idArea") Long idArea,
+                                     @Param("timeSection") float timeSection);
 
     /**
      * 结束学员
      *
-     * @param dto
+     * @param idPlan
+     * @param idArea
+     * @param timeSection
      * @return
      */
-    List<MonitorStuVo> listEndStu(MonitorDto dto);
+    List<MonitorStuVo> listEndStu(@Param("idPlan") Long idPlan,
+                                  @Param("idArea") Long idArea,
+                                  @Param("timeSection") float timeSection);
 
     /**
      * 删除学员

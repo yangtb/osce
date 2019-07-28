@@ -9,6 +9,7 @@ import com.osce.orm.biz.training.structure.grade.PfGradeDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
+import com.osce.vo.PfTreeSelectTableVo;
 import com.osce.vo.biz.training.structure.grade.GradeVo;
 import com.sm.open.care.core.enums.YesOrNoNum;
 import org.apache.dubbo.config.annotation.Service;
@@ -62,5 +63,10 @@ public class PfGradeServiceImpl implements PfGradeService {
     @Override
     public List<GradeVo> listAllGrades(Long idOrg) {
         return pfGradeDao.listAllGrades(idOrg);
+    }
+
+    @Override
+    public List<PfTreeSelectTableVo> listAllGradeTree(Long idOrg) {
+        return pfGradeDao.listAllGradeTree(idOrg);
     }
 }

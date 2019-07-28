@@ -3,6 +3,7 @@ package com.osce.orm.biz.training.structure.grade;
 import com.osce.dto.biz.training.structure.grade.GradeDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgGrade;
+import com.osce.vo.PfTreeSelectTableVo;
 import com.osce.vo.biz.training.structure.grade.GradeVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -75,5 +76,13 @@ public interface PfGradeDao {
      * @return
      */
     List<GradeVo> listAllGrades(@Param("idOrg") Long idOrg);
+
+    /**
+     * 学届班级tree
+     *
+     * @param idOrg 机构id
+     * @return
+     */
+    List<PfTreeSelectTableVo> listAllGradeTree(Long idOrg);
 
 }

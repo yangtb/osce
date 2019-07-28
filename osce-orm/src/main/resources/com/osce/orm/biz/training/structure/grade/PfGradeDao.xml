@@ -207,4 +207,60 @@
     </select>
 
 
+    <resultMap id="gradeTreeResultMap" type="com.osce.vo.PfTreeSelectTableVo">
+        <id property="value" column="idGradeStr"/>
+        <id property="name" column="na_grade"/>
+        <id property="disabled" column="disabled"/>
+        <collection property="children" column="id_grade"
+                    select="selectDeptTreeSelect" ofType="com.osce.vo.PfTreeSelectTableVo" />
+    </resultMap>
+
+    <cache eviction="LRU" flushInterval="600000" readOnly="true" size="1024"/>
+
+    <select id="listAllGradeTree" resultMap="gradeTreeResultMap" useCache="true">
+        SELECT
+            CONCAT('g-', id_grade) as idGradeStr,
+            id_grade ,
+            na_grade
+        FROM
+            org_grade
+        WHERE
+            fg_valid = '0'
+        AND id_org = #{idOrg}
+        order by id_grade desc
+    </select>
+
+    <resultMap id="deptTreeResultMap" type="com.osce.vo.PfTreeSelectTableVo">
+        <id property="value" column="id_depart"/>
+        <id property="name" column="na_depart"/>
+        <id property="disabled" column="disabled"/>
+        <collection property="children" column="id_depart"
+                    select="selectChildDept" ofType="com.osce.vo.PfTreeSelectTableVo" />
+    </resultMap>
+
+    <select id="selectDeptTreeSelect" resultMap="deptTreeResultMap">
+        SELECT
+            id_depart ,
+            na_depart ,
+            sd_depart_ca
+        FROM
+            org_depart
+        WHERE
+            fg_active = '1'
+        and id_depart_par is null
+        and id_grade = #{id}
+    </select>
+    <select id="selectChildDept" resultMap="deptTreeResultMap">
+        SELECT
+            id_depart ,
+            na_depart ,
+            sd_depart_ca
+        FROM
+            org_depart
+        WHERE
+            id_depart_par = #{id}
+        and fg_active = '1'
+    </select>
+
+
 </mapper>
