@@ -48,10 +48,11 @@
                             <div class="layui-input-inline">
                                 <select name="sdSpCaseCa" lay-verify="required" lay-vertype="tips">
                                     <option value="">请选择</option>
-                                    <option value="1">内科</option>
-                                    <option value="2">外科</option>
-                                    <option value="3">妇科</option>
-                                    <option value="4">儿科</option>
+                                    <#if sdStationCaList?? && (sdStationCaList?size > 0)>
+                                        <#list sdStationCaList as enum>
+                                            <option value="${enum.dictCode!}">${enum.dictName!}</option>
+                                        </#list>
+                                    </#if>
                                 </select>
                             </div>
                         </div>

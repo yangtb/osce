@@ -25,7 +25,7 @@
 
 <div class="wrapper-content">
     
-    <div style="width: 100%;" id="roomUrl">
+    <div style="width: 100%;" id="orgRoomUrl">
         <#--<img src="https://jy-osce.oss-cn-beijing.aliyuncs.com/23A1A8C95A394371BDAE17A5F1686190.jpg">-->
         <#--<img style="width: 100%; max-height: 515px;" >-->
     </div>

@@ -67,10 +67,11 @@
                                                                                style="color: #f03f2d"></i></label>
                                         <div class="layui-input-inline">
                                             <select name="sdSkillCaseCa">
-                                                <option value="1">内科</option>
-                                                <option value="2">外科</option>
-                                                <option value="3">妇科</option>
-                                                <option value="4">儿科</option>
+                                                <#if sdStationCaList?? && (sdStationCaList?size > 0)>
+                                                    <#list sdStationCaList as enum>
+                                                        <option value="${enum.dictCode!}">${enum.dictName!}</option>
+                                                    </#list>
+                                                </#if>
                                             </select>
                                         </div>
                                     </div>

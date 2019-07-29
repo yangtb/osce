@@ -4,9 +4,11 @@ import com.osce.api.biz.training.caseku.PfCaseService;
 import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.biz.training.caseku.CobEvaluateDto;
 import com.osce.entity.CobEvaluate;
+import com.osce.enums.SysDicGroupEnum;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.server.utils.EnumUtil;
 import com.sm.open.care.core.utils.Assert;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -27,6 +30,9 @@ import java.util.List;
  */
 @Controller
 public class PfCaseController extends BaseController {
+
+    @Resource
+    private EnumUtil enumUtil;
 
     @Reference
     private PfCaseService pfCaseService;
@@ -41,6 +47,7 @@ public class PfCaseController extends BaseController {
     @RequestMapping("/pf/p/case/form")
     public String form(String formType, Model model) {
         model.addAttribute("formType", formType);
+        model.addAttribute("sdStationCaList", enumUtil.getEnumList(SysDicGroupEnum.SD_STATION_CA.getCode()));
         return "pages/biz/training/case/caseTagForm";
     }
 
@@ -72,7 +79,7 @@ public class PfCaseController extends BaseController {
         model.addAttribute("formType", formType);
         model.addAttribute("idCase", idCase);
         model.addAttribute("idScoreSheet", idScoreSheet);
-
+        model.addAttribute("scoreItemCaList", enumUtil.getEnumList(SysDicGroupEnum.SD_SCORE_ITEM_CA.getCode()));
         return "pages/biz/training/case/scoreItemForm";
     }
 

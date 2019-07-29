@@ -20,7 +20,7 @@ layui.config({
                 } else {
                     var sucData = data.data;
                     if (sucData && sucData.examRoomUrl) {
-                        $('#roomUrl').append('<img style="width: 100%; max-height: 515px;" src="' + sucData.examRoomUrl + '">');
+                        $('#orgRoomUrl').append('<img style="width: 100%; max-height: 515px;" src="' + sucData.examRoomUrl + '">');
                     }
                     return true;
                 }

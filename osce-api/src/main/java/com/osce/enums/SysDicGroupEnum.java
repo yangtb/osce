@@ -13,12 +13,13 @@ public enum SysDicGroupEnum {
     BANNER_POSITION("BANNER_POSITION", "banner位"),
     SD_ROOM_DEVICE_CA("SD_ROOM_DEVICE_CA", "固定设备类型"),
     SD_DEVICE_UNIT("SD_DEVICE_UNIT", "设备单位"),
-    SD_STATION_CA("SD_STATION_CA", "基地类型");
+    SD_STATION_CA("SD_STATION_CA", "基地类型"),
+    SD_SCORE_ITEM_CA("SD_SCORE_ITEM_CA", "评分项分类");
 
     private String code;
     private String desc;
 
-    private SysDicGroupEnum(String code, String desc) {
+    SysDicGroupEnum(String code, String desc) {
         this.code = code;
         this.desc = desc;
     }

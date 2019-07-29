@@ -41,7 +41,11 @@
                     <label class="layui-form-label">分类</label>
                     <div class="layui-input-inline">
                         <select name="sdScoreItemCa">
-                            <option value="1">todo分类</option>
+                            <#if scoreItemCaList?? && (scoreItemCaList?size > 0)>
+                                <#list scoreItemCaList as enum>
+                                    <option value="${enum.dictCode!}">${enum.dictName!}</option>
+                                </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>

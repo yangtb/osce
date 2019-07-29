@@ -3,15 +3,19 @@ package com.osce.server.portal.biz.plan.template;
 import com.osce.api.biz.plan.template.PfPaperService;
 import com.osce.dto.biz.plan.template.PfPaperDto;
 import com.osce.dto.biz.plan.template.TemplateDto;
+import com.osce.enums.SysDicGroupEnum;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.server.utils.EnumUtil;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
 
 /**
  * @ClassName: PfExamPaperController
@@ -21,6 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class PfExamPaperController extends BaseController {
+
+    @Resource
+    private EnumUtil enumUtil;
 
     @Reference
     private PfPaperService pfPaperService;
@@ -43,6 +50,7 @@ public class PfExamPaperController extends BaseController {
     @RequestMapping("/pf/p/plan/paper/skill/two")
     public String pageSdSkillCaTwo(Model model, Long idModel) {
         model.addAttribute("idModel", idModel);
+        model.addAttribute("sdStationCaList", enumUtil.getEnumList(SysDicGroupEnum.SD_STATION_CA.getCode()));
         return "pages/biz/plan/template/paperPage2";
     }
 
@@ -57,6 +65,7 @@ public class PfExamPaperController extends BaseController {
     @RequestMapping("/pf/p/plan/paper/skill/third")
     public String pageSdSkillCaThird(Model model, Long idModel) {
         model.addAttribute("idModel", idModel);
+        model.addAttribute("sdStationCaList", enumUtil.getEnumList(SysDicGroupEnum.SD_STATION_CA.getCode()));
         return "pages/biz/plan/template/paperPage3";
     }
 

@@ -2,15 +2,19 @@ package com.osce.server.portal.biz.training.skill;
 
 import com.osce.api.biz.training.skill.PfSkillService;
 import com.osce.dto.biz.training.skill.SkillDto;
+import com.osce.enums.SysDicGroupEnum;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.server.utils.EnumUtil;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
 
 /**
  * @ClassName: PfRoomController
@@ -20,6 +24,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class PfSkillController extends BaseController {
+
+    @Resource
+    private EnumUtil enumUtil;
 
     @Reference
     private PfSkillService pfSkillService;
@@ -34,6 +41,7 @@ public class PfSkillController extends BaseController {
     @RequestMapping("/pf/p/skill/form")
     public String form(String formType, Model model) {
         model.addAttribute("formType", formType);
+        model.addAttribute("sdStationCaList", enumUtil.getEnumList(SysDicGroupEnum.SD_STATION_CA.getCode()));
         return "pages/biz/training/skill/skillTagForm";
     }
 
