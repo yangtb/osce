@@ -16,7 +16,10 @@ layui.config({
     });
 
     function queryMonitorInfo() {
-        var bizData = {}
+        layer.load(2);
+        var bizData = {
+
+        }
         $.ajax({
             url: basePath + '/pf/r/monitor/area/list',
             type: 'post',
@@ -24,7 +27,7 @@ layui.config({
             contentType: "application/json",
             data: JSON.stringify(bizData),
             success: function (data) {
-                layer.closeAll('loading');
+                layer.closeAll();
                 if (data.code != 0) {
                     layer.msg(data.msg);
                     return false;
@@ -43,7 +46,9 @@ layui.config({
     function fullMonitorCard(data) {
         console.log(data)
         $('#monitorCard').empty();
-        $('#monitorCard').append(buildMonitorHtml(data));
+        if (data.length == 0) {
+            $('#monitorCard').append(buildMonitorHtml(data));
+        }
 
         // 轮播
         carousel.render({
