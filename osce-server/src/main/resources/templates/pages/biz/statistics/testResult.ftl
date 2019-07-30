@@ -23,7 +23,7 @@
         <div class="layui-inline">
             <div class="layui-btn-group">
                 <button type="button" class="layui-btn layui-btn-sm" id="edit">
-                    <i class="iconfont icon-edit"></i> 编辑
+                    <i class="layui-icon layui-icon-edit"></i>编辑
                 </button>
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
                     <i class="iconfont icon-batch-del"></i>删除
@@ -59,7 +59,7 @@
 <script src="${contextPath}/biz/js/biz/statistics/testResultController.js"></script>
 
 <script type="text/html" id="testBar">
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
     <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 

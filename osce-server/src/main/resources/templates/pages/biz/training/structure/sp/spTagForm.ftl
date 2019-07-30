@@ -29,7 +29,7 @@
         <div class="layui-inline">
             <div class="layui-btn-group">
                 <button type="button" class="layui-btn layui-btn-sm" id="add">
-                    <i class="iconfont icon-add"></i> 增加
+                    <i class="layui-icon layui-icon-add-1"></i>增加
                 </button>
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
                     <i class="iconfont icon-batch-del"></i> 删除

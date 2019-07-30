@@ -27,26 +27,26 @@
             <div class="layui-inline">
                 <div class="layui-btn-group">
                     <button type="button" class="layui-btn layui-btn-sm" id="addDic">
-                        <i class="iconfont icon-add"></i>
+                        <i class="layui-icon layui-icon-add-1"></i>
                     </button>
                     <button type="button" class="layui-btn layui-btn-sm" id="editDic">
-                        <i class="iconfont icon-edit"></i>
+                        <i class="layui-icon layui-icon-edit"></i>
                     </button>
                     <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="delDic">
-                        <i class="layui-icon layui-icon-delete"></i>
+                        <i class="iconfont icon-batch-del"></i>
                     </button>
                 </div>
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
                     <input type="text" name="dicName" placeholder="字典名称" class="layui-input"
-                           style="height:30px; width: 94px;">
+                           style="height:30px; width: 90px;">
                 </div>
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
                     <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="dicSearchFilter">
-                        <i class="iconfont icon-query"></i>
+                        <i class="layui-icon layui-icon-search"></i>
                     </button>
                 </div>
             </div>
@@ -61,10 +61,10 @@
             <div class="layui-inline">
                 <div class="layui-btn-group">
                     <button type="button" class="layui-btn layui-btn-sm" id="addEnum">
-                        <i class="iconfont icon-add"></i> 增加
+                        <i class="layui-icon layui-icon-add-1"></i>增加
                     </button>
                     <button type="button" class="layui-btn layui-btn-sm" id="editEnum">
-                        <i class="iconfont icon-edit"></i> 编辑
+                        <i class="layui-icon layui-icon-edit"></i>编辑
                     </button>
                     <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="delEnum">
                         <i class="iconfont icon-batch-del"></i> 删除
@@ -83,7 +83,7 @@
             <div class="layui-inline">
                 <div class="layui-input-inline">
                     <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="enumSearchFilter">
-                        <i class="iconfont icon-query"></i> 查询
+                        <i class="layui-icon layui-icon-search"></i>查询
                     </button>
                     <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">
                         <i class="iconfont icon-reset"></i> 重新填写
@@ -106,7 +106,7 @@
 </script>
 
 <script type="text/html" id="enumBar">
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
 </script>
 
 </body>

@@ -23,10 +23,10 @@
         <div class="layui-inline">
             <div class="layui-btn-group">
                 <button type="button" class="layui-btn" id="add">
-                    <i class="iconfont icon-add"></i> 增加
+                    <i class="layui-icon layui-icon-add-1"></i>增加
                 </button>
                 <button type="button" class="layui-btn" id="edit">
-                    <i class="iconfont icon-edit"></i> 编辑
+                    <i class="layui-icon layui-icon-edit"></i>编辑
                 </button>
                 <button type="button" class="layui-btn layui-btn-danger" id="stop">
                     <i class="iconfont icon-stop"></i> 停用
@@ -67,7 +67,7 @@
 <script src="${contextPath}/biz/js/system/param/paramController.js"></script>
 
 <script type="text/html" id="paramBar">
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
     {{#  if(d.status == 'enabled'){ }}
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="stop"><i class="iconfont icon-stop"></i> 停用</a>
     {{#  } else { }}

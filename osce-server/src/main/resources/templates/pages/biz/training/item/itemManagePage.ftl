@@ -39,7 +39,7 @@
         <div class="layui-inline">
             <div class="layui-btn-group">
                 <button type="button" class="layui-btn layui-btn-sm" id="addSection">
-                    <i class="iconfont icon-add"></i> 增加目录
+                    <i class="layui-icon layui-icon-add-1"></i>增加目录
                 </button>
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="delSection">
                     <i class="layui-icon layui-icon-delete"></i>删除目录
@@ -48,7 +48,7 @@
         </div>
         <div class="layui-inline" style="padding-left: 20px;">
             <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="addItem">
-                <i class="iconfont icon-add"></i> 增加题目
+                <i class="layui-icon layui-icon-add-1"></i>增加题目
             </button>
         </div>
     </form>

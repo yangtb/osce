@@ -34,10 +34,10 @@
         <div class="layui-inline">
             <div class="layui-btn-group">
                 <button type="button" class="layui-btn" id="add">
-                    <i class="iconfont icon-add"></i> 增加
+                    <i class="layui-icon layui-icon-add-1"></i>增加
                 </button>
                 <button type="button" class="layui-btn" id="edit">
-                    <i class="iconfont icon-edit"></i> 编辑
+                    <i class="layui-icon layui-icon-edit"></i>编辑
                 </button>
                 <button type="button" class="layui-btn layui-btn-danger" id="del">
                     <i class="iconfont icon-batch-del"></i> 删除
@@ -71,7 +71,7 @@
 <script type="text/html" id="roomBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="testLink"><i class="layui-icon layui-icon-link"></i>理论考试链接</a>
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="roomLink"><i class="layui-icon layui-icon-link"></i>房间链接</a>
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
 </script>
 
 </body>

@@ -96,7 +96,7 @@
                                         </div>
                                         <button type="button" id="editTemplate" class="layui-btn layui-btn-normal"
                                                 style="display: none">
-                                            <i class="iconfont icon-edit"></i> 编辑模板
+                                            <i class="layui-icon layui-icon-edit"></i>编辑模板
                                         </button>
                                         <button type="button" id="editTemplateHidden" class="layui-btn layui-btn-normal"
                                                 lay-href="" style="display: none">实训模板编辑

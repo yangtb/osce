@@ -41,7 +41,7 @@
         <div class="layui-inline">
             <div class="layui-btn-group">
                 <button type="button" class="layui-btn layui-btn-sm" id="addSheet">
-                    <i class="iconfont icon-add"></i> 增加考评表
+                    <i class="layui-icon layui-icon-add-1"></i>增加考评表
                 </button>
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="delSheet">
                     <i class="layui-icon layui-icon-delete"></i>删除考评表
@@ -50,7 +50,7 @@
         </div>
         <div class="layui-inline" style="padding-left: 20px;">
             <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="addScoreItem">
-                <i class="iconfont icon-add"></i> 增加评分项
+                <i class="layui-icon layui-icon-add-1"></i>增加评分项
             </button>
         </div>
     </form>
