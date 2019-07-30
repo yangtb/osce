@@ -26,7 +26,7 @@
                     <i class="iconfont icon-edit"></i> 编辑
                 </button>
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
-                    <i class="layui-icon layui-icon-delete"></i>删除
+                    <i class="iconfont icon-batch-del"></i> 删除
                 </button>
             </div>
             <div class="layui-input-inline">
