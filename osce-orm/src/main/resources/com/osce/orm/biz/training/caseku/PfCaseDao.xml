@@ -623,6 +623,7 @@
             id_org ,
             na_sp_case ,
             sd_sp_case_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = sd_sp_case_ca) AS sdSpCaseCaText ,
             des_sp_case ,
             des_prob ,
             des_cur_die ,

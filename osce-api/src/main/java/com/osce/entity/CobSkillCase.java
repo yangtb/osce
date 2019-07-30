@@ -46,6 +46,11 @@ public class CobSkillCase implements Serializable {
     private String sdSkillCaseCa;
 
     /**
+     * 技能病例类别
+     */
+    private String sdSkillCaseCaText;
+
+    /**
      * 技能病例简介
      */
     private String desSkillCase;

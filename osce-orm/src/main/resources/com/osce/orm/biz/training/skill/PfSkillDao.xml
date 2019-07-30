@@ -217,6 +217,7 @@
             id_org ,
             na_skill_case ,
             sd_skill_case_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = sd_skill_case_ca) AS sdSkillCaseCaText ,
             des_skill_case ,
             fg_active ,
             fg_valid ,

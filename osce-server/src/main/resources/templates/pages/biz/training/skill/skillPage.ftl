@@ -83,20 +83,6 @@
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>
 </script>
 
-<script type="text/html" id="sdSkillCaseCaTpl">
-    {{#  if(d.sdSkillCaseCa == 1){ }}
-    内科
-    {{#  } }}
-    {{#  if(d.sdSkillCaseCa == 2){ }}
-    外科
-    {{#  } }}
-    {{#  if(d.sdSkillCaseCa == '3'){ }}
-    妇科
-    {{#  } }}
-    {{#  if(d.sdSkillCaseCa == '4'){ }}
-    儿科
-    {{#  } }}
-</script>
 
 </body>
 </html>

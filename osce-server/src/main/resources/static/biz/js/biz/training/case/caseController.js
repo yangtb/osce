@@ -18,7 +18,7 @@ layui.config({
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
             {field: 'naSpCase', minWidth: 170, title: '病例名称', fixed: true},
-            {field: 'sdSpCaseCa', width: 120, title: '病例类别', templet: '#sdSpCaseCaTpl'},
+            {field: 'sdSpCaseCaText', width: 120, title: '病例类别'},
             {field: 'desSpCase', minWidth: 250, title: '病例简述'},
             {field: 'gmtCreate', width: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#caseBar'}

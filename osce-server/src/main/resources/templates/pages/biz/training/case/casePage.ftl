@@ -64,21 +64,6 @@
            lay-skin="switch" lay-text="NO|OFF" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
 </script>
 
-<script type="text/html" id="sdSpCaseCaTpl">
-    {{#  if(d.sdSpCaseCa == 1){ }}
-    内科
-    {{#  } }}
-    {{#  if(d.sdSpCaseCa == 2){ }}
-    外科
-    {{#  } }}
-    {{#  if(d.sdSpCaseCa == '3'){ }}
-    妇科
-    {{#  } }}
-    {{#  if(d.sdSpCaseCa == '4'){ }}
-    儿科
-    {{#  } }}
-</script>
-
 
 <script type="text/html" id="caseBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i> 编辑</a>

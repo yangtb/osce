@@ -49,6 +49,11 @@ public class CobSpCase implements Serializable {
     private String sdSpCaseCa;
 
     /**
+     * 1 内科 2 外科 3 妇科 4 儿科
+     */
+    private String sdSpCaseCaText;
+
+    /**
      * SP病例简介
      */
     private String desSpCase;
