@@ -1,13 +1,11 @@
 package com.osce.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.*;
 
 /**
  * @ClassName: ErpDeviceCase
@@ -113,7 +111,7 @@ public class ErpDeviceCase implements Serializable {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改人员
@@ -123,7 +121,7 @@ public class ErpDeviceCase implements Serializable {
     /**
      * 修改时间
      */
-    private Date gmtModify;
+    private String gmtModify;
 
 
 }

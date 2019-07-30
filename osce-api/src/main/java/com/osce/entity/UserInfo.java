@@ -37,8 +37,8 @@ public class UserInfo implements Serializable {
     private Date        lastLoginTime;  // 最后登录时间
     private String      isDeleted;      // 删除标示，N未删除 Y-已删除
     private String      operator;       // 操作人员
-    private Date        gmtCreate;      // 创建时间
-    private Date        gmtModify;      // 更新时间
+    private String      gmtCreate;      // 创建时间
+    private String      gmtModify;      // 更新时间
 
     /** 当前用户所在机构级别 */
     private String fgPlat;

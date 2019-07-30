@@ -11,7 +11,6 @@ import com.osce.vo.biz.training.structure.dept.PfDeptZtreeVo;
 import org.apache.dubbo.config.annotation.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,7 +45,6 @@ public class PfDeptServiceImpl implements PfDeptService {
         if (dto.getIdDepart() == null) {
             pfDeptDao.addDept(dto);
         } else {
-            dto.setGmtModify(new Date());
             pfDeptDao.editDept(dto);
         }
         return dto.getIdDepart();

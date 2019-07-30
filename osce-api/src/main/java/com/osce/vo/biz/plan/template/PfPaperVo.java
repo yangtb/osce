@@ -1,13 +1,10 @@
 package com.osce.vo.biz.plan.template;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @ClassName: PfPaperVo
@@ -50,7 +47,6 @@ public class PfPaperVo implements Serializable {
     /**
      * 创建时间
      */
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime gmtCreate;
+    private String gmtCreate;
 
 }

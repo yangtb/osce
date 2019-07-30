@@ -1,14 +1,10 @@
 package com.osce.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @ClassName: CobSpCase
@@ -116,8 +112,7 @@ public class CobSpCase implements Serializable {
     /**
      * 创建时间
      */
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改人员
@@ -127,7 +122,6 @@ public class CobSpCase implements Serializable {
     /**
      * 修改时间
      */
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    private LocalDateTime gmtModify;
+    private String gmtModify;
 
 }

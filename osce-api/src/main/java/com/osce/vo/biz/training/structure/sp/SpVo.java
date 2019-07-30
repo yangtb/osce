@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @ClassName: SpVo
@@ -73,7 +72,7 @@ public class SpVo implements Serializable {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
      * 机构id

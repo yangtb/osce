@@ -35,7 +35,7 @@ public class SysFunction implements Serializable {
     private String      iconSource;         // 图标源
     private String      position;           // 菜单位置left=左边，top=顶部
     private String      target;             // 打开方式
-    private Date        gmtCreate;          // 创建时间
-    private Date        gmtModify;          // 更新时间
+    private String      gmtCreate;          // 创建时间
+    private String      gmtModify;          // 更新时间
 
 }

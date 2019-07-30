@@ -10,7 +10,6 @@ import org.apache.dubbo.config.annotation.Service;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,7 +45,6 @@ public class PfOrgServiceImpl implements PfOrgService {
         if (dto.getIdOrg() == null) {
             pfOrgDao.addOrg(dto);
         } else {
-            dto.setGmtModify(new Date());
             pfOrgDao.editOrg(dto);
         }
         return dto.getIdOrg();

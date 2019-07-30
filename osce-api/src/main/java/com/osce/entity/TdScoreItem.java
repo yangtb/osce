@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @ClassName: TdScoreItem
@@ -90,7 +89,7 @@ public class TdScoreItem implements Serializable {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改人员
@@ -100,7 +99,7 @@ public class TdScoreItem implements Serializable {
     /**
      * 修改时间
      */
-    private Date gmtModify;
+    private String gmtModify;
 
 
 }

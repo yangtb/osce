@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @ClassName: TpPlan
@@ -59,17 +58,17 @@ public class TpPlanVo implements Serializable {
     /**
      * 计划开始时间
      */
-    private LocalDateTime gmtPlanBegin;
+    private String gmtPlanBegin;
 
     /**
      * 计划结束时间
      */
-    private LocalDateTime gmtPlanEnd;
+    private String gmtPlanEnd;
 
     /**
      * 创建时间
      */
-    private LocalDateTime gmtCreate;
+    private String gmtCreate;
 
     /**
      * 考场数

@@ -103,7 +103,7 @@ public class TdItemStore implements Serializable {
     /**
      * 创建时间
      */
-    private java.time.LocalDateTime gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改人员
@@ -113,7 +113,7 @@ public class TdItemStore implements Serializable {
     /**
      * 修改时间
      */
-    private java.time.LocalDateTime gmtModify;
+    private String gmtModify;
 
 
 }

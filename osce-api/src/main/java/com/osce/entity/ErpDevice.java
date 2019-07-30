@@ -84,7 +84,7 @@ public class ErpDevice implements Serializable {
     /**
     * 创建时间
     */
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
     * 修改人员
@@ -94,7 +94,7 @@ public class ErpDevice implements Serializable {
     /**
     * 修改时间
     */
-    private Date gmtModify;
+    private String gmtModify;
 
 
 }

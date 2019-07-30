@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @ClassName: ErpRoom
@@ -69,7 +68,7 @@ public class ErpRoom implements Serializable {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改人员
@@ -79,7 +78,7 @@ public class ErpRoom implements Serializable {
     /**
      * 修改时间
      */
-    private Date gmtModify;
+    private String gmtModify;
 
     /**
      * 设备数量

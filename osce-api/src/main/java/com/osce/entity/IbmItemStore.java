@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @ClassName: IbmItemStore
@@ -65,7 +64,7 @@ public class IbmItemStore implements Serializable {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改人员
@@ -75,7 +74,7 @@ public class IbmItemStore implements Serializable {
     /**
      * 修改时间
      */
-    private Date gmtModify;
+    private String gmtModify;
 
     /**
      * 题目数量

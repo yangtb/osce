@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.*;
 
 /**
  * @ClassName: OrgDepart
@@ -79,7 +78,7 @@ public class OrgDepart implements Serializable {
     /**
      * 创建时间
      */
-    private Date gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改人员
@@ -89,7 +88,7 @@ public class OrgDepart implements Serializable {
     /**
      * 修改时间
      */
-    private Date gmtModify;
+    private String gmtModify;
 
 
 }

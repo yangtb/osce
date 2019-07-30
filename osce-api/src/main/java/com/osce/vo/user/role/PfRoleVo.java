@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @Setter
 @Getter
@@ -24,7 +23,7 @@ public class PfRoleVo implements Serializable {
      */
     private int         level;
     private String      operator;       // 创建人
-    private Date        gmtCreate;      // 创建时间
+    private String      gmtCreate;      // 创建时间
     private boolean     checked;        // 是否拥有某权限
 
 }

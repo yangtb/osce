@@ -5,8 +5,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @ClassName: TdSkillCase
@@ -89,7 +87,7 @@ public class TdSkillCase implements Serializable {
     /**
      * 创建时间
      */
-    private LocalDateTime gmtCreate;
+    private String gmtCreate;
 
     /**
      * 修改人员
@@ -99,6 +97,6 @@ public class TdSkillCase implements Serializable {
     /**
      * 修改时间
      */
-    private LocalDateTime gmtModify;
+    private String gmtModify;
 
 }
