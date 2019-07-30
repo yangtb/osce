@@ -106,7 +106,7 @@ layui.config({
     form.on('submit(formStep2)', function (data) {
         step.next('#stepForm');
         // 重新加载iframe
-        $('#mnpk').attr('src', $('#mnpk').attr('src'));
+        $('#mnpk').attr('src', basePath + '/pf/p/plan/template/two?idModel=' + $('#idModel').val());
         return false;
     });
 
