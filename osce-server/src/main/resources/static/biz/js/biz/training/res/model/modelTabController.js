@@ -35,6 +35,29 @@ layui.config({
             if (value && value.length > 255) {
                 return '长度不能超过255个字';
             }
+        },
+        numCheck :function (value) {
+            var fgConsumables = $('input[name="fgConsumables"]:checked ').val();
+            if (fgConsumables == 1 && !value) {
+                return '警戒数量不能为空';
+            }
+        }
+    });
+
+
+    form.on('radio(fgConsumablesFilter)', function(data){
+        if (data.value == 0) {
+            $('#unmStock').val('');
+            $('#numWarn').val('');
+            $('#unmStock').attr("readonly","readonly");
+            $('#unmStock').addClass("layui-disabled");
+            $('#numWarn').attr("disabled","disabled");
+            $('#numWarn').addClass("layui-disabled");
+        } else {
+            $('#unmStock').removeAttr("readonly","readonly");
+            $('#unmStock').removeClass("layui-disabled");
+            $('#numWarn').removeAttr("disabled","disabled");
+            $('#numWarn').removeClass("layui-disabled");
         }
     });
 
@@ -67,7 +90,8 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    if (formType == 'add') {
+                    console.log(formType)
+                    if (!$('#idDevice').val()) {
                         element.tabAdd('tagTabFilter', {
                             title: '固定设备'
                             , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' ' +

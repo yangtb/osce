@@ -504,7 +504,10 @@
             des_device ,
             sd_device_unit ,
             fg_consumables ,
-            num_warn ,
+            IF( fg_consumables = 1 ,
+                num_warn,
+                (select count(1) from erp_device_case where id_device = erp_device.id_device and fg_valid = '0')
+            ) num_warn ,
             unm_stock ,
             fg_active ,
             fg_valid ,

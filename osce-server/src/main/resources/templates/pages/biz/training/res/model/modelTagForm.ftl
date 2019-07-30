@@ -62,8 +62,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">设备类型</label>
                             <div class="layui-input-block">
-                                <input type="radio" name="fgConsumables" value="1" title="消耗品" checked>
-                                <input type="radio" name="fgConsumables" value="0" title="非耗品">
+                                <input type="radio" name="fgConsumables" value="1" title="消耗品" lay-filter="fgConsumablesFilter" checked>
+                                <input type="radio" name="fgConsumables" value="0" title="非耗品" lay-filter="fgConsumablesFilter">
                             </div>
                         </div>
                     </div>
@@ -72,15 +72,14 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">库存数量</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="unmStock" lay-verify="required" lay-vertype="tips"
+                                <input type="text" id="unmStock" name="unmStock" lay-verify="numCheck" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">警戒数量<i class="iconfont icon-required"
-                                                                 style="color: #f03f2d"></i></label>
+                            <label class="layui-form-label">警戒数量</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="numWarn" lay-verify="required" lay-vertype="tips"
+                                <input type="text" id="numWarn" name="numWarn" lay-verify="numCheck" lay-vertype="tips"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
