@@ -40,7 +40,7 @@
             <div class="layui-inline">
                 <div class="layui-input-inline">
                     <input type="text" name="dicName" placeholder="字典名称" class="layui-input"
-                           style="height:30px; width: 90px;">
+                           style="height:30px; width: 88px;">
                 </div>
             </div>
             <div class="layui-inline">
