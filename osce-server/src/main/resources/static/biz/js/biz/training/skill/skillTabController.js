@@ -78,7 +78,7 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    if (formType == 'add') {
+                    if (!$('#idItemStore').val()) {
                         element.tabAdd('tagTabFilter', {
                             title: '站点配置'
                             , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' frameborder="0" ' +

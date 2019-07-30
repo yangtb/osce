@@ -67,7 +67,7 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    if (formType == 'add') {
+                    if (!$('#idItemStore').val()) {
                        element.tabAdd('tagTabFilter', {
                            title: '题目定义'
                            , content: '<iframe id="itemTag" class=\'layui-col-xs12\' frameborder="0" ' +

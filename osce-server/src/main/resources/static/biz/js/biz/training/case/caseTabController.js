@@ -73,7 +73,7 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    if (formType == 'add') {
+                    if (!$('#idItemStore').val()) {
                         element.tabAdd('tagTabFilter', {
                             title: '评分表'
                             , content: '<iframe id="scoreSheetTag" class=\'layui-col-xs12\' frameborder="0" ' +

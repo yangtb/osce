@@ -68,7 +68,7 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    if (formType == 'add') {
+                    if (!$('#idRoom').val()) {
                         element.tabAdd('tagTabFilter', {
                             title: '固定设备'
                             , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' ' +
