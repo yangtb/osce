@@ -26,6 +26,8 @@ dubbo:
     base-packages: com.osce
   config-center:
     timeout: 60000
+  provider:
+    timeout: 60000
 
 mybatis:
   mapper-locations: classpath:com/osce/orm/*Dao.xml
