@@ -64,8 +64,8 @@
 <script src="${contextPath}/biz/js/biz/plan/template/skill/skillDeviceController.js"></script>
 
 <script type="text/html" id="skillDeviceBar">
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="add"><i class="iconfont icon-add"></i></a>
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="iconfont icon-edit"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="add"><i class="layui-icon layui-icon-add-1"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></a>
     <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i></a>
 </script>
 
