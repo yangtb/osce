@@ -245,13 +245,25 @@
 }
 
 .modal-select {
-  display: block;
+  /*display: block;
   width: 192px;
   height: 30px;
   line-height: 30px;
   outline: none;
   margin: 0 auto;
+  margin-top: 12px;*/
+
+  display: block;
+  font-family: "微软雅黑";
+  width: 194px;
+  height: 30px;
+  text-align: center;
+  margin: 0 auto;
   margin-top: 12px;
+  border-width: 1px;
+  border-style: solid;
+  background-color: #fff;
+  border-radius: 2px;
 }
 
 .content {

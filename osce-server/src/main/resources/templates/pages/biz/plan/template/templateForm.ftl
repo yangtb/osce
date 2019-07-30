@@ -76,7 +76,7 @@
                                                                                        style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
                                                     <input type="number" class="layui-input" id="weightManager" name="weightManager" min="0"
-                                                           lay-verify="required" lay-vertype="tips" autocomplete="off" />
+                                                           lay-verify="required" lay-vertype="tips" min="1" autocomplete="off" />
                                                     <i style="position: absolute;top:8px;right: 15px;">%</i>
                                                 </div>
                                             </div>
@@ -85,7 +85,7 @@
                                                                                       style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
                                                     <input type="number" class="layui-input" id="weightAssistant" name="weightAssistant" min="0"
-                                                           lay-verify="required" lay-vertype="tips" autocomplete="off" />
+                                                           lay-verify="required" lay-vertype="tips" min="1" autocomplete="off" />
                                                     <i style="position: absolute;top:8px;right: 15px;">%</i>
                                                 </div>
                                             </div>
@@ -94,7 +94,7 @@
                                                                                                              style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
                                                     <input type="number" class="layui-input" id="weightRemote" name="weightRemote" min="0"
-                                                           lay-verify="required" lay-vertype="tips" autocomplete="off" />
+                                                           lay-verify="required" lay-vertype="tips" min="1" autocomplete="off" />
                                                     <i style="position: absolute;top:8px;right: 15px;">%</i>
                                                 </div>
                                             </div>
@@ -104,8 +104,8 @@
                                                 <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">考试时隔时间<i class="iconfont icon-required"
                                                                                                                                       style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
-                                                    <input type="text" class="layui-input" id="minInterval" name="minInterval"
-                                                           lay-verify="required" lay-vertype="tips" autocomplete="off"/>
+                                                    <input type="number" class="layui-input" id="minInterval" name="minInterval"
+                                                           lay-verify="required" lay-vertype="tips" min="1" autocomplete="off"/>
                                                     <i style="position: absolute;top:8px;right: 15px;">min</i>
                                                 </div>
                                             </div>
@@ -203,7 +203,7 @@
                                 <iframe id="pz" class='layui-col-xs12' frameborder="0" style="height: 670px;"
                                         src="${basePath}/pf/p/plan/template/two?idModel=${idModel!}" scrolling="no"></iframe>
                                 <div class="layui-form-item">
-                                    <div class="layui-input-block" style="text-align: right; margin-right: 100px;">
+                                    <div class="layui-input-block" style="padding-top: 15px; text-align: right; margin-right: 100px;">
                                         <button id="cancelStation" type="button" class="layui-btn layui-btn-primary">撤销排站</button>
                                         <button class="layui-btn" lay-submit lay-filter="formStep2">
                                             &emsp;下一步 ：模拟排考&emsp;
@@ -217,7 +217,7 @@
                                 <iframe id="mnpk" class='layui-col-xs12' frameborder="0" style="height: 670px;"
                                         src="${basePath}/pf/p/plan/template/third?idModel=${idModel!}" scrolling="no"></iframe>
                                 <div class="layui-form-item">
-                                    <div class="layui-input-block" style="text-align: right; margin-right: 100px;">
+                                    <div class="layui-input-block" style="padding-top: 15px; text-align: right; margin-right: 100px;">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
                                     </div>
                                 </div>
@@ -235,7 +235,6 @@
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/common/js/jquery.min.js"></script>
 <script src="${contextPath}/biz/js/biz/plan/template/templateOne.js"></script>
-
 
 </body>
 </html>

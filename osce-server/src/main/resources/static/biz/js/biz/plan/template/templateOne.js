@@ -81,6 +81,21 @@ layui.config({
         }]
     });
 
+    $('#weightManager').on('blur', function () {
+        computeWeight();
+    });
+
+    $('#weightAssistant').on('blur', function () {
+        computeWeight();
+    });
+
+    function computeWeight() {
+        var v_weightManager = $('#weightManager').val();
+        var v_weightAssistant = $('#weightAssistant').val();
+        if (v_weightManager && v_weightAssistant) {
+            $('#weightRemote').val(100 - v_weightManager - v_weightAssistant);
+        };
+    }
 
     form.on('submit(formStep)', function (data) {
         //step.next('#stepForm');
@@ -114,7 +129,7 @@ layui.config({
             '                <div class="room-name">\n' +
             '                    <span id="naArea_' + areaIndex + '" class="room-num">考场' + areaIndex + '</span>\n' +
             '                    <img src="/osce/biz/img/template/set_btn.png"\n' +
-            '                         id="set-btn-' + areaIndex + '" alt="设置" class=\'set-btn\' onclick="setAreaLoop(' + areaIndex + ')" style="display: none">\n' +
+            '                         id="set-btn-' + areaIndex + '" alt="设置" class=\'set-btn\' onclick="setAreaLoop(event, ' + areaIndex + ')" style="display: none">\n' +
             '                    <input id="idArea_' + areaIndex + '" hidden>\n' +
             '                    <input id="currStationNum_' + areaIndex + '" value="1" hidden>\n' +
             '                    <input id="sdAreaLoopBegin_' + areaIndex + '" value="1" hidden>\n' +
@@ -144,18 +159,18 @@ layui.config({
             '              <a href="javascript:;" class=\'delete-btn\' id="delStation_' + areaIndex + '_' + stationIndex + '" onclick="delStation('+ areaIndex +', '+ stationIndex +')"></a>\n' +
             '          </div>\n' +
             '          <div class="content-text" style="margin-top: 5px;">\n' +
-            '              <div class=\'text-item\' onclick="addSdStationCa('+ areaIndex +', '+ stationIndex +')">\n' +
+            '              <div class=\'text-item\' onclick="addSdStationCa(event, '+ areaIndex +', '+ stationIndex +')">\n' +
             '                  <img src="/osce/biz/img/template/edit_btn.png" alt="编辑" class="edit-btn">\n' +
             '                  <span class="item-desc" id="sdStationCaText_' + areaIndex + '_' + stationIndex + '">请添加基地类型</span>\n' +
             '                  <input id="sdStationCa_' + areaIndex + '_' + stationIndex + '" hidden>' +
             '              </div>\n' +
-            '              <div class=\'text-item\' onclick="addSdSkillCa('+ areaIndex +', '+ stationIndex +')">\n' +
+            '              <div class=\'text-item\' onclick="addSdSkillCa(event, '+ areaIndex +', '+ stationIndex +')">\n' +
             '                  <img src="/osce/biz/img/template/edit_btn.png" alt="编辑" class="edit-btn">\n' +
             '                  <span class="item-desc" id="sdSkillCaText_' + areaIndex + '_' + stationIndex + '">请添加技能类型</span>\n' +
             '                  <input id="sdSkillCa_' + areaIndex + '_' + stationIndex + '" hidden>' +
             '                  <input id="minCost_' + areaIndex + '_' + stationIndex + '" hidden>' +
             '              </div>\n' +
-            '              <div class=\'text-item\'  onclick="addSite('+ areaIndex +', '+ stationIndex +')">\n' +
+            '              <div class=\'text-item\'  onclick="addSite(event, '+ areaIndex +', '+ stationIndex +')">\n' +
             '                  <img src="/osce/biz/img/template/edit_btn.png"\n' +
             '                       alt="编辑" class="edit-btn">\n' +
             '                  <span class="item-desc" id="siteText_' + areaIndex + '_' + stationIndex + '">请添加站点</span>\n' +
@@ -236,6 +251,11 @@ layui.config({
 
     // *******************保存操作 begin************************
     function saveThisPage(data) {
+        console.log(parseInt(data.weightManager) + parseInt(data.weightAssistant) + parseInt(data.weightRemote))
+        if (parseInt(data.weightManager) + parseInt(data.weightAssistant) + parseInt(data.weightRemote) != 100) {
+            layer.alert('主考官权重 + 考官权重 + 中控考官权重 = 100', {icon: 5, title:'数据校验错误'});
+            return;
+        }
         if (!idModel) {
             idModel = $('#idModel').val();
         }
@@ -282,6 +302,20 @@ layui.config({
                     fgMust : $("#fgMust_" + i + '_' + j).val() == 'on' ? '1' : '0',             // 必过标志
                     tdSites : tdSiteList                                    // 站点
                 }
+
+                // 数据校验
+                if (!$("#sdStationCa_" + i + '_' + j).val()) {
+                    layer.alert('请添加基地类型，位置[考场' + i + '][考站' + i + '-' + j + ']', {icon: 5, title: '数据校验错误'});
+                    return;
+                }
+                if (!$("#sdSkillCa_" + i + '_' + j).val()) {
+                    layer.alert('请添加技能类型，位置[考场' + i + '][考站' + i + '-' + j + ']', {icon: 5, title: '数据校验错误'});
+                    return;
+                }
+                if (tdSiteList.length == 0) {
+                    layer.alert('请添加站点，位置[考场' + i + '][考站' + i + '-' + j + ']', {icon: 5, title: '数据校验错误'});
+                    return;
+                }
                 tdStationList.push(tdStation);
             }
 
@@ -303,7 +337,7 @@ layui.config({
         }
 
         //console.log(JSON.stringify(bizData))
-
+        layer.load(2);
         $.ajax({
             url: basePath + '/pf/r/plan/template/add',
             type: 'post',
@@ -319,11 +353,12 @@ layui.config({
                     $('#idModel').val(data.data);
                     step.next('#stepForm');
                     // 重新加载iframe
-                    $('#pz').attr('src', $('#pz').attr('src'));
+                    $('#pz').attr('src', basePath + '/pf/p/plan/template/two?idModel=' + data.data);
                     return false;
                 }
             },
             error: function () {
+                layer.closeAll('loading');
                 layer.tips("提交失败", '#step1', {tips: [2, '#FF5722']});
                 return false;
             }
@@ -514,8 +549,9 @@ function delStation(areaIndex, stationIndex) {
 
 }
 
+
 // 请添加基地类型
-function addSdStationCa(areaIndex, stationIndex) {
+function addSdStationCa(event, areaIndex, stationIndex) {
     layui.use('layer',function(){
 
         var layer = layui.layer;
@@ -581,7 +617,7 @@ function addSdStationCa(areaIndex, stationIndex) {
 }
 
 // 请添加技能类型
-function addSdSkillCa(areaIndex, stationIndex) {
+function addSdSkillCa(event, areaIndex, stationIndex) {
     layui.use('layer',function(){
         var layer = layui.layer;
         var y = event.clientY;
@@ -605,6 +641,7 @@ function addSdSkillCa(areaIndex, stationIndex) {
                 '           style="margin: 10px 0px 0px 34px; height: 30px; width: 190px; text-indent: 5px;" placeholder="耗时(min)"/>'
             ,yes: function(){
                 if (!$('#minCostWin').val()) {
+                    $('#minCostWin').focus()
                     layer.tips("请填写耗时", '#minCostWin');
                     return false;
                 }
@@ -625,7 +662,7 @@ function addSdSkillCa(areaIndex, stationIndex) {
 
 // 请添加站点
 var roomOption = '';
-function addSite(areaIndex, stationIndex) {
+function addSite(event, areaIndex, stationIndex) {
     layui.use('layer',function(){
         var layer = layui.layer;
         var y = event.clientY;
@@ -685,10 +722,12 @@ function addSite(areaIndex, stationIndex) {
                             console.log(idRoomArr)
                             console.log($.inArray(idRoom, idRoomArr))
                             if ($.inArray(idRoom, idRoomArr) != -1) {
+                                $('#idRoom_' + i).focus()
                                 layer.tips("该房间号重复", '#idRoom_' + i);
                                 return false;
                             }
                             if (!$('#numConcur_' + i).val()) {
+                                $('#numConcur_' + i).focus()
                                 layer.tips("请填写并发人数", '#numConcur_' + i);
                                 return false;
                             } else {
@@ -767,18 +806,18 @@ function bulidStationHtml(areaIndex, stationIndex) {
         '              <a href="javascript:;" class=\'delete-btn\' id="delStation_' + areaIndex + '_' + stationIndex + '" onclick="delStation('+ areaIndex +', '+ stationIndex +')"></a>\n' +
         '          </div>\n' +
         '          <div class="content-text" style="margin-top: 5px;">\n' +
-        '              <div class=\'text-item\' onclick="addSdStationCa('+ areaIndex +', '+ stationIndex +')">\n' +
+        '              <div class=\'text-item\' onclick="addSdStationCa(event, '+ areaIndex +', '+ stationIndex +')">\n' +
         '                  <img src="/osce/biz/img/template/edit_btn.png" alt="编辑" class="edit-btn">\n' +
         '                  <span class="item-desc" id="sdStationCaText_' + areaIndex + '_' + stationIndex + '">请添加基地类型</span>\n' +
         '                  <input id="sdStationCa_' + areaIndex + '_' + stationIndex + '" hidden>' +
         '              </div>\n' +
-        '              <div class=\'text-item\' onclick="addSdSkillCa('+ areaIndex +', '+ stationIndex +')">\n' +
+        '              <div class=\'text-item\' onclick="addSdSkillCa(event, '+ areaIndex +', '+ stationIndex +')">\n' +
         '                  <img src="/osce/biz/img/template/edit_btn.png" alt="编辑" class="edit-btn">\n' +
         '                  <span class="item-desc" id="sdSkillCaText_' + areaIndex + '_' + stationIndex + '">请添加技能类型</span>\n' +
         '                  <input id="sdSkillCa_' + areaIndex + '_' + stationIndex + '" hidden>' +
         '                  <input id="minCost_' + areaIndex + '_' + stationIndex + '" hidden>' +
         '              </div>\n' +
-        '              <div class=\'text-item\'  onclick="addSite('+ areaIndex +', '+ stationIndex +')">\n' +
+        '              <div class=\'text-item\'  onclick="addSite(event, '+ areaIndex +', '+ stationIndex +')">\n' +
         '                  <img src="/osce/biz/img/template/edit_btn.png"\n' +
         '                       alt="编辑" class="edit-btn">\n' +
         '                  <span class="item-desc" id="siteText_' + areaIndex + '_' + stationIndex + '">请添加站点</span>\n' +
@@ -794,7 +833,7 @@ function bulidStationHtml(areaIndex, stationIndex) {
 }
 
 // 循环策略
-function setAreaLoop(areaIndex) {
+function setAreaLoop(event, areaIndex) {
     layui.use('layer', function () {
         var layer = layui.layer;
         layer.open({
