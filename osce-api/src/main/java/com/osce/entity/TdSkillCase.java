@@ -22,7 +22,7 @@ public class TdSkillCase implements Serializable {
     /**
      * 主键
      */
-    private String id;
+    private Long id;
 
     /**
      * 技能病例ID

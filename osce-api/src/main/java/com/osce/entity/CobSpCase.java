@@ -22,7 +22,7 @@ public class CobSpCase implements Serializable {
     /**
      * 主键
      */
-    private String id;
+    private Long id;
 
     /**
      * 主键
