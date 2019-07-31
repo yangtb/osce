@@ -690,6 +690,9 @@
     <delete id="delTdItemSection">
         delete from td_item_section where id_item_store = #{idItemStore}
     </delete>
+    <delete id="delTdItemArgTypes">
+        delete from td_item_arg_type where id_item_store = #{idItemStore}
+    </delete>
 
     <select id="listLeft" resultType="com.osce.vo.biz.plan.template.PaperLeftVo">
         SELECT
@@ -781,7 +784,7 @@
         LEFT OUTER JOIN td_item item ON section.id_item_section = item.id_item_section
         WHERE
             store.id_item_store = #{idItemStore}
-        AND section.fg_active = '1'
+        <!--AND section.fg_active = '1'-->
         AND item.sd_item_from IN ( IF(store.fg_item_from_public = '1','1',''),IF(store.fg_item_from_private = '1','2',''),IF(store.fg_item_from_import = '1','3','') )
         AND (
                 ( store.fg_choose_hist = '1'

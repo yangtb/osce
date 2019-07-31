@@ -99,6 +99,14 @@ public interface PfPaperDao {
     int editTdItemArgTypes(@Param("list") List<TdItemArgType> list);
 
     /**
+     * 删除题型参数
+     *
+     * @param idItemStore 题集ID
+     * @return
+     */
+    int delTdItemArgTypes(@Param("idItemStore") Long idItemStore);
+
+    /**
      * add难易程度比例
      *
      * @param list

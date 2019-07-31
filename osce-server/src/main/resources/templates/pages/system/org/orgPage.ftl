@@ -106,10 +106,10 @@
                            class="layui-input">
                 </div>
                 <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
-                    <i class="layui-icon" style="color: #009688; font-weight: bold">&#xe608;</i>上传
+                    <i class="layui-icon">&#xe681;</i>上传
                 </button>
                 <button type="button" class="layui-btn layui-btn-primary" id="reviewPhoto">
-                    <i class="iconfont icon-look1" style="color: #009688; font-weight: bold"></i> 预览
+                    <i class="iconfont icon-detail"></i> 预览
                 </button>
             </div>
             <div class="layui-form-item">

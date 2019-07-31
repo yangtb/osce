@@ -143,7 +143,7 @@
             </div>
             <div class="layui-input-inline layui-btn-container" style="width: auto;">
                 <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
-                    <i class="layui-icon">&#xe67c;</i>上传图片
+                    <i class="layui-icon">&#xe681;</i>上传图片
                 </button>
                 <button type="button" class="layui-btn layui-btn-primary" id="reviewPhoto">查看图片</button>
             </div>

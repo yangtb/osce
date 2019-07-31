@@ -11,6 +11,10 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/layui/build/css/step.css">
 
+    <style>
+        .layui-unselect dl { max-height:230px; }
+    </style>
+
     <script>
         var basePath = '${basePath}';
         var idModel = '${idModel!}';

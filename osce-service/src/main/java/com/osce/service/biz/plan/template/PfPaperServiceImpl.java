@@ -80,11 +80,8 @@ public class PfPaperServiceImpl implements PfPaperService {
         // 题型参数
         List<TdItemArgType> tdItemArgTypes = dto.getTdItemArgTypes();
         if (CollectionUtils.isNotEmpty(tdItemArgTypes)) {
-            if (tdItemArgTypes.get(0).getIdItemArgType() == null) {
-                pfPaperDao.addTdItemArgTypes(tdItemArgTypes);
-            } else {
-                pfPaperDao.editTdItemArgTypes(tdItemArgTypes);
-            }
+            pfPaperDao.delTdItemArgTypes(tdItemArgTypes.get(0).getIdItemStore());
+            pfPaperDao.addTdItemArgTypes(tdItemArgTypes);
         }
         // 难易程度比例
         List<TdItemArgLevel> sdItemLevels = dto.getSdItemLevels();

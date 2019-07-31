@@ -620,11 +620,12 @@ layui.config({
         }
         return common.commonPost(basePath + '/pf/p/plan/paper/generate', bizData, '生成试卷', 'generatePaper',
             function (data) {
-                reloadPaperTable();
+                reloadTable();
             }, true);
     });
 
-    function reloadPaperTable() {
+    function reloadTable() {
+        table.reload('itemTableResultId');
         table.reload('paperTableId');
     }
 
