@@ -183,11 +183,14 @@ layui.config({
                     common.errorMsg(data.msg);
                     return false;
                 } else {
-                    $("#orgForm").autofill(data.data);
-                    $("#idOrgParName").val(idOrgParName);
-                    layui.use('form', function () {
-                        layui.form.render();
-                    });
+                    var sucData = data.data;
+                    if (sucData) {
+                        if (!sucData.examRoomUrl) {
+                            sucData.examRoomUrl = '';
+                        }
+                        form.val("orgFormFilter", sucData);
+                        $("#idOrgParName").val(idOrgParName);
+                    }
                     return true;
                 }
             },

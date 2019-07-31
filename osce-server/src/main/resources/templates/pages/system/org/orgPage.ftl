@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="layui-col-xs9" style="padding-left: 10px; padding-top: 20px;">
-        <form class="layui-form" id="orgForm">
+        <form class="layui-form" id="orgForm" lay-filter="orgFormFilter">
             <div hidden>
                 <input id="idOrg" name="idOrg" hidden>
                 <input id="idOrgPar" name="idOrgPar" hidden>
@@ -185,7 +185,6 @@
 <script src="${contextPath}/ztree/js/jquery.ztree.exhide.js"></script>
 <script src="${contextPath}/ztree/js/jquery.ztree.exedit.js"></script>
 <script src="${contextPath}/ztree/js/fuzzysearch.js"></script>
-<script src="${contextPath}/common/js/jquery.formautofill.js"></script>
 <script src="${contextPath}/biz/js/system/org/orgController.js"></script>
 
 </body>
