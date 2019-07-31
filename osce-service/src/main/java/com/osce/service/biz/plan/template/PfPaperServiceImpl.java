@@ -40,13 +40,16 @@ public class PfPaperServiceImpl implements PfPaperService {
         return pfPaperDao.listLeft(idModel);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Long addTdItemStore(TdItemStore dto) {
         if (dto.getIdItemStore() == null) {
             pfPaperDao.addTdItemStore(dto);
         } else {
             pfPaperDao.editTdItemStore(dto);
+            pfPaperDao.delTdItemSection(dto.getIdItemStore());
         }
+        pfPaperDao.addTdItemSection(dto.getIdItemStoreFrom(), dto.getIdItemStore());
         return dto.getIdItemStore();
     }
 

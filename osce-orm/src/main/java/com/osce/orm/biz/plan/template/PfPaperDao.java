@@ -49,6 +49,24 @@ public interface PfPaperDao {
     int editTdItemStore(TdItemStore dto);
 
     /**
+     * 增加目录
+     *
+     * @param idItemStoreFrom 来源题集ID
+     * @param idItemStore     题集ID
+     * @return
+     */
+    int addTdItemSection(@Param("idItemStoreFrom") Long idItemStoreFrom,
+                         @Param("idItemStore") Long idItemStore);
+
+    /**
+     * 删除目录
+     *
+     * @param idItemStore 题集ID
+     * @return
+     */
+    int delTdItemSection(@Param("idItemStore") Long idItemStore);
+
+    /**
      * 获取试题题集
      *
      * @param dto

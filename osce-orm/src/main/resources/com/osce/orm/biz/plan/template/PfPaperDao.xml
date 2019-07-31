@@ -368,6 +368,23 @@
         </trim>
         )
     </insert>
+    <insert id="addTdItemSection">
+        INSERT INTO td_item_section(
+            id_item_store ,
+            na_item_section ,
+            sort ,
+            fg_active
+        )
+        SELECT
+            #{idItemStore} ,
+            na_item_section ,
+            sort ,
+            0
+        FROM
+            ibm_item_section
+        WHERE
+            id_item_store = #{idItemStoreFrom}
+    </insert>
 
     <update id="editTdItemStore">
         UPDATE td_item_store
@@ -670,6 +687,9 @@
     <update id="saveTdPaper">
         update tp_ins_station set id_paper = #{idPaper} where id_ins_station = #{idInsStation}
     </update>
+    <delete id="delTdItemSection">
+        delete from td_item_section where id_item_store = #{idItemStore}
+    </delete>
 
     <select id="listLeft" resultType="com.osce.vo.biz.plan.template.PaperLeftVo">
         SELECT

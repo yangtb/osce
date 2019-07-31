@@ -417,14 +417,12 @@ layui.config({
             {field: 'gmtCreate', width: 170, title: '创建时间'},
             {fixed: 'right', width: 100, title: '操作', align: 'center', toolbar: '#paperBar'}
         ]] //设置表头
-        , url: basePath + '/pf/p/plan/paper/list'
+        , url: basePath + '/pf/p/plan/paper/list?idModel=' + idModel
         , limit: 20
         , even: true
         , limits: [20, 50, 100]
         , page: {
             layout: ['prev', 'page', 'next', 'skip', 'refresh', 'count', 'limit']
-        }, where : {
-            idModel: idModel
         }
     });
 
@@ -607,15 +605,11 @@ layui.config({
                 {field: 'sdItemLevel', width: 100, title: '难度', align:'center'},
                 {field: 'sdItemFrom', width: 120, title: '来源', align:'center'},
             ]] //设置表头
-            , url: basePath + '/pf/p/plan/paper/item/list'
+            , url: basePath + '/pf/p/plan/paper/item/list?idItemStore=' + $('#idItemStore').val() + '&fgActive=1'
             , limit: 20
             , even: true
             , page: {
                 layout: ['prev', 'page', 'next', 'skip', 'refresh', 'count', 'limit']
-            }
-            , where : {
-                idItemStore: $('#idItemStore').val(),
-                fgActive : '1'
             }
         });
     }
@@ -626,9 +620,13 @@ layui.config({
         }
         return common.commonPost(basePath + '/pf/p/plan/paper/generate', bizData, '生成试卷', 'generatePaper',
             function (data) {
-                itemTableResult();
+                reloadPaperTable();
             }, true);
     });
+
+    function reloadPaperTable() {
+        table.reload('paperTableId');
+    }
 
     // 导入试题
     $("#importItem").on('click', function () {
