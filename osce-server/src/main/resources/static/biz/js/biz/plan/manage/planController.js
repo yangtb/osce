@@ -55,18 +55,22 @@ layui.config({
         });
     });
 
+    $('#add').on('click', function () {
+        editPlan();
+    });
+
     $('#edit').on('click', function () {
         var checkStatus = table.checkStatus('planTableId')
             , data = checkStatus.data;
-        /*if (data.length == 0) {
+        if (data.length == 0) {
             layer.tips('请先选中一行记录', '#edit', {tips: 1});
             return;
         }
         if (data.length > 1) {
             layer.tips('请选中一行记录进行编辑', '#edit', {tips: 1});
             return;
-        }*/
-        editPlan( data[0]);
+        }
+        editPlan(data[0]);
     });
 
     function editPlan(data) {

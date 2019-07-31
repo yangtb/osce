@@ -22,6 +22,9 @@
     <form class="layui-form">
         <div class="layui-inline">
             <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-sm" id="add">
+                    <i class="layui-icon layui-icon-add-1"></i>增加
+                </button>
                 <button type="button" class="layui-btn layui-btn-sm" id="edit">
                     <i class="layui-icon layui-icon-edit"></i>编辑
                 </button>
