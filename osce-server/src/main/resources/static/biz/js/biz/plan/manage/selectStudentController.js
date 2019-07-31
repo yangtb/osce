@@ -28,12 +28,12 @@ layui.config({
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
-            {field: 'naGrade', minWidth: 130, title: '班级'},
+            {field: 'naDepart', minWidth: 130, title: '班级'},
             {field: 'username', minWidth: 120, title: '账号'},
             {field: 'realName', minWidth: 130, title: '姓名'},
             {field: 'sex', width: 80, title: '性别', templet: '#sexTpl'},
             {field: 'phoneNo', minWidth: 130, title: '手机号'},
-            {field: 'idcard', minWidth: 180, title: '身份证号'},
+            {field: 'idcard', minWidth: 190, title: '身份证号'},
         ]] //设置表头
         , url: basePath + '/pf/p/student/list'
         , limit: 50
@@ -67,7 +67,7 @@ layui.config({
     function saveTpStudent(data) {
         var reqData = new Array();
         $.each(data, function (index, content) {
-            reqData.push(content.userId);
+            reqData.push(content.idStudentDepart);
         });
         var bizData = {
             idUsers : reqData,

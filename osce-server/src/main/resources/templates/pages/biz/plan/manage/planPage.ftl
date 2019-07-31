@@ -62,6 +62,32 @@
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/plan/manage/planController.js"></script>
 
+<script type="text/html" id="fgReplanTpl">
+    {{#  if(d.fgReplan == '1'){ }}
+    <span style="color: red">补考</span>
+    {{#  } else { }}
+    普考
+    {{#  } }}
+</script>
+
+<script type="text/html" id="sdPlanStatusTpl">
+    {{#  if(d.sdPlanStatus == 1){ }}
+    <button type="button" class="layui-btn layui-btn-xs" style="background-color: #FFB800">未发布</button>
+    {{#  } }}
+    {{#  if(d.sdPlanStatus == 2){ }}
+    <button type="button" class="layui-btn layui-btn-xs" style="background-color: #1E9FFF">已发布-待领料</button>
+    {{#  } }}
+    {{#  if(d.sdPlanStatus == 3){ }}
+    <button type="button" class="layui-btn layui-btn-xs" style="background-color: #009688">已领料-待考</button>
+    {{#  } }}
+    {{#  if(d.sdPlanStatus == 4){ }}
+    <button type="button" class="layui-btn layui-btn-xs" style="background-color: #5FB878">正在考试</button>
+    {{#  } }}
+    {{#  if(d.sdPlanStatus == 5){ }}
+    <button type="button" class="layui-btn layui-btn-xs">考试完成</button>
+    {{#  } }}
+</script>
+
 <script type="text/html" id="planBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
 </script>

@@ -148,7 +148,7 @@ layui.config({
             if (sdSkillCa == 3) {
                 html += 'tab-content-border ';
             }
-            html += '>\n';
+            html += '">\n';
 
             var itemStyle = 'item-msg';
             $.each(content.spList, function (indexSp, contentSp) {

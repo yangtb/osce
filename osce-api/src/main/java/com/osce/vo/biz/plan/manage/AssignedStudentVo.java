@@ -23,7 +23,7 @@ public class AssignedStudentVo extends TpStudent implements Serializable {
     /**
      * 年级
      */
-    private String naGrade;
+    private String naDepart;
 
     /**
      * 用户名

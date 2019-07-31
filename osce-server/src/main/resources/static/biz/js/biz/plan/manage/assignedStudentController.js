@@ -13,12 +13,12 @@ layui.config({
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
-            {field: 'naGrade', minWidth: 170, title: '班级'},
+            {field: 'naDepart', width: 140, title: '班级'},
             {field: 'username', minWidth: 150, title: '账号'},
             {field: 'realName', minWidth: 120, title: '姓名'},
-            {field: 'sex', minWidth: 90, title: '性别'},
+            {field: 'sex', width: 80, title: '性别'},
             {field: 'phoneNo', minWidth: 120, title: '手机号'},
-            {field: 'idcard', minWidth: 170, title: '身份证号'},
+            {field: 'idcard', width: 180, title: '身份证号'},
             {fixed: 'right', width: 100, title: '操作', align: 'center', toolbar: '#studentBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/assigned/student/list'

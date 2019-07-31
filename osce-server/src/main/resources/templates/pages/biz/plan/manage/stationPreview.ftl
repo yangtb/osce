@@ -26,7 +26,7 @@
         <tbody>
         <tr id="area-am" class="tr-my" style="height: 300px;">
             <td class="font-title td-my">
-                <p>上</p>
+                <p>&emsp;上&emsp;</p>
                 <p style="margin-top: 20px;">午</p>
             </td>
         </tr>

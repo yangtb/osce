@@ -28,7 +28,7 @@ layui.config({
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
-            {field: 'naGrade', minWidth: 130, title: '班级'},
+            {field: 'naDepart', minWidth: 130, title: '班级'},
             {field: 'username', minWidth: 120, title: '账号'},
             {field: 'realName', minWidth: 130, title: '姓名'},
             {field: 'sex', width: 80, title: '性别', templet: '#sexTpl'},

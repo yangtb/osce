@@ -79,6 +79,16 @@
            lay-skin="switch" lay-text="NO|OFF" lay-filter="fgActiveCheckFilter" {{ d.fgActive== '1' ? 'checked' : '' }}>
 </script>
 
+<script type="text/html" id="fgChildTpl">
+    {{#  if(d.fgChild == 0){ }}
+    <span class="label label-info" style="background-color: #1E9FFF">父模板</span>
+    {{#  } }}
+    {{#  if(d.fgChild == 1){ }}
+    <span class="label label-warning" style="background-color: #FFB800">子模板</span>
+    {{#  } }}
+</script>
+
+
 <script type="text/html" id="templateBar">
     <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
 </script>

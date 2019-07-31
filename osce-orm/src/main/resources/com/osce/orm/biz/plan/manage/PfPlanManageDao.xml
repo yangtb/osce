@@ -248,9 +248,12 @@
         SELECT
             a.id_plan ,
             a.na_plan ,
-            a.gmt_act_begin ,
-            a.gmt_act_end ,
+            a.gmt_plan_begin ,
+            a.gmt_plan_end ,
+            a.fg_replan ,
             a.sd_plan_status ,
+            (select count(DISTINCT id_area) from tp_ins_station where a.id_plan = id_plan) as areaNum ,
+            (select count(1) from tp_student where a.id_plan = id_plan) as studentNum ,
             a.gmt_create
         FROM
             tp_plan a
@@ -278,7 +281,7 @@
             a.id_tp_student ,
             a.id_plan ,
             a.id_user ,
-            d.na_grade ,
+            d.na_depart ,
             b.username ,
             b.real_name ,
             (case b.sex when 1 then '男' when 2 then '女' else '未知' end) as sex,
@@ -286,9 +289,9 @@
             b.idcard
         FROM
             tp_student a
-        LEFT JOIN user_info b ON a.id_user = b.user_id
-        LEFT JOIN org_student_depart c ON a.id_user = c.id_user
-        LEFT JOIN org_grade d ON c.id_grade = d.id_grade
+        LEFT JOIN org_student_depart c ON a.id_user = c.id_student_depart
+        LEFT JOIN user_info b ON c.id_user = b.user_id
+        LEFT JOIN org_depart d ON c.id_depart = d.id_depart
         WHERE
             a.id_plan = #{idPlan}
     </select>

@@ -14,6 +14,8 @@ layui.config({
         elem: '#tpPickingTable' //指定原始表格元素选择器（推荐id选择器）
        // , id: 'tpPickingTableId'
         , height: 600 //容器高度
+        , toolbar: true
+        , title: '领料计划'
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             //{checkbox: true, fixed: true},

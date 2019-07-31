@@ -19,10 +19,10 @@ layui.config({
             {field: 'naPlan', minWidth: 170, title: '考试名称', fixed: true},
             {field: 'gmtPlanBegin', minWidth: 170, title: '计划开考时间'},
             {field: 'gmtPlanEnd', minWidth: 170, title: '计划结束时间'},
-            {field: 'areaNum', minWidth: 100, title: '考场数'},
-            {field: 'studentNum', minWidth: 100, title: '学生数'},
-            {field: 'gmtCreate', minWidth: 170, title: '考试类型'},
-            {field: 'sdPlanStatus', minWidth: 170, title: '状态'},
+            {field: 'areaNum', minWidth: 100, title: '考场数', align: 'right'},
+            {field: 'studentNum', minWidth: 100, title: '学生数', align: 'right'},
+            {field: 'fgReplan', width: 120, title: '考试类型', align: 'center', templet: '#fgReplanTpl'},
+            {field: 'sdPlanStatus', minWidth: 170, title: '状态', templet: '#sdPlanStatusTpl'},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#planBar'}
         ]] //设置表头

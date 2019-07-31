@@ -199,7 +199,8 @@
         LEFT JOIN td_area b ON a.id_area = b.id_area
         LEFT JOIN td_station c ON a.id_station = c.id_station
         LEFT JOIN erp_room f ON a.id_room = f.id_room
-        LEFT JOIN user_info g on d.id_user = g.user_id
+        LEFT JOIN org_student_depart h on d.id_user = h.id_student_depart
+        LEFT JOIN user_info g on h.id_user = g.user_id
         WHERE
             a.id_plan = #{idPlan}
         ORDER BY
@@ -299,7 +300,8 @@
         FROM
             tp_ins_station_detail a
         LEFT JOIN tp_ins_station b ON a.id_ins_station = b.id_ins_station
-        LEFT JOIN user_info d ON a.id_user = d.user_id
+        LEFT JOIN org_student_depart m on a.id_user = m.id_student_depart
+	    LEFT JOIN user_info d ON m.id_user = d.user_id
         LEFT JOIN td_area e ON b.id_area = e.id_area
         LEFT JOIN td_station f ON b.id_area = f.id_area
         LEFT JOIN erp_room g ON b.id_room = g.id_room

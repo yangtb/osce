@@ -177,7 +177,7 @@
                                 <iframe id="stationPreviewIframe" class='layui-col-xs12' frameborder="0" style="height: 670px;"
                                         src="" scrolling="no"></iframe>
                                 <div class="layui-form-item">
-                                    <div class="layui-input-block">
+                                    <div class="layui-input-block" style="padding-top: 15px;">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
                                         <button class="layui-btn" lay-submit lay-filter="formStep2">
                                             下一步 ：分配SP
@@ -192,7 +192,7 @@
                                 <iframe id="spIframe" class='layui-col-xs12' frameborder="0" style="height: 670px;"
                                         src="" scrolling="no"></iframe>
                                 <div class="layui-form-item">
-                                    <div class="layui-input-block">
+                                    <div class="layui-input-block" style="padding-top: 15px;">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
                                         <button class="layui-btn" lay-submit lay-filter="formStep3">
                                             下一步 ：分配考官
@@ -207,7 +207,7 @@
                                 <iframe id="assistantIframe" class='layui-col-xs12' frameborder="0" style="height: 670px;"
                                         src="" scrolling="no"></iframe>
                                 <div class="layui-form-item">
-                                    <div class="layui-input-block">
+                                    <div class="layui-input-block" style="padding-top: 15px;">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
                                         <button id="pickStep" class="layui-btn" lay-submit lay-filter="formStep4">
                                             下一步 ：领料计划

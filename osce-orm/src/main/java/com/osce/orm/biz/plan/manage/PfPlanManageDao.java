@@ -94,6 +94,14 @@ public interface PfPlanManageDao {
     int addStudent(TpStudentDto dto);
 
     /**
+     * 删除计划下所有学生
+     *
+     * @param idPlan 计划ID
+     * @return
+     */
+    int delPlanStudent(@Param("idPlan") Long idPlan);
+
+    /**
      * 删除学员
      *
      * @param dto
