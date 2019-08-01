@@ -28,6 +28,14 @@ public interface PfPlanManageService {
     PageResult pagePlan(PlanDto dto);
 
     /**
+     * 实训计划list
+     *
+     * @param dto
+     * @return
+     */
+    PageResult pagePlan1(PlanDto dto);
+
+    /**
      * 新增计划
      *
      * @param dto

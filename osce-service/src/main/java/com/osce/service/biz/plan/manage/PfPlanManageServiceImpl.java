@@ -42,6 +42,13 @@ public class PfPlanManageServiceImpl implements PfPlanManageService {
     }
 
     @Override
+    public PageResult pagePlan1(PlanDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfPlanManageDao.countPlanManage1(dto),
+                pfPlanManageDao.listPlanManage1(dto));
+    }
+
+    @Override
     public Long addPlan(TpPlan dto) {
         if (dto.getIdPlan() == null) {
             dto.setPercentPicking(0);

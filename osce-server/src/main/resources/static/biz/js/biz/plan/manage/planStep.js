@@ -12,6 +12,32 @@ layui.config({
         , laydate = layui.laydate
         , tableSelect = layui.tableSelect;
 
+    tableSelect.render({
+        elem: '#idReplanFromText',
+        checkedKey: 'idPlan',
+        searchKey: 'naPlan',
+        searchPlaceholder: '请输入考试名称',
+        table: {
+            url: basePath + '/pf/p/plan/manage/list1',
+            height: 260,
+            cols: [[
+                {type: 'radio'},
+                {field: 'naPlan', minWidth: 170, title: '考试名称'},
+                {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
+            ]]
+            , limits: [10, 20, 50]
+            , page: true
+        },
+        done: function (elem, data) {
+            var bizData = data.data[0];
+            if (bizData) {
+                $('#idReplanFrom').val(bizData.idPlan);
+                $('#idReplanFromText').val(bizData.naPlan);
+                $('#idReplanFromText').attr("ts-selected", bizData.idPlan);
+            }
+        }
+    });
+
     form.verify({
         desPlan: function (value) {
             if (value && value.length > 255) {
@@ -27,12 +53,13 @@ layui.config({
 
     form.on('select(fgReplanFilter)', function(data){
         if (data.value == 0) {
-            $('#idReplanFrom').addClass("layui-disabled");
-            $('#idReplanFrom').attr("disabled", "true");
+            $('#idReplanFromText').addClass("layui-disabled");
+            $('#idReplanFromText').attr("disabled", "true");
         } else {
-            $('#idReplanFrom').removeClass("layui-disabled");
-            $('#idReplanFrom').removeAttr("disabled", "true");
+            $('#idReplanFromText').removeClass("layui-disabled");
+            $('#idReplanFromText').removeAttr("disabled", "true");
             $('#idReplanFrom').val("");
+            $('#idReplanFromText').val("");
         }
     });
 
@@ -40,6 +67,7 @@ layui.config({
     laydate.render({
         elem: '#gmtPlanBegin'
         //,value: new Date()
+        , min: 0
         , type: 'datetime'
         , trigger: 'click'
     });

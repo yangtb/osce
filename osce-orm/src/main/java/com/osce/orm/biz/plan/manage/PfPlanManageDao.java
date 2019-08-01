@@ -38,6 +38,22 @@ public interface PfPlanManageDao {
     List<TpPlanVo> listPlanManage(PlanDto dto);
 
     /**
+     * 计划总数
+     *
+     * @param dto
+     * @return
+     */
+    Long countPlanManage1(PlanDto dto);
+
+    /**
+     * 计划list
+     *
+     * @param dto
+     * @return
+     */
+    List<TpPlanVo> listPlanManage1(PlanDto dto);
+
+    /**
      * 新增计划
      *
      * @param dto

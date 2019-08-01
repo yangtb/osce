@@ -136,7 +136,8 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label">补考来源</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" class="layui-input layui-disabled" id="idReplanFrom" name="idReplanFrom"
+                                            <input id="idReplanFrom" name="idReplanFrom" hidden>
+                                            <input type="text" class="layui-input layui-disabled" id="idReplanFromText" name="idReplanFromText"
                                                    placeholder="前选择补考来源" disabled/>
                                         </div>
                                     </div>

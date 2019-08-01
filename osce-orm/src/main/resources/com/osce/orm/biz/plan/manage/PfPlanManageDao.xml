@@ -243,6 +243,7 @@
             tp_plan a
         WHERE
             a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
     </select>
     <select id="listPlanManage" resultType="com.osce.vo.biz.plan.manage.TpPlanVo">
         SELECT
@@ -269,6 +270,33 @@
             a.fg_replan ,
             a.sd_plan_status ,
             a.gmt_create
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countPlanManage1" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            tp_plan a
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
+        AND sd_plan_status = 5
+    </select>
+    <select id="listPlanManage1" resultType="com.osce.vo.biz.plan.manage.TpPlanVo">
+        SELECT
+            a.id_plan ,
+            a.na_plan ,
+            a.fg_replan ,
+            a.sd_plan_status ,
+            a.gmt_create
+        FROM
+            tp_plan a
+        LEFT JOIN td_area b ON a.id_model = b.id_model
+        LEFT JOIN tp_student c ON a.id_plan = c.id_plan
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
+        AND sd_plan_status = 5
         limit #{offset}, #{limit}
     </select>
     <select id="copyTdModel" statementType="CALLABLE">

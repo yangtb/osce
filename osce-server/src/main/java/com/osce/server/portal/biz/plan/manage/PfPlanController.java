@@ -52,6 +52,14 @@ public class PfPlanController extends BaseController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/manage/list1")
+    @ResponseBody
+    public PageResult pagePlan1(PlanDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfPlanManageService.pagePlan1(dto);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/manage/assigned/student/page")
     public String assignedStudentPage(Model model, String idPlan) {
         model.addAttribute("idPlan", idPlan);
