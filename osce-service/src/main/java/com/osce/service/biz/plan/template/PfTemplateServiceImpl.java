@@ -3,6 +3,7 @@ package com.osce.service.biz.plan.template;
 import com.osce.api.biz.plan.template.PfTemplateService;
 import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.entity.TdInsStation;
 import com.osce.entity.TdModel;
 import com.osce.entity.TdSite;
 import com.osce.exception.RestException;
@@ -154,7 +155,8 @@ public class PfTemplateServiceImpl implements PfTemplateService {
     @Override
     public List<TdStationInfoVo> selectStationInfo(Long idModel) {
         List<TdStationInfoVo> stationVos = pfTemplateDao.selectStationInfo(idModel);
-        stationVos.forEach(tdInsStationVo -> tdInsStationVo.getDayData().forEach(tdDayInfo -> { tdDayInfo.getAreaData().forEach(tdAreaInfo -> tdAreaInfo.getStationData().forEach(tdStation -> {
+        stationVos.forEach(tdInsStationVo -> tdInsStationVo.getDayData().forEach(tdDayInfo -> {
+            tdDayInfo.getAreaData().forEach(tdAreaInfo -> tdAreaInfo.getStationData().forEach(tdStation -> {
                 tdStation.getRoomData().forEach(tdRoomInfo -> {
                     if (tdRoomInfo.getIdPaper() != null) {
                         String idPaperText = pfTemplateDao.selectSkillName(tdStation.getSdSkillCa(), tdRoomInfo.getIdPaper());
@@ -195,7 +197,14 @@ public class PfTemplateServiceImpl implements PfTemplateService {
 
     @Override
     public boolean saveStationPaper(PfAddTpPaperDto dto) {
-        int num = pfTemplateDao.saveStationPaper(dto);
+        int num;
+        if (dto.isAllFlag()) {
+            TdInsStation tdInsStation = pfTemplateDao.selectTdInsStation(dto.getIdInsStation());
+            num = pfTemplateDao.saveStationAllPaper(tdInsStation.getIdModel(), tdInsStation.getSdSkillCa(),
+                    dto.getIdPaper());
+        } else {
+            num = pfTemplateDao.saveStationPaper(dto);
+        }
         return num >= 1 ? true : false;
     }
 

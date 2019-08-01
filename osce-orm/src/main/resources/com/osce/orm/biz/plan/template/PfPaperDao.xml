@@ -1040,18 +1040,27 @@
         <choose>
             <when test='sdSkillCa == "1".toString()'>
                 select count(1) from td_item_store where id_org = #{idOrg} and fg_active = '1'
+                <if test="idModel != null">
+                    and id_model = #{idModel}
+                </if>
                 <if test="keywords != null and keywords != '' ">
                     and na_item_store like concat('%',#{keywords},'%')
                 </if>
             </when>
             <when test='sdSkillCa == "2".toString()'>
                 select count(1) from td_skill_case where id_org = #{idOrg} and fg_active = '1'
+                <if test="idModel != null">
+                    and id_model = #{idModel}
+                </if>
                 <if test="keywords != null and keywords != '' ">
                     and na_skill_case like concat('%',#{keywords},'%')
                 </if>
             </when>
             <otherwise>
                 select count(1) from td_sp_case where id_org = #{idOrg} and fg_active = '1'
+                <if test="idModel != null">
+                    and id_model = #{idModel}
+                </if>
                 <if test="keywords != null and keywords != '' ">
                     and na_sp_case like concat('%',#{keywords},'%')
                 </if>
@@ -1070,6 +1079,9 @@
                 where
                     id_org = #{idOrg}
                 and fg_active = '1'
+                <if test="idModel != null">
+                    and id_model = #{idModel}
+                </if>
                 <if test="keywords != null and keywords != '' ">
                     and na_item_store like concat('%',#{keywords},'%')
                 </if>
@@ -1084,6 +1096,9 @@
                 where
                     id_org = #{idOrg}
                 and fg_active = '1'
+                <if test="idModel != null">
+                    and id_model = #{idModel}
+                </if>
                 <if test="keywords != null and keywords != '' ">
                     and na_skill_case like concat('%',#{keywords},'%')
                 </if>
@@ -1098,6 +1113,9 @@
                 where
                     id_org = #{idOrg}
                 and fg_active = '1'
+                <if test="idModel != null">
+                    and id_model = #{idModel}
+                </if>
                 <if test="keywords != null and keywords != '' ">
                     and na_sp_case like concat('%',#{keywords},'%')
                 </if>

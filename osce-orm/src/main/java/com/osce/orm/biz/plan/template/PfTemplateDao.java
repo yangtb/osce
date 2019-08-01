@@ -2,9 +2,9 @@ package com.osce.orm.biz.plan.template;
 
 import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.entity.TdInsStation;
 import com.osce.entity.TdModel;
 import com.osce.entity.TdSite;
-import com.osce.vo.biz.plan.template.TdInsStationDetailVo;
 import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -228,6 +228,26 @@ public interface PfTemplateDao {
      * @return
      */
     int saveStationPaper(PfAddTpPaperDto dto);
+
+    /**
+     * 保存排站试卷 - 应用到该考站的所有时段
+     *
+     * @param idModel   模板id
+     * @param sdSkillCa 类型
+     * @param idPaper   试卷id
+     * @return
+     */
+    int saveStationAllPaper(@Param("idModel") Long idModel,
+                            @Param("sdSkillCa") String sdSkillCa,
+                            @Param("idPaper") Long idPaper);
+
+    /**
+     * 获取排站信息
+     *
+     * @param idInsStation
+     * @return
+     */
+    TdInsStation selectTdInsStation(@Param("idInsStation") Long idInsStation);
 
     /**
      * 查询模板名称

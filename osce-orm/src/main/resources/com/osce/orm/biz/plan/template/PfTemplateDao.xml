@@ -476,6 +476,13 @@
     <update id="saveStationPaper">
         update td_ins_station set id_paper = #{idPaper} where id_ins_station = #{idInsStation}
     </update>
+    <update id="saveStationAllPaper">
+        UPDATE td_ins_station
+        SET id_paper = #{idPaper}
+        WHERE
+            id_model = #{idModel}
+        AND sd_skill_ca = #{sdSkillCa}
+    </update>
     <delete id="delSite">
         delete from td_site where id_area in (select id_area from td_area where id_model = #{idModel})
     </delete>
@@ -779,6 +786,14 @@
             td_model
         WHERE
             id_model = #{idModel}
+    </select>
+    <select id="selectTdInsStation" resultType="com.osce.entity.TdInsStation">
+        SELECT
+            id_model, sd_skill_ca
+        FROM
+            td_ins_station a
+        WHERE
+            a.id_ins_station = #{idInsStation}
     </select>
 
 </mapper>

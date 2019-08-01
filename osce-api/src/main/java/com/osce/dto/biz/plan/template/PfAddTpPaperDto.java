@@ -29,4 +29,9 @@ public class PfAddTpPaperDto implements Serializable {
      */
     private Long idPaper;
 
+    /**
+     * 是否应用到该考站的所有时段
+     */
+    private boolean allFlag;
+
 }

@@ -210,7 +210,7 @@ layui.config({
             searchKey: 'keywords',
             searchPlaceholder: '请输入' + name + '名称',
             table: {
-                url: basePath + '/pf/p/plan/exam/paper/list?sdSkillCa=' + sdSkillCa,
+                url: basePath + '/pf/p/plan/exam/paper/list?sdSkillCa=' + sdSkillCa + '&idModel=',
                 height: 280,
                 size: 'sm',
                 cols: [[
