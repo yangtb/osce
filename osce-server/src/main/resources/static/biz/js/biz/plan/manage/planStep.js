@@ -346,10 +346,9 @@ layui.config({
     // 计划发布
     $('#publishPlan').on('click', function () {
         var bizData = {
-            parIdPlan : idPlan
+            idPlan : idPlan
         }
-        common.commonPost(basePath + '/pf/r/plan/publish',
-            bizData, '发布', 'publishPlan', null, true);
+        common.commonPost(basePath + '/pf/r/plan/publish', bizData, '发布', 'publishPlan', null, true);
     });
 
 });
