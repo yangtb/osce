@@ -57,7 +57,7 @@ layui.config({
 
     function fullRight(data) {
         $("#idScoreSheet").empty();
-        if (!data) {
+        if (!data || !data.idScoreSheet) {
             return;
         }
         $('#idScoreSheet').append("<option value='" + data.idScoreSheet + "'>" + data.naScoreSheet + "</option>");
