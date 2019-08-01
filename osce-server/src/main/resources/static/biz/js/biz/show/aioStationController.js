@@ -43,7 +43,7 @@ layui.config({
        /* data.idPlan = 1;
         data.idArea = 10;
         data.timeSection = 1;
-        data.naPlan = "测试事实是时候似乎"*/
+        data.naPlan = "测试的是时候手动数据"*/
         if (data.naPlan) {
             $("#headInfo").text(data.naPlan + " | " + data.naArea + " | "
                 + data.fgReplan + " | " + data.planDay + " " + data.timeBegin + "~" + data.timeEnd + "");
@@ -118,6 +118,9 @@ layui.config({
     }
 
     function queryRight() {
+        if (!idPlan) {
+            return;
+        }
         var bizData = {
             idPlan: idPlan,
             idArea: idArea,
@@ -168,7 +171,7 @@ layui.config({
                     $("#currStudentName").text(content.realName);
                     $("#currStudentCd").text(check(content.cdStudent));
                     $("#currStudentPhoneNo").text(content.phoneNo);
-                    $("#currStudentIdCard").text(content.idcard);
+                    $("#currStudentIdCard").val(content.idcard);
                     $("#currStudentTime").text(content.planBegin + '~' + content.planEnd);
                     var statusText = '';
                     if (content.sdExecQueue == 2) {
@@ -228,24 +231,33 @@ layui.config({
         $("#currStudentName").text('');
         $("#currStudentCd").text('');
         $("#currStudentPhoneNo").text('');
-        $("#currStudentIdCard").text('');
+        $("#currStudentIdCard").val('');
         $("#currStudentTime").text('');
         $("#currStudentStatus").text('');
     }
 
     $("#authentication").on('click', function () {
-        layer.msg("身份认证");
+        $('#currStudentIdCard').focus()
+        if (!$('#currStudentIdCard').val()) {
+            layer.msg("请输入身份证");
+            return;
+        }
+        // todo 认证
     });
 
 
     // ===================定时器 begin===================
     setInterval(function () {
         timeoutPage();
-    }, 10000);
+    }, 600000);
 
     function timeoutPage() {
         var nowTime = nowTimeStr(2);
         if (nowTime === "00:00" || nowTime === "12:00") {
+            queryHeader();
+            return;
+        }
+        if (!idPlan) {
             queryHeader();
         }
     }
