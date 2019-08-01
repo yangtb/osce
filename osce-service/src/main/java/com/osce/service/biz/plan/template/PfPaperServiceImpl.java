@@ -230,7 +230,14 @@ public class PfPaperServiceImpl implements PfPaperService {
 
     @Override
     public boolean saveTdPaper(PfAddTpPaperDto dto) {
-        int num = pfPaperDao.saveTdPaper(dto);
+        int num;
+        if (dto.isAllFlag()) {
+            TpInsStation tpInsStation = pfPaperDao.selectTpInsStation(dto.getIdInsStation());
+            num = pfPaperDao.saveTdAllPaper(tpInsStation.getIdPlan(), tpInsStation.getSdSkillCa(),
+                    dto.getIdPaper());
+        } else {
+            num = pfPaperDao.saveTdPaper(dto);
+        }
         return num >= 1 ? true : false;
     }
 

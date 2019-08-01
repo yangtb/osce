@@ -318,7 +318,7 @@ public class PfExamPaperRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
-    @PostMapping(value = "/pf/p/plan/paper/save/paper")
+    @PostMapping(value = "/pf/r/plan/paper/save/paper")
     public ResultObject saveTdPaper(@RequestBody PfAddTpPaperDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdInsStation() != null, "idInsStation");
@@ -326,5 +326,6 @@ public class PfExamPaperRestController {
         return ResultObject.createSuccess("saveTdPaper", ResultObject.DATA_TYPE_OBJECT,
                 pfPaperService.saveTdPaper(dto));
     }
+
 
 }

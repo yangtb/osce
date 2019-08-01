@@ -346,4 +346,24 @@ public interface PfPaperDao {
      */
     int saveTdPaper(PfAddTpPaperDto dto);
 
+    /**
+     * 保存排站试卷 - 应用到该考站的所有时段
+     *
+     * @param idPlan    计划id
+     * @param sdSkillCa 类型
+     * @param idPaper   试卷id
+     * @return
+     */
+    int saveTdAllPaper(@Param("idPlan") Long idPlan,
+                       @Param("sdSkillCa") String sdSkillCa,
+                       @Param("idPaper") Long idPaper);
+
+    /**
+     * 获取排站信息
+     *
+     * @param idInsStation
+     * @return
+     */
+    TpInsStation selectTpInsStation(@Param("idInsStation") Long idInsStation);
+
 }

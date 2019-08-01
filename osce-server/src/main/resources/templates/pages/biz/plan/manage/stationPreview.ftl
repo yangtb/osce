@@ -11,6 +11,7 @@
     <script>
         var basePath = '${basePath!}';
         var idPlan = '${idPlan!}';
+        var idModel = '${idModel!}';
     </script>
 </head>
 

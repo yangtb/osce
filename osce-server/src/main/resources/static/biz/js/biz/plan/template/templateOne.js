@@ -260,7 +260,6 @@ layui.config({
             idModel = $('#idModel').val();
         }
         data.fgActive = '1';
-        data.fgChild = '0';
         // 构建考场数据
         var tdAreaList = new Array(),
             areaNumSave = parseInt($("#numArea").val());

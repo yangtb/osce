@@ -12,9 +12,7 @@
             <if test="idOrg!=null">
                 id_org,
             </if>
-            <if test="fgChild!=null">
                 fg_child,
-            </if>
             <if test="naModel!=null">
                 na_model,
             </if>
@@ -85,9 +83,7 @@
             <if test="idOrg!=null">
                 #{idOrg},
             </if>
-            <if test="fgChild!=null">
-                #{fgChild},
-            </if>
+                '0',
             <if test="naModel!=null">
                 #{naModel},
             </if>

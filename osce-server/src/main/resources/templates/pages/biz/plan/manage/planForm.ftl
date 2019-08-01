@@ -253,5 +253,14 @@
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/plan/manage/planStep.js"></script>
 
+<script type="text/html" id="fgChildTpl">
+    {{#  if(d.fgChild == 0){ }}
+    <span class="label label-info" style="background-color: #1E9FFF">父模板</span>
+    {{#  } }}
+    {{#  if(d.fgChild == 1){ }}
+    <span class="label label-warning" style="background-color: #FFB800">子模板</span>
+    {{#  } }}
+</script>
+
 </body>
 </html>

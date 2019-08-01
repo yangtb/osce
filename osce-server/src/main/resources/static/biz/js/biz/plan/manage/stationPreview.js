@@ -210,7 +210,7 @@ layui.config({
             searchKey: 'keywords',
             searchPlaceholder: '请输入' + name + '名称',
             table: {
-                url: basePath + '/pf/p/plan/exam/paper/list?sdSkillCa=' + sdSkillCa + '&idModel=',
+                url: basePath + '/pf/p/plan/exam/paper/list?sdSkillCa=' + sdSkillCa + '&idModel=' + idModel,
                 height: 280,
                 size: 'sm',
                 cols: [[
@@ -224,22 +224,34 @@ layui.config({
             done: function (elem, data) {
                 var bizData = data.data[0];
                 if (bizData) {
-                    addPaper(idInsStation, bizData)
+                    layer.confirm('是否应用到该考站的所有时段？', {
+                        btn: ['是', '否']
+                    }, function(index, layero){
+                        layer.close(index);
+                        addPaper(idInsStation, bizData, true);
+                    }, function(index){
+                        addPaper(idInsStation, bizData, false);
+                    });
                 }
             }
         });
     }
 
-    function addPaper(idInsStation, data) {
+    function addPaper(idInsStation, data, flag) {
         var bizData = {
             idInsStation: idInsStation,
-            idPaper: data.id
+            idPaper: data.id,
+            allFlag : flag
         }
-        common.commonPost(basePath + '/pf/p/plan/paper/save/paper',
+        common.commonPost(basePath + '/pf/r/plan/paper/save/paper',
             bizData, '保存', 'stable-' + idInsStation, null, true);
 
-        $('#paper-' + idInsStation).text(data.paperName);
-        $('#stable-' + idInsStation).attr("ts-selected", data.id);
+        if (flag) {
+            window.location.reload();
+        } else {
+            $('#paper-' + idInsStation).text(data.paperName);
+            $('#stable-' + idInsStation).attr("ts-selected", data.id);
+        }
     }
 
 });

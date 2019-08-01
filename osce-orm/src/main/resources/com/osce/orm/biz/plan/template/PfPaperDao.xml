@@ -687,6 +687,13 @@
     <update id="saveTdPaper">
         update tp_ins_station set id_paper = #{idPaper} where id_ins_station = #{idInsStation}
     </update>
+    <update id="saveTdAllPaper">
+        UPDATE tp_ins_station
+        SET id_paper = #{idPaper}
+        WHERE
+            id_plan = #{idPlan}
+        AND sd_skill_ca = #{sdSkillCa}
+    </update>
     <delete id="delTdItemSection">
         delete from td_item_section where id_item_store = #{idItemStore}
     </delete>
@@ -1122,6 +1129,14 @@
             </otherwise>
         </choose>
         LIMIT #{offset}, #{limit}
+    </select>
+    <select id="selectTpInsStation" resultType="com.osce.entity.TpInsStation">
+        SELECT
+            id_plan, sd_skill_ca
+        FROM
+            tp_ins_station a
+        WHERE
+            a.id_ins_station = #{idInsStation}
     </select>
 
 </mapper>

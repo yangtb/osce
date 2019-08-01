@@ -413,7 +413,7 @@ layui.config({
             {field: 'naItemStore', minWidth: 170, title: '试卷名称'},
             {field: 'naItemStoreFrom', minWidth: 170, title: '题集'},
             {field: 'itemNum', width: 100, title: '题目数量', align: "right"},
-            {field: 'itemNum', width: 100, title: '总分值', align: "right"},
+            {field: 'totalScore', width: 100, title: '总分值', align: "right"},
             {field: 'gmtCreate', width: 170, title: '创建时间'},
             {fixed: 'right', width: 100, title: '操作', align: 'center', toolbar: '#paperBar'}
         ]] //设置表头

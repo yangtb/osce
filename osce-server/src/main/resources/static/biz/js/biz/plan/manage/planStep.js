@@ -211,9 +211,11 @@ layui.config({
         table: {
             url: basePath + '/pf/p/plan/template/list',
             height: 260,
+            size:'sm',
             cols: [[
                 {type: 'radio'},
                 {field: 'naModel', minWidth: 170, title: '模板名称'},
+                {field: 'fgChild', width: 100, title: '模板类型', align: 'center', templet: '#fgChildTpl'},
                 {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             ]]
             , limits: [10, 20, 50]
@@ -333,7 +335,7 @@ layui.config({
 
     function callStationPlanOrderCallback() {
         step.next('#stepForm');
-        $('#stationPreviewIframe').attr("src", basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val())
+        $('#stationPreviewIframe').attr("src", basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val() + '&idModel=' + $('#idModel').val())
     }
 
     function callStationPickCallback() {

@@ -236,7 +236,7 @@ public class PfTemplateRestController extends BaseController {
         /* 参数校验 */
         Assert.isTrue(dto.getIdInsStation() != null, "idInsStation");
         Assert.isTrue(dto.getIdPaper() != null, "idPaper");
-        return ResultObject.createSuccess("saveTdPaper", ResultObject.DATA_TYPE_OBJECT,
+        return ResultObject.createSuccess("saveStationPaper", ResultObject.DATA_TYPE_OBJECT,
                 pfTemplateService.saveStationPaper(dto));
     }
 
