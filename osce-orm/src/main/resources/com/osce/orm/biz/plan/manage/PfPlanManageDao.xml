@@ -252,13 +252,23 @@
             a.gmt_plan_end ,
             a.fg_replan ,
             a.sd_plan_status ,
-            (select count(DISTINCT id_area) from tp_ins_station where a.id_plan = id_plan) as areaNum ,
-            (select count(1) from tp_student where a.id_plan = id_plan) as studentNum ,
-            a.gmt_create
+            a.gmt_create ,
+            COUNT(DISTINCT b.id_area) AS areaNum ,
+            COUNT(DISTINCT c.id_tp_student) AS studentNum
         FROM
             tp_plan a
+        LEFT JOIN td_area b ON a.id_model = b.id_model
+        LEFT JOIN tp_student c ON a.id_plan = c.id_plan
         WHERE
             a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
+        GROUP BY
+            a.na_plan ,
+            a.gmt_plan_begin ,
+            a.gmt_plan_end ,
+            a.fg_replan ,
+            a.sd_plan_status ,
+            a.gmt_create
         limit #{offset}, #{limit}
     </select>
     <select id="copyTdModel" statementType="CALLABLE">
