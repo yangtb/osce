@@ -20,6 +20,16 @@ public class MonitorAreaVo implements Serializable {
     private static final long serialVersionUID = -1353833270698470448L;
 
     /**
+     * 排站ID
+     */
+    private Long idInsStation;
+
+    /**
+     * 评分表ID
+     */
+    private Long idScoreSheet;
+
+    /**
      * 考站名称
      */
     private String naStation;

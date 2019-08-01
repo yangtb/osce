@@ -1,7 +1,10 @@
 package com.osce.api.biz.monitor;
 
 import com.osce.dto.biz.monitor.MonitorDto;
+import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.result.PageResult;
+import com.osce.vo.biz.monitor.MonitorAreaDetailVo;
 import com.osce.vo.biz.monitor.MonitorAreaVo;
 import com.osce.vo.biz.monitor.MonitorStuVo;
 
@@ -22,6 +25,14 @@ public interface PfAreaMonitorService {
      * @return
      */
     List<MonitorAreaVo> listMonitorArea(MonitorDto dto);
+
+    /**
+     * 考场监控 - 站点详情
+     *
+     * @param dto
+     * @return
+     */
+    MonitorAreaDetailVo selectMonitorAreaDetail(MonitorDto dto);
 
     /**
      * 待考学员
@@ -62,4 +73,12 @@ public interface PfAreaMonitorService {
      * @return
      */
     boolean recoveryTest(PfBachChangeStatusDto dto);
+
+    /**
+     * 评分项列表
+     *
+     * @param dto
+     * @return
+     */
+    PageResult pageItem(CaseDto dto);
 }

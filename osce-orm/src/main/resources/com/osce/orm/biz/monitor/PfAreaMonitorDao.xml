@@ -76,6 +76,8 @@
     </select>
     <select id="listMonitorArea" resultType="com.osce.vo.biz.monitor.MonitorAreaVo">
         SELECT
+            v.id_ins_station ,
+            v.id_score_sheet ,
             v.na_station ,
             v.id_room ,
             b.na_room ,
@@ -103,10 +105,12 @@
             v_es_get_site_infor v
         LEFT JOIN erp_room b ON v.id_room = b.id_room
         LEFT JOIN user_info c ON v.id_user_manager = c.user_id
+        <!--
         WHERE
             v.id_plan = #{idPlan}
         AND v.id_area = #{idArea}
         AND v.time_section = #{timeSection}
+        -->
     </select>
     <select id="listCurrentPlan" resultType="com.osce.vo.biz.show.ShowAioMainVo">
         SELECT
@@ -116,7 +120,30 @@
         FROM
             v_we_show_main
         WHERE
-            id_org = 1
+            id_org = #{idOrg}
         AND plan_day = DATE(NOW())
+    </select>
+    <select id="selectMonitorAreaDetail" resultType="com.osce.vo.biz.monitor.MonitorAreaDetailVo">
+        SELECT
+            b.id_case ,
+            a.id_score_sheet ,
+            b.na_score_sheet
+        FROM
+            tp_ins_station a
+        LEFT JOIN td_score_sheet b ON a.id_score_sheet = b.id_score_sheet
+        WHERE
+            id_ins_station = #{idInsStation}
+    </select>
+    <select id="listItem" resultType="com.osce.entity.TdScoreItem">
+        SELECT
+            a.na_score_item ,
+            a.des_score_item ,
+            a.score
+        FROM
+            td_score_item a
+        WHERE
+            a.id_score_sheet = #{idScoreSheet}
+        AND a.id_org = #{idOrg}
+        AND a.fg_active = '1'
     </select>
 </mapper>

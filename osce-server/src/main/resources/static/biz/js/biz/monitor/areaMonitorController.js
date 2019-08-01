@@ -27,7 +27,7 @@ layui.config({
             contentType: "application/json",
             data: JSON.stringify(bizData),
             success: function (data) {
-                layer.closeAll();
+                layer.closeAll('loading');
                 if (data.code != 0) {
                     layer.msg(data.msg);
                     return false;
@@ -37,6 +37,7 @@ layui.config({
                 }
             },
             error: function () {
+                layer.closeAll('loading');
                 layer.msg("网络异常");
                 return false;
             }
@@ -44,9 +45,9 @@ layui.config({
     }
 
     function fullMonitorCard(data) {
-        console.log(data)
+         console.log(data)
         $('#monitorCard').empty();
-        if (data.length == 0) {
+        if (data.length != 0) {
             $('#monitorCard').append(buildMonitorHtml(data));
         }
 
@@ -58,6 +59,9 @@ layui.config({
             , height: '650px' //设置容器宽度
             , interval: 5000
         });
+
+        // 添加监听
+        addHmiEventListener();
     }
 
     function buildMonitorHtml(data) {
@@ -72,7 +76,12 @@ layui.config({
                 html += '<div class="layui-row layui-col-space15" style="padding-top: 20px;">\n';
             }
 
-            var borderColor = '', realName = content.realName ? content.realName : '';
+            var borderColor = '',
+                realName = content.realName ? content.realName : '',
+                desPaper = content.desPaper ? content.desPaper : '';
+            if (desPaper.length >= 45) {
+                desPaper = desPaper.substring(0, 45) + '……';
+            }
             if (!content.sdExecQueue) {
                 borderColor = 'border: 1px solid #c2c2c2; ';
             } else if (content.sdExecQueue == '2') {
@@ -92,10 +101,10 @@ layui.config({
                 '                   <li class="li-normal"><span class="left-label">考试时长</span><span class="right-label">' + content.minCost + '分钟</span></li>\n' +
                 '                   <li class="li-normal"><span class="left-label">考试内容</span><span class="right-label">' + content.naPaper + '</span></li>\n' +
                 '                   <li class="li-normal"><span class="left-label">监考员</span><span class="right-label">' + realName + '</span></li>\n' +
-                '                   <li class="li-normal"><span class="left-label">考试描述</span><span class="right-label">' + content.desPaper + '</span></li>\n' +
+                '                   <li class="li-normal"><span class="left-label">考试描述</span><span class="right-label">' + desPaper + '</span></li>\n' +
                 '               </ul>\n' +
                 '               <div style="border-top: 1px dashed #e2e2e2; padding-top: 5px;">\n' +
-                '                   <i class="iconfont icon-wenjian" style="font-size:25px; cursor: pointer"></i>\n' +
+                '                   <i class="iconfont icon-wenjian hmi" data-id="' + content.idInsStation + '" style="font-size:25px; cursor: pointer"></i>\n' +
                 '               </div>\n' +
                 '           </div>\n' +
                 '       </div>\n' +
@@ -113,6 +122,33 @@ layui.config({
         return html;
     }
 
+    function addHmiEventListener() {
+        var hmis = document.querySelectorAll(".hmi");
+        for (var j = 0; j < hmis.length; j++) {
+            hmis[j].addEventListener('click', function () {
+                openHmiPage(this.getAttribute('data-id'))
+            });
+        }
+    }
+
+    function openHmiPage(idInsStation) {
+        var index = layui.layer.open({
+            title: '<b>站点详情</b>',
+            type: 2,
+            area: ['100%', '100%'],
+            //offset: [40 , 0],
+            maxmin : true,
+            anim: 2,
+            fixed: false,
+            content: basePath + '/pf/p/monitor/area/hmi/page?idInsStation=' + idInsStation,
+            shadeClose: true,
+            end: function (index, layero) {
+
+                return false;
+            }
+        });
+        layer.full(index);
+    }
 
     element.on('tab(monitorFilter)', function (data) {
         if (data.index == 1) {

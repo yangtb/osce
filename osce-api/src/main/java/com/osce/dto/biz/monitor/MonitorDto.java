@@ -45,4 +45,10 @@ public class MonitorDto extends PageParam implements Serializable {
      */
     private Long idUserStudent;
 
+    /**
+     * 排站ID
+     */
+    private Long idInsStation;
+
+
 }

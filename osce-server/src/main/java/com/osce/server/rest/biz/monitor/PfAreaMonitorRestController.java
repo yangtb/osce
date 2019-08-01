@@ -3,7 +3,6 @@ package com.osce.server.rest.biz.monitor;
 import com.osce.api.biz.monitor.PfAreaMonitorService;
 import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
-import com.osce.param.PageParam;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
 import com.sm.open.care.core.ErrorCode;
@@ -42,6 +41,21 @@ public class PfAreaMonitorRestController extends BaseController {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return ResultObject.createSuccess("listMonitorArea", ResultObject.DATA_TYPE_LIST,
                 pfAreaMonitorService.listMonitorArea(dto));
+    }
+
+    /**
+     * 考场监控 - 站点详情
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/monitor/area/selectDetail")
+    public ResultObject selectMonitorAreaDetail(@RequestBody MonitorDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdInsStation() != null, "idInsStation");
+        return ResultObject.createSuccess("selectMonitorAreaDetail", ResultObject.DATA_TYPE_OBJECT,
+                pfAreaMonitorService.selectMonitorAreaDetail(dto));
     }
 
     /**

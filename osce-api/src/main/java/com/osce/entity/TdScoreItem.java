@@ -17,8 +17,7 @@ import java.io.Serializable;
 @ToString
 public class TdScoreItem implements Serializable {
 
-    private static final long serialVersionUID = 1557887017859L;
-
+    private static final long serialVersionUID = -4701740378231920472L;
 
     /**
      * 主键

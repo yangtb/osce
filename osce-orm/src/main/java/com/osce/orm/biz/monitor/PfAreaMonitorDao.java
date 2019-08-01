@@ -1,7 +1,11 @@
 package com.osce.orm.biz.monitor;
 
 import com.osce.dto.biz.monitor.MonitorDto;
+import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.entity.CobScoreItem;
+import com.osce.entity.TdScoreItem;
+import com.osce.vo.biz.monitor.MonitorAreaDetailVo;
 import com.osce.vo.biz.monitor.MonitorAreaVo;
 import com.osce.vo.biz.monitor.MonitorStuVo;
 import com.osce.vo.biz.show.ShowAioMainVo;
@@ -20,9 +24,10 @@ public interface PfAreaMonitorDao {
     /**
      * 查出当天计划、考场、时段
      *
+     * @param dto
      * @return
      */
-    List<ShowAioMainVo> listCurrentPlan();
+    List<ShowAioMainVo> listCurrentPlan(MonitorDto dto);
 
     /**
      * 考场监控
@@ -35,6 +40,14 @@ public interface PfAreaMonitorDao {
     List<MonitorAreaVo> listMonitorArea(@Param("idPlan") Long idPlan,
                                         @Param("idArea") Long idArea,
                                         @Param("timeSection") float timeSection);
+
+    /**
+     * 考场监控 - 站点详情
+     *
+     * @param dto
+     * @return
+     */
+    MonitorAreaDetailVo selectMonitorAreaDetail(MonitorDto dto);
 
     /**
      * 待考学员
@@ -87,4 +100,13 @@ public interface PfAreaMonitorDao {
      * @return
      */
     int recoveryTest(PfBachChangeStatusDto dto);
+
+    /**
+     * 评分项列表
+     *
+     * @param dto
+     * @return
+     */
+    List<TdScoreItem> listItem(CaseDto dto);
+
 }

@@ -2,9 +2,11 @@ package com.osce.server.portal.biz.monitor;
 
 import com.osce.api.biz.monitor.PfAreaMonitorService;
 import com.osce.dto.biz.monitor.MonitorDto;
+import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
+import com.sm.open.care.core.utils.Assert;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,13 @@ public class PfAreaMonitorController extends BaseController {
     @RequestMapping("/pf/p/monitor/area/page")
     public String page(Model model) {
         return "pages/biz/monitor/monitor";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
+    @RequestMapping("/pf/p/monitor/area/hmi/page")
+    public String page1(Model model, Long idInsStation) {
+        model.addAttribute("idInsStation", idInsStation);
+        return "pages/biz/monitor/hmi";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
@@ -76,6 +85,21 @@ public class PfAreaMonitorController extends BaseController {
     public PageResult listEndStu(MonitorDto dto) {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return PageResult.create(pfAreaMonitorService.listEndStu(dto));
+    }
+
+    /**
+     * 评分项
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/monitor/area/case/item/list")
+    @ResponseBody
+    public PageResult pageItem(CaseDto dto) {
+        Assert.isTrue(dto.getIdScoreSheet() != null, "idScoreSheet");
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfAreaMonitorService.pageItem(dto);
     }
 
 }
