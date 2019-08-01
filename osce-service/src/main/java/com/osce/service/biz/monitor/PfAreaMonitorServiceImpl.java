@@ -32,9 +32,7 @@ public class PfAreaMonitorServiceImpl implements PfAreaMonitorService {
 
     @Override
     public List<MonitorAreaVo> listMonitorArea(MonitorDto dto) {
-        return pfAreaMonitorDao.listMonitorArea(null, null, 0);
-
-        /*List<ShowAioMainVo> planList = pfAreaMonitorDao.listCurrentPlan(dto);
+        List<ShowAioMainVo> planList = pfAreaMonitorDao.listCurrentPlan(dto);
         if (CollectionUtils.isEmpty(planList)) {
             return null;
         }
@@ -46,7 +44,7 @@ public class PfAreaMonitorServiceImpl implements PfAreaMonitorService {
                 list.addAll(monitorAreaVos);
             }
         }
-        return list;*/
+        return list;
     }
 
     @Override

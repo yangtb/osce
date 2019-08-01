@@ -105,12 +105,10 @@
             v_es_get_site_infor v
         LEFT JOIN erp_room b ON v.id_room = b.id_room
         LEFT JOIN user_info c ON v.id_user_manager = c.user_id
-        <!--
         WHERE
             v.id_plan = #{idPlan}
         AND v.id_area = #{idArea}
         AND v.time_section = #{timeSection}
-        -->
     </select>
     <select id="listCurrentPlan" resultType="com.osce.vo.biz.show.ShowAioMainVo">
         SELECT
