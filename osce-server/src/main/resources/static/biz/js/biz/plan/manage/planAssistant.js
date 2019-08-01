@@ -160,7 +160,8 @@ layui.config({
                 '        <p class="right-item right-item-sp" data-sq="' + content.sq  + '-' + content.idRoom + '">\n' +
                 '           <img class="edit-btn edit" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
                 '           <span class="">考官</span>\n' +
-                '        </p>\n';
+                '        </p>\n' +
+                '        <div id="assistant-' + content.sq  + '-' + content.idRoom + '"></div>\n';
             var assistants = content.planAssistant;
             if (assistants) {
                 if (assistants.managerName) {
@@ -229,12 +230,24 @@ layui.config({
                 var d_idUserRemote = iframeWindow.document.getElementById('idUserRemote');
                 var v_idUserAssistant = d_idUserAssistant ? d_idUserAssistant.value : null;
                 var v_idUserRemote = d_idUserRemote ? d_idUserRemote.value : null;
-                saveSp(sq, v_idUserManager, v_idUserAssistant, v_idUserRemote)
+
+                var d_idUserManagerText = iframeWindow.document.getElementById('idUserManagerText');
+                var d_idUserAssistantText = iframeWindow.document.getElementById('idUserAssistantText');
+                var d_idUserRemoteText = iframeWindow.document.getElementById('idUserRemoteText');
+
+                var v_idUserManagerText = d_idUserManagerText ? d_idUserManagerText.innerText : null;
+                var v_idUserAssistantText = d_idUserAssistantText ? d_idUserAssistantText.innerText : null;
+                var v_idUserRemoteText = d_idUserRemoteText ?  d_idUserRemoteText.innerText : null;
+
+                console.log(v_idUserManagerText + v_idUserAssistantText + v_idUserRemoteText)
+                saveSp(sq, v_idUserManager, v_idUserAssistant, v_idUserRemote,
+                    v_idUserManagerText, v_idUserAssistantText, v_idUserRemoteText)
             }
         });
     }
 
-    function saveSp(sq, v_idUserManager, v_idUserAssistant, v_idUserRemote) {
+    function saveSp(sq, v_idUserManager, v_idUserAssistant, v_idUserRemote,
+                    v_idUserManagerText, v_idUserAssistantText, v_idUserRemoteText) {
         var arr = sq.split("-");
         var bizData = {
             idPlan: idPlan,
@@ -248,9 +261,25 @@ layui.config({
         }
         common.commonPost(basePath + '/pf/r/plan/station/save/assistant',
             bizData, null, null, function () {
-                window.location.reload();
+                //window.location.reload();
                 layer.closeAll();
+                full(sq, v_idUserManagerText, v_idUserAssistantText, v_idUserRemoteText);
             }, true);
+    }
+
+    function full(sq, v_idUserManagerText, v_idUserAssistantText, v_idUserRemoteText) {
+        $('#assistant-' + sq).empty();
+        var html = '';
+        if (v_idUserManagerText) {
+            html += '<p class="right-item">' + v_idUserManagerText + '</p>';
+        }
+        if (v_idUserAssistantText) {
+            html += '<p class="right-item">' + v_idUserAssistantText + '</p>';
+        }
+        if (v_idUserRemoteText) {
+            html += '<p class="right-item">' + v_idUserRemoteText + '</p>';
+        }
+        $('#assistant-' + sq).append(html);
     }
 
 });
