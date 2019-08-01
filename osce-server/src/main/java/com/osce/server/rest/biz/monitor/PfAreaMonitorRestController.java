@@ -3,8 +3,11 @@ package com.osce.server.rest.biz.monitor;
 import com.osce.api.biz.monitor.PfAreaMonitorService;
 import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.enums.SysParamEnum;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.server.utils.ParamUtil;
+import com.osce.vo.biz.monitor.MonitorAreaDetailVo;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.ResultObject;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
  * @ClassName: PfMonitorRestController
  * @Description: 考场监控
@@ -25,6 +30,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class PfAreaMonitorRestController extends BaseController {
+
+    @Resource
+    private ParamUtil paramUtil;
 
     @Reference
     private PfAreaMonitorService pfAreaMonitorService;
@@ -54,8 +62,13 @@ public class PfAreaMonitorRestController extends BaseController {
     public ResultObject selectMonitorAreaDetail(@RequestBody MonitorDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdInsStation() != null, "idInsStation");
-        return ResultObject.createSuccess("selectMonitorAreaDetail", ResultObject.DATA_TYPE_OBJECT,
-                pfAreaMonitorService.selectMonitorAreaDetail(dto));
+        MonitorAreaDetailVo monitorAreaDetailVo = pfAreaMonitorService.selectMonitorAreaDetail(dto);
+        if (monitorAreaDetailVo == null) {
+            monitorAreaDetailVo = new MonitorAreaDetailVo();
+        }
+        String stationRoomUrl = paramUtil.getParamValue(SysParamEnum.STATION_ROOM_URL.getCode());
+        monitorAreaDetailVo.setStationQrCodeUrl(stationRoomUrl);
+        return ResultObject.createSuccess("selectMonitorAreaDetail", ResultObject.DATA_TYPE_OBJECT, monitorAreaDetailVo);
     }
 
     /**

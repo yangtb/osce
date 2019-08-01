@@ -11,15 +11,7 @@ layui.config({
         , common = layui.common;
 
     $(document).ready(function () {
-
         queryMonitorDetail();
-
-        var qrcode = new QRCode(document.getElementById("qrcode"), {
-            width: 160,
-            height: 160
-        });
-        qrcode.makeCode("http://localhost:8090/osce/pf/p/monitor/area/page");
-
     });
 
     function queryMonitorDetail() {
@@ -39,7 +31,8 @@ layui.config({
                     layer.msg(data.msg);
                     return false;
                 } else {
-                    fullRight(data.data)
+                    qrCode(data.data);
+                    fullRight(data.data);
                     return false;
                 }
             },
@@ -49,6 +42,17 @@ layui.config({
                 return false;
             }
         });
+    }
+
+    function qrCode(data) {
+        if (!data) {
+            return;
+        }
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 160,
+            height: 160
+        });
+        qrcode.makeCode(data.stationQrCodeUrl);
     }
 
     function fullRight(data) {
@@ -70,7 +74,7 @@ layui.config({
             , url: basePath + '/pf/p/monitor/area/case/item/list'
             , height: '740'
             , cols: [[
-                {type: 'numbers', fixed: true, title: 'R'}
+                {type: 'numbers', title: 'R'}
                 , {field: 'naScoreItem', minWidth: 150, title: '指标类型'}
                 , {field: 'desScoreItem', minWidth: 230, title: '内容'}
                 , {field: 'score', minWidth: 140, title: '评分'}

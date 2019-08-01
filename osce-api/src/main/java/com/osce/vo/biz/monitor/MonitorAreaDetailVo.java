@@ -34,4 +34,9 @@ public class MonitorAreaDetailVo implements Serializable {
      */
     private String naScoreSheet;
 
+    /**
+     * 站点url
+     */
+    private String stationQrCodeUrl;
+
 }

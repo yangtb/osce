@@ -3,7 +3,7 @@ package com.osce.api.biz.monitor;
 import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
-import com.osce.result.PageResult;
+import com.osce.entity.TdScoreItem;
 import com.osce.vo.biz.monitor.MonitorAreaDetailVo;
 import com.osce.vo.biz.monitor.MonitorAreaVo;
 import com.osce.vo.biz.monitor.MonitorStuVo;
@@ -80,5 +80,5 @@ public interface PfAreaMonitorService {
      * @param dto
      * @return
      */
-    PageResult pageItem(CaseDto dto);
+    List<TdScoreItem> pageItem(CaseDto dto);
 }

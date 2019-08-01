@@ -4,9 +4,8 @@ import com.osce.api.biz.monitor.PfAreaMonitorService;
 import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.entity.TdScoreItem;
 import com.osce.orm.biz.monitor.PfAreaMonitorDao;
-import com.osce.result.PageResult;
-import com.osce.result.ResultFactory;
 import com.osce.vo.biz.monitor.MonitorAreaDetailVo;
 import com.osce.vo.biz.monitor.MonitorAreaVo;
 import com.osce.vo.biz.monitor.MonitorStuVo;
@@ -117,8 +116,8 @@ public class PfAreaMonitorServiceImpl implements PfAreaMonitorService {
     }
 
     @Override
-    public PageResult pageItem(CaseDto dto) {
-        return ResultFactory.initPageResultWithSuccess(0L, pfAreaMonitorDao.listItem(dto));
+    public List<TdScoreItem> pageItem(CaseDto dto) {
+        return pfAreaMonitorDao.listItem(dto);
     }
 
 }

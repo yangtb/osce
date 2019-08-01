@@ -3,7 +3,9 @@ package com.osce.server.portal.biz.monitor;
 import com.osce.api.biz.monitor.PfAreaMonitorService;
 import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.biz.training.caseku.CaseDto;
+import com.osce.entity.TdScoreItem;
 import com.osce.result.PageResult;
+import com.osce.result.ResultFactory;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
 import com.sm.open.care.core.utils.Assert;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @ClassName: PfMonitorController
@@ -99,7 +103,8 @@ public class PfAreaMonitorController extends BaseController {
     public PageResult pageItem(CaseDto dto) {
         Assert.isTrue(dto.getIdScoreSheet() != null, "idScoreSheet");
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
-        return pfAreaMonitorService.pageItem(dto);
+        List<TdScoreItem> items = pfAreaMonitorService.pageItem(dto);
+        return ResultFactory.initPageResultWithSuccess(0L, items);
     }
 
 }
