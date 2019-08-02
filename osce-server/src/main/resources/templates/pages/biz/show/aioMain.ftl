@@ -39,7 +39,7 @@
     </style>
 
     <script>
-        var basePath = '${basePath}';
+        var basePath = '${basePath!}';
     </script>
 </head>
 
@@ -99,7 +99,9 @@
             </p>
             <div class="await-register" id='awaitRegister'>
                 <div class="tester-info">
-                    <p class="face-area" id="headPhoto">学员头像</p>
+                    <p class="face-area" id="headPhoto">
+                        <img src="${contextPath}/biz/img/morentouxiang.png" class="face-img">
+                    </p>
                     <div class="tester-main">
                         <#--<p class="self-tester" onclick="onAuthenticate()">身份识别</p>-->
                         <button id="identification" type="button"
@@ -116,7 +118,7 @@
                         <p class="card-info">
                             <span class="card">身份证</span>
                             <span class="card-num">
-                                <input id="idCard" style="color: #9a9a9a; border:0; text-align: right; width: 250px; height: 20px"/>
+                                <input id="idCard" autocomplete="off" style="color: #9a9a9a; border:0; text-align: right; width: 250px; height: 20px"/>
                             </span>
                             <#--<a href="javascript:;" class="identity-btn" onclick="onIdentity()"></a>-->
                         </p>

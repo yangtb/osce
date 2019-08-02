@@ -170,7 +170,11 @@ layui.config({
             $("#realName").text(data.realName);
             $("#phoneNo").text(data.phoneNo);
             $("#headPhoto").empty();
-            $("#headPhoto").append("<img class=\"face-img\" src='" + data.photoAddr + "'/>");
+            if (data.photoAddr) {
+                $("#headPhoto").append("<img class=\"face-img\" src='" + data.photoAddr + "'/>");
+            } else {
+                $("#headPhoto").append("<img class=\"face-img\" src='" + basePath + "/biz/img/morentouxiang.png'/>");
+            }
 
             $("#student-queue").text(data.realName + ' ' + data.noReg);
 

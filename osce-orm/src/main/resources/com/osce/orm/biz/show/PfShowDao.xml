@@ -196,5 +196,13 @@
         AND id_area = #{idArea}
         AND time_section = #{timeSection}
     </select>
+    <select id="countStuTotalNum" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            tp_student
+        WHERE
+            id_plan = #{idPlan}
+    </select>
 
 </mapper>

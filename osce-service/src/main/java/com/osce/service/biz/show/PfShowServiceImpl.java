@@ -97,7 +97,7 @@ public class PfShowServiceImpl implements PfShowService {
     public ShowStuVo countAioStuRegisterNum(ShowDto dto) {
         ShowStuVo showStuVo = new ShowStuVo();
         showStuVo.setRegisterNum(pfShowDao.countRegisterNum(dto));
-        showStuVo.setStuTotalNum(0);
+        showStuVo.setStuTotalNum(pfShowDao.countStuTotalNum(dto));
         return showStuVo;
     }
 

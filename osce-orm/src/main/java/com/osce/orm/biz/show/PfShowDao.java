@@ -72,6 +72,14 @@ public interface PfShowDao {
     Integer countRegisterNum(ShowDto dto);
 
     /**
+     * 学生数目
+     *
+     * @param dto
+     * @return
+     */
+    Integer countStuTotalNum(ShowDto dto);
+
+    /**
      * 学员待考队列
      *
      * @param dto
