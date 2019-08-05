@@ -14,12 +14,14 @@
     <style>
         .label-td {
             text-align: center;
-            color: #0C0C0C
+            color: #0C0C0C;
+            min-width: 25px;
         }
     </style>
 
     <script>
         var basePath = '${basePath!}';
+        var idExec = '${idExec!}';
     </script>
 </head>
 
@@ -28,12 +30,7 @@
 <div class="wrapper-content">
 
     <table class="layui-table">
-        <colgroup>
-            <col>
-            <col>
-            <col>
-            <col>
-        </colgroup>
+
         <thead>
         <tr>
             <th colspan="4" style="text-align: center; font-weight: bold; color: #0C0C0C">主考官</th>
@@ -44,19 +41,19 @@
         </thead>
         <tbody>
         <tr>
-            <td class="label-td" id="">权重</td>
-            <td class="label-td" id="">60</td>
-            <td class="label-td">得分</td>
-            <td class="label-td">80</td>
             <td class="label-td">权重</td>
-            <td class="label-td">60</td>
+            <td class="label-td"><span id="weightManager"></span></td>
             <td class="label-td">得分</td>
-            <td class="label-td">80</td>
+            <td class="label-td"><span id="scoreManager"></span></td>
             <td class="label-td">权重</td>
-            <td class="label-td">60</td>
+            <td class="label-td"><span id="weightAssistant"></span></td>
             <td class="label-td">得分</td>
-            <td class="label-td">80</td>
-            <td class="label-td">80</td>
+            <td class="label-td"><span id="scoreAssistant"></span></td>
+            <td class="label-td">权重</td>
+            <td class="label-td"><span id="weightRemote"></span></td>
+            <td class="label-td">得分</td>
+            <td class="label-td"><span id="scoreRemote"></span></td>
+            <td class="label-td" style="color: #1E9FFF; font-weight: bold;"><span id="scoreSum"></span></td>
         </tr>
         </tbody>
     </table>

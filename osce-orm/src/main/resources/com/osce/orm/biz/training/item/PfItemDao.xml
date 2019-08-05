@@ -30,11 +30,11 @@
             <if test="creator!=null">
                 creator,
             </if>
-                gmt_create,
+            gmt_create,
             <if test="operator!=null">
                 operator,
             </if>
-                gmt_modify,
+            gmt_modify,
         </trim>
         )
         VALUES
@@ -64,11 +64,11 @@
             <if test="creator!=null">
                 #{creator},
             </if>
-                now(),
+            now(),
             <if test="operator!=null">
                 #{operator},
             </if>
-                now(),
+            now(),
         </trim>
         )
 
@@ -149,11 +149,14 @@
             <if test="creator!=null">
                 creator,
             </if>
-                gmt_create,
+            gmt_create,
             <if test="operator!=null">
                 operator,
             </if>
-                gmt_modify,
+            gmt_modify,
+            <if test="sdItemFrom!=null">
+                sd_item_from,
+            </if>
         </trim>
         )
         VALUES
@@ -195,11 +198,14 @@
             <if test="creator!=null">
                 #{creator},
             </if>
-                now(),
+            now(),
             <if test="operator!=null">
                 #{operator},
             </if>
-                now(),
+            now(),
+            <if test="sdItemFrom!=null">
+                #{sdItemFrom} ,
+            </if>
         </trim>
         )
     </insert>
@@ -276,10 +282,10 @@
             <if test="operator != null and operator!=''">
                 operator = #{operator},
             </if>
-                gmt_modify = now(),
+            gmt_modify = now(),
         </trim>
         WHERE
-            id_item_store = #{idItemStore}
+        id_item_store = #{idItemStore}
     </update>
     <update id="editSection">
         UPDATE ibm_item_section
@@ -296,7 +302,7 @@
             </if>
         </trim>
         WHERE
-            id_item_section = #{idItemSection}
+        id_item_section = #{idItemSection}
     </update>
     <update id="editExam">
         UPDATE ibm_item
@@ -341,10 +347,13 @@
             <if test="operator != null and operator!=''">
                 operator = #{operator},
             </if>
-                gmt_modify = now(),
+            gmt_modify = now(),
+            <if test="sdItemFrom != null and sdItemFrom!=''">
+                sd_item_from = #{sdItemFrom},
+            </if>
         </trim>
         WHERE
-            id_item = #{idItem}
+        id_item = #{idItem}
     </update>
     <update id="editItemOption">
         UPDATE ibm_item_option
@@ -364,7 +373,7 @@
             </if>
         </trim>
         WHERE
-            id_item_option = #{idItemOption}
+        id_item_option = #{idItemOption}
     </update>
     <delete id="delItem">
         UPDATE ibm_item_store
@@ -378,11 +387,11 @@
                 fg_active = '0',
             </otherwise>
         </choose>
-            operator = #{operator},
-            gmt_modify = now()
+        operator = #{operator},
+        gmt_modify = now()
         WHERE
-            id_item_store in (
-        <foreach collection="list" item="item" separator="," >
+        id_item_store in (
+        <foreach collection="list" item="item" separator=",">
             #{item}
         </foreach>
         )
@@ -390,7 +399,7 @@
     <delete id="delSection">
         delete from ibm_item_section
         where id_item_section in (
-        <foreach collection="list" item="item" separator="," >
+        <foreach collection="list" item="item" separator=",">
             #{item}
         </foreach>
         )
@@ -398,7 +407,7 @@
     <delete id="delOption">
         delete from ibm_item_option
         where id_item_option in (
-        <foreach collection="list" item="item" separator="," >
+        <foreach collection="list" item="item" separator=",">
             #{item}
         </foreach>
         )
@@ -412,30 +421,30 @@
 
     <select id="listItem" resultType="com.osce.entity.IbmItemStore">
         SELECT
-            a.id_item_store ,
-            a.id_org ,
-            a.na_item_store ,
-            a.des_item_store ,
-            a.fg_active ,
-            a.fg_valid ,
-            a.sort ,
-            a.creator ,
-            a.gmt_create ,
-            a.operator ,
-            a.gmt_modify ,
-            (
-                SELECT
-                    count(1)
-                FROM
-                    ibm_item b
-                WHERE
-                    a.id_item_store = b.id_item_store
-                AND b.fg_valid = '0'
-            )  as itemNum
+        a.id_item_store ,
+        a.id_org ,
+        a.na_item_store ,
+        a.des_item_store ,
+        a.fg_active ,
+        a.fg_valid ,
+        a.sort ,
+        a.creator ,
+        a.gmt_create ,
+        a.operator ,
+        a.gmt_modify ,
+        (
+        SELECT
+        count(1)
         FROM
-            ibm_item_store a
+        ibm_item b
         WHERE
-            a.id_org = #{idOrg}
+        a.id_item_store = b.id_item_store
+        AND b.fg_valid = '0'
+        ) as itemNum
+        FROM
+        ibm_item_store a
+        WHERE
+        a.id_org = #{idOrg}
         AND a.fg_valid = '0'
         <if test="naItemStore != null and naItemStore != ''">
             AND a.na_item_store LIKE concat('%', #{naItemStore},'%')
@@ -444,11 +453,11 @@
     </select>
     <select id="countItem" resultType="java.lang.Long">
         SELECT
-            count(1)
+        count(1)
         FROM
-            ibm_item_store
+        ibm_item_store
         WHERE
-            id_org = #{idOrg}
+        id_org = #{idOrg}
         AND fg_valid = '0'
         <if test="naItemStore != null and naItemStore != ''">
             AND na_item_store LIKE concat('%', #{naItemStore},'%')
@@ -467,25 +476,25 @@
     </select>
     <select id="listItemManage" resultType="com.osce.entity.IbmItem">
         SELECT
-            id_item ,
-            id_item_store ,
-            id_item_section ,
-            sd_item_ca ,
-            main_item ,
-            sd_item_level ,
-            item_analysis ,
-            score_default ,
-            fg_active ,
-            fg_valid ,
-            sort ,
-            creator ,
-            gmt_create ,
-            operator ,
-            gmt_modify
+        id_item ,
+        id_item_store ,
+        id_item_section ,
+        sd_item_ca ,
+        main_item ,
+        sd_item_level ,
+        item_analysis ,
+        score_default ,
+        fg_active ,
+        fg_valid ,
+        sort ,
+        creator ,
+        gmt_create ,
+        operator ,
+        gmt_modify
         FROM
-            ibm_item
+        ibm_item
         WHERE
-            id_item_store = #{idItemStore}
+        id_item_store = #{idItemStore}
         <if test="idItemSection != null">
             and id_item_section = #{idItemSection}
         </if>
@@ -494,11 +503,11 @@
     </select>
     <select id="countItemManage" resultType="java.lang.Long">
         SELECT
-           count(1)
+        count(1)
         FROM
-            ibm_item
+        ibm_item
         WHERE
-            id_item_store = #{idItemStore}
+        id_item_store = #{idItemStore}
         <if test="idItemSection != null">
             and id_item_section = #{idItemSection}
         </if>
@@ -517,5 +526,43 @@
         WHERE
             id_item = #{idItem}
     </select>
+    <select id="selectIbmItemStoreId" resultType="java.lang.Long">
+        SELECT
+            id_item_store
+        FROM
+            ibm_item_store
+        WHERE
+            na_item_store = #{naItemStore}
+        AND id_org = #{idOrg}
+    </select>
+    <select id="selectIbmItemSectionId" resultType="java.lang.Long">
+        SELECT
+            id_item_section
+        FROM
+            ibm_item_section
+        WHERE
+            na_item_section = #{naItemStore}
+        AND id_item_store = #{idItemStore}
+    </select>
+    <select id="selectIbmItem" resultType="java.lang.Long">
+        SELECT
+            id_item
+        FROM
+            ibm_item
+        WHERE
+            main_item = #{mainItem}
+        AND id_item_store = #{idItemStore}
+        AND id_item_section = #{idItemSection}
+    </select>
+    <select id="selectIbmItemOptionId" resultType="java.lang.Long">
+        SELECT
+            id_item_option
+        FROM
+            ibm_item_option
+        WHERE
+            cd_ite_str = #{cdIteStr}
+        AND id_item = #{idItem}
+    </select>
+
 
 </mapper>

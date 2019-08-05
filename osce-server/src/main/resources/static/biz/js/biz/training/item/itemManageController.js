@@ -22,20 +22,17 @@ layui.config({
             {field: 'gmtCreate', width: 170, title: '创建时间'},
             {fixed: 'right', width: 140, title: '操作', align: 'center', toolbar: '#itemManageBar'}
         ]] //设置表头
-        , url: basePath + '/pf/p/item/manage/list'
+        //, url: basePath + '/pf/p/item/manage/list'
         , limit: 15
         , even: true
         , limits: [15, 30, 100]
         , page: true
-        , where : {
-            idItemStore : idItemStore,
-            idItemSection : $('#idItemSection option:selected').val()
-        }
     });
 
 
     form.on('select(idItemSectionFilter)', function(data){
         table.reload('itemManageTableId', {
+            url: basePath + '/pf/p/item/manage/list' ,
             height: 'full-50',
             where : {
                 idItemStore : idItemStore,
@@ -174,9 +171,10 @@ $(document).ready(function(){
 });
 
 var _setSection = function () {
-    layui.use(['jquery', 'form','common'],function(){
+    layui.use(['jquery', 'form', 'table', 'common'],function(){
         var $ = layui.$
             , form = layui.form
+            , table = layui.table
             , common = layui.common;
         var bizData = {
             "idItemStore" : idItemStore
@@ -200,6 +198,15 @@ var _setSection = function () {
                         $('#idItemSection').append("<option value='" + content.idItemSection + "'>" + content.naItemSection + "</option>");
                     });
                     form.render();
+
+                    table.reload('itemManageTableId', {
+                        url: basePath + '/pf/p/item/manage/list' ,
+                        height: 'full-50',
+                        where : {
+                            idItemStore : idItemStore,
+                            idItemSection :$('#idItemSection option:selected').val()
+                        }
+                    });
                     return true;
                 }
             },

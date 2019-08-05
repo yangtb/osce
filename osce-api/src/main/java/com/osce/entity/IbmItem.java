@@ -43,6 +43,11 @@ public class IbmItem implements Serializable {
     private String sdItemCa;
 
     /**
+     * 题目来源
+     */
+    private String sdItemFrom;
+
+    /**
      * 题干
      */
     private String mainItem;

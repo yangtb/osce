@@ -170,4 +170,46 @@ public interface PfItemDao {
      */
     int delOptionByIdItem(@Param("idItem") Long idItem);
 
+    /**
+     * 批量导入 - 获取题集id
+     *
+     * @param naItemStore 题集名称
+     * @param idOrg       机构id
+     * @return
+     */
+    Long selectIbmItemStoreId(@Param("naItemStore") String naItemStore,
+                              @Param("idOrg") Long idOrg);
+
+    /**
+     * 批量导入 - 获取目录id
+     *
+     * @param naItemSection 目录名称
+     * @param idItemStore   题集id
+     * @return
+     */
+    Long selectIbmItemSectionId(@Param("naItemStore") String naItemSection,
+                                @Param("idItemStore") Long idItemStore);
+
+    /**
+     * 批量导入 - 获取题目id
+     *
+     * @param idItemStore   题集id
+     * @param idItemSection 目录id
+     * @param mainItem      题干
+     * @return
+     */
+    Long selectIbmItem(@Param("idItemStore") Long idItemStore,
+                       @Param("idItemSection") Long idItemSection,
+                       @Param("mainItem") String mainItem);
+
+    /**
+     * 批量导入 - 获取题目选项id
+     *
+     * @param cdIteStr 选项
+     * @param idItem   题目id
+     * @return
+     */
+    Long selectIbmItemOptionId(@Param("cdIteStr") String cdIteStr,
+                               @Param("idItem") Long idItem);
+
 }

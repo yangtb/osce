@@ -67,4 +67,101 @@
             and a.na_plan like concat('%',#{naPlan},'%')
         </if>
     </select>
+    <select id="countStuScore" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            we_exec a
+        WHERE
+            a.id_plan = #{idPlan}
+        AND a.fg_commit = '1'
+    </select>
+    <select id="listStuScore" resultType="com.osce.vo.biz.statistics.StatisticsStuScoreVo">
+        SELECT
+            a.id_exec ,
+            d.na_depart ,
+            c.real_name ,
+            (case c.sex when 1 then '男' when 2 then '女' else '未知' end) as sex ,
+            c.phone_no ,
+            e.na_area ,
+            a.sd_skill_ca ,
+            f.sd_station_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = f.sd_station_ca) AS sdStationCaText ,
+            a.id_paper ,
+            a.score_sum
+        FROM
+            we_exec a
+        LEFT JOIN org_student_depart b ON a.id_user_student = b.id_user
+        LEFT JOIN user_info c ON c.user_id = b.id_user
+        LEFT JOIN org_depart d ON d.id_depart = b.id_depart
+        LEFT JOIN td_area e ON a.id_area = e.id_area
+        LEFT JOIN td_station f ON a.id_area = f.id_station
+        WHERE
+            a.id_plan = #{idPlan}
+        AND a.fg_commit = '1'
+        limit #{offset}, #{limit}
+    </select>
+    <select id="listStuScore1" resultType="com.osce.vo.biz.statistics.StatisticsStuScore1Vo">
+        SELECT
+            a.id_we_item ,
+            b.main_item ,
+            (
+                CASE b.sd_item_ca
+                WHEN '1' THEN
+                    'A1'
+                WHEN '2' THEN
+                    'A2'
+                WHEN '3' THEN
+                    'B1'
+                END
+            ) AS sd_item_ca ,
+            (
+                CASE b.sd_item_level
+                WHEN '1' THEN
+                    '易'
+                WHEN '2' THEN
+                    '较易'
+                WHEN '3' THEN
+                    '中'
+                WHEN '4' THEN
+                    '难'
+                WHEN '5' THEN
+                    '较难'
+                END
+            ) AS sd_item_level ,
+            a.score ,
+            a.score_result
+        FROM
+            we_item a
+        LEFT JOIN td_item b ON a.id_item = b.id_item
+        WHERE
+            a.id_exec = #{idExec}
+    </select>
+    <select id="listAssistantStuScore" resultType="com.osce.vo.biz.statistics.StatisticsAssistantStuScoreVo">
+        SELECT
+            a.id_score_sheet ,
+            a.na_score_item ,
+                (SELECT dict_name from sys_dictionary where group_code = 'SD_SCORE_ITEM_CA' and dict_code = a.sd_score_item_ca) AS sd_score_item_ca ,
+            a.des_score_item ,
+            a.score_result
+        FROM
+            we_score a
+        WHERE
+            a.id_exec = #{idExec}
+        AND a.cd_assistant_ca = #{cdAssistantCa}
+    </select>
+    <select id="selectTestScore" resultType="com.osce.entity.WeExec">
+        SELECT
+            weight_manager ,
+            score_manager ,
+            weight_assistant ,
+            score_assistant ,
+            weight_remote ,
+            score_remote ,
+            score_sum
+        FROM
+            we_exec
+        WHERE
+            id_exec = #{idExec}
+    </select>
 </mapper>

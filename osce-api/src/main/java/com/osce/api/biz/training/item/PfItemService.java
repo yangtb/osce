@@ -1,5 +1,7 @@
 package com.osce.api.biz.training.item;
 
+import com.osce.dto.biz.training.item.ItemBach;
+import com.osce.dto.biz.training.item.ItemBachDto;
 import com.osce.dto.biz.training.item.ItemDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.IbmItem;
@@ -105,5 +107,13 @@ public interface PfItemService {
      * @param dto
      */
     boolean delOption(PfBachChangeStatusDto dto);
+
+    /**
+     * 新增信息
+     *
+     * @param dto
+     * @return
+     */
+    List<ItemBach> addBachItem(ItemBachDto dto);
 
 }

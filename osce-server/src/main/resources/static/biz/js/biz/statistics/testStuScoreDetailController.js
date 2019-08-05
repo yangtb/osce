@@ -9,9 +9,53 @@ layui.config({
         , common = layui.common;
 
     $(document).ready(function () {
+        loadScoreHead();
         loadTab1();
     });
 
+    function loadScoreHead() {
+        var bizData = {
+            idExec: idExec
+        }
+        $.ajax({
+            url: basePath + '/pf/r/statistics/test/student/result',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg, {icon: 5});
+                    return false;
+                } else {
+                    var sucData = data.data;
+                    if (sucData) {
+                        if (sucData.weightManager) {
+                            $('#weightManager').text(sucData.weightManager);
+                            $('#scoreManager').text(sucData.scoreManager);
+                        }
+                        if (sucData.weightAssistant) {
+                            $('#weightAssistant').text(sucData.weightAssistant);
+                            $('#scoreAssistant').text(sucData.scoreAssistant);
+                        }
+                        if (sucData.weightRemote) {
+                            $('#weightRemote').text(sucData.weightRemote);
+                            $('#scoreRemote').text(sucData.scoreRemote);
+                        }
+                        if (sucData.scoreSum) {
+                            $('#scoreSum').text(sucData.scoreSum);
+                        }
+                    }
+                    return false;
+                }
+            },
+            error: function () {
+                layer.msg("网络异常");
+                return false;
+            }
+        });
+    };
 
     element.on('tab(scoreTabFilter)', function (data) {
         if (data.index == 0) {
@@ -27,21 +71,20 @@ layui.config({
         table.render({
             elem: '#score1Table'
             , id: 'score1TableId'
-            , size : 'sm'
-            , url: basePath + '/pf/p/monitor/area/list/end'
+            , size: 'sm'
+            , url: basePath + '/pf/p/statistics/assistant/score/list'
             , height: 'full-180'
             //, skin: 'line'
             , cols: [[
                 {type: 'numbers', title: 'R'}
-                , {field: 'realName', minWidth: 150, title: '评分项'}
-                , {field: 'noReg', minWidth: 100, title: '分类'}
-                , {field: 'gmtReg', minWidth: 140, title: '内容'}
-                , {field: 'phoneNo', minWidth: 140, title: '评分'}
+                , {field: 'naScoreItem', minWidth: 150, title: '评分项'}
+                , {field: 'sdScoreItemCa', minWidth: 100, title: '分类'}
+                , {field: 'desScoreItem', minWidth: 140, title: '内容'}
+                , {field: 'scoreResult', minWidth: 140, title: '评分', align: 'right'}
             ]]
             , where: {
-                idPlan: 1,
-                idArea: 1,
-                timeSection: 1
+                idExec: idExec,
+                cdAssistantCa: 1
             }
         });
     }
@@ -50,21 +93,20 @@ layui.config({
         table.render({
             elem: '#score2Table'
             , id: 'score2TableId'
-            , size : 'sm'
+            , size: 'sm'
             , url: basePath + '/pf/p/monitor/area/list/end'
             , height: 'full-180'
             //, skin: 'line'
             , cols: [[
                 {type: 'numbers', title: 'R'}
-                , {field: 'realName', minWidth: 150, title: '评分项'}
-                , {field: 'noReg', minWidth: 100, title: '分类'}
-                , {field: 'gmtReg', minWidth: 140, title: '内容'}
-                , {field: 'phoneNo', minWidth: 140, title: '评分'}
+                , {field: 'naScoreItem', minWidth: 150, title: '评分项'}
+                , {field: 'sdScoreItemCa', minWidth: 100, title: '分类'}
+                , {field: 'desScoreItem', minWidth: 140, title: '内容'}
+                , {field: 'scoreResult', minWidth: 140, title: '评分', align: 'right'}
             ]]
             , where: {
-                idPlan: 1,
-                idArea: 1,
-                timeSection: 1
+                idExec: idExec,
+                cdAssistantCa: 2
             }
         });
     }
@@ -73,21 +115,20 @@ layui.config({
         table.render({
             elem: '#score3Table'
             , id: 'score3TableId'
-            , size : 'sm'
+            , size: 'sm'
             , url: basePath + '/pf/p/monitor/area/list/end'
             , height: 'full-180'
             //, skin: 'line'
             , cols: [[
                 {type: 'numbers', title: 'R'}
-                , {field: 'realName', minWidth: 150, title: '评分项'}
-                , {field: 'noReg', minWidth: 100, title: '分类'}
-                , {field: 'gmtReg', minWidth: 140, title: '内容'}
-                , {field: 'phoneNo', minWidth: 140, title: '评分'}
+                , {field: 'naScoreItem', minWidth: 150, title: '评分项'}
+                , {field: 'sdScoreItemCa', minWidth: 100, title: '分类'}
+                , {field: 'desScoreItem', minWidth: 140, title: '内容'}
+                , {field: 'scoreResult', minWidth: 140, title: '评分', align: 'right'}
             ]]
             , where: {
-                idPlan: 1,
-                idArea: 1,
-                timeSection: 1
+                idExec: idExec,
+                cdAssistantCa: 3
             }
         });
     }

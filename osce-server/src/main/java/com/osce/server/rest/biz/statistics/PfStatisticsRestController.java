@@ -1,6 +1,7 @@
 package com.osce.server.rest.biz.statistics;
 
 import com.osce.api.biz.statistics.PfStatisticsService;
+import com.osce.dto.biz.statistics.StatisticsAssistantDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.server.security.CurrentUserUtils;
 import com.sm.open.care.core.ErrorCode;
@@ -41,6 +42,22 @@ public class PfStatisticsRestController {
         return pfStatisticsService.delTest(dto) ?
                 ResultObject.createSuccess("delTest", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("delTest", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+
+    /**
+     * 查询学生成绩
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/statistics/test/student/result")
+    public ResultObject selectTestScore(@RequestBody StatisticsAssistantDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdExec() != null, "idExec");
+        return ResultObject.createSuccess("selectTestScore", ResultObject.DATA_TYPE_OBJECT,
+                pfStatisticsService.selectTestScore(dto.getIdExec()));
     }
 
 }

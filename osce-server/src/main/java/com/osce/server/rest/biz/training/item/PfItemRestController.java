@@ -1,6 +1,7 @@
 package com.osce.server.rest.biz.training.item;
 
 import com.osce.api.biz.training.item.PfItemService;
+import com.osce.dto.biz.training.item.ItemBachDto;
 import com.osce.dto.biz.training.item.ItemDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.IbmItem;
@@ -202,5 +203,25 @@ public class PfItemRestController extends BaseController {
         return pfItemService.delOption(dto) ? ResultObject.createSuccess("delOption", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("delOption", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
+
+    /**
+     * 新增信息
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_03_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/item/batch/add")
+    public ResultObject addBachItem(@RequestBody ItemBachDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getItems()), "items");
+
+        dto.setCreator(CurrentUserUtils.getCurrentUsername());
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return ResultObject.createSuccess("addBachItem", ResultObject.DATA_TYPE_LIST,
+                pfItemService.addBachItem(dto));
+    }
+
 
 }

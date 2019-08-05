@@ -34,4 +34,9 @@ public class StatisticsDto extends PageParam implements Serializable {
      * 考试名称
      */
     private String naPlan;
+
+    /**
+     * 执行id
+     */
+    private Long idExec;
 }

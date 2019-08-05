@@ -235,26 +235,26 @@ layui.config({
             excel.importExcel(files, {
                 // 读取数据的同时梳理数据
                 fields: {
-                    'item1': 'A'
-                    ,'item2': 'B'
-                    ,'item3': 'C'
-                    ,'item4': 'D'
-                    ,'item5': 'E'
-                    ,'item6': 'F'
-                    ,'item7': 'G'
-                    ,'item8': 'H'
-                    ,'item9': 'I'
-                    ,'item10': 'J'
-                    ,'item11': 'K'
-                    ,'item12': 'M'
-                    ,'item13': 'L'
-                    ,'item14': 'N'
-                    ,'item15': 'O'
-                    ,'item16': 'P'
-                    ,'item17': 'Q'
-                    ,'item18': 'R'
-                    ,'item19': 'S'
-                    ,'item20': 'T'
+                    'naItemStore': 'A'
+                    ,'naItemSection': 'B'
+                    ,'sort': 'C'
+                    ,'sdItemCa': 'D'
+                    ,'mainItem': 'E'
+                    ,'sdItemLevel': 'F'
+                    ,'itemAnalysis': 'G'
+                    ,'scoreDefault': 'H'
+                    ,'cdIteStr_A': 'I'
+                    ,'naOption_A': 'J'
+                    ,'fgRight_A': 'K'
+                    ,'cdIteStr_B': 'L'
+                    ,'naOption_B': 'M'
+                    ,'fgRight_B': 'N'
+                    ,'cdIteStr_C': 'O'
+                    ,'naOption_C': 'P'
+                    ,'fgRight_C': 'Q'
+                    ,'cdIteStr_D': 'R'
+                    ,'naOption_D': 'S'
+                    ,'fgRight_D': 'T'
                 }
             }, function(data) {
                 // 如果不需要展示直接上传，可以再次 $.ajax() 将JSON数据通过 JSON.stringify() 处理后传递到后端即可
@@ -267,7 +267,8 @@ layui.config({
                         element.render('tab');
                     }
                     ,yes: function(index, layero){
-                        console.log(JSON.stringify(data));
+                        //console.log(JSON.stringify(data));
+                        bachImportItem(data);
                         layer.close(index); //如果设定了yes回调，需进行手工关闭
                     }
                     ,end: function(){
@@ -281,6 +282,75 @@ layui.config({
             layer.alert(e.message);
         }
     };
+
+
+    function bachImportItem(data) {
+        var itemArr = new Array();
+        for (var key in data) {
+            var dataList = data[key];
+
+            for (var key1 in dataList) {
+                $.each(dataList[key1], function (index, content) {
+                    if (index > 1) {
+                        /*if (content.sdItemLevelStr == '男') {
+                            content.sdItemLevel = 1;
+                        } else if (content.sexStr == '女') {
+                            content.sdItemLevel = 2;
+                        }*/
+                        itemArr.push(content);
+                    }
+                });
+            }
+        }
+
+        console.log(itemArr)
+
+        var reqData = {
+            items: itemArr
+        }
+
+        layer.msg('正在导入题目数据，请耐心等待......', {
+            icon: 16,
+            shade: 0.01,
+            time: false
+        });
+        $.ajax({
+            url: basePath + '/pf/r/item/batch/add',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    common.errorMsg(data.msg);
+                    return false;
+                } else {
+                    var sucData = data.data;
+                    if (sucData.length == 0) {
+                        layer.msg("导入成功");
+                    } else {
+                        var msg = '';
+                        $.each(sucData, function (index, content) {
+                            if (msg) {
+                                msg += ', ';
+                            }
+                            msg += content.naItemStore;
+                        });
+                        layer.alert('导入题目【' + msg + '】数据失败');
+                    }
+                    _itemTableReload();
+                    return true;
+                }
+            },
+            error: function () {
+                layer.closeAll('');
+                layer.msg("网络异常");
+                return false;
+            }
+        });
+    }
+
 
 
 });

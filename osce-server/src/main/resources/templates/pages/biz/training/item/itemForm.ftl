@@ -47,8 +47,17 @@
                     </div>
                 </div>
                 <div class="layui-inline">
+                    <div class="layui-input-inline" style="padding-left:40px; width: 230px; float: right">
+                        <input type="radio" name="sdItemFrom" value="1" title="题库试题" checked>
+                        <input type="radio" name="sdItemFrom" value="2" title="私有试题">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item form-item-my">
+                <div class="layui-inline">
                     <label class="layui-form-label">题目类型<i class="iconfont icon-required"
-                                                         style="color: #f03f2d"></i></label>
+                                                           style="color: #f03f2d"></i></label>
                     <div class="layui-input-inline">
                         <select name="sdItemCa" lay-verify="required" lay-vertype="tips">
                             <option value="1">A1</option>
