@@ -23,7 +23,7 @@ layui.config({
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
             {field: 'naItemStore', minWidth: 170, title: '题集', fixed: true},
             {field: 'desItemStore', minWidth: 250, title: '描述'},
-            {field: 'itemNum', minWidth: 100, title: '题目数量', align: "right"},
+            {field: 'itemNum', width: 100, title: '题目数量', align: "right"},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#itemBar'}
         ]] //设置表头
