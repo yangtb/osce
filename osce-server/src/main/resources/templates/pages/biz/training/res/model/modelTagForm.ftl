@@ -181,6 +181,12 @@
         $(document).ready(function(){
             $("#modelForm").autofill(data);
             layui.use('form',function(){
+                if (data.fgConsumables && data.fgConsumables == '0') {
+                    $('#unmStock').attr("readonly","readonly");
+                    $('#unmStock').addClass("layui-disabled");
+                    $('#numWarn').attr("disabled","disabled");
+                    $('#numWarn').addClass("layui-disabled");
+                }
                 layui.form.render();
             });
 
