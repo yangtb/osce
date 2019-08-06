@@ -69,6 +69,7 @@ public class PfStudentServiceImpl implements PfStudentService {
                 registerDto.setPassword(StringUtils.rightPad(registerDto.getIdcard(), 6));
             }
             registerDto.setUsername(registerDto.getPhoneNo());
+            registerDto.setRealName(registerDto.getRealName().trim());
             Long usId = pfUserService.saveUser(registerDto);
             studentDepartVo.setIdUser(usId);
             // 增加学员部门关系
