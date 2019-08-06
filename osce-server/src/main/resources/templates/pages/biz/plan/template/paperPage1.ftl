@@ -210,7 +210,7 @@
                                     <label class="layui-form-label">及格分数<i class="iconfont icon-required"
                                                                            style="color: #f03f2d"></i></label>
                                     <div class="layui-input-inline">
-                                        <input type="number" name="scorePass" placeholder="请输入及格分数"  autocomplete="off"
+                                        <input type="number" name="scorePass" id="scorePass" placeholder="请输入及格分数"  autocomplete="off"
                                                class="layui-input" lay-verify="required" min="0" lay-vertype="tips">
                                     </div>
                                 </div>
@@ -232,13 +232,13 @@
                                     <div class="layui-input-block" id="tjfw">
                                         <input type="checkbox" name="fgItemFromPublic" title="题库试题">
                                         <input type="checkbox" name="fgItemFromPrivate" title="私有试题">
-                                        <input type="checkbox" name="fgItemFromImport" title="导入试题">
-                                        <button class="layui-btn layui-btn-normal layui-btn-sm layui-btn-radius"
-                                                id="importItem">
+                                        <input type="checkbox" name="fgItemFromImport" title="导入试题" lay-filter="fgItemFromImportFilter">
+                                        <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-btn-radius layui-btn-disabled"
+                                                id="importItem" disabled>
                                             &nbsp;<i class="iconfont icon-add"></i> 导入试题&nbsp;
                                         </button>
                                         <button id="importItemHidden" type="button" class="layui-btn layui-btn-normal"
-                                                lay-href="${contextPath!}/pf/p/item/page" style="display: none">题库管理
+                                                lay-href="" style="display: none">题库管理
                                         </button>
                                     </div>
                                 </div>

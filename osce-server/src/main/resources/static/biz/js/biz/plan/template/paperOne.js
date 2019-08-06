@@ -45,9 +45,9 @@ layui.config({
         width: '100%', //设置容器宽度
         stepWidth: '680px',
         height: '500px',
-        indicator : 'none',  // 不显示指示器
-        arrow : 'always',  // 始终显示箭头
-        autoplay : false,  // 关闭自动播放
+        indicator: 'none',  // 不显示指示器
+        arrow: 'always',  // 始终显示箭头
+        autoplay: false,  // 关闭自动播放
         stepItems: [{
             title: '选择题集'
         }, {
@@ -80,14 +80,20 @@ layui.config({
     });
 
     function copyItem(idItemStore) {
-        var bizData = {
-            parIdItemStore: idItemStore
+        if ($('#naItemStoreFrom').val()) {
+            var bizData = {
+                parIdItemStore: idItemStore
+            }
+            common.commonPost(basePath + '/pf/p/plan/paper/copy/item', bizData, null, 'addTdItemStore',
+                function (data) {
+                    step.next('#stepForm');
+                    selectPaperParam();
+                }, true);
+        } else {
+            step.next('#stepForm');
+            selectPaperParam();
         }
-        common.commonPost(basePath + '/pf/p/plan/paper/copy/item', bizData, null, 'addTdItemStore',
-            function (data) {
-                step.next('#stepForm');
-                selectPaperParam();
-            }, true);
+        table.reload('paperTableId');
     }
 
     // 第2步 ： 试卷参数
@@ -350,8 +356,52 @@ layui.config({
     });
 
     $("#importItem").on('click', function () {
+        $('#importItemHidden').text("试卷[" + $('#naItemStore').val() + "]导入试题");
+        $('#importItemHidden').attr('lay-href', basePath + '/pf/p/td/item/page?idItemStore=' + $('#idItemStore').val());
         $('#importItemHidden').click();
+        return false;
     });
+
+    form.on('checkbox(fgItemFromImportFilter)', function (data) {
+        if (!data.elem.checked) {
+            return;
+        }
+        // 校验表单
+        if (!$('#naItemStore').val()) {
+            $('#naItemStore').focus()
+            layer.tips('请填写试卷名称', '#naItemStore');
+            data.elem.checked = false;
+            form.render("checkbox");
+            return;
+        }
+        if (!$('#scorePass').val()) {
+            $('#scorePass').focus()
+            layer.tips('请填写及格分数', '#scorePass');
+            data.elem.checked = false;
+            form.render("checkbox");
+            return;
+        }
+
+        if (!$('#idItemStore').val()) {
+            var bizData = {
+                idModel: idModel,
+                naItemStore: $('#naItemStore').val(),
+                scorePass: $('#scorePass').val(),
+                fgItemFromPublic: '0',
+                fgItemFromPrivate: '0',
+                fgItemFromImport: '1',
+                fgActive: 1
+            }
+            return common.commonPost(basePath + '/pf/p/plan/paper/add/item', bizData, null, null,
+                function (data) {
+                    $('#idItemStore').val(data.data);
+                    $("#importItem").removeClass("layui-btn-disabled");
+                    $('#importItem').removeAttr("disabled", "true");
+                    table.reload('paperTableId');
+                }, true);
+        }
+    });
+
 
     // 输入框控制
     function setFormStatus(status, arr) {
@@ -370,7 +420,7 @@ layui.config({
     function editPaper(data) {
         var bizData = {
             idModel: idModel,
-            idItemStore : data.idItemStore
+            idItemStore: data.idItemStore
         };
         $.ajax({
             url: basePath + '/pf/p/plan/paper/select/item',
@@ -390,7 +440,15 @@ layui.config({
                     sucData.fgItemFromImport = sucData.fgItemFromImport == '1' ? true : false;
                     form.val("step1FormFilter", sucData);
                     $('#naItemStoreFrom').attr("ts-selected", sucData.idItemStoreFrom);
-                    $('#naItemStoreFrom').val(sucData.naItemStoreFrom)
+                    $('#naItemStoreFrom').val(sucData.naItemStoreFrom);
+
+                    if (sucData.fgItemFromImport == '1') {
+                        $("#importItem").removeClass("layui-btn-disabled");
+                        $('#importItem').removeAttr("disabled", "true");
+                    } else {
+                        $("#importItem").addClass("layui-btn-disabled");
+                        $('#importItem').attr("disabled", "true");
+                    }
                     return true;
                 }
             },
@@ -472,8 +530,8 @@ layui.config({
         });
 
         var data = {
-            list : reqData,
-            status : '1'
+            list: reqData,
+            status: '1'
         };
 
         layer.confirm('确定试卷' + messageTitle + '么？', {
@@ -485,8 +543,7 @@ layui.config({
         }, function (index) {
             return common.commonPost(url, data, '删除', null,
                 function (data) {
-                    table.reload('paperTableId', {
-                    });
+                    table.reload('paperTableId', {});
                 }, true);
         })
     }
@@ -497,17 +554,17 @@ layui.config({
         table.render({
             elem: '#setItemTable' //指定原始表格元素选择器（推荐id选择器）
             , id: 'setItemTableId'
-            , size : 'sm'
+            , size: 'sm'
             , toolbar: '#toolbarDemo'
             , defaultToolbar: []
             , height: 390 //容器高度
             , cols: [[
                 {type: 'numbers', fixed: true, title: 'R'},
-                {field:'fgMust', width: 50, templet: '#checkboxTpl', unresize: true, fixed: true},
+                {field: 'fgMust', width: 50, templet: '#checkboxTpl', unresize: true, fixed: true},
                 {field: 'mainItem', minWidth: 240, title: '题干'},
-                {field: 'sdItemCa', width: 100, title: '题目类型', align:'center'},
-                {field: 'sdItemLevel', width: 100, title: '难度', align:'center'},
-                {field: 'sdItemFrom', width: 120, title: '来源', align:'center'},
+                {field: 'sdItemCa', width: 100, title: '题目类型', align: 'center'},
+                {field: 'sdItemLevel', width: 100, title: '难度', align: 'center'},
+                {field: 'sdItemFrom', width: 120, title: '来源', align: 'center'},
             ]] //设置表头
             , url: basePath + '/pf/p/plan/paper/item/list'
             , limit: 20
@@ -515,16 +572,16 @@ layui.config({
             , page: {
                 layout: ['prev', 'page', 'next', 'skip', 'refresh', 'count', 'limit']
             }
-            , where : {
+            , where: {
                 idItemStore: $('#idItemStore').val()
             }
         });
     }
 
     // 头工具栏事件
-    table.on('toolbar(setItemTableFilter)', function(obj){
+    table.on('toolbar(setItemTableFilter)', function (obj) {
         var status_v, tips_v;
-        switch(obj.event){
+        switch (obj.event) {
             case 'checkAll':
                 status_v = 1;
                 tips_v = 'checkAllBtn';
@@ -533,20 +590,22 @@ layui.config({
                 status_v = 0;
                 tips_v = 'notCheckAllBtn';
                 break;
-        };
-        var biaData = {
-            idItemStore : $('#idItemStore').val(),
-            status : status_v
         }
-        return setPaperParam(biaData, true, tips_v);;
+        ;
+        var biaData = {
+            idItemStore: $('#idItemStore').val(),
+            status: status_v
+        }
+        return setPaperParam(biaData, true, tips_v);
+        ;
     });
 
-    form.on('checkbox(checkItemFilter)', function(obj){
+    form.on('checkbox(checkItemFilter)', function (obj) {
         var idItemList = new Array();
         idItemList.push(this.value);
         var biaData = {
-            idItems : idItemList,
-            status : obj.elem.checked ? 1 : 0
+            idItems: idItemList,
+            status: obj.elem.checked ? 1 : 0
         }
         return setPaperParam(biaData, false, obj.othis);
     });
@@ -561,14 +620,14 @@ layui.config({
             success: function (data) {
                 layer.closeAll('loading');
                 if (data.code != 0) {
-                    if (typeof(selectId) == 'string') {
+                    if (typeof (selectId) == 'string') {
                         layer.tips(data.msg, '#' + selectId, {tips: [2, '#FF5722']});
                     } else {
                         layer.tips(data.msg, selectId);
                     }
                     return false;
                 } else {
-                    if (typeof(selectId) == 'string') {
+                    if (typeof (selectId) == 'string') {
                         layer.tips("设置成功", '#' + selectId, {tips: 1});
                     } else {
                         layer.tips("设置成功", selectId);
@@ -587,12 +646,11 @@ layui.config({
         });
     }
 
-    function reloadSetItemTable(){
-        table.reload('setItemTableId', {
-        });
+    function reloadSetItemTable() {
+        table.reload('setItemTableId', {});
     }
 
-    function itemTableResult()  {
+    function itemTableResult() {
         //执行渲染
         table.render({
             elem: '#itemTableResult' //指定原始表格元素选择器（推荐id选择器）
@@ -601,9 +659,9 @@ layui.config({
             , cols: [[
                 {type: 'numbers', fixed: true, title: 'R'},
                 {field: 'mainItem', minWidth: 240, title: '题干'},
-                {field: 'sdItemCa', width: 100, title: '题目类型', align:'center'},
-                {field: 'sdItemLevel', width: 100, title: '难度', align:'center'},
-                {field: 'sdItemFrom', width: 120, title: '来源', align:'center'},
+                {field: 'sdItemCa', width: 100, title: '题目类型', align: 'center'},
+                {field: 'sdItemLevel', width: 100, title: '难度', align: 'center'},
+                {field: 'sdItemFrom', width: 120, title: '来源', align: 'center'},
             ]] //设置表头
             , url: basePath + '/pf/p/plan/paper/item/list?idItemStore=' + $('#idItemStore').val() + '&fgActive=1'
             , limit: 20

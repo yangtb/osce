@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.training.item.PfTdItemDao">
+
+    <insert id="addItem" useGeneratedKeys="true" keyProperty="idItemStore">
+        INSERT INTO td_item_store
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemStore!=null">
+                id_item_store,
+            </if>
+            <if test="idOrg!=null">
+                id_org,
+            </if>
+            <if test="naItemStore!=null">
+                na_item_store,
+            </if>
+            <if test="desItemStore!=null">
+                des_item_store,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="fgValid!=null">
+                fg_valid,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            <if test="creator!=null">
+                creator,
+            </if>
+            gmt_create,
+            <if test="operator!=null">
+                operator,
+            </if>
+            gmt_modify,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemStore!=null">
+                #{idItemStore},
+            </if>
+            <if test="idOrg!=null">
+                #{idOrg},
+            </if>
+            <if test="naItemStore!=null">
+                #{naItemStore},
+            </if>
+            <if test="desItemStore!=null">
+                #{desItemStore},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="fgValid!=null">
+                #{fgValid},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            <if test="creator!=null">
+                #{creator},
+            </if>
+            now(),
+            <if test="operator!=null">
+                #{operator},
+            </if>
+            now(),
+        </trim>
+        )
+
+    </insert>
+    <insert id="addSection" useGeneratedKeys="true" keyProperty="idItemSection">
+        INSERT INTO td_item_section
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemSection!=null">
+                id_item_section,
+            </if>
+            <if test="idItemStore!=null">
+                id_item_store,
+            </if>
+            <if test="naItemSection!=null">
+                na_item_section,
+            </if>
+            <if test="sort!=null">
+                sort,
+            </if>
+            fg_active,
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemSection!=null">
+                #{idItemSection},
+            </if>
+            <if test="idItemStore!=null">
+                #{idItemStore},
+            </if>
+            <if test="naItemSection!=null">
+                #{naItemSection},
+            </if>
+            <if test="sort!=null">
+                #{sort},
+            </if>
+            '0',
+        </trim>
+        )
+    </insert>
+    <insert id="addExam" useGeneratedKeys="true" keyProperty="idItem">
+        INSERT INTO td_item
+        (
+        <trim suffixOverrides=",">
+            <if test="idItem!=null">
+                id_item,
+            </if>
+            <if test="idItemStore!=null">
+                id_item_store,
+            </if>
+            <if test="idItemSection!=null">
+                id_item_section,
+            </if>
+            <if test="sdItemCa!=null">
+                sd_item_ca,
+            </if>
+            <if test="mainItem!=null">
+                main_item,
+            </if>
+            <if test="sdItemLevel!=null">
+                sd_item_level,
+            </if>
+            <if test="itemAnalysis!=null">
+                item_analysis,
+            </if>
+            <if test="scoreDefault!=null">
+                score_default,
+            </if>
+            <if test="fgMust!=null">
+                fg_must,
+            </if>
+            <if test="fgActive!=null">
+                fg_active,
+            </if>
+            <if test="sdItemFrom!=null">
+                sd_item_from,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idItem!=null">
+                #{idItem},
+            </if>
+            <if test="idItemStore!=null">
+                #{idItemStore},
+            </if>
+            <if test="idItemSection!=null">
+                #{idItemSection},
+            </if>
+            <if test="sdItemCa!=null">
+                #{sdItemCa},
+            </if>
+            <if test="mainItem!=null">
+                #{mainItem},
+            </if>
+            <if test="sdItemLevel!=null">
+                #{sdItemLevel},
+            </if>
+            <if test="itemAnalysis!=null">
+                #{itemAnalysis},
+            </if>
+            <if test="scoreDefault!=null">
+                #{scoreDefault},
+            </if>
+            <if test="fgMust!=null">
+                #{fgMust},
+            </if>
+            <if test="fgActive!=null">
+                #{fgActive},
+            </if>
+            <if test="sdItemFrom!=null">
+                #{sdItemFrom} ,
+            </if>
+        </trim>
+        )
+    </insert>
+    <insert id="addItemOption" useGeneratedKeys="true" keyProperty="idItemOption">
+        INSERT INTO td_item_option
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemOption!=null">
+                id_item_option,
+            </if>
+            <if test="idItem!=null">
+                id_item,
+            </if>
+            <if test="cdIte!=null">
+                cd_ite_str,
+            </if>
+            <if test="naOption!=null">
+                na_option,
+            </if>
+            <if test="fgRight!=null">
+                fg_right,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idItemOption!=null">
+                #{idItemOption},
+            </if>
+            <if test="idItem!=null">
+                #{idItem},
+            </if>
+            <if test="cdIte!=null">
+                #{cdIte},
+            </if>
+            <if test="naOption!=null">
+                #{naOption},
+            </if>
+            <if test="fgRight!=null">
+                #{fgRight},
+            </if>
+        </trim>
+        )
+    </insert>
+    <update id="editItem">
+        UPDATE td_item_store
+        SET
+        <trim suffixOverrides=",">
+            <if test="idOrg != null">
+                id_org = #{idOrg},
+            </if>
+            <if test="naItemStore != null and naItemStore!=''">
+                na_item_store = #{naItemStore},
+            </if>
+            <if test="desItemStore != null and desItemStore!=''">
+                des_item_store = #{desItemStore},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="fgValid != null and fgValid!=''">
+                fg_valid = #{fgValid},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="creator != null and creator!=''">
+                creator = #{creator},
+            </if>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="operator != null and operator!=''">
+                operator = #{operator},
+            </if>
+            gmt_modify = now(),
+        </trim>
+        WHERE
+        id_item_store = #{idItemStore}
+    </update>
+    <update id="editSection">
+        UPDATE td_item_section
+        SET
+        <trim suffixOverrides=",">
+            <if test="idItemStore != null">
+                id_item_store = #{idItemStore},
+            </if>
+            <if test="naItemSection != null and naItemSection!=''">
+                na_item_section = #{naItemSection},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+        </trim>
+        WHERE
+        id_item_section = #{idItemSection}
+    </update>
+    <update id="editExam">
+        UPDATE td_item
+        SET
+        <trim suffixOverrides=",">
+            <if test="idItemStore != null">
+                id_item_store = #{idItemStore},
+            </if>
+            <if test="idItemSection != null">
+                id_item_section = #{idItemSection},
+            </if>
+            <if test="sdItemCa != null and sdItemCa!=''">
+                sd_item_ca = #{sdItemCa},
+            </if>
+            <if test="mainItem != null and mainItem!=''">
+                main_item = #{mainItem},
+            </if>
+            <if test="sdItemLevel != null and sdItemLevel!=''">
+                sd_item_level = #{sdItemLevel},
+            </if>
+            <if test="itemAnalysis != null and itemAnalysis!=''">
+                item_analysis = #{itemAnalysis},
+            </if>
+            <if test="scoreDefault != null">
+                score_default = #{scoreDefault},
+            </if>
+            <if test="fgActive != null and fgActive!=''">
+                fg_active = #{fgActive},
+            </if>
+            <if test="sdItemFrom != null and sdItemFrom!=''">
+                sd_item_from = #{sdItemFrom},
+            </if>
+        </trim>
+        WHERE
+        id_item = #{idItem}
+    </update>
+    <update id="editItemOption">
+        UPDATE td_item_option
+        SET
+        <trim suffixOverrides=",">
+            <if test="idItem != null">
+                id_item = #{idItem},
+            </if>
+            <if test="cdIte != null and cdIte!=''">
+                cd_ite_str = #{cdIte},
+            </if>
+            <if test="naOption != null and naOption!=''">
+                na_option = #{naOption},
+            </if>
+            <if test="fgRight != null and fgRight!=''">
+                fg_right = #{fgRight},
+            </if>
+        </trim>
+        WHERE
+        id_item_option = #{idItemOption}
+    </update>
+    <delete id="delItem">
+        UPDATE td_item_store
+        SET
+        <choose>
+            <when test="operationType == 'updateStatus'">
+                fg_active = #{status},
+            </when>
+            <otherwise>
+                fg_valid = #{status},
+                fg_active = '0',
+            </otherwise>
+        </choose>
+        operator = #{operator},
+        gmt_modify = now()
+        WHERE
+        id_item_store in (
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="delSection">
+        delete from td_item_section
+        where id_item_section in (
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="delOption">
+        delete from td_item_option
+        where id_item_option in (
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="delOptionByIdItem">
+        delete from td_item_option where id_item = #{idItem}
+    </delete>
+    <delete id="delExamByIdItem">
+        delete from td_item where id_item = #{idItem}
+    </delete>
+
+    <select id="listItem" resultType="com.osce.entity.TdItemStore">
+        SELECT
+            a.id_item_store ,
+            a.id_org ,
+            a.na_item_store ,
+            a.des_item_store ,
+            a.fg_active ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify ,
+            (
+                SELECT
+                    count(1)
+                FROM
+                    td_item b
+                WHERE
+                    a.id_item_store = b.id_item_store
+            ) AS itemNum
+        FROM
+            td_item_store a
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.fg_valid = '0'
+        <if test="idItemStore != null">
+            AND a.id_item_store = #{idItemStore}
+        </if>
+        <if test="naItemStore != null and naItemStore != ''">
+            AND a.na_item_store LIKE concat('%', #{naItemStore},'%')
+        </if>
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countItem" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            td_item_store
+        WHERE
+            id_org = #{idOrg}
+        AND fg_valid = '0'
+        <if test="idItemStore != null">
+            AND id_item_store = #{idItemStore}
+        </if>
+        <if test="naItemStore != null and naItemStore != ''">
+            AND na_item_store LIKE concat('%', #{naItemStore},'%')
+        </if>
+    </select>
+    <select id="listSection" resultType="com.osce.entity.TdItemSection">
+        SELECT
+            id_item_section ,
+            na_item_section
+        FROM
+            td_item_section
+        WHERE
+            id_item_store = #{idItemStore}
+        ORDER BY
+            sort
+    </select>
+    <select id="listItemManage" resultType="com.osce.entity.TdItem">
+        SELECT
+            id_item ,
+            id_item_store ,
+            id_item_section ,
+            sd_item_ca ,
+            main_item ,
+            sd_item_level ,
+            item_analysis ,
+            score_default ,
+            fg_active ,
+            sd_item_from
+        FROM
+            td_item
+        WHERE
+            id_item_store = #{idItemStore}
+        <if test="idItemSection != null">
+            and id_item_section = #{idItemSection}
+        </if>
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countItemManage" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            td_item
+        WHERE
+            id_item_store = #{idItemStore}
+        <if test="idItemSection != null">
+            and id_item_section = #{idItemSection}
+        </if>
+    </select>
+
+    <select id="listItemOption" resultType="com.osce.entity.TdItemOption">
+        SELECT
+            id_item_option ,
+            id_item ,
+            cd_ite_str as cd_ite ,
+            na_option ,
+            fg_right
+        FROM
+            td_item_option
+        WHERE
+            id_item = #{idItem}
+    </select>
+    <select id="selectTdItemStoreId" resultType="java.lang.Long">
+        SELECT
+            id_item_store
+        FROM
+            td_item_store
+        WHERE
+            na_item_store = #{naItemStore}
+        AND id_org = #{idOrg}
+    </select>
+    <select id="selectTdItemSectionId" resultType="java.lang.Long">
+        SELECT
+            id_item_section
+        FROM
+            td_item_section
+        WHERE
+            na_item_section = #{naItemStore}
+        AND id_item_store = #{idItemStore}
+    </select>
+    <select id="selectTdItem" resultType="java.lang.Long">
+        SELECT
+            id_item
+        FROM
+            td_item
+        WHERE
+            main_item = #{mainItem}
+        AND id_item_store = #{idItemStore}
+        AND id_item_section = #{idItemSection}
+    </select>
+    <select id="selectTdItemOptionId" resultType="java.lang.Long">
+        SELECT
+            id_item_option
+        FROM
+            td_item_option
+        WHERE
+            cd_ite_str = #{cdIteStr}
+        AND id_item = #{idItem}
+    </select>
+
+
+</mapper>

@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @ClassName: TdItem
@@ -75,5 +76,10 @@ public class TdItem implements Serializable {
      * 启用标志
      */
     private String fgActive;
+
+    /**
+     * 选项
+     */
+    private List<TdItemOption> itemOptions;
 
 }

@@ -20,6 +20,11 @@ public class ItemBach implements Serializable {
     private static final long serialVersionUID = -1318875385874691256L;
 
     /**
+     * 题集id
+     */
+    private Long idItemStore;
+
+    /**
      * 题集名称
      */
     private String naItemStore;
