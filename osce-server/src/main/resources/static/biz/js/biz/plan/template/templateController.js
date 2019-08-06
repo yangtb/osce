@@ -207,6 +207,7 @@ layui.config({
             return;
         }
         var currentEditData = data[0];
+        $('#designExamPaperHidden').text("设计考卷[" + currentEditData.naModel + "]");
         $('#designExamPaperHidden').attr('lay-href',
             basePath + '/pf/p/plan/paper/page?idModel=' + currentEditData.idModel);
         $('#designExamPaperHidden').click();
@@ -221,6 +222,7 @@ layui.config({
             return;
         }
         var currentEditData = data[0];
+        $('#editPlan').text("实训计划编辑[" + currentEditData.naModel + "]");
         $('#editPlan').attr('lay-href',
             basePath + '/pf/p/plan/manage/form?idModelFrom=' + currentEditData.idModel);
         $('#editPlan').click();

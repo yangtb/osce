@@ -58,10 +58,10 @@
                     lay-href="" style="display: none">实训模板编辑
             </button>
             <button id="designExamPaperHidden" type="button" class="layui-btn layui-btn-normal"
-                    lay-href="" style="display: none">设计考卷
+                    lay-href="" style="display: none">
             </button>
             <button id="editPlan" type="button" class="layui-btn layui-btn-normal"
-                    lay-href="" style="display: none">实训计划编辑
+                    lay-href="" style="display: none">
             </button>
         </div>
     </form>
