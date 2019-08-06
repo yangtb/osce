@@ -18,7 +18,7 @@ layui.config({
             {checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
             {field: 'naModel', minWidth: 170, title: '模板名称', fixed: true},
-            {field: 'fgChild', width: 100, title: '模板类型', align: 'center', templet: '#fgChildTpl'},
+            //{field: 'fgChild', width: 100, title: '模板类型', align: 'center', templet: '#fgChildTpl'},
             {field: 'numStudentMax', minWidth: 100, title: '最大学生数', align: 'right'},
             {field: 'numArea', width: 90, title: '考场数', align: 'right'},
             {field: 'weightManager', minWidth: 150, title: '主考官权重（%）', align: 'right'},

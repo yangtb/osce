@@ -532,6 +532,7 @@
         WHERE
             id_org = #{idOrg}
         AND fg_valid = '0'
+        AND fg_child = '0'
         LIMIT #{offset}, #{limit}
     </select>
     <select id="countTemplate" resultType="java.lang.Long">
@@ -542,6 +543,7 @@
         WHERE
             id_org = #{idOrg}
         AND fg_valid = '0'
+        AND fg_child = '0'
     </select>
     <select id="selectTemplateInfoById" resultType="com.osce.entity.TdModel">
         SELECT

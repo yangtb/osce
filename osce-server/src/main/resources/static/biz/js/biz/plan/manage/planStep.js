@@ -215,7 +215,7 @@ layui.config({
             cols: [[
                 {type: 'radio'},
                 {field: 'naModel', minWidth: 170, title: '模板名称'},
-                {field: 'fgChild', width: 100, title: '模板类型', align: 'center', templet: '#fgChildTpl'},
+                //{field: 'fgChild', width: 100, title: '模板类型', align: 'center', templet: '#fgChildTpl'},
                 {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             ]]
             , limits: [10, 20, 50]
