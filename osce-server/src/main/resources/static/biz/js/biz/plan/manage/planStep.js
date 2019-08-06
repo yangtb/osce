@@ -145,7 +145,7 @@ layui.config({
                     fullProgress(sucData);
                     // 表单值
                     form.val("step1FormFilter", sucData);
-                    $('#naModel').attr("ts-selected", bizData.idModelFrom);
+                    $('#naModel').attr("ts-selected", sucData.idModelFrom);
 
                     if ($("#idModel").val()) {
                         $("#editTemplate").css("display", "block");
