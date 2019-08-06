@@ -18,7 +18,7 @@ layui.config({
             area: ['450px', '280px'],
             anim: 0,
             fixed: false, //不固定
-            maxmin: true,
+            maxmin: false,
             content: basePath + '/pf/p/user/modifyPass',
             shadeClose: true
         });
