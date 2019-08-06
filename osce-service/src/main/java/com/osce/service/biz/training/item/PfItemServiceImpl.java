@@ -52,11 +52,11 @@ public class PfItemServiceImpl implements PfItemService {
         sdItemCaMap.put("B1", "3");
 
         sdItemLevelMap = new HashMap<>(5);
-        sdItemLevelMap.put("简单", "1");
-        sdItemLevelMap.put("普通", "2");
+        sdItemLevelMap.put("易", "1");
+        sdItemLevelMap.put("较易", "2");
         sdItemLevelMap.put("中", "3");
-        sdItemLevelMap.put("困难", "4");
-        sdItemLevelMap.put("极难", "5");
+        sdItemLevelMap.put("难", "4");
+        sdItemLevelMap.put("较难", "5");
     }
 
     @Override
