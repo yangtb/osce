@@ -177,70 +177,194 @@ layui.config({
         var editBtnPapers = document.querySelectorAll(".edit-btn-paper");
         var itemTextPapers = document.querySelectorAll(".item-text-paper");
         for (var i = 0; i < editBtnPapers.length; i++) {
-            initSelectTable(editBtnPapers[i].getAttribute("data-id"))
+            editBtnPapers[i].addEventListener('click', function () {
+                clickPaper(this.getAttribute('data-id'))
+            });
         }
 
         for (var j = 0; j < itemTextPapers.length; j++) {
-            initSelectTable(itemTextPapers[j].getAttribute("data-id"))
             itemTextPapers[j].addEventListener('click', function () {
-                var arr = this.getAttribute('data-id').split("-");
-                var idInsStation = arr[0];
-                $('#stable-' + idInsStation).trigger("click");
+                clickPaper(this.getAttribute('data-id'))
             });
         }
     }
 
-    function initSelectTable(data) {
+    var formBox;
+    function clickPaper(data) {
         var arr = data.split("-");
         var idInsStation = arr[0];
         var sdSkillCa = arr[1];
-        var name = '';
-        if (sdSkillCa == 1) {
-            name = '题集';
+
+        var bizData = {
+            sdSkillCa: sdSkillCa ,
+            idModel : idModelFrom
         }
-        if (sdSkillCa == 2) {
-            name = '技能病例';
-        }
-        if (sdSkillCa == 3) {
-            name = 'SP病例';
-        }
-        tableSelect.render({
-            elem: '#stable-' + idInsStation,
-            checkedKey: 'id',
-            searchKey: 'keywords',
-            searchPlaceholder: '请输入' + name + '名称',
-            table: {
-                url: basePath + '/pf/p/plan/exam/paper/list?sdSkillCa=' + sdSkillCa + '&idModel=' + idModel,
-                height: 280,
-                size: 'sm',
-                cols: [[
-                    {type: 'radio'},
-                    {field: 'paperName', minWidth: 170, title: name + '名称'},
-                    {field: 'paperDesc', minWidth: 170, title: name + '描述'},
-                ]]
-                , limits: [10, 20, 50]
-                , page: true
-            },
-            done: function (elem, data) {
-                var bizData = data.data[0];
-                if (bizData) {
-                    layer.confirm('是否应用到该考站的所有时段？', {
-                        btn: ['是', '否']
-                    }, function(index, layero){
-                        layer.close(index);
-                        addPaper(idInsStation, bizData, true);
-                    }, function(index){
-                        addPaper(idInsStation, bizData, false);
-                    });
+        $.ajax({
+            url: basePath + '/pf/r/plan/exam/paper/list',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg, {icon: 5});
+                    return false;
+                } else {
+                    popSelectPaper(data.data, idInsStation, sdSkillCa);
+                    return false;
                 }
+            },
+            error: function () {
+                layer.msg("网络异常");
+                return false;
             }
         });
     }
 
-    function addPaper(idInsStation, data, flag) {
+    function popSelectPaper(paperData, idInsStation, sdSkillCa) {
+        var elem = $('#stable-' + idInsStation);
+        var t = elem.offset().top + elem.outerHeight() + "px";
+        var l = elem.offset().left + "px";
+
+        var html =
+            '<div id="div-add-paper" class="layui-anim layui-anim-upbit" style="left:'+l+';top:'+t+';border: 1px solid #d2d2d2;background-color: #fff;box-shadow: 0 2px 4px rgba(0,0,0,.12);padding:10px 10px 0 0px;position: absolute;z-index:66666666;margin: 5px 0;border-radius: 2px;min-width:200px;">'+
+            '   <form class="layui-form" id="addPaperForm">\n' +
+            '        <div hidden>\n' +
+            '            <input name="idInsStation" value="'+ idInsStation +'" hidden>\n' +
+            '        </div>\n' +
+            '\n' +
+            '        <div class="layui-form-item form-item-my">\n' +
+            '           <label class="layui-form-label">试卷<i class="iconfont icon-required" style="color: #f03f2d"></i></label>\n' +
+            '           <div class="layui-input-block">\n' +
+            '               <select id="idPaper" name="idPaper" lay-verify="required" lay-vertype="tips" lay-filter="idPaperFilter">\n' +
+            '                   <option value="">请选择</option>\n';
+        $.each(paperData, function (index, context) {
+            html += '<option value="' + context.id + '">' + context.paperName + '</option>\n';
+        });
+
+        html +='               </select>\n' +
+            '           </div>\n' +
+            '        </div>\n' +
+            '\n' +
+            '        <div class="layui-form-item form-item-my">\n' +
+            '           <label class="layui-form-label">评分表</label>\n' +
+            '           <div class="layui-input-block">\n' +
+            '               <select id="idScoreSheet" name="idScoreSheet">\n' +
+            '                   <option value="">请选择</option>\n' +
+            '               </select>\n' +
+            '            </div>\n' +
+            '        </div>\n' +
+            '\n' +
+            '        <div class="layui-form-item form-item-my">\n' +
+            '            <div class="layui-input-block">\n' +
+            '                <button class="layui-btn layui-btn-sm" id="addPaper" lay-submit="" lay-filter="addPaper">\n' +
+            '                    <i class="layui-icon">&#x1005;</i>保存\n' +
+            '                </button>\n' +
+            '                <button type="button" id="closeWin" class="layui-btn layui-btn-sm layui-btn-danger">\n' +
+            '                    <i class="layui-icon">&#x1006;</i>取消\n' +
+            '                </button>\n' +
+            '            </div>\n' +
+            '        </div>\n' +
+            '    </form>'
+        ' </div>';
+
+        formBox = $(html);
+        $('body').append(formBox);
+        form.render();
+
+        // 取消
+        $('#closeWin').on("click",function(e) {
+            $('#div-add-paper').remove();
+        });
+
+        form.on('select(idPaperFilter)', function(data){
+            if (!data.value) {
+                $('#idScoreSheet').empty();
+                $('#idScoreSheet').append('<option value="">请选择</option>');
+                form.render();
+                return;
+            }
+            if (sdSkillCa != '1') {
+                var bizData = {
+                    sdSkillCa: sdSkillCa ,
+                    idPaper : data.value
+                }
+                $.ajax({
+                    url: basePath + '/pf/r/plan/exam/paper/sheet/list',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    data: JSON.stringify(bizData),
+                    success: function (data) {
+                        layer.closeAll('loading');
+                        if (data.code != 0) {
+                            layer.msg(data.msg);
+                            return false;
+                        } else {
+                            //console.log(data.data)
+                            var sheetHtml = '<option value="">请选择</option>';
+                            if (data.data && data.data.length >= 1) {
+                                $.each(data.data, function (index, context) {
+                                    sheetHtml += '<option value="' + context.idScoreSheet + '">' + context.naScoreSheet + '</option>\n';
+                                });
+                            }
+                            $('#idScoreSheet').empty();
+                            $('#idScoreSheet').append(sheetHtml);
+                            form.render();
+                            return false;
+                        }
+                    },
+                    error: function () {
+                        layer.msg("网络异常");
+                        return false;
+                    }
+                });
+            }
+        });
+
+        form.on('submit(addPaper)', function (data) {
+            var bizData = data.field;
+            // 参数校验
+            if (!bizData.idPaper) {
+                layer.tips('请选泽试卷', '#addPaper');
+                return false;
+            }
+            if (sdSkillCa != '1' && !bizData.idScoreSheet) {
+                layer.tips('请选择评分表', '#addPaper', {zIndex:1111111111111});
+                return false;
+            }
+
+            bizData.paperName = $('#idPaper option:selected').text();
+
+            $('#div-add-paper').remove();
+            layer.confirm('是否应用到该考站的所有时段？', {
+                btn: ['是', '否']
+            }, function(index, layero){
+                layer.close(index);
+                addPaper(bizData, true);
+            }, function(index){
+                addPaper(bizData, false);
+            });
+            return false;
+        });
+    }
+
+    //点击其他区域关闭
+    $(document).mouseup(function(e){
+        var userSet_con = $('#div-add-paper');
+        if(!userSet_con.is(e.target) && userSet_con.has(e.target).length === 0){
+            $('#div-add-paper').remove();
+        }
+    });
+
+
+    function addPaper(data, flag) {
+        var idInsStation = data.idInsStation;
         var bizData = {
-            idInsStation: idInsStation,
-            idPaper: data.id,
+            idInsStation: data.idInsStation,
+            idPaper: data.idPaper,
+            idScoreSheet: data.idScoreSheet,
             allFlag : flag
         }
         common.commonPost(basePath + '/pf/r/plan/paper/save/paper',
@@ -250,7 +374,6 @@ layui.config({
             window.location.reload();
         } else {
             $('#paper-' + idInsStation).text(data.paperName);
-            $('#stable-' + idInsStation).attr("ts-selected", data.id);
         }
     }
 

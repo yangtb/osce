@@ -251,3 +251,17 @@ img, a {
 .edit {
   margin-right: 0;
 }
+
+.modal-select {
+  display: block;
+  font-family: "微软雅黑";
+  width: 194px;
+  height: 30px;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 5px;
+  border-width: 1px;
+  border-style: solid;
+  background-color: #fff;
+  border-radius: 2px;
+}

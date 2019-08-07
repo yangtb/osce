@@ -335,7 +335,9 @@ layui.config({
 
     function callStationPlanOrderCallback() {
         step.next('#stepForm');
-        $('#stationPreviewIframe').attr("src", basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val() + '&idModel=' + $('#idModel').val())
+        $('#stationPreviewIframe').attr("src",
+            basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val()
+            + '&idModel=' + $('#idModel').val()+ '&idModelFrom=' + $('#idModelFrom').val())
     }
 
     function callStationPickCallback() {

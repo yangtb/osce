@@ -36,7 +36,7 @@ public class PageParam implements Serializable {
 
     public static void initPageDto(PageParam pageDto) {
         if (pageDto != null) {
-            if (pageDto.page <= 0 || pageDto.limit < 0) {
+            if (pageDto.page == null || pageDto.page <= 0 || pageDto.limit == null ||  pageDto.limit < 0) {
                 pageDto.setLimit(15);
                 pageDto.setPage(0);
             }

@@ -2,7 +2,6 @@ package com.osce.server.portal.biz.plan.manage;
 
 import com.osce.api.biz.plan.manage.PfPlanStationService;
 import com.osce.dto.biz.plan.manage.AssistantDto;
-import com.osce.dto.biz.training.structure.sp.SpDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -27,9 +26,10 @@ public class PfPlanStationController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/station/order")
-    public String planOrder(Model model, String idPlan, Long idModel) {
+    public String planOrder(Model model, String idPlan, Long idModel, Long idModelFrom) {
         model.addAttribute("idPlan", idPlan);
         model.addAttribute("idModel", idModel);
+        model.addAttribute("idModelFrom", idModelFrom);
         return "pages/biz/plan/manage/stationPreview";
     }
 

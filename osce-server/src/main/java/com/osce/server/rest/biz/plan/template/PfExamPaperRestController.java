@@ -8,9 +8,11 @@ import com.osce.entity.TdSkillCase;
 import com.osce.entity.TdSpCase;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.enums.SysDicGroupEnum;
+import com.osce.result.PageResult;
 import com.osce.server.security.CurrentUserUtils;
 import com.osce.server.utils.EnumUtil;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
+import com.osce.vo.biz.plan.template.PfExamPaperVo;
 import com.osce.vo.system.dic.PfDicCache;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
@@ -327,5 +329,37 @@ public class PfExamPaperRestController {
                 pfPaperService.saveTdPaper(dto));
     }
 
+    /**
+     * 模板下试卷
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/exam/paper/list")
+    public ResultObject listPaper(@RequestBody PfPaperDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdModel() != null, "idModel");
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        dto.setPage(1);
+        dto.setLimit(50);
+        PageResult pageResult = pfPaperService.pagePaper(dto);
+        List<PfExamPaperVo> list = pageResult.getData();
+        return ResultObject.createSuccess("listPaper", ResultObject.DATA_TYPE_LIST, list);
+    }
+
+    /**
+     * 试卷下评分表
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/exam/paper/sheet/list")
+    public ResultObject listPaperSheet(@RequestBody PfPaperDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return ResultObject.createSuccess("listPaperSheet", ResultObject.DATA_TYPE_LIST,
+                pfPaperService.listPaperSheet(dto));
+    }
 
 }

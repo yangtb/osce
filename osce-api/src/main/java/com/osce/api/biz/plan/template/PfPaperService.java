@@ -7,6 +7,7 @@ import com.osce.entity.TdSkillCase;
 import com.osce.entity.TdSpCase;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
+import com.osce.vo.biz.plan.template.PfExamPaperSheetVo;
 
 import java.util.List;
 
@@ -185,5 +186,14 @@ public interface PfPaperService {
      * @return
      */
     boolean saveTdPaper(PfAddTpPaperDto dto);
+
+    /**
+     * 试卷下评分表
+     *
+     * @param dto
+     * @return
+     */
+    List<PfExamPaperSheetVo> listPaperSheet(PfPaperDto dto);
+
 
 }

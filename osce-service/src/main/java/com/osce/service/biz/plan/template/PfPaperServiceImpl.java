@@ -10,6 +10,7 @@ import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
+import com.osce.vo.biz.plan.template.PfExamPaperSheetVo;
 import com.sm.open.care.core.utils.CommonUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -234,11 +235,16 @@ public class PfPaperServiceImpl implements PfPaperService {
         if (dto.isAllFlag()) {
             TpInsStation tpInsStation = pfPaperDao.selectTpInsStation(dto.getIdInsStation());
             num = pfPaperDao.saveTdAllPaper(tpInsStation.getIdPlan(), tpInsStation.getSdSkillCa(),
-                    dto.getIdPaper());
+                    dto.getIdPaper(), dto.getIdScoreSheet());
         } else {
             num = pfPaperDao.saveTdPaper(dto);
         }
         return num >= 1 ? true : false;
+    }
+
+    @Override
+    public List<PfExamPaperSheetVo> listPaperSheet(PfPaperDto dto) {
+        return pfPaperDao.listPaperSheet(dto);
     }
 
 }

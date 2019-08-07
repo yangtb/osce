@@ -685,11 +685,15 @@
         )
     </update>
     <update id="saveTdPaper">
-        update tp_ins_station set id_paper = #{idPaper} where id_ins_station = #{idInsStation}
+        update tp_ins_station
+        set id_paper = #{idPaper} ,
+            id_score_sheet = #{idScoreSheet}
+        where id_ins_station = #{idInsStation}
     </update>
     <update id="saveTdAllPaper">
         UPDATE tp_ins_station
-        SET id_paper = #{idPaper}
+        SET id_paper = #{idPaper} ,
+            id_score_sheet = #{idScoreSheet}
         WHERE
             id_plan = #{idPlan}
         AND sd_skill_ca = #{sdSkillCa}
@@ -1137,6 +1141,34 @@
             tp_ins_station a
         WHERE
             a.id_ins_station = #{idInsStation}
+    </select>
+    <select id="listPaperSheet" resultType="com.osce.vo.biz.plan.template.PfExamPaperSheetVo">
+        <choose>
+            <when test='sdSkillCa == "2".toString()'>
+                SELECT
+                    id_score_sheet ,
+                    na_score_sheet
+                FROM
+                    td_score_sheet a
+                LEFT JOIN td_skill_case b ON a.id_case = b.id_skill_case
+                WHERE
+                    a.fg_active = '1'
+                AND b.fg_active = '1'
+                AND b.id = #{idPaper}
+            </when>
+            <otherwise>
+                SELECT
+                    id_score_sheet ,
+                    na_score_sheet
+                FROM
+                    td_score_sheet a
+                LEFT JOIN td_sp_case b ON a.id_case = b.id_case
+                WHERE
+                    a.fg_active = '1'
+                AND b.fg_active = '1'
+                AND b.id = #{idPaper}
+            </otherwise>
+        </choose>
     </select>
 
 </mapper>

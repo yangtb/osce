@@ -6,10 +6,7 @@ import com.osce.dto.biz.plan.template.PfParamItemStoreDto;
 import com.osce.dto.biz.plan.template.PfSpCaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.*;
-import com.osce.vo.biz.plan.template.PaperItemTotalVo;
-import com.osce.vo.biz.plan.template.PaperLeftVo;
-import com.osce.vo.biz.plan.template.PfExamPaperVo;
-import com.osce.vo.biz.plan.template.PfPaperVo;
+import com.osce.vo.biz.plan.template.*;
 import com.osce.vo.biz.plan.template.skill.TdSkillCaseVo;
 import com.osce.vo.biz.plan.template.sp.TdSpCaseVo;
 import org.apache.ibatis.annotations.Param;
@@ -349,14 +346,16 @@ public interface PfPaperDao {
     /**
      * 保存排站试卷 - 应用到该考站的所有时段
      *
-     * @param idPlan    计划id
-     * @param sdSkillCa 类型
-     * @param idPaper   试卷id
+     * @param idPlan       计划id
+     * @param sdSkillCa    类型
+     * @param idPaper      试卷id
+     * @param idScoreSheet 评分表
      * @return
      */
     int saveTdAllPaper(@Param("idPlan") Long idPlan,
                        @Param("sdSkillCa") String sdSkillCa,
-                       @Param("idPaper") Long idPaper);
+                       @Param("idPaper") Long idPaper,
+                       @Param("idScoreSheet") Long idScoreSheet);
 
     /**
      * 获取排站信息
@@ -365,5 +364,13 @@ public interface PfPaperDao {
      * @return
      */
     TpInsStation selectTpInsStation(@Param("idInsStation") Long idInsStation);
+
+    /**
+     * 试卷下评分表
+     *
+     * @param dto
+     * @return
+     */
+    List<PfExamPaperSheetVo> listPaperSheet(PfPaperDto dto);
 
 }

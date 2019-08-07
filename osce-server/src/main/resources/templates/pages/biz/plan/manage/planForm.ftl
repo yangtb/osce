@@ -175,10 +175,10 @@
                         <div>
                             <form class="layui-form">
                                 <hr>
-                                <iframe id="stationPreviewIframe" class='layui-col-xs12' frameborder="0" style="height: 670px;"
+                                <iframe id="stationPreviewIframe" class='layui-col-xs12' frameborder="0" style="height: 750px;"
                                         src="" scrolling="no"></iframe>
                                 <div class="layui-form-item">
-                                    <div class="layui-input-block" style="padding-top: 15px;">
+                                    <div class="layui-input-block">
                                         <button type="button" class="layui-btn layui-btn-primary pre">上一步</button>
                                         <button class="layui-btn" lay-submit lay-filter="formStep2">
                                             下一步 ：分配SP

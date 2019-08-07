@@ -26,6 +26,11 @@ public class PfPaperDto extends PageParam implements Serializable {
     private Long idModel;
 
     /**
+     * 试卷ID
+     */
+    private Long idPaper;
+
+    /**
      * 机构ID
      */
     private Long idOrg;
