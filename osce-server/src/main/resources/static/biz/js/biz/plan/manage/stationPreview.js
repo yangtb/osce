@@ -228,7 +228,7 @@ layui.config({
         var l = elem.offset().left + "px";
 
         var html =
-            '<div id="div-add-paper" class="layui-anim layui-anim-upbit" style="left:'+l+';top:'+t+';border: 1px solid #d2d2d2;background-color: #fff;box-shadow: 0 2px 4px rgba(0,0,0,.12);padding:10px 10px 0 0px;position: absolute;z-index:66666666;margin: 5px 0;border-radius: 2px;min-width:200px;">'+
+            '<div id="div-add-paper" class="layui-anim layui-anim-upbit" style="left:'+l+';top:'+t+';border: 1px solid #d2d2d2;background-color: #fff;box-shadow: 0 2px 4px rgba(0,0,0,.12);padding:10px 10px 0 0px;position: absolute;z-index:666;margin: 5px 0;border-radius: 2px;min-width:200px;">'+
             '   <form class="layui-form" id="addPaperForm">\n' +
             '        <div hidden>\n' +
             '            <input name="idInsStation" value="'+ idInsStation +'" hidden>\n' +
@@ -331,7 +331,7 @@ layui.config({
                 return false;
             }
             if (sdSkillCa != '1' && !bizData.idScoreSheet) {
-                layer.tips('请选择评分表', '#addPaper', {zIndex:1111111111111});
+                layer.tips('请选择评分表', '#addPaper', {zIndex:1000});
                 return false;
             }
 
