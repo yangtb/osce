@@ -120,6 +120,7 @@
         WHERE
             id_org = #{idOrg}
         AND plan_day = DATE(NOW())
+        AND time_begin &lt;= TIME(now()) and time_end >= TIME(now())
     </select>
     <select id="selectMonitorAreaDetail" resultType="com.osce.vo.biz.monitor.MonitorAreaDetailVo">
         SELECT

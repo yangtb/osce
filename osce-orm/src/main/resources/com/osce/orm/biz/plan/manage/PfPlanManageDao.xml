@@ -398,6 +398,7 @@
         LEFT JOIN erp_room b ON a.id_room = b.id_room
         WHERE
             a.id_plan = #{idPlan}
+        order by a.plan_day
         limit #{offset}, #{limit}
     </select>
 </mapper>

@@ -14,7 +14,7 @@
             date_format(v.time_end , '%H:%i') time_end
         FROM
             sys_org b
-        LEFT JOIN v_we_show_main v ON v.id_org = b.id_org AND plan_day = DATE(NOW())
+        LEFT JOIN v_we_show_main v ON v.id_org = b.id_org AND plan_day = DATE(NOW()) AND v.time_begin &lt;= TIME(now()) and v.time_end >= TIME(now())
         LEFT JOIN td_area c ON v.id_area = c.id_area
         WHERE
             b.id_org = #{idOrg}
@@ -68,6 +68,9 @@
         WHERE
             v.id_org = #{idOrg}
         and v.sd_plan_status in (3, 4)
+        ORDER BY
+            plan_day ,
+            time_section
     </select>
     <select id="aioStudentRegister" statementType="CALLABLE">
          call P_WAITING_REG(

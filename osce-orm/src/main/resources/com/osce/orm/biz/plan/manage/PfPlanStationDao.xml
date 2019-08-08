@@ -248,7 +248,7 @@
         FROM
             user_info b
         LEFT JOIN user_role a ON a.user_id = b.user_id AND a.is_deleted = 'N'
-        LEFT JOIN sys_role c ON a.role_id = a.role_id AND c.is_deleted = 'N'
+        LEFT JOIN sys_role c ON a.role_id = c.role_id AND c.is_deleted = 'N'
         WHERE
             b.id_org = #{idOrg}
         AND c.code = 'MCTE'
@@ -274,7 +274,7 @@
         FROM
             user_info b
         LEFT JOIN user_role a ON a.user_id = b.user_id AND a.is_deleted = 'N'
-        LEFT JOIN sys_role c ON a.role_id = a.role_id AND c.is_deleted = 'N'
+        LEFT JOIN sys_role c ON a.role_id = c.role_id AND c.is_deleted = 'N'
         WHERE
             b.id_org = #{idOrg}
         AND c.code = 'MCTE'

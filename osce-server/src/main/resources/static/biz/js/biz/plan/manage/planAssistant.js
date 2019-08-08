@@ -157,11 +157,11 @@ layui.config({
             });
             html += '</div>';
             html += '<div class="main-right">\n' +
-                '        <p class="right-item right-item-sp" data-sq="' + content.sq  + '-' + content.idRoom + '">\n' +
+                '        <p class="right-item right-item-sp" data-sq="' + content.sq.replace('.','_')  + '-' + content.idRoom + '">\n' +
                 '           <img class="edit-btn edit" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
                 '           <span class="">考官</span>\n' +
                 '        </p>\n' +
-                '        <div id="assistant-' + content.sq  + '-' + content.idRoom + '"></div>\n';
+                '        <div id="assistant-' + content.sq.replace('.','_')  + '-' + content.idRoom + '">\n';
             var assistants = content.planAssistant;
             if (assistants) {
                 if (assistants.managerName) {
@@ -174,7 +174,7 @@ layui.config({
                     html += '<p class="right-item">' + assistants.remoteName + '</p>\n';
                 }
             }
-            html += ' </div>';
+            html += '</div> </div>';
             html += '</div>';
         });
 
@@ -214,7 +214,7 @@ layui.config({
             //anim: anim,
             fixed: false, //不固定
             //maxmin: true,
-            content: basePath + '/pf/p/plan/station/assigned/assistant?idPlan=' + idPlan + '&sq=' + sq,
+            content: basePath + '/pf/p/plan/station/assigned/assistant?idPlan=' + idPlan + '&sq=' + sq.replace('_','.'),
             shadeClose: true,
             closeBtn: false,
             btn: ['确定', '关闭'],
@@ -253,7 +253,7 @@ layui.config({
             idPlan: idPlan,
             idArea: arr[0],
             idStation: arr[1],
-            timeSection: arr[2],
+            timeSection: arr[2].replace('_','.'),
             idRoom: arr[3],
             idUserManager: v_idUserManager,
             idUserAssistant: v_idUserAssistant,
@@ -279,7 +279,12 @@ layui.config({
         if (v_idUserRemoteText) {
             html += '<p class="right-item">' + v_idUserRemoteText + '</p>';
         }
+        //console.log('#assistant-' + sq)
+        //console.log($('#assistant-' + sq))
+        //console.log(html)
+        //console.log('--------------------------')
         $('#assistant-' + sq).append(html);
+        //console.log('**************************')
     }
 
 });

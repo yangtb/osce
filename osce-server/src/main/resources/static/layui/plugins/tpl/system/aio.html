@@ -102,9 +102,9 @@
                 var sdPlanStatusText = '', styleCss = '';
                 if (content.sdPlanStatus == 3) {
                     sdPlanStatusText = '待考';
-                    styleCss = 'select';
                 } else if (content.sdPlanStatus == 4) {
                     sdPlanStatusText = '正在考试';
+                    styleCss = 'select';
                 }
                 html += '<ul class="paper-ul ' + styleCss + '">\n' +
                     '        <li>' + content.naPlan + ' ' + content.planTime + ' ' + content.naArea + '</li>\n' +

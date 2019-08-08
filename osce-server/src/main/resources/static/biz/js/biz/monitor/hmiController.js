@@ -77,7 +77,7 @@ layui.config({
                 {type: 'numbers', title: 'R'}
                 , {field: 'naScoreItem', minWidth: 150, title: '指标类型'}
                 , {field: 'desScoreItem', minWidth: 230, title: '内容'}
-                , {field: 'score', minWidth: 140, title: '评分'}
+                , {field: 'score', width: 100, title: '评分'}
             ]]
             , where: {
                 idScoreSheet: idScoreSheet
