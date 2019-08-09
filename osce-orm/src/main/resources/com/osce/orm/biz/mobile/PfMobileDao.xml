@@ -22,4 +22,51 @@
         AND id_room = #{idRoom}
         limit 1
     </select>
+
+    <select id="selectCurrentStudentInfo" resultType="com.osce.vo.biz.mobile.MobileStudentInfoVo">
+         SELECT
+            queue.id_exec_queue ,
+            queue.id_user_student ,
+            queue.cd_student ,
+            queue.sd_exec_queue ,
+            queue.plan_begin ,
+            user_info.real_name ,
+            user_info.phone_no ,
+            user_info.idcard ,
+            user_info.user_cd
+        FROM
+            es_exec_queue queue
+        JOIN user_info ON queue.id_user_student = user_info.user_id
+        WHERE
+            queue.id_plan = #{idPlan}
+        AND queue.id_area = #{idArea}
+        AND queue.time_section = #{timeSection}
+        AND queue.id_room = #{idRoom}
+        AND queue.sd_exec_queue IN('2' , '3' , '4')
+        limit 1
+    </select>
+    <select id="listWaitingStudentInfo" resultType="com.osce.vo.biz.mobile.MobileStudentInfoVo">
+        SELECT
+            queue.id_exec_queue ,
+            queue.id_user_student ,
+            queue.cd_student ,
+            queue.sd_exec_queue ,
+            queue.plan_begin ,
+            user_info.real_name ,
+            user_info.phone_no ,
+            user_info.idcard ,
+            user_info.user_cd
+        FROM
+            es_exec_queue queue
+        JOIN user_info ON queue.id_user_student = user_info.user_id
+        WHERE
+            queue.id_plan = #{idPlan}
+        AND queue.id_area = #{idArea}
+        AND queue.time_section = #{timeSection}
+        AND queue.id_room = #{idRoom}
+        AND queue.sd_exec_queue = '1'
+        ORDER BY
+            id_exec_queue
+    </select>
+
 </mapper>

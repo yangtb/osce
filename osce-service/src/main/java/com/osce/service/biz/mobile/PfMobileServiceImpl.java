@@ -1,12 +1,19 @@
 package com.osce.service.biz.mobile;
 
 import com.osce.api.biz.mobile.PfMobileService;
+import com.osce.dto.biz.execute.ExecAuthDto;
 import com.osce.dto.biz.mobile.MobileDto;
+import com.osce.exception.RestException;
+import com.osce.orm.biz.execute.PfExecDao;
 import com.osce.orm.biz.mobile.PfMobileDao;
 import com.osce.vo.biz.mobile.MobileMainVo;
+import com.osce.vo.biz.mobile.MobileStudentInfoVo;
 import org.apache.dubbo.config.annotation.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName: PfMobileServiceImpl
@@ -17,12 +24,37 @@ import javax.annotation.Resource;
 @Service
 public class PfMobileServiceImpl implements PfMobileService {
 
+    private static final Logger logger = LoggerFactory.getLogger(PfMobileServiceImpl.class);
+
+    @Resource
+    private PfExecDao pfExecDao;
+
     @Resource
     private PfMobileDao pfMobileDao;
 
     @Override
     public MobileMainVo mobileMain(MobileDto dto) {
         return pfMobileDao.mobileMain(dto);
+    }
+
+    @Override
+    public MobileStudentInfoVo selectCurrentStudentInfo(MobileDto dto) {
+        return pfMobileDao.selectCurrentStudentInfo(dto);
+    }
+
+    @Override
+    public List<MobileStudentInfoVo> listWaitingStudentInfo(MobileDto dto) {
+        return pfMobileDao.listWaitingStudentInfo(dto);
+    }
+
+    @Override
+    public boolean handleExamStatus(ExecAuthDto dto) {
+        pfExecDao.execAuth(dto);
+        if (dto.getParCode() != 0) {
+            logger.error("调用存储过程[P_QUEUE_UPDATE]出错, param : {} ", dto.toString());
+            throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
+        }
+        return true;
     }
 
 }
