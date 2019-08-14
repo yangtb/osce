@@ -142,21 +142,21 @@
             <id>test</id>
             <properties>
                 <env>test</env>
-                <resource.target.path>${project.artifactId}/resources</resource.target.path>
+                <resource.target.path>classes</resource.target.path>
             </properties>
         </profile>
         <profile><!-- 预发布环境，打包命令： mvn clean install -e -P uat -Dmaven.test.skip -->
             <id>uat</id>
             <properties>
                 <env>uat</env>
-                <resource.target.path>${project.artifactId}/resources</resource.target.path>
+                <resource.target.path>classes</resource.target.path>
             </properties>
         </profile>
         <profile><!-- 生产环境， 打包命令：mvn clean install -e -P prd -Dmaven.test.skip -->
             <id>prd</id>
             <properties>
                 <env>prd</env>
-                <resource.target.path>${project.artifactId}/resources</resource.target.path>
+                <resource.target.path>classes</resource.target.path>
             </properties>
         </profile>
     </profiles>
