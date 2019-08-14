@@ -68,5 +68,19 @@
         ORDER BY
             id_exec_queue
     </select>
+    <select id="countWaitingStudent" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            es_exec_queue queue
+        WHERE
+            queue.id_plan = #{idPlan}
+        AND queue.id_area = #{idArea}
+        AND queue.time_section = #{timeSection}
+        AND queue.id_room = #{idRoom}
+        AND queue.sd_exec_queue = '1'
+        ORDER BY
+            id_exec_queue
+    </select>
 
 </mapper>

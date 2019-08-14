@@ -38,4 +38,12 @@ public interface PfMobileDao {
      */
     List<MobileStudentInfoVo> listWaitingStudentInfo(MobileDto dto);
 
+    /**
+     * 待考学员总数
+     *
+     * @param dto
+     * @return
+     */
+    Integer countWaitingStudent(MobileDto dto);
+
 }

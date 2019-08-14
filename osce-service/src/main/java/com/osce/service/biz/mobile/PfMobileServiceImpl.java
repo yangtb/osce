@@ -7,13 +7,13 @@ import com.osce.exception.RestException;
 import com.osce.orm.biz.execute.PfExecDao;
 import com.osce.orm.biz.mobile.PfMobileDao;
 import com.osce.vo.biz.mobile.MobileMainVo;
+import com.osce.vo.biz.mobile.MobileQueueVo;
 import com.osce.vo.biz.mobile.MobileStudentInfoVo;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @ClassName: PfMobileServiceImpl
@@ -43,8 +43,11 @@ public class PfMobileServiceImpl implements PfMobileService {
     }
 
     @Override
-    public List<MobileStudentInfoVo> listWaitingStudentInfo(MobileDto dto) {
-        return pfMobileDao.listWaitingStudentInfo(dto);
+    public MobileQueueVo listWaitingStudentInfo(MobileDto dto) {
+        MobileQueueVo mobileQueueVo = new MobileQueueVo();
+        mobileQueueVo.setWaitingNum(pfMobileDao.countWaitingStudent(dto));
+        mobileQueueVo.setStudentQueues(pfMobileDao.listWaitingStudentInfo(dto));
+        return mobileQueueVo;
     }
 
     @Override

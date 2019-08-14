@@ -112,7 +112,7 @@ public class PfMobileRestController {
 
 
     /**
-     * 当前学员信息
+     * 待考学员信息
      *
      * @param dto
      * @return
@@ -151,5 +151,21 @@ public class PfMobileRestController {
         return ResultObject.createSuccess("handleExamStatus", ResultObject.DATA_TYPE_OBJECT,
                 pfMobileService.handleExamStatus(execAuthDto));
     }
+
+    /**
+     *
+     *
+     * @param dto
+     * @return
+     */
+    @PostMapping(value = "/r/3000/101", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultObject handleExamStatus1(@RequestBody MobileExamStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdExecQueue() != null, "idExecQueue");
+
+        return ResultObject.createSuccess("handleExamStatus", ResultObject.DATA_TYPE_OBJECT,
+                null);
+    }
+
 
 }

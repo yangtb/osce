@@ -3,9 +3,8 @@ package com.osce.api.biz.mobile;
 import com.osce.dto.biz.execute.ExecAuthDto;
 import com.osce.dto.biz.mobile.MobileDto;
 import com.osce.vo.biz.mobile.MobileMainVo;
+import com.osce.vo.biz.mobile.MobileQueueVo;
 import com.osce.vo.biz.mobile.MobileStudentInfoVo;
-
-import java.util.List;
 
 /**
  * @ClassName: PfMobileService
@@ -37,7 +36,7 @@ public interface PfMobileService {
      * @param dto
      * @return
      */
-    List<MobileStudentInfoVo> listWaitingStudentInfo(MobileDto dto);
+    MobileQueueVo listWaitingStudentInfo(MobileDto dto);
 
     /**
      * 叫号、开考、缺考登记
