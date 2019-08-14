@@ -297,6 +297,7 @@
             a.id_score_sheet ,
             a.na_score_item ,
             a.sd_score_item_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_SCORE_ITEM_CA' and dict_code = a.sd_score_item_ca) AS sdScoreItemCaText ,
             a.des_score_item ,
             a.score_item_analysis ,
             a.ref_question ,

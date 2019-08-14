@@ -17,7 +17,7 @@ layui.config({
             //{checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
             {field: 'naScoreItem', minWidth:150, title: '评分项'},
-            {field: 'sdScoreItemCa', width: 100, title: '分类', templet: '#sdScoreItemTpl'},
+            {field: 'sdScoreItemCaText', width: 100, title: '分类'},
             {field: 'desScoreItem', minWidth: 230, title: '内容'},
             {field: 'gmtCreate', width: 170, title: '创建时间'},
             {fixed: 'right', width: 140, title: '操作', align: 'center', toolbar: '#sheetBar'}

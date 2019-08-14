@@ -48,6 +48,11 @@ public class CobScoreItem implements Serializable {
     private String sdScoreItemCa;
 
     /**
+     * 评分项分类
+     */
+    private String sdScoreItemCaText;
+
+    /**
      * 评分项内容
      */
     private String desScoreItem;
