@@ -183,6 +183,24 @@ public class PfCaseRestController extends BaseController {
     }
 
     /**
+     * 停用、启用 考评表
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/case/item/updateStatus")
+    public ResultObject updateSheetStatus(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        dto.setOperationType(OperationTypeEnum.UPDATE_STATUS.getCode());
+        return pfCaseService.delItem(dto) ?
+                ResultObject.createSuccess("updateSheetStatus", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("updateSheetStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+    /**
      * 保存评量表
      *
      * @param dto

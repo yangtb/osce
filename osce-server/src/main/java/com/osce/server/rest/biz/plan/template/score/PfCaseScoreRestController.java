@@ -5,6 +5,7 @@ import com.osce.dto.biz.training.caseku.CaseDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdScoreItem;
 import com.osce.entity.TdScoreSheet;
+import com.osce.enums.OperationTypeEnum;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
 import com.sm.open.care.core.ErrorCode;
@@ -76,6 +77,24 @@ public class PfCaseScoreRestController extends BaseController {
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
         return pfCaseScoreService.delSheet(dto) ? ResultObject.createSuccess("delSheet", ResultObject.DATA_TYPE_OBJECT, true)
                 : ResultObject.create("delSheet", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+    /**
+     * 停用、启用 考评表
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/plan/paper/sheet/updateStatus")
+    public ResultObject updateSheetStatus(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        dto.setOperationType(OperationTypeEnum.UPDATE_STATUS.getCode());
+        return pfCaseScoreService.delSheet(dto) ?
+                ResultObject.createSuccess("updateSheetStatus", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("updateSheetStatus", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
     /**

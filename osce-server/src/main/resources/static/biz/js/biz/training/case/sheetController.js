@@ -155,6 +155,37 @@ layui.config({
         });
     }
 
+
+    form.on('switch(fgActiveCheckFilter)', function (obj) {
+        var reqData = new Array();
+        reqData.push(this.value);
+        var bizData = {
+            list : reqData ,
+            status : obj.elem.checked == true ? '1' : '0'
+        };
+        $.ajax({
+            url: basePath + '/pf/r/case/item/updateStatus',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.tips(data.msg, obj.othis);
+                    return false;
+                } else {
+                    layer.tips("设置成功", obj.othis);
+                    return true;
+                }
+            },
+            error: function () {
+                common.errorMsg("设置失败");
+                return false;
+            }
+        });
+    });
+
 });
 
 
