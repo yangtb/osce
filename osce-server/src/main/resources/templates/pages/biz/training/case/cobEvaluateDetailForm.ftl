@@ -54,7 +54,7 @@
     </form>
 </div>
 
-<script src="${contextPath}/layui/plugins/layui/layui.all.js"></script>
+<script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/training/case/cobEvaluateFormDetailController.js"></script>
 
 </body>
