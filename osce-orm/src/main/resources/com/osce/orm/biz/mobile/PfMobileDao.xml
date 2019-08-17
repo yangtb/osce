@@ -1,6 +1,189 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.osce.orm.biz.mobile.PfMobileDao">
+    <insert id="saveSheetScore" useGeneratedKeys="true" keyProperty="idWeScore">
+        INSERT INTO we_score(
+            id_exec ,
+            cd_assistant_ca ,
+            id_user ,
+            id_score_sheet ,
+            id_score_item ,
+            na_score_item ,
+            sd_score_item_ca ,
+            des_score_item ,
+            score_item_analysis ,
+            ref_question ,
+            score ,
+            score_result
+        )
+        SELECT
+            #{idExec} ,
+            #{cdAssistantCa} ,
+            #{idUser} ,
+            #{idScoreSheet} ,
+            id_score_item ,
+            na_score_item ,
+            sd_score_item_ca ,
+            des_score_item ,
+            score_item_analysis ,
+            ref_question ,
+            score ,
+            #{scoreResult}
+        FROM
+            td_score_item
+        WHERE
+            id_score_item = #{idScoreItem}
+    </insert>
+    <insert id="addEvaluate" useGeneratedKeys="true" keyProperty="idWeEvaluate">
+        INSERT INTO we_evaluate
+        (
+        <trim suffixOverrides=",">
+            <if test="idWeEvaluate!=null">
+                id_we_evaluate,
+            </if>
+            <if test="idExec!=null">
+                id_exec,
+            </if>
+            <if test="idCobEvaluate!=null">
+                id_cob_evaluate,
+            </if>
+            <if test="score!=null">
+                score,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idWeEvaluate!=null">
+                #{idWeEvaluate},
+            </if>
+            <if test="idExec!=null">
+                #{idExec},
+            </if>
+            <if test="idCobEvaluate!=null">
+                #{idCobEvaluate},
+            </if>
+            <if test="score!=null">
+                #{score},
+            </if>
+        </trim>
+        )
+    </insert>
+    <insert id="addEvaluateDetail" useGeneratedKeys="true" keyProperty="idWeEvaluateDetail">
+        INSERT INTO we_evaluate_detail
+        (
+        <trim suffixOverrides=",">
+            <if test="idWeEvaluateDetail!=null">
+                id_we_evaluate_detail,
+            </if>
+            <if test="idWeEvaluate!=null">
+                id_we_evaluate,
+            </if>
+            <if test="idCobEvaluateDetail!=null">
+                id_cob_evaluate_detail,
+            </if>
+            <if test="score!=null">
+                score,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="idWeEvaluateDetail!=null">
+                #{idWeEvaluateDetail},
+            </if>
+            <if test="idWeEvaluate!=null">
+                #{idWeEvaluate},
+            </if>
+            <if test="idCobEvaluateDetail!=null">
+                #{idCobEvaluateDetail},
+            </if>
+            <if test="score!=null">
+                #{score},
+            </if>
+        </trim>
+        )
+    </insert>
+    <update id="editSheetScore">
+        UPDATE we_score
+        SET
+        <trim suffixOverrides=",">
+            <if test="idExec != null">
+                id_exec = #{idExec},
+            </if>
+            <if test="cdAssistantCa != null and cdAssistantCa!=''">
+                cd_assistant_ca = #{cdAssistantCa},
+            </if>
+            <if test="idUser != null">
+                id_user = #{idUser},
+            </if>
+            <if test="idScoreSheet != null">
+                id_score_sheet = #{idScoreSheet},
+            </if>
+            <if test="idScoreItem != null">
+                id_score_item = #{idScoreItem},
+            </if>
+            <if test="naScoreItem != null and naScoreItem!=''">
+                na_score_item = #{naScoreItem},
+            </if>
+            <if test="sdScoreItemCa != null and sdScoreItemCa!=''">
+                sd_score_item_ca = #{sdScoreItemCa},
+            </if>
+            <if test="desScoreItem != null and desScoreItem!=''">
+                des_score_item = #{desScoreItem},
+            </if>
+            <if test="scoreItemAnalysis != null and scoreItemAnalysis!=''">
+                score_item_analysis = #{scoreItemAnalysis},
+            </if>
+            <if test="refQuestion != null and refQuestion!=''">
+                ref_question = #{refQuestion},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+            <if test="scoreResult != null">
+                score_result = #{scoreResult},
+            </if>
+        </trim>
+        WHERE
+            id_we_score = #{idWeScore}
+    </update>
+    <update id="editEvaluate">
+        UPDATE we_evaluate
+        SET
+        <trim suffixOverrides=",">
+            <if test="idExec != null">
+                id_exec = #{idExec},
+            </if>
+            <if test="idCobEvaluate != null">
+                id_cob_evaluate = #{idCobEvaluate},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+        </trim>
+        WHERE
+            id_we_evaluate = #{idWeEvaluate}
+    </update>
+    <update id="editEvaluateDetail">
+        UPDATE we_evaluate_detail
+        SET
+        <trim suffixOverrides=",">
+            <if test="idWeEvaluate != null">
+                id_we_evaluate = #{idWeEvaluate},
+            </if>
+            <if test="idCobEvaluateDetail != null">
+                id_cob_evaluate_detail = #{idCobEvaluateDetail},
+            </if>
+            <if test="score != null">
+                score = #{score},
+            </if>
+        </trim>
+        WHERE
+            id_we_evaluate_detail = #{idWeEvaluateDetail}
+    </update>
 
     <select id="mobileMain" resultType="com.osce.vo.biz.mobile.MobileMainVo">
         SELECT
@@ -81,6 +264,87 @@
         AND queue.sd_exec_queue = '1'
         ORDER BY
             id_exec_queue
+    </select>
+    <select id="selectScoreHeader" resultType="com.osce.vo.biz.mobile.score.MobileScoreHeaderVo">
+        SELECT
+            a.id_exec_queue ,
+            a.id_exec ,
+            a.id_user_student ,
+            a.act_begin ,
+            a.sd_skill_ca ,
+            b.real_name ,
+            b.phone_no ,
+            b.idcard AS idCard ,
+            b.user_cd ,
+            a.id_paper ,
+            c.na_plan
+        FROM
+            we_exec a
+        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+        LEFT JOIN tp_plan c ON c.id_plan = a.id_plan
+        WHERE
+            a.id_exec_queue = #{idExecQueue}
+    </select>
+    <select id="listScoreSheet" resultType="com.osce.vo.biz.mobile.score.MobileScoreSheetVo">
+        SELECT
+            a.id_score_sheet ,
+            a.id_score_item ,
+            a.na_score_item ,
+            a.des_score_item ,
+            a.score ,
+            a.sd_score_item_ca ,
+            a.score_item_analysis ,
+            a.ref_question ,
+            c.id_we_score ,
+            c.score_result
+        FROM
+            td_score_item a
+        LEFT JOIN we_exec b ON a.id_score_sheet = b.id_score_sheet
+        left join we_score c on b.id_exec = c.id_exec and a.id_score_sheet = b.id_score_sheet
+        WHERE
+            b.id_exec = #{idExec}
+    </select>
+    <select id="selectExecInfo" resultType="com.osce.vo.biz.mobile.score.MobileExecVo">
+        SELECT
+            (case when #{cdAssistantCa} = '1' then a.id_user_manager
+                  when #{cdAssistantCa} = '2' then a.id_user_assistant
+                  when #{cdAssistantCa} = '3' then a.id_user_remote end) idUser,
+            a.id_score_sheet
+        FROM
+            we_exec a
+        WHERE
+            a.id_exec = #{idExec}
+    </select>
+    <select id="selectSdSkillCa" resultType="java.lang.String">
+        select sd_skill_ca from we_exec where id_exec = #{idExec}
+    </select>
+    <select id="listCobEvaluate" resultType="com.osce.vo.biz.mobile.score.MobileEvaluateVo">
+        SELECT
+            a.id_cob_evaluate ,
+            a.na_cob_evaluate ,
+            b.score
+        FROM
+            cob_evaluate a
+        LEFT JOIN we_evaluate b ON a.id_cob_evaluate = b.id_cob_evaluate
+        AND b.id_exec = #{idExec}
+        WHERE
+            a.cd_cob_evaluate = #{cdCobEvaluate}
+        ORDER BY
+            a.sort
+    </select>
+    <select id="listEvaluateDetail" resultType="com.osce.vo.biz.mobile.score.MobileEvaluateDetail">
+        SELECT
+            a.id_cob_evaluate_detail ,
+            a.na_cob_evaluate_detail ,
+            b.score
+        FROM
+            cob_evaluate_detail a
+        LEFT JOIN we_evaluate_detail b ON a.id_cob_evaluate_detail = b.id_cob_evaluate_detail
+        LEFT JOIN we_evaluate c ON b.id_we_evaluate = c.id_we_evaluate AND c.id_exec = #{idExec}
+        WHERE
+            a.id_cob_evaluate = #{idCobEvaluate}
+        ORDER BY
+            a.sort
     </select>
 
 </mapper>

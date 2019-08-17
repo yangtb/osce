@@ -38,9 +38,9 @@
     <div class="layui-row">
         <div class="layui-col-md12" style="text-align: center">
             <#if (cdCobEvaluate == '1')>
-                <h1>迷你临床演练评量（Mini-CEX）报告</h1>
-            <#else>
                 <h1>临床技能操作评量 (Modified DOPS)报告</h1>
+            <#else>
+                <h1>迷你临床演练评量（Mini-CEX）报告</h1>
             </#if>
 
         </div>

@@ -2,10 +2,10 @@ package com.osce.server.rest.biz.mobile;
 
 import com.osce.api.biz.mobile.PfMobileService;
 import com.osce.dto.biz.execute.ExecAuthDto;
-import com.osce.dto.biz.mobile.MobileDto;
-import com.osce.dto.biz.mobile.MobileExamStatusDto;
-import com.osce.dto.biz.mobile.MobileLoginDto;
+import com.osce.dto.biz.mobile.*;
 import com.osce.entity.SysParam;
+import com.osce.entity.WeEvaluate;
+import com.osce.entity.WeEvaluateDetail;
 import com.osce.enums.SysParamEnum;
 import com.osce.exception.RestErrorCode;
 import com.osce.exception.RestException;
@@ -153,18 +153,137 @@ public class PfMobileRestController {
     }
 
     /**
-     *
+     * 获取评分页面头部信息
      *
      * @param dto
      * @return
      */
     @PostMapping(value = "/r/3000/101", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResultObject handleExamStatus1(@RequestBody MobileExamStatusDto dto) {
+    public ResultObject selectScoreHeader(@RequestBody MobileScoreDto dto) {
+        /* 参数校验 */
+        if (dto.getIdExecQueue() == null) {
+            Assert.isTrue(dto.getIdPlan() != null, "idPlan");
+            Assert.isTrue(dto.getIdArea() != null, "idArea");
+            Assert.isTrue(dto.getTimeSection() > 0, "timeSection");
+            Assert.isTrue(dto.getIdRoom() != null, "idRoom");
+        }
+        return ResultObject.createSuccess("selectScoreHeader", ResultObject.DATA_TYPE_OBJECT,
+                pfMobileService.selectScoreHeader(dto));
+    }
+
+    /**
+     * 第一个SHEET页,根据执行记录里的评分表ID，加载评分表，结果另存到评分明细
+     *
+     * @param dto
+     * @return
+     */
+    @PostMapping(value = "/r/3000/102", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultObject listScoreSheet(@RequestBody MobileScoreDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdExec() != null, "idExec");
+        return ResultObject.createSuccess("listScoreSheet", ResultObject.DATA_TYPE_LIST,
+                pfMobileService.listScoreSheet(dto));
+    }
+
+    /**
+     * 评分 -（第一个SHEET页）
+     *
+     * @param dto
+     * @return
+     */
+    @PostMapping(value = "/r/3000/103", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultObject saveSheetScore(@RequestBody MobileScoreAddDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdExec() != null, "idExec");
+        Assert.isTrue(dto.getIdScoreItem() != null, "idScoreItem");
+        Assert.isTrue(dto.getScoreResult() != null, "scoreResult");
+        Assert.isTrue(StringUtils.isNotBlank(dto.getCdAssistantCa()), "cdAssistantCa");
+        if (!("1".equals(dto.getCdAssistantCa()) || "2".equals(dto.getCdAssistantCa())
+                || "3".equals(dto.getCdAssistantCa()))) {
+            throw new BizRuntimeException(ErrorCode.ERROR_GENERAL_110001, "cdAssistantCa不正确");
+        }
+        return ResultObject.createSuccess("saveSheetScore", ResultObject.DATA_TYPE_OBJECT,
+                pfMobileService.saveSheetScore(dto));
+    }
+
+    /**
+     * 临床技能操作评量 - 第二个SHEET页
+     *
+     * @param dto
+     * @return
+     */
+    @PostMapping(value = "/r/3000/104", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultObject listEvaluate(@RequestBody MobileScoreDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdExec() != null, "idExec");
+        return ResultObject.createSuccess("listEvaluate", ResultObject.DATA_TYPE_LIST,
+                pfMobileService.listCobEvaluate(dto.getIdExec()));
+    }
+
+    /**
+     * 保存临床技能操作评量 - 第二个SHEET页
+     *
+     * @param dto
+     * @return
+     */
+    @PostMapping(value = "/r/3000/105", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultObject saveEvaluate(@RequestBody WeEvaluate dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdExec() != null, "idExec");
+        Assert.isTrue(dto.getIdCobEvaluate() != null, "idCobEvaluate");
+        Assert.isTrue(dto.getScore() != null, "score");
+
+        return ResultObject.createSuccess("saveEvaluate", ResultObject.DATA_TYPE_LIST,
+                pfMobileService.saveEvaluate(dto));
+    }
+
+    /**
+     * 操作评量明细 - 第二个SHEET页
+     *
+     * @param dto
+     * @return
+     */
+    @PostMapping(value = "/r/3000/106", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultObject listEvaluateDetail(@RequestBody MobileScoreDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdCobEvaluate() != null, "idCobEvaluate");
+        Assert.isTrue(dto.getIdExec() != null, "idExec");
+        return ResultObject.createSuccess("listEvaluate", ResultObject.DATA_TYPE_LIST,
+                pfMobileService.listEvaluateDetail(dto.getIdExec(), dto.getIdCobEvaluate()));
+    }
+
+    /**
+     * save操作评量 - 第二个SHEET页
+     *
+     * @param dto
+     * @return
+     */
+    @PostMapping(value = "/r/3000/107", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultObject saveEvaluateDetail(@RequestBody WeEvaluateDetail dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdWeEvaluate() != null, "idWeEvaluate");
+        Assert.isTrue(dto.getIdCobEvaluateDetail() != null, "idCobEvaluateDetail");
+        Assert.isTrue(dto.getScore() != null, "score");
+        return ResultObject.createSuccess("saveEvaluateDetail", ResultObject.DATA_TYPE_LIST,
+                pfMobileService.saveEvaluateDetail(dto));
+    }
+
+    /**
+     * 提交
+     *
+     * @param dto
+     * @return
+     */
+    @PostMapping(value = "/r/3000/108", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResultObject submit(@RequestBody MobileScoreDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdExecQueue() != null, "idExecQueue");
+        ExecAuthDto execAuthDto = new ExecAuthDto();
+        execAuthDto.setParIdExecQueue(dto.getIdExecQueue());
+        execAuthDto.setParSdExecQueue(5);
 
-        return ResultObject.createSuccess("handleExamStatus", ResultObject.DATA_TYPE_OBJECT,
-                null);
+        return ResultObject.createSuccess("submit", ResultObject.DATA_TYPE_OBJECT,
+                pfMobileService.handleExamStatus(execAuthDto));
     }
 
 

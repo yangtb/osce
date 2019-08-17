@@ -197,7 +197,7 @@ layui.config({
             return;
         }
         var currentEditData = data[0];*/
-        $('#MiniCEXHidden').attr('lay-href', basePath + '/pf/p/case/miniCex/page?cdCobEvaluate=1');
+        $('#MiniCEXHidden').attr('lay-href', basePath + '/pf/p/case/miniCex/page?cdCobEvaluate=2');
         $('#MiniCEXHidden').click();
     });
 

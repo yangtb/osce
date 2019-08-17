@@ -42,6 +42,9 @@ public enum RestErrorCode {
 	AUTH_CODE_NOT_SET("1000101001", "授权码参数未配置"),
 	AUTH_CODE_ERROR("1000101002", "授权码不正确，请重新输入"),
 
+	/** 站点评分 */
+	MOBILE_SCORE_EXEC_QUEUE_NOT_EXIST("3000101001", "执行记录不存在"),
+
 	// ========== end 移动端错误编码 start ==========
 
 	/** 未知异常、错误 */

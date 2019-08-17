@@ -195,7 +195,7 @@ layui.config({
     });
 
     $('#DOPS').on('click', function () {
-        $('#DOPSHidden').attr('lay-href', basePath + '/pf/p/case/miniCex/page?cdCobEvaluate=2');
+        $('#DOPSHidden').attr('lay-href', basePath + '/pf/p/case/miniCex/page?cdCobEvaluate=1');
         $('#DOPSHidden').click();
     });
 
