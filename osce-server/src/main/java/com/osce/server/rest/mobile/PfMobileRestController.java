@@ -1,4 +1,4 @@
-package com.osce.server.rest.biz.mobile;
+package com.osce.server.rest.mobile;
 
 import com.osce.api.biz.mobile.PfMobileService;
 import com.osce.dto.biz.execute.ExecAuthDto;

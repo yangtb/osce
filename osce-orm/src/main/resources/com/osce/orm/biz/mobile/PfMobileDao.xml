@@ -187,22 +187,24 @@
 
     <select id="mobileMain" resultType="com.osce.vo.biz.mobile.MobileMainVo">
         SELECT
-            na_area ,
-            na_station ,
-            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = sd_station_ca) AS sdStationCaText ,
-            sd_skill_ca ,
-            na_paper ,
-            des_paper ,
-            min_cost ,
-            fg_must ,
-            num_concur
+            a.na_area ,
+            a.na_station ,
+            a.sd_skill_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = a.sd_station_ca) AS sdStationCaText ,
+            a.na_paper ,
+            a.des_paper ,
+            a.min_cost ,
+            a.fg_must ,
+            a.num_concur ,
+            b.na_room
         FROM
-            v_es_get_site_infor
+            v_es_get_site_infor a
+        LEFT JOIN erp_room b ON a.id_room = b.id_room
         WHERE
-            id_plan = #{idPlan}
-        AND id_area = #{idArea}
-        AND time_section = #{timeSection}
-        AND id_room = #{idRoom}
+            a.id_plan = #{idPlan}
+        AND a.id_area = #{idArea}
+        AND a.time_section = #{timeSection}
+        AND a.id_room = #{idRoom}
         limit 1
     </select>
 

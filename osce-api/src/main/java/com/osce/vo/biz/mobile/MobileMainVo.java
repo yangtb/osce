@@ -40,6 +40,11 @@ public class MobileMainVo implements Serializable {
     private String sdSkillCa;
 
     /**
+     * 房间
+     */
+    private String naRoom;
+
+    /**
      * 试卷名称
      */
     private String naPaper;
