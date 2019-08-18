@@ -53,92 +53,51 @@ layui.config({
     });
 
 
-    // 文件上传
-    /*var timer;
+    // 上传头像
     upload.render({
-        elem: '#test3'
+        elem: '#LAY_avatarUpload'
         , url: basePath + '/upload'
         , field: 'file'
-        , accept: 'file' //普通文件
-        //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+        , accept: 'images' //普通文件
+        , exts: 'jpg|png|bmp|jpeg'
         , before: function (obj) {
-            $('#path').hide();
-            $('#uploadProgress').show();
-            //模拟loading
-            timer = setInterval(function () {
-                $.ajax({
-                    type: "POST",
-                    contentType: false,
-                    async: false,
-                    cache: false,
-                    url: basePath + '/selectUploadPercent',
-                    dataType: "json",
-                    success: function (data) {
-                        var per = data.percent + "%";
-                        element.progress('demo', per);
-                    }, error: function (data) {
-                        //alert("ajax异常！！！");
-                    }
-                });
-            }, 1000);
+            layer.msg('正在上传', {icon: 16, shade: 0.01});
         }
         , done: function (res) {
-            $('#path').show();
-            $('#uploadProgress').hide();
-            clearInterval(timer);
-            clearPercent();
             if (res.code != '0') {
-                layer.tips(res.msg, '#test3', {
+                layer.tips(res.msg, '#LAY_avatarUpload', {
                     tips: [1, '#FF5722'],
                     time: 5000
                 });
                 return;
             }
-            $('#path').val(res.data.path);
-            $('#idMedia').val(res.data.idMedia);
-            $('#sdType').val(res.data.sdType);
+            $('#picDiviceCase').val(res.data.path);
+            layer.closeAll('loading');
         }
         , error: function () {
-            $('#path').show();
-            $('#uploadProgress').hide();
-            clearInterval(timer);
-            clearPercent();
+            layer.closeAll('loading');
         }
     });
 
-    //清除进度数据
-    function clearPercent() {
-        $.ajax({
-            type: "POST",
-            contentType: false,
-            async: false,
-            cache: false,
-            url: basePath + '/clearUploadPercent',
-            dataType: "json",
-            success: function (data) {
-                element.progress('demo', 0);
+    $('#reviewPhoto').on('click', function () {
+        var i = $("#picDiviceCase").val();
+        if (!i) {
+            layer.tips("请先上传图片", '#reviewPhoto', {
+                tips: [1, '#FF5722']
+            });
+            return;
+        }
+        layui.layer.photos({
+            photos: {
+                title: "查看图片",
+                data: [{
+                    src: i
+                }]
             },
-        });
-    };*/
-
-    //相册层
-    $('#preview').on('click', function () {
-        var path = $('#path').val();
-        if (!path) {
-            layer.tips("您还未上传文件", '#preview', {tips: 1});
-            return false;
-        }
-        var sdType = $('#sdType').val();
-        if (sdType == '1') {
-            common.openSinglePhoto(path);
-        } else if (sdType == '2') {
-            common.openAudio(path.substring(0, path.lastIndexOf(".")));
-        } else if (sdType == '3') {
-            common.openTopVideo(basePath + '/video/form?path=' + path, 890, 504);
-        } else {
-            layer.tips("该文件类型暂不支持预览", '#preview', {tips: 1});
-        }
-        return false;
+            shade: .01,
+            closeBtn: 1,
+            anim: 5
+        })
     });
 
     $('#add').on('click', function () {

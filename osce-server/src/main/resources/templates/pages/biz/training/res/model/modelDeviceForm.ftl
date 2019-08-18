@@ -91,14 +91,14 @@
 
             <div class="layui-form-item">
                 <label class="layui-form-label">图片</label>
-                <div class="layui-input-inline" style="vertical-align: middle;width: 317px;">
+                <div class="layui-input-inline" style="vertical-align: middle;width: 325px;">
                     <input id="picDiviceCase" name="picDiviceCase" placeholder="请上传文件" autocomplete="off"
                            class="layui-input layui-disabled" disabled/>
                 </div>
-                <button type="button" class="layui-btn layui-btn-primary" id="test3">
+                <button type="button" class="layui-btn layui-btn-primary" id="LAY_avatarUpload">
                     <i class="layui-icon">&#xe681;</i>上传
                 </button>
-                <button type="button" class="layui-btn layui-btn-primary" id="preview">
+                <button type="button" class="layui-btn layui-btn-primary" id="reviewPhoto">
                     <i class="iconfont icon-detail"></i> 预览
                 </button>
             </div>
