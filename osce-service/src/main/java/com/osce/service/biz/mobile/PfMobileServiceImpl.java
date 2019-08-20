@@ -18,12 +18,14 @@ import com.osce.vo.biz.mobile.MobileMainVo;
 import com.osce.vo.biz.mobile.MobileQueueVo;
 import com.osce.vo.biz.mobile.MobileStudentInfoVo;
 import com.osce.vo.biz.mobile.score.*;
+import com.sm.open.care.core.utils.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -92,6 +94,12 @@ public class PfMobileServiceImpl implements PfMobileService {
         if (mobileScoreHeaderVo != null) {
             mobileScoreHeaderVo.setNaPaper(pfTemplateDao.selectSkillName(mobileScoreHeaderVo.getSdSkillCa(),
                     mobileScoreHeaderVo.getIdPaper()));
+            // 计算倒计时
+            if (StringUtils.isNotBlank(mobileScoreHeaderVo.getActBegin())) {
+                String actBegin = DateUtil.getDate(new Date()) + "" + mobileScoreHeaderVo.getActBegin();
+                Long countdownSecond = DateUtil.subDateSecond(DateUtil.getCurrentDateTime(), actBegin) / 1000;
+                mobileScoreHeaderVo.setCountdownSecond(countdownSecond > 0 ? countdownSecond : null);
+            }
         }
         return mobileScoreHeaderVo;
     }

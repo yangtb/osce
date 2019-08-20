@@ -79,4 +79,9 @@ public class MobileScoreHeaderVo implements Serializable {
      */
     private String sdSkillCa;
 
+    /**
+     * 倒计时时间(s)
+     */
+    private Long countdownSecond;
+
 }
