@@ -217,7 +217,7 @@
             queue.plan_begin ,
             user_info.real_name ,
             user_info.phone_no ,
-            user_info.idcard ,
+            CONCAT(LEFT(user_info.idcard,2), '**************', RIGHT(user_info.idcard,2)) as idcard ,
             user_info.user_cd
         FROM
             es_exec_queue queue
@@ -239,7 +239,7 @@
             queue.plan_begin ,
             user_info.real_name ,
             user_info.phone_no ,
-            user_info.idcard ,
+            CONCAT(LEFT(user_info.idcard,2), '**************', RIGHT(user_info.idcard,2)) as idcard ,
             user_info.user_cd
         FROM
             es_exec_queue queue
@@ -276,7 +276,7 @@
             a.sd_skill_ca ,
             b.real_name ,
             b.phone_no ,
-            b.idcard AS idCard ,
+            CONCAT(LEFT(b.idcard,2), '**************', RIGHT(b.idcard,2)) as idCard ,
             b.user_cd ,
             a.id_paper ,
             c.na_plan
