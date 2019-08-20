@@ -45,4 +45,9 @@ public class ShowDto extends PageParam implements Serializable {
      */
     private Long idUserStudent;
 
+    /**
+     * 上午下午标识
+     */
+    private int amPmFlag;
+
 }

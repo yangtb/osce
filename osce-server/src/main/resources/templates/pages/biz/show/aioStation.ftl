@@ -75,10 +75,11 @@
                         <button type="button" class="layui-btn layui-btn-normal identify-btn" id="authentication">身份认证</button>
                     </div>
                     <div class="details-info">
-                        <p class="tel-text"><span class="text-header">联系方式：</span><span class="tel" id="currStudentPhoneNo"></span></p>
+                        <p class="tel-text"><span class="text-header">联系方式：</span>
+                            <span class="tel" id="currStudentPhoneNo"></span>
+                        </p>
                         <p class="id-text"><span class="text-header">身份证：</span>
-                            <input class="cardid" id="currStudentIdCard" autocomplete="off"
-                                   style="color: #9a9a9a; border:0; text-align: left; width: 250px;"/>
+                            <span class="cardid" id="currStudentIdCard"></span>
                         </p>
                         <p class="test-time"><span class="text-header">考时：</span><span class="time" id="currStudentTime"></span></p>
                         <p class="status"><span class="text-header">状态：</span><span class="status-text" id="currStudentStatus"></span></p>

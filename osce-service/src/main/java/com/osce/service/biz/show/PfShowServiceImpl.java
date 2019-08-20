@@ -18,6 +18,7 @@ import org.springframework.beans.BeanUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -42,15 +43,12 @@ public class PfShowServiceImpl implements PfShowService {
 
     @Override
     public ShowBigScreenMainVo selectBigScreenMain(ShowDto dto) {
+        GregorianCalendar ca = new GregorianCalendar();
+        dto.setAmPmFlag(ca.get(GregorianCalendar.AM_PM));
         ShowBigScreenMainVo showBigScreenMainVo = pfShowDao.selectBigScreenMain(dto);
         dto.setIdPlan(showBigScreenMainVo.getIdPlan());
         dto.setIdArea(showBigScreenMainVo.getIdArea());
         dto.setTimeSection(showBigScreenMainVo.getTimeSection());
-        /*if (showBigScreenMainVo.getIdPlan() != null) {
-            showBigScreenMainVo.setItemNum(pfShowDao.countBigScreenDetail(dto));
-        } else {
-            showBigScreenMainVo.setItemNum(0L);
-        }*/
         return showBigScreenMainVo;
     }
 
@@ -61,6 +59,8 @@ public class PfShowServiceImpl implements PfShowService {
 
     @Override
     public ShowAioMainVo selectAioMain(ShowDto dto) {
+        GregorianCalendar ca = new GregorianCalendar();
+        dto.setAmPmFlag(ca.get(GregorianCalendar.AM_PM));
         ShowBigScreenMainVo showBigScreenMainVo = pfShowDao.selectBigScreenMain(dto);
         ShowAioMainVo showAioMainVo = new ShowAioMainVo();
         BeanUtils.copyProperties(showBigScreenMainVo, showAioMainVo);

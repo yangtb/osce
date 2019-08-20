@@ -171,7 +171,7 @@ layui.config({
                     $("#currStudentName").text(content.realName);
                     $("#currStudentCd").text(check(content.cdStudent));
                     $("#currStudentPhoneNo").text(content.phoneNo);
-                    $("#currStudentIdCard").val(content.idcard);
+                    $("#currStudentIdCard").text(content.idcard);
                     $("#currStudentTime").text(content.planBegin + '~' + content.planEnd);
                     var statusText = '';
                     if (content.sdExecQueue == 2) {
@@ -237,9 +237,8 @@ layui.config({
     }
 
     $("#authentication").on('click', function () {
-        $('#currStudentIdCard').focus()
-        if (!$('#currStudentIdCard').val()) {
-            layer.msg("请输入身份证");
+        if (!$('#currStudentIdCard').text()) {
+            layer.msg("当前无学员");
             return;
         }
         // todo 认证

@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -63,6 +64,8 @@ public class PfExecuteServiceImpl implements PfExecuteService {
         // 待考
         ShowDto showDto = new ShowDto();
         showDto.setIdOrg(dto.getIdOrg());
+        GregorianCalendar ca = new GregorianCalendar();
+        showDto.setAmPmFlag(ca.get(GregorianCalendar.AM_PM));
         ShowBigScreenMainVo showVo = pfShowDao.selectBigScreenMain(showDto);
         if (showVo != null && showVo.getIdArea() != null) {
             dto.setIdArea(showVo.getIdArea());
