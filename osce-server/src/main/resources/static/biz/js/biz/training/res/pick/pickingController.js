@@ -34,7 +34,6 @@ layui.config({
             {field: 'numPlan', width: 120, title: '总消耗数量'},
             {field: 'right1', width: 80, title: '操作', fixed: 'right', align: 'center', toolbar: '#rightBar'},
             {field: 'fgPicked', width: 120, title: '实领数量', templet: '#fgPickedTpl', fixed: 'right'}
-
         ]] //设置表头
         , url: basePath + '/pf/p/pick/list'
         , limit: 20
@@ -182,7 +181,14 @@ layui.config({
 });
 
 
-function updatePickedNum(event, idTpPicking) {
+function updatePickedNum(event, idTpPicking, numPlan) {
+    if (!event.target.value) {
+        return;
+    }
+    if (event.target.value > numPlan) {
+        layer.tips('不能超过总消耗数量', event.target);
+        return;
+    }
     var reqData = {
         idTpPicking: idTpPicking,
         fgPicked: event.target.value

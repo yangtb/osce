@@ -51,15 +51,11 @@
 </script>
 
 <script type="text/html" id="fgPickedTpl">
-    <#--{{#  if(d.fgConsumables == '1'){ }}
-    <input type="text" id="fgPicked-{{d.idTpPicking}}"
-           value="{{d.fgPicked}}" lay-filter="fgPickedFilter" style="width: 80px; height: 28px;">
-    {{#  } else { }}
+    <input type="text" name="fgPicked" <#--class="{{ d.fgConsumables!= '1' ? 'layui-disabled' : '' }}"-->
+           value="{{d.fgPicked || ''}}" autocomplete="off" onchange="updatePickedNum(event, {{d.idTpPicking}}, {{d.numPlan}})"
+           style="width: 80px; height: 25px; padding-left: 5px;{{#  if(!d.fgPicked){ }} color: #393D49{{#  } }}{{#  if(d.numPlan == d.fgPicked){ }} color: #009688; {{#  } else { }} color: #FF5722; {{#  } }} "
+           {{ d.fgConsumables!= '1' ? 'disabled' : '' }}>
 
-    {{#  } }}-->
-    <input type="text" name="fgPicked" class="{{ d.fgConsumables!= '1' ? 'layui-disabled' : '' }}"
-           value="{{d.fgPicked || ''}}" autocomplete="off" onchange="updatePickedNum(event, {{d.idTpPicking}})"
-           style="width: 80px; height: 25px; padding-left: 5px;" {{ d.fgConsumables!= '1' ? 'disabled' : '' }}>
 </script>
 
 <script type="text/html" id="fgConsumablesTpl">
