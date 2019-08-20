@@ -20,6 +20,16 @@ public class TpPickingVo implements Serializable {
     private static final long serialVersionUID = 1561201071565L;
 
     /**
+     * 领料计划ID
+     */
+    private Long idTpPicking;
+
+    /**
+     * 名称
+     */
+    private String naPlan;
+
+    /**
      * 日期
      */
     private String planDay;
@@ -50,6 +60,11 @@ public class TpPickingVo implements Serializable {
     private String fgConsumables;
 
     /**
+     * 设备ID
+     */
+    private Long idDevice;
+
+    /**
      * 设备
      */
     private String naDevice;
@@ -68,5 +83,10 @@ public class TpPickingVo implements Serializable {
      * 总消耗数量
      */
     private Long numPlan;
+
+    /**
+     * 已领数量
+     */
+    private Long fgPicked;
 
 }

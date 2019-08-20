@@ -9,6 +9,7 @@ import com.osce.entity.ErpDeviceCase;
 import com.osce.entity.ErpDeviceFault;
 import com.osce.entity.ErpDeviceRepair;
 import com.osce.result.PageResult;
+import com.osce.vo.biz.training.res.model.ErpDeviceCaseVo;
 
 import java.util.List;
 
@@ -115,5 +116,13 @@ public interface PfModelService {
      * @return
      */
     boolean delDeviceRepair(PfBachChangeStatusDto dto);
+
+    /**
+     * 设备列表
+     *
+     * @param idDevice 设备id
+     * @return
+     */
+    List<ErpDeviceCaseVo> listDeviceCase(Long idDevice);
 
 }

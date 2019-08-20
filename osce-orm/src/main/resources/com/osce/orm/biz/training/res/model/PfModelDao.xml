@@ -311,12 +311,8 @@
             <if test="fgConsumables != null and fgConsumables!=''">
                 fg_consumables = #{fgConsumables},
             </if>
-            <if test="numWarn != null">
                 num_warn = #{numWarn},
-            </if>
-            <if test="unmStock != null">
                 unm_stock = #{unmStock},
-            </if>
             <if test="fgActive != null and fgActive!=''">
                 fg_active = #{fgActive},
             </if>
@@ -573,7 +569,7 @@
             id_device_fault ,
             id_device_case ,
             des_fault ,
-             date_format(gmt_fault,'%Y-%m-%d') gmt_fault
+            date_format(gmt_fault,'%Y-%m-%d') gmt_fault
         FROM
             erp_device_fault
         WHERE
@@ -591,6 +587,15 @@
         WHERE
             id_device_case = #{idDeviceCase}
         ORDER BY gmt_repair desc
+    </select>
+    <select id="listDeviceCase" resultType="com.osce.vo.biz.training.res.model.ErpDeviceCaseVo">
+        SELECT
+            id_device_case ,
+            cd_device_case
+        FROM
+            erp_device_case
+        WHERE
+            id_device = #{idDevice}
     </select>
 
 </mapper>

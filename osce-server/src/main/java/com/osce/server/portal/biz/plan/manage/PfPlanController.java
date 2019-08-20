@@ -1,9 +1,7 @@
 package com.osce.server.portal.biz.plan.manage;
 
 import com.osce.api.biz.plan.manage.PfPlanManageService;
-import com.osce.api.biz.training.structure.grade.PfGradeService;
 import com.osce.dto.biz.plan.manage.PlanDto;
-import com.osce.dto.biz.plan.template.TemplateDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -14,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
 
 /**
  * @ClassName: PfPlanController
@@ -97,6 +93,5 @@ public class PfPlanController extends BaseController {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return pfPlanManageService.pagePick(dto);
     }
-
 
 }

@@ -13,6 +13,7 @@ import com.osce.orm.biz.training.res.model.PfModelDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
+import com.osce.vo.biz.training.res.model.ErpDeviceCaseVo;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -127,6 +128,11 @@ public class PfModelServiceImpl implements PfModelService {
     @Override
     public boolean delDeviceRepair(PfBachChangeStatusDto dto) {
         return pfModelDao.delDeviceRepair(dto) >= 1 ? true : false;
+    }
+
+    @Override
+    public List<ErpDeviceCaseVo> listDeviceCase(Long idDevice) {
+        return pfModelDao.listDeviceCase(idDevice);
     }
 
 }

@@ -77,7 +77,7 @@ public class TpPicking implements Serializable {
     /**
      * 计划数量
      */
-    private Float numPlan;
+    private Integer numPlan;
 
     /**
      * 0 未领
@@ -88,6 +88,6 @@ public class TpPicking implements Serializable {
     /**
      * 已领数量
      */
-    private Float fgPicked;
+    private Integer fgPicked;
 
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.training.res.pick.PfPickDao">
+    <insert id="saveTpPickCase">
+        INSERT INTO osce.tp_picking_case(
+            id_device_case ,
+            id_tp_picking
+        )
+        VALUES
+        <foreach collection="idDeviceCases" item="item" separator="," >
+            (#{item}, #{idTpPicking})
+        </foreach>
+    </insert>
+    <update id="updatePickNum">
+        update tp_picking set fg_picked = #{fgPicked}, fg_picking = '1' where id_tp_picking = #{idTpPicking}
+    </update>
+    <delete id="delTpPickingCase">
+        delete from tp_picking_case where id_tp_picking = #{idTpPicking}
+    </delete>
+
+    <select id="countPick" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            v_tp_pick_list a
+        LEFT JOIN erp_room b ON a.id_room = b.id_room
+        WHERE
+            a.id_org = #{idOrg}
+        <if test="fgPicking != null and fgPicking != ''">
+            AND a.fg_picking = #{fgPicking}
+        </if>
+    </select>
+    <select id="listPick" resultType="com.osce.vo.biz.plan.manage.TpPickingVo">
+        SELECT
+            a.id_tp_picking,
+            a.id_plan ,
+            a.na_plan ,
+            a.plan_day ,
+            a.plan_section ,
+            b.na_room ,
+            a.na_skill_case ,
+            a.num_skill_case ,
+            a.id_device,
+            a.na_device ,
+            a.fg_consumables ,
+            a.sd_device_unit ,
+            a.num_device ,
+            a.num_plan ,
+            a.fg_picked
+        FROM
+            v_tp_pick_list a
+        LEFT JOIN erp_room b ON a.id_room = b.id_room
+        WHERE
+            a.id_org = #{idOrg}
+        <if test="fgPicking != null and fgPicking != ''">
+            AND a.fg_picking = #{fgPicking}
+        </if>
+        order by a.plan_day desc
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="listDeviceCase" resultType="com.osce.vo.biz.training.res.pick.TpPickingCaseVo">
+        SELECT
+            a.id_device_case as value,
+            a.cd_device_case as name,
+            IF(b.id_tp_picking_case is null, '' , 'selected') as selected
+        FROM
+            erp_device_case a
+        left join tp_picking_case b on a.id_device_case = b.id_device_case and b.id_tp_picking = #{idTpPicking}
+        WHERE
+            a.id_device = #{idDevice}
+    </select>
+
+</mapper>

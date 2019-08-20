@@ -1,13 +1,13 @@
 package com.osce.orm.biz.training.res.model;
 
-import com.osce.dto.biz.training.res.model.FaultDto;
 import com.osce.dto.biz.training.res.model.ModelDto;
-import com.osce.dto.biz.training.res.model.RepairDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.ErpDevice;
 import com.osce.entity.ErpDeviceCase;
 import com.osce.entity.ErpDeviceFault;
 import com.osce.entity.ErpDeviceRepair;
+import com.osce.vo.biz.training.res.model.ErpDeviceCaseVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -154,5 +154,13 @@ public interface PfModelDao {
      * @return
      */
     int delDeviceRepair(PfBachChangeStatusDto dto);
+
+    /**
+     * 设备列表
+     *
+     * @param idDevice 设备id
+     * @return
+     */
+    List<ErpDeviceCaseVo> listDeviceCase(@Param("idDevice") Long idDevice);
 
 }

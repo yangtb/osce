@@ -176,5 +176,20 @@ public class PfModelRestController extends BaseController {
                 pfModelService.delDeviceRepair(dto));
     }
 
+    /**
+     * 设备列表
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_02_002', 'ROLE_01_02_003', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/model/device/case/list")
+    public ResultObject listDeviceCase(@RequestBody ErpDevice dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdDevice() != null, "idDevice");
+        return ResultObject.createSuccess("listDeviceCase", ResultObject.DATA_TYPE_LIST,
+                pfModelService.listDeviceCase(dto.getIdDevice()));
+    }
+
 
 }
