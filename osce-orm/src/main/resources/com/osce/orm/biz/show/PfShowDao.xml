@@ -67,7 +67,7 @@
         LEFT JOIN td_area c ON v.id_area = c.id_area
         WHERE
             v.id_org = #{idOrg}
-        and v.sd_plan_status in (3, 4)
+        and v.sd_plan_status in (2, 3, 4)
         ORDER BY
             plan_day ,
             time_section
