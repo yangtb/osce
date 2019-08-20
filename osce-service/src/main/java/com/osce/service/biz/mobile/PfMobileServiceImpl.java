@@ -96,9 +96,9 @@ public class PfMobileServiceImpl implements PfMobileService {
                     mobileScoreHeaderVo.getIdPaper()));
             // 计算倒计时
             if (StringUtils.isNotBlank(mobileScoreHeaderVo.getActBegin())) {
-                String actBegin = DateUtil.getDate(new Date()) + "" + mobileScoreHeaderVo.getActBegin();
-                Long countdownSecond = DateUtil.subDateSecond(DateUtil.getCurrentDateTime(), actBegin) / 1000;
-                mobileScoreHeaderVo.setCountdownSecond(countdownSecond > 0 ? countdownSecond : null);
+                String actBegin = DateUtil.getDate(new Date()) + " " + mobileScoreHeaderVo.getActBegin();
+                Long countdownSecond = DateUtil.subDateSecond(actBegin, DateUtil.getCurrentDateTime()) / 1000;
+                mobileScoreHeaderVo.setCountdownSecond(countdownSecond > 0 ? countdownSecond : 0);
             }
         }
         return mobileScoreHeaderVo;
