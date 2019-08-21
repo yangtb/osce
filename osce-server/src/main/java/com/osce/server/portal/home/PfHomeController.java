@@ -59,7 +59,7 @@ public class PfHomeController extends BaseController {
                 model.addAttribute("websiteName", websiteName);
                 model.addAttribute("websiteCopyright", websiteCopyright);
                 model.addAttribute("websiteApprove", websiteApprove);
-                return "login";
+                return "redirect:/login";
             }
         }
 
@@ -85,6 +85,6 @@ public class PfHomeController extends BaseController {
 
     @RequestMapping(value = {"/", "/logout/success"})
     public String homePage() {
-        return "login";
+        return "redirect:/login";
     }
 }
