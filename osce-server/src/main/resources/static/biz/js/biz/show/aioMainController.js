@@ -323,7 +323,7 @@ layui.config({
 
     function timeoutPage() {
         var nowTime = nowTimeStr(2);
-        if (nowTime === "00:00" || nowTime === "12:00") {
+        if (nowTime === "00:00" || nowTime === "13:00") {
             queryHeader();
         }
     }
