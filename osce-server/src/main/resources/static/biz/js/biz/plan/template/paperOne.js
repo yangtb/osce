@@ -34,12 +34,12 @@ layui.config({
             } else {
                 $("#step" + i).removeClass("outside0ab");
             }
-            $("#stepNum" + i).addClass("box-num");
         }
     }
 
     function addStepEventListener(stepNum) {
         document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
+        $("#stepNum" + stepNum).addClass("box-num");
     }
 
     function stepSkipClickListener() {
@@ -152,10 +152,12 @@ layui.config({
             common.commonPost(basePath + '/pf/p/plan/paper/copy/item', bizData, null, 'addTdItemStore',
                 function (data) {
                     stepSkip(2);
+                    addStepEventListener(2);
                     selectPaperParam();
                 }, true);
         } else {
             stepSkip(2);
+            addStepEventListener(2);
             selectPaperParam();
         }
         table.reload('paperTableId');
@@ -400,6 +402,7 @@ layui.config({
                 // 重置表单数据
                 fillPaperParamForm(data.data);
                 stepSkip(3);
+                addStepEventListener(3);
                 // 加载【设置必考题】列表
                 loadSetItemTable();
             }, true);
@@ -408,6 +411,7 @@ layui.config({
     // 第3步 ： 设置必考题
     form.on('submit(formStep3)', function (data) {
         stepSkip(4);
+        addStepEventListener(4);
         itemTableResult();
         return false;
     });

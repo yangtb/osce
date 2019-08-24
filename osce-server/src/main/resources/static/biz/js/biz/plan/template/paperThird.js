@@ -32,12 +32,12 @@ layui.config({
             } else {
                 $("#step" + i).removeClass("outside0ab");
             }
-            $("#stepNum" + i).addClass("box-num");
         }
     }
 
     function addStepEventListener(stepNum) {
         document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
+        $("#stepNum" + stepNum).addClass("box-num");
     }
 
     function stepSkipClickListener() {
@@ -118,6 +118,7 @@ layui.config({
         common.commonPost(basePath + '/pf/p/plan/paper/copy/sp/case', bizData, null, 'addSpCase',
             function (data) {
                 stepSkip(2);
+                addStepEventListener(2);
                 loadSheet();
             }, true);
     }

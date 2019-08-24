@@ -31,12 +31,12 @@ layui.config({
             } else {
                 $("#step" + i).removeClass("outside0ab");
             }
-            $("#stepNum" + i).addClass("box-num");
         }
     }
 
     function addStepEventListener(stepNum) {
         document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
+        $("#stepNum" + stepNum).addClass("box-num");
     }
 
     function stepSkipClickListener() {
@@ -121,6 +121,7 @@ layui.config({
         common.commonPost(basePath + '/pf/p/plan/paper/copy/skill/case', bizData, null, 'addSkillCase',
             function (data) {
                 stepSkip(2);
+                addStepEventListener(2);
                 loadZd();
             }, true);
     }
@@ -135,6 +136,7 @@ layui.config({
 
     form.on('submit(formStep1)', function (data) {
         stepSkip(3);
+        addStepEventListener(3);
         loadSheet();
         return false;
     });
