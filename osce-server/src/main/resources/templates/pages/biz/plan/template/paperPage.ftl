@@ -49,7 +49,7 @@
         }
 
         .pageHeight {
-            min-height: 1050px
+            min-height: 1100px
         }
 
 

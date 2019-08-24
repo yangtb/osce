@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.osce.orm.biz.plan.template.PfPaperStepDao">
+
+    <select id="isExistTdItem4" resultType="java.lang.Boolean">
+        select count(1) from td_item where id_item_store = #{idItemStore} and fg_active = '1';
+    </select>
+    <select id="isExistTdItem3" resultType="java.lang.Boolean">
+        select count(1) from td_item where id_item_store = #{idItemStore} and fg_must = '1';
+    </select>
+    <select id="isExistTdItem2" resultType="java.lang.Boolean">
+        select count(1) from td_item_section where id_item_store = #{idItemStore} and fg_active = '1';
+    </select>
+
+</mapper>

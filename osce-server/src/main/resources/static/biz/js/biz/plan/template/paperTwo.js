@@ -2,13 +2,74 @@ layui.config({
     base: basePath + '/layui/plugins/'
 }).extend({
     index: 'lib/index' //主入口模块
-}).use(['layer', 'index', 'table', 'form', 'jquery', 'step', 'common', 'tableSelect'], function () {
+}).use(['layer', 'index', 'table', 'form', 'jquery', 'common', 'tableSelect'], function () {
     var $ = layui.$
         , table = layui.table
         , common = layui.common
         , form = layui.form
-        , step = layui.step
         , tableSelect = layui.tableSelect;
+
+
+    // 给step添加click事件
+    function bachAddStepEventListener(currentNum) {
+        // 最大步骤数
+        var maxNum = 3;
+        for (var i = 1; i <= maxNum; i++) {
+            if (maxNum == i) {
+                $("#step" + i).addClass("outside2a");
+            } else {
+                $("#step" + i).addClass("outside0ab");
+            }
+            $("#stepNum" + i).removeClass("box-num");
+            // 先移除点击点击事件
+            document.getElementById("stepNum" + i).removeEventListener('click', stepSkipClickListener);
+        }
+        for (var i = 1; i <= currentNum; i++) {
+            addStepEventListener(i);
+            if (maxNum == i) {
+                $("#step" + i).removeClass("outside2a");
+            } else {
+                $("#step" + i).removeClass("outside0ab");
+            }
+            $("#stepNum" + i).addClass("box-num");
+        }
+    }
+
+    function addStepEventListener(stepNum) {
+        document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
+    }
+
+    function stepSkipClickListener() {
+        stepSkip(this.getAttribute('data-index'))
+    }
+
+    // 步骤跳转
+    function stepSkip(stepNum) {
+        if (stepNum <= 2) {
+            document.getElementById("step" + stepNum).classList.remove("outside0ab");
+        } else {
+            document.getElementById("step" + stepNum).classList.remove("outside2a");
+        }
+
+        $("#stepDiv" + stepNum).show();
+        $("#stepDiv" + stepNum).siblings(".stepDiv").hide();
+
+        loadStepData(stepNum);
+    }
+
+    function loadStepData(stepNum) {
+        if (stepNum == 2) {
+            loadZd();
+        } else if (stepNum == 3) {
+            loadSheet();
+        }
+    }
+
+    // 获取当前执行步骤
+    function getCurrentStep() {
+        // 此表单第一步过后数据全部生成
+        bachAddStepEventListener(3);
+    }
 
 
     tableSelect.render({
@@ -37,25 +98,6 @@ layui.config({
         }
     });
 
-    var options = {
-        elem: '#stepForm',
-        filter: 'stepForm',
-        width: '100%', //设置容器宽度
-        stepWidth: '680px',
-        height: '520px',
-        indicator : 'none',  // 不显示指示器
-        arrow : 'always',  // 始终显示箭头
-        autoplay : false,  // 关闭自动播放
-        stepItems: [{
-            title: '病例选择'
-        }, {
-            title: '站点配置'
-        }, {
-            title: '评分表'
-        }]
-    };
-
-    var ins = step.render(options);
 
     form.on('submit(formStep)', function (data) {
         data.field.idModel = idModel;
@@ -78,7 +120,7 @@ layui.config({
         }
         common.commonPost(basePath + '/pf/p/plan/paper/copy/skill/case', bizData, null, 'addSkillCase',
             function (data) {
-                step.next('#stepForm');
+                stepSkip(2);
                 loadZd();
             }, true);
     }
@@ -92,17 +134,13 @@ layui.config({
     }
 
     form.on('submit(formStep1)', function (data) {
-        step.next('#stepForm');
+        stepSkip(3);
         loadSheet();
         return false;
     });
 
     $('.pre').click(function () {
-        step.pre('#stepForm');
-    });
-
-    $('.next').click(function () {
-        step.next('#stepForm');
+        stepSkip(this.getAttribute('data-index'));
     });
 
 
@@ -140,7 +178,9 @@ layui.config({
         var data = obj.data;
         if (obj.event === 'edit') {
             // 表单跳到第一步
-            step.goFirst(ins, options);
+            stepSkip(1);
+            // 当前步骤
+            getCurrentStep(data.id);
             form.val("step1FormFilter", data);
             $('#naSkillCaseFrom').attr("ts-selected", data.idFrom);
             $('#naSkillCase').focus();
@@ -153,7 +193,9 @@ layui.config({
 
     $('#add').on('click', function () {
         // 表单跳到第一步
-        step.goFirst(ins, options);
+        stepSkip(1);
+        bachAddStepEventListener(1);
+
         $('#naSkillCaseFrom').attr("ts-selected", "");
         $('#reset').trigger('click');
         $('#naSkillCase').focus();

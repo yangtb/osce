@@ -3,15 +3,101 @@ layui.config({
 }).extend({
     index: 'lib/index', //主入口模块
     formSelects: 'formSelects-v4'
-}).use(['layer', 'index', 'table', 'form', 'jquery', 'step', 'element', 'common', 'tableSelect', 'formSelects'], function () {
+}).use(['layer', 'index', 'table', 'form', 'jquery', 'element', 'common', 'tableSelect', 'formSelects'], function () {
     var $ = layui.$
         , table = layui.table
         , common = layui.common
         , form = layui.form
-        , step = layui.step
         , element = layui.element
         , tableSelect = layui.tableSelect
         , formSelects = layui.formSelects;
+
+
+    // 给step添加click事件
+    function bachAddStepEventListener(currentNum) {
+        // 最大步骤数
+        var maxNum = 4;
+        for (var i = 1; i <= maxNum; i++) {
+            if (maxNum == i) {
+                $("#step" + i).addClass("outside2a");
+            } else {
+                $("#step" + i).addClass("outside0ab");
+            }
+            $("#stepNum" + i).removeClass("box-num");
+            // 先移除点击点击事件
+            document.getElementById("stepNum" + i).removeEventListener('click', stepSkipClickListener);
+        }
+        for (var i = 1; i <= currentNum; i++) {
+            addStepEventListener(i);
+            if (maxNum == i) {
+                $("#step" + i).removeClass("outside2a");
+            } else {
+                $("#step" + i).removeClass("outside0ab");
+            }
+            $("#stepNum" + i).addClass("box-num");
+        }
+    }
+
+    function addStepEventListener(stepNum) {
+        document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
+    }
+
+    function stepSkipClickListener() {
+        stepSkip(this.getAttribute('data-index'))
+    }
+
+    // 步骤跳转
+    function stepSkip(stepNum) {
+        if (stepNum <= 3) {
+            document.getElementById("step" + stepNum).classList.remove("outside0ab");
+        } else {
+            document.getElementById("step" + stepNum).classList.remove("outside2a");
+        }
+
+        $("#stepDiv" + stepNum).show();
+        $("#stepDiv" + stepNum).siblings(".stepDiv").hide();
+
+        loadStepData(stepNum);
+    }
+
+    function loadStepData(stepNum) {
+        if (stepNum == 2) {
+            selectPaperParam();
+        } else if (stepNum == 3) {
+            loadSetItemTable();
+        } else if (stepNum == 4) {
+            itemTableResult();
+        }
+    }
+
+    // 获取当前执行步骤
+    function getCurrentStep(idItemStore) {
+        var bizData = {
+            idItemStore: idItemStore ,
+            sdSkillCa: "1"
+        };
+        $.ajax({
+            url: basePath + '/pf/p/plan/paper/select/currentStep',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    common.errorMsg(data.msg);
+                    return false;
+                } else {
+                    bachAddStepEventListener(data.data ? data.data : 1);
+                    return true;
+                }
+            },
+            error: function () {
+                common.errorMsg("获取当前步骤失败");
+                return false;
+            }
+        });
+    }
 
     tableSelect.render({
         elem: '#naItemStoreFrom',
@@ -39,27 +125,6 @@ layui.config({
         }
     });
 
-    var options = {
-        elem: '#stepForm',
-        filter: 'stepForm',
-        width: '100%', //设置容器宽度
-        stepWidth: '680px',
-        height: '500px',
-        indicator: 'none',  // 不显示指示器
-        arrow: 'always',  // 始终显示箭头
-        autoplay: false,  // 关闭自动播放
-        stepItems: [{
-            title: '选择题集'
-        }, {
-            title: '试卷参数'
-        }, {
-            title: '设置必考题'
-        }, {
-            title: '生成试卷'
-        }]
-    };
-    var ins = step.render(options);
-
     // 第1步 ： 选择题集
     form.on('submit(formStep)', function (data) {
         data.field.idModel = idModel;
@@ -86,11 +151,11 @@ layui.config({
             }
             common.commonPost(basePath + '/pf/p/plan/paper/copy/item', bizData, null, 'addTdItemStore',
                 function (data) {
-                    step.next('#stepForm');
+                    stepSkip(2);
                     selectPaperParam();
                 }, true);
         } else {
-            step.next('#stepForm');
+            stepSkip(2);
             selectPaperParam();
         }
         table.reload('paperTableId');
@@ -334,7 +399,7 @@ layui.config({
             function (data) {
                 // 重置表单数据
                 fillPaperParamForm(data.data);
-                step.next('#stepForm');
+                stepSkip(3);
                 // 加载【设置必考题】列表
                 loadSetItemTable();
             }, true);
@@ -342,18 +407,15 @@ layui.config({
 
     // 第3步 ： 设置必考题
     form.on('submit(formStep3)', function (data) {
-        step.next('#stepForm');
+        stepSkip(4);
         itemTableResult();
         return false;
     });
 
     $('.pre').click(function () {
-        step.pre('#stepForm');
+        stepSkip(this.getAttribute('data-index'));
     });
 
-    $('.next').click(function () {
-        step.next('#stepForm');
-    });
 
     $("#importItem").on('click', function () {
         $('#importItemHidden').text("试卷[" + $('#naItemStore').val() + "]导入试题");
@@ -363,9 +425,9 @@ layui.config({
     });
 
     form.on('checkbox(fgItemFromImportFilter)', function (data) {
-        if (!data.elem.checked) {
+        /*if (!data.elem.checked) {
             return;
-        }
+        }*/
         // 校验表单
         if (!$('#naItemStore').val()) {
             $('#naItemStore').focus()
@@ -399,6 +461,14 @@ layui.config({
                     $('#importItem').removeAttr("disabled", "true");
                     table.reload('paperTableId');
                 }, true);
+        } else {
+            if (data.elem.checked) {
+                $("#importItem").removeClass("layui-btn-disabled");
+                $('#importItem').removeAttr("disabled", "true");
+            } else {
+                $("#importItem").addClass("layui-btn-disabled");
+                $('#importItem').attr("disabled", "true");
+            }
         }
     });
 
@@ -489,7 +559,10 @@ layui.config({
         var data = obj.data;
         if (obj.event === 'edit') {
             // 表单跳到第一步
-            step.goFirst(ins, options);
+            stepSkip(1);
+            // 当前步骤
+            getCurrentStep(data.idItemStore);
+
             editPaper(data);
             $('#naItemStore').focus();
         } else if (obj.event === 'del') {
@@ -501,7 +574,8 @@ layui.config({
 
     $('#addPaper').on('click', function () {
         // 表单跳到第一步
-        step.goFirst(ins, options);
+        stepSkip(1);
+        bachAddStepEventListener(1);
         $('#reset').trigger('click');
         $('#naItemStore').focus();
     });

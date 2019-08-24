@@ -51,6 +51,14 @@ public interface PfPaperService {
     TdItemStore selectTdItemStore(PfPaperDto dto);
 
     /**
+     * 获取考卷编辑步骤
+     *
+     * @param dto
+     * @return
+     */
+    Integer selectCurrentStep(PfPaperDto dto);
+
+    /**
      * add试卷参数
      *
      * @param dto

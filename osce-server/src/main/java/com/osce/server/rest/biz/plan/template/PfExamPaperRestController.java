@@ -20,6 +20,7 @@ import com.sm.open.care.core.ResultObject;
 import com.sm.open.care.core.exception.BizRuntimeException;
 import com.sm.open.care.core.utils.Assert;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -116,6 +117,24 @@ public class PfExamPaperRestController {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return ResultObject.createSuccess("selectTdItemStore", ResultObject.DATA_TYPE_OBJECT,
                 pfPaperService.selectTdItemStore(dto));
+    }
+
+
+    /**
+     * 获取考卷步骤
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/p/plan/paper/select/currentStep")
+    public ResultObject selectCurrentStep(@RequestBody PfPaperDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdItemStore() != null, "idItemStore");
+        Assert.isTrue(StringUtils.isNotBlank(dto.getSdSkillCa()), "sdSkillCa");
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return ResultObject.createSuccess("selectCurrentStep", ResultObject.DATA_TYPE_OBJECT,
+                pfPaperService.selectCurrentStep(dto));
     }
 
     /**

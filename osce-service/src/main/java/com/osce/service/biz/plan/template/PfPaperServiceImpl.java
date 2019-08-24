@@ -6,6 +6,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.*;
 import com.osce.exception.RestException;
 import com.osce.orm.biz.plan.template.PfPaperDao;
+import com.osce.orm.biz.plan.template.PfPaperStepDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
@@ -35,6 +36,9 @@ public class PfPaperServiceImpl implements PfPaperService {
 
     @Resource
     private PfPaperDao pfPaperDao;
+
+    @Resource
+    private PfPaperStepDao pfPaperStepDao;
 
     @Override
     public List<PaperLeftVo> listLeft(Long idModel) {
@@ -68,6 +72,29 @@ public class PfPaperServiceImpl implements PfPaperService {
     @Override
     public TdItemStore selectTdItemStore(PfPaperDto dto) {
         return pfPaperDao.selectTdItemStore(dto);
+    }
+
+    @Override
+    public Integer selectCurrentStep(PfPaperDto dto) {
+        Long idItemStore = dto.getIdItemStore();
+        Integer stepNum = 1;
+        if (("1").equals(dto.getSdSkillCa())) {
+            // 1 理论试题
+            if (pfPaperStepDao.isExistTdItem4(idItemStore)) {
+                stepNum = 4;
+            } else if (pfPaperStepDao.isExistTdItem3(idItemStore)) {
+                stepNum = 3;
+            } else if (pfPaperStepDao.isExistTdItem2(idItemStore)) {
+                stepNum = 2;
+            }
+        } else if (("2").equals(dto.getSdSkillCa())) {
+            // 2 技能操作
+
+        } else if (("3").equals(dto.getSdSkillCa())) {
+            // 3 病史采集
+
+        }
+        return stepNum;
     }
 
     @Transactional(rollbackFor = Exception.class)
