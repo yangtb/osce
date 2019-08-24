@@ -203,7 +203,7 @@
         WHERE
           is_deleted = 'N'
         <if test='isSuper == false'>
-            AND temp.level > #{level}
+            <!--AND temp.level > #{level}-->
         </if>
         <if test="conditionValue != null and conditionValue !=''">
             <choose>
@@ -249,28 +249,28 @@
         WHERE
             is_deleted = 'N'
         <if test='isSuper == false'>
-        AND temp.level > #{level}
+            <!--AND temp.level > #{level}-->
         </if>
-        <if test="conditionValue != null and conditionValue !=''">
-            <choose>
-                <when test="type != null and type == '1'.toString()">
-                    and ui.username like concat(#{conditionValue},'%')
-                </when>
-                <when test="type != null and type == '2'.toString()">
-                    and ui.real_name like concat(#{conditionValue},'%')
-                </when>
-                <when test="type != null and type == '3'.toString()">
-                    and ui.phone_no like concat(#{conditionValue},'%')
-                </when>
-            </choose>
-        </if>
-        <if test="idOrg != null">
-            and ui.id_org = #{idOrg}
-        </if>
-        and ui.username != 'super'
-    </select>
+    <if test="conditionValue != null and conditionValue !=''">
+        <choose>
+            <when test="type != null and type == '1'.toString()">
+                and ui.username like concat(#{conditionValue},'%')
+            </when>
+            <when test="type != null and type == '2'.toString()">
+                and ui.real_name like concat(#{conditionValue},'%')
+            </when>
+            <when test="type != null and type == '3'.toString()">
+                and ui.phone_no like concat(#{conditionValue},'%')
+            </when>
+        </choose>
+    </if>
+    <if test="idOrg != null">
+        and ui.id_org = #{idOrg}
+    </if>
+    and ui.username != 'super'
+</select>
 
-    <!-- 判断是否存在相同的用户名 -->
+<!-- 判断是否存在相同的用户名 -->
     <select id="isExistUser" resultType="java.lang.Boolean">
          SELECT COUNT(1) FROM user_info WHERE username = #{userName} and is_deleted = 'N'
     </select>
