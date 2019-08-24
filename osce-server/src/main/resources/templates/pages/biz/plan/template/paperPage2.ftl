@@ -32,7 +32,7 @@
 
                 <div class="rebinding-box" style="height: 540px; margin: 0 auto;">
                     <div class="box-timeline">
-                        <ul class="text-center" style="width: 600px;">
+                        <ul class="text-center" style="padding-left: 200px">
                             <li>
                                 病例选择
                                 <div id="step1">

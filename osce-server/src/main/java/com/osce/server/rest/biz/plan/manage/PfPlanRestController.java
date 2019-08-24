@@ -34,6 +34,23 @@ public class PfPlanRestController {
     private PfPlanManageService pfPlanManageService;
 
     /**
+     * 查询计划保存步骤
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/manage/select/currentStep")
+    public ResultObject selectCurrentStep(@RequestBody PlanDto dto) {
+        /* 参数校验 */
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        Assert.isTrue(dto.getIdPlan() != null, "idPlan");
+
+        return ResultObject.createSuccess("selectCurrentStep", ResultObject.DATA_TYPE_OBJECT,
+                pfPlanManageService.selectCurrentStep(dto));
+    }
+
+    /**
      * 新增计划
      *
      * @param dto

@@ -35,6 +35,26 @@ public class PfPlanManageServiceImpl implements PfPlanManageService {
     private PfPlanManageDao pfPlanManageDao;
 
     @Override
+    public Integer selectCurrentStep(PlanDto dto) {
+        Long idPlan = dto.getIdPlan();
+        Integer stepNum = 1;
+        if (pfPlanManageDao.isExistStep7(idPlan)) {
+            stepNum = 7;
+        } else if (pfPlanManageDao.isExistStep6(idPlan)) {
+            stepNum = 6;
+        } else if (pfPlanManageDao.isExistStep5(idPlan)) {
+            stepNum = 5;
+        } else if (pfPlanManageDao.isExistStep4(idPlan)) {
+            stepNum = 4;
+        } else if (pfPlanManageDao.isExistStep3(idPlan)) {
+            stepNum = 3;
+        } else if (pfPlanManageDao.isExistStep2(idPlan)) {
+            stepNum = 2;
+        }
+        return stepNum;
+    }
+
+    @Override
     public PageResult pagePlan(PlanDto dto) {
         PageParam.initPageDto(dto);
         return ResultFactory.initPageResultWithSuccess(pfPlanManageDao.countPlanManage(dto),

@@ -75,7 +75,11 @@ layui.config({
 
     function editPlan(data) {
         var idPlan = data ? data.idPlan : '';
-        $('#editPlan').text("编辑[" + data.naPlan + "]计划");
+        if (idPlan) {
+            $('#editPlan').text("编辑[" + data.naPlan + "]计划");
+        } else {
+            $('#editPlan').text("新增实训计划");
+        }
         $('#editPlan').attr('lay-href', basePath + '/pf/p/plan/manage/form?idPlan=' + idPlan);
         $('#editPlan').click();
     }

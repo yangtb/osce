@@ -110,14 +110,6 @@ public interface PfPlanManageDao {
     int addStudent(TpStudentDto dto);
 
     /**
-     * 删除计划下所有学生
-     *
-     * @param idPlan 计划ID
-     * @return
-     */
-    int delPlanStudent(@Param("idPlan") Long idPlan);
-
-    /**
      * 删除学员
      *
      * @param dto
@@ -158,9 +150,57 @@ public interface PfPlanManageDao {
     /**
      * 发布计划
      *
-     * @param idPlan
+     * @param idPlan 计划id
      * @return
      */
     int publishPlan(@Param("idPlan") Long idPlan);
+
+    /**
+     * 第7步
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    boolean isExistStep7(@Param("idPlan") Long idPlan);
+
+    /**
+     * 第6步
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    boolean isExistStep6(@Param("idPlan") Long idPlan);
+
+    /**
+     * 第5步
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    boolean isExistStep5(@Param("idPlan") Long idPlan);
+
+    /**
+     * 第4步
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    boolean isExistStep4(@Param("idPlan") Long idPlan);
+
+    /**
+     * 第3步
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    boolean isExistStep3(@Param("idPlan") Long idPlan);
+
+    /**
+     * 第2步
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    boolean isExistStep2(@Param("idPlan") Long idPlan);
 
 }

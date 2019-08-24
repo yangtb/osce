@@ -198,8 +198,8 @@
             <div class="layui-card-body" style="padding-top: 5px;">
 
                 <div class="rebinding-box" style="height: 520px; margin: 0 auto;">
-                    <div class="box-timeline">
-                        <ul class="text-center" style="width: 600px;">
+                    <div class="box-timeline" >
+                        <ul class="text-center" style="padding-left: 200px">
                             <li>
                                 选择题集
                                 <div id="step1">
@@ -524,27 +524,6 @@
     <input type="checkbox" lay-skin="primary" value="{{d.idItem}}" lay-filter="checkItemFilter" {{ d.fgMust == '1' ? 'checked' : '' }}>
 </script>
 
-
-<script type="text/javascript">
-    var onebtns=document.getElementById("onebtn");
-    var twobtns=document.getElementById("twobtn");
-    var soutside1ab=document.getElementById("outside1abs");
-    var soutside2as=document.getElementById("outside2as");
-    var oneforms=document.getElementById("oneform");
-    var twoforms=document.getElementById("twoform");
-    var threeforms=document.getElementById("threeform");
-    function fun(a){
-        document.getElementById("step" + a).classList.remove("outside0ab");
-        /*oneforms.style.display="none";
-        twoforms.style.display="block";*/
-    }
-    function fun1(){
-       /* threeforms.style.display="block";
-        twoforms.style.display="none";*/
-        soutside2as.classList.remove("outside0ab");
-
-    }
-</script>
 
 </body>
 </html>

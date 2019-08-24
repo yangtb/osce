@@ -40,7 +40,7 @@
 
                 <div class="rebinding-box" id="stepForm" style="margin: 0 auto;">
                     <div class="box-timeline">
-                        <ul class="text-center" style="width: 800px;">
+                        <ul class="text-center"  tyle="padding-left: 200px">
                             <li>
                                 考站定义
                                 <div id="step1">

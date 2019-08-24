@@ -402,4 +402,22 @@
         order by a.plan_day
         limit #{offset}, #{limit}
     </select>
+    <select id="isExistStep7" resultType="java.lang.Boolean">
+        SELECT count(1) FROM tp_plan a WHERE a.id_plan = #{idPlan} AND a.sd_plan_status >= 2
+    </select>
+    <select id="isExistStep6" resultType="java.lang.Boolean">
+        SELECT count(1) FROM v_tp_pick_list a WHERE a.id_plan = #{idPlan}
+    </select>
+    <select id="isExistStep5" resultType="java.lang.Boolean">
+        SELECT count(1) FROM tp_assistant a WHERE a.id_plan = #{idPlan}
+    </select>
+    <select id="isExistStep4" resultType="java.lang.Boolean">
+        SELECT count(1) FROM tp_sp a WHERE a.id_plan = #{idPlan}
+    </select>
+    <select id="isExistStep3" resultType="java.lang.Boolean">
+        SELECT count(1) FROM tp_ins_station a WHERE a.id_plan = #{idPlan}
+    </select>
+    <select id="isExistStep2" resultType="java.lang.Boolean">
+        SELECT count(1) FROM tp_student a WHERE a.id_plan = #{idPlan}
+    </select>
 </mapper>

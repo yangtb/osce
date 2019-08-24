@@ -27,7 +27,7 @@
 
                 <div class="rebinding-box" style="height: 560px; margin: 0 auto;">
                     <div class="box-timeline">
-                        <ul class="text-center" style="width: 600px;">
+                        <ul class="text-center" style="padding-left: 200px">
                             <li>
                                 SP病例
                                 <div id="step1">

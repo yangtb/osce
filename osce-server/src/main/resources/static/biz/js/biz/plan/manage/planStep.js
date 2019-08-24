@@ -3,14 +3,107 @@ layui.config({
 }).extend({
     index: 'lib/index', //主入口模块
     formSelects: 'formSelects-v4'
-}).use(['layer', 'index', 'form', 'jquery', 'step', 'element', 'common', 'laydate', 'tableSelect'], function () {
+}).use(['layer', 'index', 'form', 'jquery', 'element', 'common', 'laydate', 'tableSelect'], function () {
     var $ = layui.$
         , common = layui.common
         , form = layui.form
-        , step = layui.step
         , element = layui.element
         , laydate = layui.laydate
         , tableSelect = layui.tableSelect;
+
+    // 给step添加click事件
+    function bachAddStepEventListener(currentNum) {
+        // 最大步骤数
+        var maxNum = 7;
+        for (var i = 1; i <= maxNum; i++) {
+            if (maxNum == i) {
+                $("#step" + i).addClass("outside2a");
+            } else {
+                $("#step" + i).addClass("outside0ab");
+            }
+            $("#stepNum" + i).removeClass("box-num");
+            // 先移除点击点击事件
+            document.getElementById("stepNum" + i).removeEventListener('click', stepSkipClickListener);
+        }
+        for (var i = 1; i <= currentNum; i++) {
+            addStepEventListener(i);
+            if (maxNum == i) {
+                $("#step" + i).removeClass("outside2a");
+            } else {
+                $("#step" + i).removeClass("outside0ab");
+            }
+        }
+    }
+
+    function addStepEventListener(stepNum) {
+        document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
+        $("#stepNum" + stepNum).addClass("box-num");
+    }
+
+    function stepSkipClickListener() {
+        stepSkip(this.getAttribute('data-index'))
+    }
+
+    // 步骤跳转
+    function stepSkip(stepNum) {
+        if (stepNum <= 6) {
+            document.getElementById("step" + stepNum).classList.remove("outside0ab");
+        } else {
+            document.getElementById("step" + stepNum).classList.remove("outside2a");
+        }
+
+        $("#stepDiv" + stepNum).show();
+        $("#stepDiv" + stepNum).siblings(".stepDiv").hide();
+
+        loadStepData(stepNum);
+    }
+
+    function loadStepData(stepNum) {
+        if (stepNum == 2) {
+            $('#assignedStudentIframe').attr("src", basePath + "/pf/p/plan/manage/assigned/student/page?idPlan=" + $('#idPlan').val());
+        } else if (stepNum == 3) {
+            $('#stationPreviewIframe').attr("src",
+                basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val()
+                + '&idModel=' + $('#idModel').val()+ '&idModelFrom=' + $('#idModelFrom').val());
+        } else if (stepNum == 4) {
+            $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val());
+        } else if (stepNum == 5) {
+            $('#assistantIframe').attr("src", basePath + "/pf/p/plan/station/assistant?idPlan=" + $('#idPlan').val());
+        } else if (stepNum == 6) {
+            $('#pickIframe').attr("src", basePath + "/pf/p/plan/manage/tpPicking/page?idPlan=" + $('#idPlan').val());
+        } else if (stepNum == 7) {
+            $('#publishItemIframe').attr("src", basePath + "/pf/p/plan/station/publish/item/page?idPlan=" + $('#idPlan').val());
+        }
+
+    }
+
+    // 获取当前执行步骤
+    function getCurrentStep(idPlan) {
+        var bizData = {
+            idPlan: idPlan
+        };
+        $.ajax({
+            url: basePath + '/pf/r/plan/manage/select/currentStep',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    common.errorMsg(data.msg);
+                    return false;
+                } else {
+                    bachAddStepEventListener(data.data ? data.data : 1);
+                    return true;
+                }
+            },
+            error: function () {
+                common.errorMsg("获取当前步骤失败");
+                return false;
+            }
+        });
+    }
 
     tableSelect.render({
         elem: '#idReplanFromText',
@@ -85,6 +178,7 @@ layui.config({
         if (idPlan) {
             // 加载计划信息
             loadPlanInfo();
+            getCurrentStep(idPlan);
         } else {
             if (idModelFrom) {
                 // 默认考试模板
@@ -243,29 +337,6 @@ layui.config({
         $('#editTemplateHidden').click();
     });
 
-    step.render({
-        elem: '#stepForm',
-        filter: 'stepForm',
-        width: '100%', //设置容器宽度
-        stepWidth: '850px',
-        height: '1000px',
-        stepItems: [{
-            title: '考试定义'
-        }, {
-            title: '分配学员'
-        }, {
-            title: '排考预览'
-        }, {
-            title: '分配SP'
-        }, {
-            title: '分配考官'
-        }, {
-            title: '领料计划'
-        }, {
-            title: '发布清单'
-        }]
-    });
-
 
     form.on('submit(formStep)', function (data) {
         common.commonPost(basePath + '/pf/r/plan/manage/add',
@@ -283,13 +354,17 @@ layui.config({
     });
 
     form.on('submit(formStep2)', function (data) {
-        step.next('#stepForm');
+        //step.next('#stepForm');
+        stepSkip(4);
+        addStepEventListener(4);
         $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val())
         return false;
     });
 
     form.on('submit(formStep3)', function (data) {
-        step.next('#stepForm');
+        //step.next('#stepForm');
+        stepSkip(5);
+        addStepEventListener(5);
         $('#assistantIframe').attr("src", basePath + "/pf/p/plan/station/assistant?idPlan=" + $('#idPlan').val())
         return false;
     });
@@ -304,18 +379,21 @@ layui.config({
     });
 
     form.on('submit(formStep5)', function (data) {
-        step.next('#stepForm');
+        //step.next('#stepForm');
+        stepSkip(7);
+        addStepEventListener(7);
         $('#publishItemIframe').attr("src", basePath + "/pf/p/plan/station/publish/item/page?idPlan=" + $('#idPlan').val())
         return false;
     });
 
     $('.pre').click(function () {
-        step.pre('#stepForm');
+        //step.pre('#stepForm');
+        stepSkip(this.getAttribute('data-index'));
     });
 
-    $('.next').click(function () {
-        step.next('#stepForm');
-    });
+    /*$('.next').click(function () {
+        //step.next('#stepForm');
+    });*/
 
 
     function savePlanCallback(data){
@@ -330,18 +408,25 @@ layui.config({
             }
             $('#assignedStudentIframe').attr("src", basePath + "/pf/p/plan/manage/assigned/student/page?idPlan=" + sucData.idPlan)
         }
-        step.next('#stepForm');
+        //step.next('#stepForm');
+        stepSkip(2);
+        addStepEventListener(1);
+        addStepEventListener(2);
     }
 
     function callStationPlanOrderCallback() {
-        step.next('#stepForm');
+        //step.next('#stepForm');
+        stepSkip(3);
+        addStepEventListener(3);
         $('#stationPreviewIframe').attr("src",
             basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val()
             + '&idModel=' + $('#idModel').val()+ '&idModelFrom=' + $('#idModelFrom').val())
     }
 
     function callStationPickCallback() {
-        step.next('#stepForm');
+        //step.next('#stepForm');
+        stepSkip(6);
+        addStepEventListener(6);
         $('#pickIframe').attr("src", basePath + "/pf/p/plan/manage/tpPicking/page?idPlan=" + $('#idPlan').val())
     }
 

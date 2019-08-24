@@ -20,6 +20,14 @@ import java.util.List;
 public interface PfPlanManageService {
 
     /**
+     * 查询计划保存步骤
+     *
+     * @param dto
+     * @return
+     */
+    Integer selectCurrentStep(PlanDto dto);
+
+    /**
      * 实训计划list
      *
      * @param dto
