@@ -57,7 +57,7 @@ layui.config({
     //自定义验证规则
     form.verify({
         passMy: function (value) {
-            if (!value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/)) {
+            if (value && !value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/)) {
                 return '至少包含1个大写字母，1个小写字母和1个数字的8-16位密码';
             }
         }
@@ -77,6 +77,8 @@ layui.config({
             $('#clearPassword').attr("disabled", "true");
             $('#clearPassword2').addClass("layui-disabled");
             $('#clearPassword2').attr("disabled", "true");
+            $("#clearPassword").val('');
+            $("#clearPassword2").val('');
         }
     });
 
@@ -96,6 +98,20 @@ layui.config({
             $('#sex').focus();
             common.errorMsg("请选择性别");
             return false;
+        }
+
+        if (!data.field.enabled) {
+            if (!$("#clearPassword").val()) {
+                $('#clearPassword').focus();
+                layer.tips('请输入登录密码', '#clearPassword', {tips: 1});
+                return false;
+            }
+
+            if (!$("#clearPassword2").val()) {
+                $('#clearPassword2').focus();
+                layer.tips('请输入确认密码', '#clearPassword2', {tips: 1});
+                return false;
+            }
         }
 
         // 判断2次密码是不是一致
@@ -135,9 +151,7 @@ layui.config({
                     if (formType == 'edit') {
                         parent.layui.common.refreshCurrentPage();
                     } else {
-                        parent.layui.table.reload('studentTableId', {
-                            height: 'full-110'
-                        });
+                        parent.layui.table.reload('studentTableId');
                     }
                     return true;
                 }

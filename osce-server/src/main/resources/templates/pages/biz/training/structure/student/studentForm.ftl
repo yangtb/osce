@@ -150,7 +150,7 @@
                     <label class="layui-form-label">登录密码</label>
                     <div class="layui-input-inline">
                         <input type="hidden" name="password" id="encryptPassword">
-                        <input type="password" id="clearPassword" lay-verify="passMy" autocomplete="off" placeholder="请输入密码"
+                        <input type="password" id="clearPassword" lay-verify="passMy" lay-vertype="tips" autocomplete="off" placeholder="请输入密码"
                                class="layui-input layui-disabled" disabled>
                     </div>
                     <div class="layui-form-mid layui-word-aux">8-16位，至少包含1个大写字母、小写字母、数字</div>
@@ -160,7 +160,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">确认密码</label>
                     <div class="layui-input-inline">
-                        <input type="password" id="clearPassword2" lay-verify="passMy" autocomplete="off" placeholder="请确认密码"
+                        <input type="password" id="clearPassword2" lay-verify="passMy" lay-vertype="tips" autocomplete="off" placeholder="请确认密码"
                                class="layui-input layui-disabled" disabled>
                     </div>
                     <div class="layui-form-mid layui-word-aux">2次输入密码必须一致</div>
