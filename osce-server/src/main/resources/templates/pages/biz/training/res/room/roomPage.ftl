@@ -33,13 +33,13 @@
     <form class="layui-form">
         <div class="layui-inline">
             <div class="layui-btn-group">
-                <button type="button" class="layui-btn" id="add">
+                <button type="button" class="layui-btn layui-btn-sm" id="add">
                     <i class="layui-icon layui-icon-add-1"></i>增加
                 </button>
-                <button type="button" class="layui-btn" id="edit">
+                <button type="button" class="layui-btn layui-btn-sm" id="edit">
                     <i class="layui-icon layui-icon-edit"></i>编辑
                 </button>
-                <button type="button" class="layui-btn layui-btn-danger" id="del">
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
                     <i class="iconfont icon-batch-del"></i> 删除
                 </button>
                 <#--<button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="record">
@@ -49,7 +49,7 @@
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn" lay-submit lay-filter="roomSearchFilter">
+                <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="roomSearchFilter">
                     <i class="iconfont icon-refresh"></i> 刷新
                 </button>
             </div>
