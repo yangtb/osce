@@ -22,6 +22,8 @@
 	    AND sf.function_type = 1
 	    AND ur.is_deleted = 'N'
 	    AND srm.is_deleted = 'N'
+	    group by ur.user_id, ur.role_id, sf.id, sf.function_url, sf.name, sf.level,
+            sf.icon_source, sf.code, sf.parent_code, sf.position, sf.target
         ORDER BY
             sf.level, sf.sort_num
     </select>
