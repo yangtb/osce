@@ -79,7 +79,11 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         var idModel = currentEditData ? currentEditData.idModel : '';
-        $('#editTemplate').text("编辑[" + currentEditData.naModel + "]模板");
+        if (idModel) {
+            $('#editTemplate').text("编辑[" + currentEditData.naModel + "]模板");
+        }  else {
+            $('#editTemplate').text("新增实训模板");
+        }
         $('#editTemplate').attr('lay-href', basePath + '/pf/p/plan/template/form?idModel=' + idModel);
         $('#editTemplate').click();
     };
