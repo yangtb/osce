@@ -43,7 +43,7 @@ layui.config({
     var idExec;
 
     function fullPageHead(data, endFlag) {
-        console.log(data);
+        // console.log(data);
         idExec = data.idExec;
         $('#name-queue').text(data.realName + " " + data.noReg);
         $('#currStudentPhoneNo').text(data.phoneNo);

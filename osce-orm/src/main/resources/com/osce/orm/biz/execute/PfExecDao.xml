@@ -122,6 +122,7 @@
         AND a.id_user_student = #{userId}
         AND a.id_room = #{idRoom}
         AND a.id_org = #{idOrg}
+        AND d.sd_exec_queue = '5'
     </select>
     <select id="selectTest" resultType="com.osce.vo.biz.execute.ExecTestVo">
         SELECT
@@ -144,6 +145,7 @@
         AND a.id_org = #{idOrg}
         AND a.id_area = #{idArea}
         AND a.time_section = #{timeSection}
+        AND d.sd_exec_queue in ('3', '4')
     </select>
     <select id="selectsStuTestInfo" resultType="com.osce.vo.biz.execute.TestStuVo">
         SELECT
@@ -162,7 +164,8 @@
             d.id_exec
         FROM
             es_exec_queue a
-        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+        LEFT JOIN org_student_depart e ON e.id_student_depart = a.id_user_student
+        LEFT JOIN user_info b ON e.id_user = b.user_id
         LEFT JOIN we_waiting_reg c ON a.id_waiting_reg = c.id_waiting_reg
         LEFT JOIN we_exec d ON a.id_exec_queue = d.id_exec_queue
         WHERE
@@ -228,6 +231,14 @@
         WHERE
             a.id_item_store = #{idPaper}
         AND a.fg_active = '1'
+    </select>
+    <select id="selectExecStatus" resultType="java.lang.Integer">
+        SELECT
+            a.sd_exec_queue
+        FROM
+            es_exec_queue a
+        WHERE
+            a.id_exec_queue = #{idExecQueue}
     </select>
 
 

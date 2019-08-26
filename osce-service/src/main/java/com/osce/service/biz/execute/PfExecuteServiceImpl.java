@@ -45,7 +45,7 @@ public class PfExecuteServiceImpl implements PfExecuteService {
         if (execAuthVo == null) {
             throw new RestException(RestErrorCode.EXEC_AUTH_STU_NOT_EXIST);
         }
-        if ("1".equals(execAuthVo.getSdExecQueue())) {
+        if (execAuthVo.getSdExecQueue() == 1) {
             // 2.认证
             ExecAuthDto execAuthDto = new ExecAuthDto();
             execAuthDto.setParIdExecQueue(execAuthVo.getIdExecQueue());
@@ -84,10 +84,18 @@ public class PfExecuteServiceImpl implements PfExecuteService {
 
     @Override
     public boolean startTest(ExecAuthDto dto) {
-        pfExecDao.execAuth(dto);
-        if (dto.getParCode() != 0) {
-            logger.error("调用存储过程[P_QUEUE_UPDATE]出错, param : {} ", dto.toString());
-            throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
+        boolean execFlag = true;
+        if (dto.getParSdExecQueue() == 4) {
+            if (pfExecDao.selectExecStatus(dto.getParIdExecQueue()) >= 4) {
+                execFlag = false;
+            }
+        }
+        if (execFlag) {
+            pfExecDao.execAuth(dto);
+            if (dto.getParCode() != 0) {
+                logger.error("调用存储过程[P_QUEUE_UPDATE]出错, param : {} ", dto.toString());
+                throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
+            }
         }
         return true;
     }

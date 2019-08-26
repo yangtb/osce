@@ -76,6 +76,8 @@ layui.config({
             statusText = '叫号已认证';
         } else if (data.sdExecQueue == 4) {
             statusText = '考试开始';
+        } else if (data.sdExecQueue == 5) {
+            statusText = '已交卷';
         }
         $("#currStudentStatus").text(statusText);
         $("#idCard").val(data.idCard);
@@ -112,7 +114,7 @@ layui.config({
     }
 
     function fullTest(data) {
-        console.log(data)
+        // console.log(data)
         $("#testCard").empty();
         $("#testCard").append(buildTestCardHtml(data));
         testEventListener();

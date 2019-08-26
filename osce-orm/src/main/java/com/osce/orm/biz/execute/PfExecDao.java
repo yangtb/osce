@@ -106,4 +106,12 @@ public interface PfExecDao {
      */
     TestResultVo countTestResult(@Param("idPaper") Long idPaper);
 
+    /**
+     * 获取执行状态
+     *
+     * @param idExecQueue 执行id
+     * @return
+     */
+    Integer selectExecStatus(@Param("idExecQueue") Long idExecQueue);
+
 }
