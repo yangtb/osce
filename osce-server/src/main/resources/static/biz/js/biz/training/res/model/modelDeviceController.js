@@ -61,7 +61,11 @@ layui.config({
         , accept: 'images' //普通文件
         , exts: 'jpg|png|bmp|jpeg'
         , before: function (obj) {
-            layer.msg('正在上传', {icon: 16, shade: 0.01});
+            layer.msg('正在上传', {
+                icon: 16,
+                shade: 0.01,
+                time: false
+            });
         }
         , done: function (res) {
             if (res.code != '0') {
@@ -72,10 +76,10 @@ layui.config({
                 return;
             }
             $('#picDiviceCase').val(res.data.path);
-            layer.closeAll('loading');
+            layer.closeAll();
         }
         , error: function () {
-            layer.closeAll('loading');
+            layer.closeAll();
         }
     });
 
@@ -106,8 +110,8 @@ layui.config({
     });
 
     form.on('submit(addModelDevice)', function (data) {
-        if (!data.field.fgActive) {
-            data.field.fgActive = '0';
+        if (!data.field.fgScrap) {
+            data.field.fgScrap = '0';
         }
         data.field.idDevice = idDevice;
         common.commonPost(basePath + '/pf/r/model/device/save', data.field, '保存', '', _callBack);

@@ -39,8 +39,9 @@ public class PfModelController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
     @RequestMapping("/pf/p/model/form")
-    public String form(String formType, Model model) {
+    public String form(String formType, String fgConsumables, Model model) {
         model.addAttribute("formType", formType);
+        model.addAttribute("fgConsumables", fgConsumables);
         model.addAttribute("deviceUnitList", enumUtil.getEnumList(SysDicGroupEnum.SD_DEVICE_UNIT.getCode()));
         return "pages/biz/training/res/model/modelTagForm";
     }

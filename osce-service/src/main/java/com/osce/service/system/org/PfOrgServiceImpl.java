@@ -66,8 +66,8 @@ public class PfOrgServiceImpl implements PfOrgService {
     }
 
     @Override
-    public List<PfTreeSelectVo> selectOrgTreeSelect() {
-        return pfOrgDao.selectOrgTreeSelect();
+    public List<PfTreeSelectVo> selectOrgTreeSelect(Long idOrg) {
+        return pfOrgDao.selectOrgTreeSelect(idOrg);
     }
 
 }

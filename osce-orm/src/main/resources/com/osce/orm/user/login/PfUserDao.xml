@@ -290,15 +290,22 @@
     </select>
     <select id="selectStudentByIdCard" resultType="com.osce.vo.biz.show.ShowStuVo">
         SELECT
-            a.user_id ,
-            a.real_name ,
-            a.phone_no ,
-            a.idcard ,
-            a.photo_addr
+            org_student_depart.id_student_depart ,
+            user_info.real_name ,
+            user_info.phone_no ,
+            user_info.idcard ,
+            user_info.photo_addr
         FROM
-            user_info a
+            user_info
+        JOIN user_role ON user_info.user_id = user_role.user_id
+        JOIN sys_role ON user_role.role_id = sys_role.role_id
+        JOIN org_student_depart ON user_info.user_id = org_student_depart.id_user
+        JOIN org_grade ON org_student_depart.id_grade = org_grade.id_grade
         WHERE
-            a.idcard = #{idCard}
+            sys_role.code = 'MCST'
+        AND user_info.idcard = #{idCard}
+        AND org_grade.fg_active = 1
+        AND org_grade.fg_valid = 0
         limit 1
     </select>
 

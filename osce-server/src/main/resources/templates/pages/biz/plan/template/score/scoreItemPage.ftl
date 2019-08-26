@@ -35,7 +35,7 @@
 <div>
     <form class="layui-form">
         <div class="layui-input-inline">
-            <select id="idScoreSheet" lay-verify="required">
+            <select id="idScoreSheet" lay-filter="idScoreSheetFilter" lay-verify="required">
             </select>
         </div>
         <div class="layui-inline">

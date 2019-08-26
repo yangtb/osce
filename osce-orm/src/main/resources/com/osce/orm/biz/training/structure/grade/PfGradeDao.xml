@@ -96,9 +96,6 @@
             <if test="sort != null">
                 sort = #{sort},
             </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
-            </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
             </if>

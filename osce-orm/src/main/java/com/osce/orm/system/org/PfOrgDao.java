@@ -69,8 +69,9 @@ public interface PfOrgDao {
     /**
      * 机构treeSelect
      *
+     * @param idOrg 机构id
      * @return
      */
-    List<PfTreeSelectVo> selectOrgTreeSelect();
+    List<PfTreeSelectVo> selectOrgTreeSelect(@Param("idOrg") Long idOrg);
 
 }

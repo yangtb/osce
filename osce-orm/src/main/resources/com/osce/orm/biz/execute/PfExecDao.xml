@@ -74,10 +74,10 @@
     </update>
 
     <select id="selectStuInfo" resultType="com.osce.vo.biz.execute.ExecAuthVo">
-        SELECT
+       SELECT
             a.id_exec_queue ,
             a.sd_exec_queue ,
-            b.user_id ,
+            d.id_student_depart as user_id ,
             b.real_name ,
             b.phone_no ,
             b.idcard AS idCard ,
@@ -86,8 +86,9 @@
             c.no_reg
         FROM
             es_exec_queue a
-        LEFT JOIN user_info b ON a.id_user_student = b.user_id
-        left join we_waiting_reg c on a.id_waiting_reg = c.id_waiting_reg
+	    LEFT JOIN org_student_depart d ON a.id_user_student = d.id_student_depart
+        LEFT JOIN user_info b ON d.id_user = b.user_id
+        LEFT join we_waiting_reg c on a.id_waiting_reg = c.id_waiting_reg
         WHERE
             b.idcard = #{idCard}
         AND a.id_room = #{idRoom}
@@ -139,7 +140,7 @@
         WHERE
             a.sd_skill_ca = '1'
         AND a.id_user_student = #{userId}
-        AND a.id_room = 5
+        AND a.id_room = #{idRoom}
         AND a.id_org = #{idOrg}
         AND a.id_area = #{idArea}
         AND a.time_section = #{timeSection}

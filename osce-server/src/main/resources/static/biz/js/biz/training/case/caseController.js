@@ -109,7 +109,7 @@ layui.config({
                 messageTitle += ', ';
             }
             messageTitle += '【' + content.naSpCase + '】';
-            reqData.push(content.idCase);
+            reqData.push(content.id);
         });
 
         /*if(delFlag) {
@@ -122,9 +122,10 @@ layui.config({
             return false;
         }*/
 
-        var data = {};
-        data.list = reqData;
-        data.status = '1';
+        var data = {
+            list : reqData,
+            status : '1'
+        };
         layer.confirm('确定删除' + messageTitle + '么？', {
             title: '删除病例提示',
             resize: false,

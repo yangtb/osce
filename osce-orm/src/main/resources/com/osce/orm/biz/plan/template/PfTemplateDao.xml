@@ -376,9 +376,6 @@
             <if test="creator != null and creator!=''">
                 creator = #{creator},
             </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
-            </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
             </if>

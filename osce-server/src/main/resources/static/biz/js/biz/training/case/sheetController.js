@@ -22,14 +22,22 @@ layui.config({
             {field: 'gmtCreate', width: 170, title: '创建时间'},
             {fixed: 'right', width: 140, title: '操作', align: 'center', toolbar: '#sheetBar'}
         ]] //设置表头
-        , url: basePath + '/pf/p/case/item/list'
+        // , url: basePath + '/pf/p/case/item/list'
         , limit: 15
         , even: true
         , limits: [15, 30, 100]
         , page: true
-        , where : {
-            idCase : idCase
-        }
+    });
+
+    form.on('select(idScoreSheetFilter)', function(data){
+        table.reload('sheetTableId', {
+            url: basePath + '/pf/p/case/item/list' ,
+            height: 'full-50',
+            where : {
+                idCase : idCase ,
+                idScoreSheet : data.value
+            }
+        });
     });
 
     $('#addSheet').on('click', function () {
@@ -78,6 +86,15 @@ layui.config({
         var idScoreSheet = $('#idScoreSheet option:selected').val();
         $("#idScoreSheet option[value='" + idScoreSheet + "']").remove();
         form.render();
+
+        table.reload('sheetTableId', {
+            url: basePath + '/pf/p/case/item/list' ,
+            height: 'full-50',
+            where : {
+                idCase : idCase ,
+                idScoreSheet : $('#idScoreSheet option:selected').val()
+            }
+        });
     }
 
 
@@ -194,10 +211,11 @@ $(document).ready(function(){
     _setSheet();
 });
 
-var _setSheet = function () {
-    layui.use(['jquery', 'form','common'],function(){
+var _setSheet = function (idScoreSheet) {
+    layui.use(['jquery', 'form', 'table','common'],function(){
         var $ = layui.$
             , form = layui.form
+            , table = layui.table
             , common = layui.common;
         var bizData = {
             "idCase" : idCase
@@ -220,7 +238,20 @@ var _setSheet = function () {
                     $.each(listData, function (index, content) {
                         $('#idScoreSheet').append("<option value='" + content.idScoreSheet + "'>" + content.naScoreSheet + "</option>");
                     });
+                    if (idScoreSheet) {
+                        $("#idScoreSheet").val(idScoreSheet);
+                    }
                     form.render();
+
+                    table.reload('sheetTableId', {
+                        url: basePath + '/pf/p/case/item/list' ,
+                        height: 'full-50',
+                        where : {
+                            idCase : idCase ,
+                            idScoreSheet : $('#idScoreSheet option:selected').val()
+                        }
+                    });
+
                     return true;
                 }
             },

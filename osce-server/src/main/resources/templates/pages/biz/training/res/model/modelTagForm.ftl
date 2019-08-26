@@ -22,7 +22,7 @@
     <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 0px">
         <ul class="layui-tab-title">
             <li class="layui-this">设备定义</li>
-            <#if formType == 'edit'>
+            <#if (formType == 'edit') && (fgConsumables != '1') >
                 <li>设备实例</li>
             </#if>
         </ul>
@@ -188,6 +188,12 @@
                     $('#numWarn').addClass("layui-disabled");
                 }
                 layui.form.render();
+
+                if (data.unmStock && data.numWarn) {
+                    if (parseInt(data.unmStock) < parseInt(data.numWarn)) {
+                        $('#unmStock').css("color", "red");
+                    }
+                }
             });
 
         });

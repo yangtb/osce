@@ -115,7 +115,7 @@
                 <label class="layui-form-label">上级部门</label>
                 <div class="layui-input-block" >
                     <input type="text" name="idDepartParName" id="idDepartParName" autocomplete="off"
-                           class="layui-input" placeholder="上级部门（点击左侧选择）">
+                           class="layui-input" placeholder="上级部门（左侧树右键点'添加'选择）">
                 </div>
             </div>
 

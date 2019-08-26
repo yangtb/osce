@@ -245,9 +245,6 @@
             <if test="creator != null and creator!=''">
                 creator = #{creator},
             </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
-            </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
             </if>
@@ -316,6 +313,9 @@
             b.id_case = #{idCase}
         AND a.id_org = #{idOrg}
         AND a.fg_valid = '0'
+        <if test="idScoreSheet != null">
+            AND a.id_score_sheet = #{idScoreSheet}
+        </if>
         limit #{offset}, #{limit}
     </select>
     <select id="countItem" resultType="java.lang.Long">
@@ -328,5 +328,8 @@
             b.id_case = #{idCase}
         AND a.id_org = #{idOrg}
         AND a.fg_valid = '0'
+        <if test="idScoreSheet != null">
+            AND a.id_score_sheet = #{idScoreSheet}
+        </if>
     </select>
 </mapper>

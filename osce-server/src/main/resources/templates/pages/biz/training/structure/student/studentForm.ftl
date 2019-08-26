@@ -14,6 +14,7 @@
     <script>
         var formType = '${formType!}';
         var publicKey = '${publicKey!}';
+        var idOrg = '${idOrg!}';
         var basePath = '${basePath!}';
         var contextPath = '${contextPath!}';
     </script>
@@ -204,7 +205,10 @@
                     placeholder: '请选择机构',
                     // 加载完成后的回调函数
                     success: function (d) {
-                        treeSelect.checkNode('orgTree', data.idOrg);
+                        if (formType == 'add') {
+                            treeSelect.checkNode('orgTree', data.idOrg);
+                        }
+
                     }
                 });
 

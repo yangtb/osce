@@ -13,6 +13,7 @@
 
     <script>
         var formType = '${formType!}';
+        var idOrg = '${idOrg!}';
         var basePath = '${basePath!}';
         var contextPath = '${contextPath!}';
     </script>

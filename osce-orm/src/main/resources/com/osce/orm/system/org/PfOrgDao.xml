@@ -134,9 +134,6 @@
             <if test="creator != null and creator!=''">
                 creator = #{creator},
             </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
-            </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
             </if>
@@ -173,6 +170,8 @@
             id_org, na_org , tell , email , fg_active
         FROM
             sys_org
+        WHERE
+            fg_valid = '0'
         ORDER BY sort, fg_active
     </select>
 
@@ -230,7 +229,14 @@
             sys_org
         WHERE
             fg_active = '1'
-        and id_org_par is null
+        <choose>
+            <when test="idOrg != null">
+                and id_org = #{idOrg}
+            </when>
+            <otherwise>
+                and id_org_par is null
+            </otherwise>
+        </choose>
     </select>
     <select id="selectChildOrg" resultMap="orgTreeResultMap">
         SELECT

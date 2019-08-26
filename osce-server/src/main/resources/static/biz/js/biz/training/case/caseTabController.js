@@ -110,7 +110,7 @@ layui.config({
         , field: 'file'
         , accept: 'file' //普通文件
         , number : 0
-        , exts: 'jpg|jpeg|png|mp3|wav|ogg|mp4|avi|wmv|3gp|mkv|f4v|rmvb'
+        , exts: 'doc|docx|jpg|jpeg|png|mp3|wav|ogg|mp4|avi|wmv|3gp|mkv|f4v|rmvb|word'
         , before: function (obj) {
             layer.msg('正在上传剧本，若文件过大，请耐心等待', {
                 icon: 16,
@@ -137,7 +137,7 @@ layui.config({
     $('#preview').on('click', function () {
         var path = $("#docSp").val();
         if (!path) {
-            layer.tips("请先上传剧本", '#preview', {
+            layer.tips("请先上传剧本", '#LAY_avatarUpload', {
                 tips: [1, '#FF5722']
             });
             return;
@@ -153,8 +153,18 @@ layui.config({
             || fileType == 'gp3' || fileType == 'mkv' || fileType == 'f4v' || fileType == 'rmvb') {
             common.openTopVideo(basePath + '/video/form?path=' + path, 890, 504);
         } else {
-            layer.tips("该文件类型暂不支持预览", '#preview', {tips: 1});
+            layer.tips("该文件类型暂不支持预览，请下载后浏览", '#preview', {tips: 1});
         }
+    });
+
+    $('#downLoadDocSp').on('click', function () {
+        if (!$("#docSp").val()) {
+            layer.tips("请先上传剧本", '#LAY_avatarUpload', {
+                tips: [1, '#FF5722']
+            });
+           return false;
+        }
+        window.open($("#docSp").val());
     });
 
 });

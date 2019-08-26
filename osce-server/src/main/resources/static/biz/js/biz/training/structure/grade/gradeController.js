@@ -193,7 +193,7 @@ layui.config({
         } else {
             data.status = '0';
         }
-        common.commonPost(basePath + '/pf/r/grade/updateStatus', data, '设置', obj.othis);
+        common.commonPost(basePath + '/pf/r/grade/updateStatus', data, '设置', obj.othis, _gradeTableReload);
     });
 
 });

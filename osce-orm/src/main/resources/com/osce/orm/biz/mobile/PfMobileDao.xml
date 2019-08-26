@@ -249,7 +249,7 @@
         AND queue.id_area = #{idArea}
         AND queue.time_section = #{timeSection}
         AND queue.id_room = #{idRoom}
-        AND queue.sd_exec_queue = '1'
+        AND queue.sd_exec_queue in ('1', '2')
         ORDER BY
             id_exec_queue
     </select>

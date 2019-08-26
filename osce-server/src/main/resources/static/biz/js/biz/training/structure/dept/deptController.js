@@ -304,6 +304,7 @@ layui.config({
                         var selectedNode = zTree.getSelectedNodes()[0];
                         var newNode = {
                             id: data.data,
+                            idDepart: data.data,
                             name: naDepart
                         }
                         if (selectedNode) {

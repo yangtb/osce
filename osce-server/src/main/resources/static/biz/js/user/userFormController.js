@@ -91,7 +91,11 @@ layui.config({
         , accept: 'images' //普通文件
         , exts: 'jpg|png|bmp|jpeg'
         , before: function (obj) {
-            layer.msg('正在上传图片', {icon: 16, shade: 0.01});
+            layer.msg('正在上传图片', {
+                icon: 16,
+                shade: 0.01,
+                time: false
+            });
         }
         , done: function (res) {
             if (res.code != '0') {
@@ -102,10 +106,10 @@ layui.config({
                 return;
             }
             $('#LAY_avatarSrc').val(res.data.path);
-            layer.closeAll('loading');
+            layer.closeAll();
         }
         , error: function () {
-            layer.closeAll('loading');
+            layer.closeAll();
         }
     });
 

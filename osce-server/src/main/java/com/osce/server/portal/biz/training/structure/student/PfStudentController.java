@@ -72,15 +72,18 @@ public class PfStudentController extends BaseController {
     @PreAuthorize("hasAnyRole('ROLE_01_01_003','ROLE_SUPER')")
     @RequestMapping("/pf/p/student/form")
     public String form(String formType, Model model, HttpServletRequest request) {
-        model.addAttribute("formType", formType);
-        model.addAttribute("allGrade", pfGradeService.listAllGrades(CurrentUserUtils.getCurrentUserIdOrg()));
-        model.addAttribute("allStudent", pfDeptService.listAllDept(CurrentUserUtils.getCurrentUserIdOrg()));
         // 机构处理
         User user = CurrentUserUtils.getCurrentUser();
+
+        model.addAttribute("formType", formType);
+        model.addAttribute("idOrg", user.getIdOrg());
+        model.addAttribute("allGrade", pfGradeService.listAllGrades(user.getIdOrg()));
+        model.addAttribute("allStudent", pfDeptService.listAllDept(user.getIdOrg()));
+
         if (SysUserAuthUtils.isPlatOrSuper()) {
-            model.addAttribute("allOrg", pfOrgService.selectOrgTreeSelect());
+            model.addAttribute("allOrg", pfOrgService.selectOrgTreeSelect(null));
         } else {
-            List<PfTreeSelectVo> myOrgList = pfOrgService.selectOrgTreeSelect().stream()
+            List<PfTreeSelectVo> myOrgList = pfOrgService.selectOrgTreeSelect(null).stream()
                     .filter(sysOrg -> sysOrg.getId().equals(user.getIdOrg())).collect(Collectors.toList());
             model.addAttribute("allOrg", myOrgList);
         }

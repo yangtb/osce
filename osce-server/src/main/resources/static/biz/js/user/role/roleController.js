@@ -179,9 +179,7 @@ layui.config({
                 roleName += ', ';
             }
             roleName += content.name;
-            var param = {};
-            param.roleId = content.roleId;
-            reqData.push(param);
+            reqData.push(content.roleId);
         });
 
         layer.confirm('真的要删除角色【' + roleName + '】么？', {
@@ -196,6 +194,7 @@ layui.config({
     });
 
     var _delRole = function (index, reqData) {
+        console.log(JSON.stringify(reqData))
         layer.load(2);
         $.ajax({
             url: basePath + '/pf/r/role/del',
@@ -374,7 +373,7 @@ layui.config({
                 return false;
             }
         });
-        var bodyHeight = $(this).height() - $("#treeTitle").height() - 26;
+        var bodyHeight = $(this).height() - $("#treeTitle").height() - 34;
         $("#treeDiv").css("max-height", bodyHeight);
 
     });

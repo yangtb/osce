@@ -25,6 +25,11 @@ public class ShowStuVo implements Serializable {
     private Long userId;
 
     /**
+     * 关系id
+     */
+    private Long idStudentDepart;
+
+    /**
      * 姓名
      */
     private String realName;

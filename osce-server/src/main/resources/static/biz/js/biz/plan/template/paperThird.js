@@ -285,9 +285,13 @@ layui.config({
         , url: basePath + '/upload'
         , field: 'file'
         , accept: 'file' //普通文件
-        //, exts: 'jpg|png|bmp|jpeg'
+        , exts: 'doc|docx|jpg|jpeg|png|mp3|wav|ogg|mp4|avi|wmv|3gp|mkv|f4v|rmvb|word'
         , before: function (obj) {
-            layer.msg('正在上传剧本', {icon: 16, shade: 0.01});
+            layer.msg('正在上传剧本', {
+                icon: 16,
+                shade: 0.01,
+                time: false
+            });
         }
         , done: function (res) {
             if (res.code != '0') {
@@ -298,32 +302,44 @@ layui.config({
                 return;
             }
             $('#docSp').val(res.data.path);
-            layer.closeAll('loading');
+            layer.closeAll();
         }
         , error: function () {
-            layer.closeAll('loading');
+            layer.closeAll();
         }
     });
 
     $('#preview').on('click', function () {
-        var i = $("#docSp").val();
-        if (!i) {
-            layer.tips("请先上传剧本", '#preview', {
+        var path = $("#docSp").val();
+        if (!path) {
+            layer.tips("请先上传剧本", '#LAY_avatarUpload', {
                 tips: [1, '#FF5722']
             });
             return;
         }
-        layui.layer.photos({
-            photos: {
-                title: "查看布局图",
-                data: [{
-                    src: i
-                }]
-            },
-            shade: .01,
-            closeBtn: 1,
-            anim: 5
-        })
+
+        var fileType = path.substring(path.lastIndexOf(".") + 1 , path.length);
+
+        if (fileType == 'jpg' || fileType == 'jpeg' || fileType == 'png') {
+            common.openSinglePhoto(path);
+        } else if (fileType == 'mp3' || fileType == 'wav' || fileType == 'ogg') {
+            common.openAudio(path.substring(0, path.lastIndexOf(".")));
+        } else if (fileType == 'mp4' || fileType == 'avi' || fileType == 'wmv'
+            || fileType == 'gp3' || fileType == 'mkv' || fileType == 'f4v' || fileType == 'rmvb') {
+            common.openTopVideo(basePath + '/video/form?path=' + path, 890, 504);
+        } else {
+            layer.tips("该文件类型暂不支持预览，请下载后浏览", '#preview', {tips: 1});
+        }
+    });
+
+    $('#downLoadDocSp').on('click', function () {
+        if (!$("#docSp").val()) {
+            layer.tips("请先上传剧本", '#LAY_avatarUpload', {
+                tips: [1, '#FF5722']
+            });
+            return false;
+        }
+        window.open($("#docSp").val());
     });
 
 });

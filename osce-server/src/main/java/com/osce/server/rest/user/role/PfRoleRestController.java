@@ -28,7 +28,6 @@ import java.util.List;
  * @Date 2017/9/17 23:13
  */
 @Controller
-@RequestMapping(value = "/pf/r/role")
 public class PfRoleRestController {
 
     @Reference
@@ -43,7 +42,7 @@ public class PfRoleRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_ROLE_ADD','ROLE_SUPER')")
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/role/add", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject addRole(@RequestBody SysRole dto) {
         /* 参数校验 */
@@ -61,7 +60,7 @@ public class PfRoleRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_ROLE_EDIT','ROLE_SUPER')")
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/role/edit", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject editRole(@RequestBody SysRole dto) {
         /* 参数校验 */
@@ -79,7 +78,7 @@ public class PfRoleRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_ROLE_DEL','ROLE_SUPER')")
-    @RequestMapping(value = "/del", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/role/del", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject delRole(@RequestBody List<Long> roles) {
         /* 参数校验 */
@@ -95,7 +94,7 @@ public class PfRoleRestController {
      * @return
      */
     @PreAuthorize("hasAnyRole('ROLE_ROLE_CANCEL','ROLE_SUPER')")
-    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/role/cancel", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject cancelRole(@RequestBody PfRoleListDto roles) {
         /* 参数校验 */
@@ -124,7 +123,7 @@ public class PfRoleRestController {
      * 获取系统菜单【tree】
      */
     @PreAuthorize("hasAnyRole('ROLE_ROLE_ALL_MENU','ROLE_SUPER')")
-    @RequestMapping(value = "/list/tree", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/role/list/tree", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject listMenuTree() {
         return ResultObject.create("listMenuTree", ResultObject.SUCCESS_CODE, ResultObject.MSG_SUCCESS,
@@ -135,7 +134,7 @@ public class PfRoleRestController {
      * 获取角色拥有菜单
      */
     @PreAuthorize("hasAnyRole('ROLE_ROLE_OWN_MENU','ROLE_SUPER')")
-    @RequestMapping(value = "/list/role/tree", method = RequestMethod.POST)
+    @RequestMapping(value = "/pf/r/role/list/role/tree", method = RequestMethod.POST)
     @ResponseBody
     public ResultObject listMenuRoleTree(@RequestBody PfRoleCommonDto dto) {
         /* 参数校验 */

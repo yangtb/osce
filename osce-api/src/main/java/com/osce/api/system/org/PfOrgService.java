@@ -73,8 +73,9 @@ public interface PfOrgService {
     /**
      * 机构treeSelect
      *
+     * @param idOrg 机构id
      * @return
      */
-    List<PfTreeSelectVo> selectOrgTreeSelect();
+    List<PfTreeSelectVo> selectOrgTreeSelect(Long idOrg);
 
 }

@@ -181,8 +181,8 @@ layui.config({
             // 统计登记数目
             queryStudentRegisterNum();
             // 查询待考队列
-            currentUserId = data.userId;
-            selectStudentQueue(data.userId);
+            currentUserId = data.idStudentDepart;
+            selectStudentQueue(data.idStudentDepart);
         }
     }
 

@@ -30,7 +30,7 @@
         <#--<img style="width: 100%; max-height: 515px;" >-->
     </div>
 
-    <form class="layui-form">
+    <form class="layui-form" style="padding-top: 5px;">
         <div class="layui-inline">
             <div class="layui-btn-group">
                 <button type="button" class="layui-btn layui-btn-sm" id="add">

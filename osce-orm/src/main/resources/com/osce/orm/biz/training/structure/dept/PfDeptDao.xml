@@ -115,9 +115,6 @@
             <if test="creator != null and creator!=''">
                 creator = #{creator},
             </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
-            </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
             </if>
@@ -169,6 +166,8 @@
         <if test="idGrade != null">
         and id_grade = #{idGrade}
         </if>
+        ORDER BY
+            sort
     </select>
     <select id="selectDeptDetail" resultType="com.osce.entity.OrgDepart">
         SELECT

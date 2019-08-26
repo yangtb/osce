@@ -26,6 +26,9 @@ layui.config({
             },
             // 加载完成后的回调函数
             success: function (d) {
+                if (formType == 'add') {
+                    treeSelect.checkNode('orgTree', idOrg);
+                }
                 //console.log(d);
 //                选中节点，根据id筛选
                 //  treeSelect.checkNode('orgTree', 1);
@@ -57,7 +60,8 @@ layui.config({
     //自定义验证规则
     form.verify({
         passMy: function (value) {
-            if (value && !value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/)) {
+            var enabled = $("input:checkbox[name='enabled']:checked").val();
+            if (!enabled && !value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{8,16}$/)) {
                 return '至少包含1个大写字母，1个小写字母和1个数字的8-16位密码';
             }
         }
@@ -100,7 +104,7 @@ layui.config({
             return false;
         }
 
-        if (!data.field.enabled) {
+        if (formType =='add' && !data.field.enabled) {
             if (!$("#clearPassword").val()) {
                 $('#clearPassword').focus();
                 layer.tips('请输入登录密码', '#clearPassword', {tips: 1});
@@ -173,7 +177,11 @@ layui.config({
         , accept: 'images' //普通文件
         , exts: 'jpg|png|bmp|jpeg'
         , before: function (obj) {
-            layer.msg('正在上传图片', {icon: 16, shade: 0.01});
+            layer.msg('正在上传图片', {
+                icon: 16,
+                shade: 0.01,
+                time: false
+            });
         }
         , done: function (res) {
             if (res.code != '0') {
@@ -184,10 +192,10 @@ layui.config({
                 return;
             }
             $('#LAY_avatarSrc').val(res.data.path);
-            layer.closeAll('loading');
+            layer.closeAll();
         }
         , error: function () {
-            layer.closeAll('loading');
+            layer.closeAll();
         }
     });
 

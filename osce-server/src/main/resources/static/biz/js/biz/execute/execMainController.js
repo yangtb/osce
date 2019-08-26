@@ -177,7 +177,7 @@ layui.config({
 
     function startTest(status, idExecQueue) {
         var bizData = {
-            parSdExecQueue: status,
+            parSdExecQueue: 4,
             parIdExecQueue: idExecQueue
         }
         $.ajax({

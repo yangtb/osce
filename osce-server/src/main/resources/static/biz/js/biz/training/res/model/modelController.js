@@ -73,7 +73,7 @@ layui.config({
             var index = common.open('新增教学模型', basePath + '/pf/p/model/form?formType=' + formType, 550, 400);
             layer.full(index)
         } else {
-            var index = common.open('编辑教学模型', basePath + '/pf/p/model/form?formType=' + formType, 550, 400, _successFunction(currentEditData));
+            var index = common.open('编辑教学模型', basePath + '/pf/p/model/form?fgConsumables=' + currentEditData.fgConsumables + '&formType=' + formType, 550, 400, _successFunction(currentEditData));
             layer.full(index)
         }
     };

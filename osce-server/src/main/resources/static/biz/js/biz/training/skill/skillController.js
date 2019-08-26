@@ -112,7 +112,7 @@ layui.config({
                 messageTitle += ', ';
             }
             messageTitle += '【' + content.naSkillCase + '】';
-            reqData.push(content.idSkillCase);
+            reqData.push(content.id);
         });
 
         // 病例有使用记录不允许删除

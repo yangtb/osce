@@ -42,6 +42,7 @@ public class PfSpController extends BaseController {
     @RequestMapping("/pf/p/sp/form")
     public String form(String formType, Model model, HttpServletRequest request) {
         model.addAttribute("formType", formType);
+        model.addAttribute("idOrg", CurrentUserUtils.getCurrentUserIdOrg());
         model.addAttribute("allSpTag", pfSpService.listSpTag(CurrentUserUtils.getCurrentUserIdOrg()));
         return "pages/biz/training/structure/sp/spForm";
     }

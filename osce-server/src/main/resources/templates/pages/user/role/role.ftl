@@ -18,6 +18,17 @@
     var contextPath = '${contextPath}';
 </script>
 
+<style>
+    .layui-input, .layui-select {
+        height: 30px;
+        line-height: 1.3;
+        background-color: rgb(255, 255, 255);
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 2px;
+    }
+</style>
+
 <body>
 
 <div class="wrapper-content">
@@ -25,19 +36,19 @@
         <form class="layui-form">
             <div class="layui-inline">
                 <div class="layui-btn-group">
-                    <button type="button" class="layui-btn" id="add">增加</button>
-                    <button type="button" class="layui-btn" id="edit">编辑</button>
-                    <button type="button" class="layui-btn" id="cancel">作废</button>
-                    <button type="button" class="layui-btn layui-btn-danger" id="del">删除</button>
+                    <button type="button" class="layui-btn layui-btn-sm" id="add"><i class="layui-icon layui-icon-add-1"></i>增加</button>
+                    <button type="button" class="layui-btn layui-btn-sm" id="edit"><i class="layui-icon layui-icon-edit"></i>编辑</button>
+                    <button type="button" class="layui-btn layui-btn-sm" id="cancel"><i class="iconfont icon-cancel"></i> 作废</button>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del"><i class="iconfont icon-batch-del"></i> 删除</button>
                 </div>
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
                     <input type="text" name="queryCondition" placeholder="请输入角色名称" class="layui-input"
-                           autocomplete="off" style="width: 130px;">
+                           autocomplete="off" style="width: 130px; height: 30px;">
                 </div>
             </div>
-            <div class="layui-input-inline" style="width: 70px;">
+            <div class="layui-input-inline" style="width: 80px;">
                 <select name="state">
                     <option value="0" selected>有效</option>
                     <option value="1">无效</option>
@@ -45,11 +56,11 @@
             </div>
             <div class="layui-inline">
                 <div class="layui-input-inline">
-                    <button type="button" class="layui-btn" lay-submit lay-filter="roleSearchFilter">
+                    <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="roleSearchFilter">
                         <i class="iconfont icon-query"></i> 查询
                     </button>
-                    <button type="reset" class="layui-btn layui-btn-primary">
-                        <i class="iconfont icon-reset"></i> 重新填写
+                    <button type="reset" class="layui-btn layui-btn-sm layui-btn-primary">
+                        <i class="iconfont icon-reset"></i> 重填
                     </button>
                 </div>
             </div>

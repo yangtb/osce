@@ -80,7 +80,7 @@ public class PfShowServiceImpl implements PfShowService {
             throw new RestException(RestErrorCode.STUDENT_NOT_EXIST);
         }
         // 查询入场序号
-        dto.setUserId(showStuVo.getUserId());
+        dto.setUserId(showStuVo.getIdStudentDepart());
         Integer noReg = pfShowDao.selectNoReg(dto);
         if (noReg == null) {
             pfShowDao.aioStudentRegister(dto);

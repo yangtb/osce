@@ -15,6 +15,11 @@ layui.config({
             placeholder: '请选择机构',
             click: function (d) {
                 $("#idOrg").val(d.current.id);
+            },
+            success: function (d) {
+                if (formType == 'add') {
+                    treeSelect.checkNode('orgTree', idOrg);
+                }
             }
         });
     }

@@ -96,10 +96,11 @@
             b.phone_no ,
             CONCAT(LEFT(b.idcard,2), '**************', RIGHT(b.idcard,2)) as idcard ,
             date_format(a.gmt_reg , '%H:%i:%s') as gmt_reg,
-            b.user_id
+            d.id_student_depart AS user_id
         FROM
             we_waiting_reg a
-        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+        LEFT JOIN org_student_depart d ON a.id_user_student = d.id_student_depart
+        LEFT JOIN user_info b ON d.id_user = b.user_id
         WHERE
             a.id_org = #{idOrg}
         AND a.id_plan = #{idPlan}

@@ -15,7 +15,7 @@ layui.config({
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
-            {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
+            {field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
             {field: 'mainItem', minWidth: 250, title: '题干'},
             {field: 'sdItemCa', width: 100, title: '题目类型', templet: '#sdItemCaTpl'},
             {field: 'sdItemLevel', width: 100, title: '难度', templet: '#sdItemLevelTpl'},
@@ -30,13 +30,13 @@ layui.config({
     });
 
 
-    form.on('select(idItemSectionFilter)', function(data){
+    form.on('select(idItemSectionFilter)', function (data) {
         table.reload('itemManageTableId', {
-            url: basePath + '/pf/p/item/manage/list' ,
+            url: basePath + '/pf/p/item/manage/list',
             height: 'full-50',
-            where : {
-                idItemStore : idItemStore,
-                idItemSection : data.value
+            where: {
+                idItemStore: idItemStore,
+                idItemSection: data.value
             }
         });
     });
@@ -49,8 +49,8 @@ layui.config({
     });
 
     $('#delSection').on('click', function () {
-        var idItemSection =  $('#idItemSection option:selected').val(),
-            idItemSectionText =  $('#idItemSection option:selected').text();
+        var idItemSection = $('#idItemSection option:selected').val(),
+            idItemSectionText = $('#idItemSection option:selected').text();
         if (!idItemSection) {
             layer.tips('请先选中目录', '#idItemSection', {tips: 1});
             return false;
@@ -86,11 +86,20 @@ layui.config({
         var idItemSection = $('#idItemSection option:selected').val();
         $("#idItemSection option[value='" + idItemSection + "']").remove();
         form.render();
+
+        table.reload('itemManageTableId', {
+            url: basePath + '/pf/p/item/manage/list',
+            height: 'full-50',
+            where: {
+                idItemStore: idItemStore,
+                idItemSection: $('#idItemSection option:selected').val()
+            }
+        });
     }
 
 
     $('#addItem').on('click', function () {
-        var idItemSection =  $('#idItemSection option:selected').val();
+        var idItemSection = $('#idItemSection option:selected').val();
         if (!idItemSection) {
             layer.tips('请先新增目录', '#addSection', {tips: 1});
             return false;
@@ -143,7 +152,7 @@ layui.config({
         var data = {
             list: reqData
         };
-        layer.confirm('确定要删除题干【'+ currentData.mainItem +'】？', {
+        layer.confirm('确定要删除题干【' + currentData.mainItem + '】？', {
             title: '提示',
             resize: false,
             btn: ['确定', '取消'],
@@ -165,19 +174,19 @@ layui.config({
 });
 
 
-$(document).ready(function(){
+$(document).ready(function () {
     // 设置目录
     _setSection();
 });
 
-var _setSection = function () {
-    layui.use(['jquery', 'form', 'table', 'common'],function(){
+var _setSection = function (idItemSection) {
+    layui.use(['jquery', 'form', 'table', 'common'], function () {
         var $ = layui.$
             , form = layui.form
             , table = layui.table
             , common = layui.common;
         var bizData = {
-            "idItemStore" : idItemStore
+            "idItemStore": idItemStore
         };
         layer.load(2);
         $.ajax({
@@ -197,14 +206,17 @@ var _setSection = function () {
                     $.each(listData, function (index, content) {
                         $('#idItemSection').append("<option value='" + content.idItemSection + "'>" + content.naItemSection + "</option>");
                     });
+                    if (idItemSection) {
+                        $('#idItemSection').val(idItemSection);
+                    }
                     form.render();
 
                     table.reload('itemManageTableId', {
-                        url: basePath + '/pf/p/item/manage/list' ,
+                        url: basePath + '/pf/p/item/manage/list',
                         height: 'full-50',
-                        where : {
-                            idItemStore : idItemStore,
-                            idItemSection :$('#idItemSection option:selected').val()
+                        where: {
+                            idItemStore: idItemStore,
+                            idItemSection: $('#idItemSection option:selected').val()
                         }
                     });
                     return true;

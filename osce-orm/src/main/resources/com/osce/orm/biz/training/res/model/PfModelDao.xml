@@ -325,9 +325,6 @@
             <if test="creator != null and creator!=''">
                 creator = #{creator},
             </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
-            </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
             </if>
@@ -408,9 +405,6 @@
             </if>
             <if test="creator != null and creator!=''">
                 creator = #{creator},
-            </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
             </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
@@ -501,10 +495,10 @@
             sd_device_unit ,
             fg_consumables ,
             IF( fg_consumables = 1 ,
-                num_warn,
+            unm_stock,
                 (select count(1) from erp_device_case where id_device = erp_device.id_device and fg_valid = '0')
-            ) num_warn ,
-            unm_stock ,
+            ) unm_stock ,
+            num_warn ,
             fg_active ,
             fg_valid ,
             sort ,

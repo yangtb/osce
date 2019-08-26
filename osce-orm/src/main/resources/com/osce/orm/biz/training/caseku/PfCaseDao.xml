@@ -428,9 +428,6 @@
             <if test="creator != null and creator!=''">
                 creator = #{creator},
             </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
-            </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
             </if>
@@ -454,7 +451,7 @@
             operator = #{operator},
             gmt_modify = now()
         WHERE
-            id_case in (
+            id in (
         <foreach collection="list" item="item" separator="," >
             #{item}
         </foreach>
@@ -520,9 +517,6 @@
             </if>
             <if test="creator != null and creator!=''">
                 creator = #{creator},
-            </if>
-            <if test="gmtCreate != null">
-                gmt_create = #{gmtCreate},
             </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
@@ -697,6 +691,9 @@
         WHERE
             b.id_case = #{idCase}
         AND a.id_org = #{idOrg}
+        <if test="idScoreSheet != null">
+            AND a.id_score_sheet = #{idScoreSheet}
+        </if>
         AND a.fg_valid = '0'
         limit #{offset}, #{limit}
     </select>
@@ -709,6 +706,9 @@
         WHERE
             b.id_case = #{idCase}
         AND a.id_org = #{idOrg}
+        <if test="idScoreSheet != null">
+            AND a.id_score_sheet = #{idScoreSheet}
+        </if>
         AND a.fg_valid = '0'
     </select>
     <select id="listCobEvaluate" resultType="com.osce.entity.CobEvaluate">

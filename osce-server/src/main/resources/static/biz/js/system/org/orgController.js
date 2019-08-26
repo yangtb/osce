@@ -303,8 +303,11 @@ layui.config({
                         var selectedNode = zTree.getSelectedNodes()[0];
                         var newNode = {
                             id: data.data,
+                            idOrg: data.data,
                             name: naOrg
                         }
+                        console.log(selectedNode)
+
                         if (selectedNode) {
                             newNode.pId = idOrgPar;
                             newNode.checked = selectedNode.checked;
@@ -343,7 +346,11 @@ layui.config({
         , accept: 'images' //普通文件
         , exts: 'jpg|png|bmp|jpeg'
         , before: function (obj) {
-            layer.msg('正在上传布局图', {icon: 16, shade: 0.01});
+            layer.msg('正在上传布局图', {
+                icon: 16,
+                shade: 0.01,
+                time: false
+            });
         }
         , done: function (res) {
             if (res.code != '0') {
@@ -354,10 +361,10 @@ layui.config({
                 return;
             }
             $('#examRoomUrl').val(res.data.path);
-            layer.closeAll('loading');
+            layer.closeAll();
         }
         , error: function () {
-            layer.closeAll('loading');
+            layer.closeAll();
         }
     });
 

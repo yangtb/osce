@@ -90,8 +90,7 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    console.log(formType)
-                    if (!$('#idDevice').val()) {
+                    if (!$('#idDevice').val() && bizData.fgConsumables != '1') {
                         element.tabAdd('tagTabFilter', {
                             title: '固定设备'
                             , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' ' +
@@ -119,6 +118,25 @@ layui.config({
             }
         });
         return false;
+    }
+
+    // 消耗品： 库存数量、警戒数量必填， 如果库存数量<警戒数量则标红；
+    $('#unmStock').on('change', function () {
+        unmStockStyle();
+    });
+
+    $('#numWarn').on('change', function () {
+        unmStockStyle();
+    });
+
+    function unmStockStyle() {
+        var v_unmStock = $('#unmStock').val();
+        var v_numWarn = $('#numWarn').val();
+        if (v_unmStock && v_numWarn) {
+            if (parseInt(v_unmStock) < parseInt(v_numWarn)) {
+                $('#unmStock').css("color", "red");
+            }
+        }
     }
 
 });

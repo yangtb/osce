@@ -5,6 +5,8 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.SysOrg;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.server.security.User;
+import com.osce.server.utils.SysUserAuthUtils;
 import com.osce.vo.PfTreeSelectVo;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName: PfOrgRestController
@@ -55,6 +58,8 @@ public class PfOrgRestController {
     @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/org/detail")
     public ResultObject selectOrgDetail(@RequestBody SysOrg dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdOrg() != null, "机构ID");
         return ResultObject.createSuccess("selectOrgDetail", ResultObject.DATA_TYPE_OBJECT,
                 pfOrgService.selectOrgDetail(dto.getIdOrg()));
     }
@@ -120,7 +125,8 @@ public class PfOrgRestController {
     @PreAuthorize("hasAnyRole('ROLE_ORG_MG','ROLE_SUPER')")
     @PostMapping(value = "/pf/r/org/tree/select")
     public List<PfTreeSelectVo> selectOrgTreeSelect() {
-        return pfOrgService.selectOrgTreeSelect();
+        Long idOrg = SysUserAuthUtils.isPlatOrSuper() ? null : CurrentUserUtils.getCurrentUser().getIdOrg();
+        return pfOrgService.selectOrgTreeSelect(idOrg);
     }
 
     /**

@@ -45,15 +45,17 @@ public class PfExecuteServiceImpl implements PfExecuteService {
         if (execAuthVo == null) {
             throw new RestException(RestErrorCode.EXEC_AUTH_STU_NOT_EXIST);
         }
-        // 2.认证
-        ExecAuthDto execAuthDto = new ExecAuthDto();
-        execAuthDto.setParIdExecQueue(execAuthVo.getIdExecQueue());
-        execAuthDto.setParSdExecQueue(execAuthVo.getSdExecQueue());
+        if ("1".equals(execAuthVo.getSdExecQueue())) {
+            // 2.认证
+            ExecAuthDto execAuthDto = new ExecAuthDto();
+            execAuthDto.setParIdExecQueue(execAuthVo.getIdExecQueue());
+            execAuthDto.setParSdExecQueue(3);
 
-        pfExecDao.execAuth(execAuthDto);
-        if (execAuthDto.getParCode() != 0) {
-            logger.error("调用存储过程[P_QUEUE_UPDATE]认证出错, param : {} ", execAuthDto.toString());
-            throw new RestException(String.valueOf(execAuthDto.getParCode()), execAuthDto.getParMsg());
+            pfExecDao.execAuth(execAuthDto);
+            if (execAuthDto.getParCode() != 0) {
+                logger.error("调用存储过程[P_QUEUE_UPDATE]认证出错, param : {} ", execAuthDto.toString());
+                throw new RestException(String.valueOf(execAuthDto.getParCode()), execAuthDto.getParMsg());
+            }
         }
         return pfExecDao.selectStuInfo(dto);
     }

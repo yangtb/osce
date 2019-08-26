@@ -54,7 +54,7 @@
         WHERE
         role_id in (
         <foreach collection="list" item="item" separator="," >
-            #{item.roleId}
+            #{item}
         </foreach>
         )
     </delete>

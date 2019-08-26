@@ -25,7 +25,7 @@
         <div class="layui-card">
             <div class="layui-card-body" style="padding-top: 5px;">
 
-                <div class="rebinding-box" style="height: 560px; margin: 0 auto;">
+                <div class="rebinding-box" style="height: 600px; margin: 0 auto;">
                     <div class="box-timeline">
                         <ul class="text-center" style="padding-left: 200px">
                             <li>
@@ -155,7 +155,7 @@
 
                             <div class="layui-form-item">
                                 <label class="layui-form-label">剧本</label>
-                                <div class="layui-input-inline" style="vertical-align: middle;width: 325px;">
+                                <div class="layui-input-inline" style="vertical-align: middle;width: 225px;">
                                     <input id="docSp" name="docSp" placeholder="请上传文件" autocomplete="off"
                                            class="layui-input">
                                 </div>
@@ -165,7 +165,18 @@
                                 <button type="button" class="layui-btn layui-btn-primary" id="preview">
                                     <i class="iconfont icon-detail"></i> 预览
                                 </button>
+                                <button type="button" class="layui-btn layui-btn-primary" id="downLoadDocSp">
+                                    <i class="layui-icon">&#xe601;</i>下载
+                                </button>
                             </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"></label>
+                                <div class="layui-inline">
+                                    支持格式：doc,docx,jpg,jpeg,png,mp3,wav,ogg,mp4,avi,wmv,3gp,mkv,f4v,rmvb
+                                </div>
+                            </div>
+
+
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
                                     <button id="addSpCase" class="layui-btn" lay-submit lay-filter="formStep">
