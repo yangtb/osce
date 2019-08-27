@@ -36,6 +36,22 @@
 			</DefaultRolloverStrategy>
 		</RollingRandomAccessFile>
 
+		<!-- 移动端日志 -->
+		<RollingRandomAccessFile name="mobile" immediateFlush="true" append="true"
+								 fileName="@log.path@/mobile.log"
+								 filePattern="@log.path@/mobile-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout pattern="${FILE_LOG_PATTERN}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+			<DefaultRolloverStrategy max="100">
+				<Delete basePath="@log.path@" maxDepth="1">
+					<IfFileName glob="mobile-*.log"/>
+					<IfLastModified age="@log.age@" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+
 		<!-- 失败日志 -->
 		<RollingRandomAccessFile name="error" immediateFlush="false" append="true"
 								 fileName="@log.path@/error.log"
@@ -76,11 +92,15 @@
 		<asyncRoot level="@log.level@" includeLocation="true">
 			<appender-ref ref="console" />
 			<appender-ref ref="default" />
+			<appender-ref ref="mobile" />
 			<appender-ref ref="error" />
 		</asyncRoot>
 		<asyncLogger name="monitor" additivity="false" level="@log.level@" includeLocation="true">
 			<appender-ref ref="error" />
 			<appender-ref ref="monitor" />
+		</asyncLogger>
+		<asyncLogger name="com.osce.service.mobile" additivity="false" level="@log.level@" includeLocation="true">
+			<appender-ref ref="mobile" />
 		</asyncLogger>
 		<asyncLogger name="com.osce" additivity="false" level="@log.level@" includeLocation="true">
 			<appender-ref ref="console" />
