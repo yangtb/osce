@@ -24,6 +24,24 @@ layui.config({
         }
     });
 
+    form.on('select(sdModelStrategyFilter)', function(data){
+        if (data.value == 2) {
+            layer.alert('该算法正在规划中……', {
+                title: '提示',
+                resize: false,
+                btn: ['确定']
+                , icon: 5
+                , yes: function(index, layero){
+                    $('#sdModelStrategy').val(1);
+                    form.render('select');
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
+            });
+
+        }
+    });
+
+
     // 给step添加click事件
     function bachAddStepEventListener(currentNum) {
         // 最大步骤数
@@ -49,12 +67,22 @@ layui.config({
     }
 
     function addStepEventListener(stepNum) {
-        document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
         $("#stepNum" + stepNum).addClass("box-num");
+        document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
     }
 
+
     function stepSkipClickListener() {
-        stepSkip(this.getAttribute('data-index'))
+        stepSkip(this.getAttribute('data-index'));
+        addBoxNumStyle();
+        this.style.backgroundColor = "#5FB878";
+    }
+
+    function addBoxNumStyle() {
+        var boxNum = document.querySelectorAll(".box-num");
+        for (var i = 0; i < boxNum.length; i++) {
+            boxNum[i].style.backgroundColor = "#39f";
+        }
     }
 
     // 步骤跳转
@@ -68,6 +96,8 @@ layui.config({
         $("#stepDiv" + stepNum).show();
         $("#stepDiv" + stepNum).siblings(".stepDiv").hide();
 
+        addBoxNumStyle();
+        $("#stepNum" + stepNum).css("background-color", "#5FB878");
         loadStepData(stepNum);
     }
 
@@ -814,6 +844,9 @@ function addSite(event, areaIndex, stationIndex) {
                             $("#idRoom_" + (i + 1) + " option[value='"+ roomArr[0] +"']").attr("selected",true)
                             $('#numConcur_' + (i + 1)).val(roomArr[1]);
                         }
+                    } else {
+                        // 并发人数默认1
+                        $('#numConcur_1').val(1);
                     }
                 }
             });

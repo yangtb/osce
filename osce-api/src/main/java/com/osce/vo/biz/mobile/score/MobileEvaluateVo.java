@@ -25,6 +25,11 @@ public class MobileEvaluateVo implements Serializable {
     private Long idCobEvaluate;
 
     /**
+     * 评量结果ID
+     */
+    private Long idWeEvaluate;
+
+    /**
      * 评分项名称
      */
     private String naCobEvaluate;

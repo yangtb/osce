@@ -139,7 +139,7 @@
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label"></label>
-                        <div class="layui-inline">
+                        <div class="layui-inline layui-word-aux">
                             支持格式：doc,docx,jpg,jpeg,png,mp3,wav,ogg,mp4,avi,wmv,3gp,mkv,f4v,rmvb
                         </div>
                     </div>

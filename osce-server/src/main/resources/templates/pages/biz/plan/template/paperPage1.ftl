@@ -476,7 +476,7 @@
                         <div style="text-align: center;margin-top: 5px;">
                             <button type="button" class="layui-btn layui-btn-primary pre" data-index="3">上一步</button>
                             <button class="layui-btn layui-btn-normal" id="generatePaper">
-                                <i class="iconfont icon-shengcheng"></i> 生成试卷
+                                <i class="iconfont icon-shengcheng"></i> 重新生成试卷
                             </button>
                         </div>
                     </div>

@@ -323,6 +323,7 @@
     <select id="listCobEvaluate" resultType="com.osce.vo.biz.mobile.score.MobileEvaluateVo">
         SELECT
             a.id_cob_evaluate ,
+            b.id_we_evaluate ,
             a.na_cob_evaluate ,
             b.score
         FROM
@@ -337,6 +338,7 @@
     <select id="listEvaluateDetail" resultType="com.osce.vo.biz.mobile.score.MobileEvaluateDetail">
         SELECT
             a.id_cob_evaluate_detail ,
+            b.id_we_evaluate_detail ,
             a.na_cob_evaluate_detail ,
             b.score
         FROM

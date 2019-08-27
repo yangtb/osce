@@ -25,6 +25,11 @@ public class MobileEvaluateDetail implements Serializable {
     private Long idCobEvaluateDetail;
 
     /**
+     * 评量明细结果ID
+     */
+    private Long idWeEvaluateDetail;
+
+    /**
      * 明细评分项名称
      */
     private String naCobEvaluateDetail;

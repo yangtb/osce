@@ -1,4 +1,4 @@
-package com.osce.api.biz.mobile;
+package com.osce.api.mobile;
 
 import com.osce.dto.biz.execute.ExecAuthDto;
 import com.osce.dto.biz.mobile.MobileDto;

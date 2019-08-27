@@ -136,22 +136,25 @@ layui.config({
         return false;
     }
 
-    //执行渲染
-    table.render({
-        elem: '#itemOptionTable' //指定原始表格元素选择器（推荐id选择器）
-        , id: 'itemOptionTableId'
-        , height: '380' //容器高度
-        , cols: [[
-            {checkbox: true},
-            {field: 'cdIte', width: 88, edit: 'text', title: '选项编码'},
-            {field: 'naOption', minWidth: 100, edit: 'text', title: '选项内容'},
-            {field: 'fgRight', width: 92, title: '正确答案', templet: '#fgRightTpl'}
-        ]] //设置表头
-        , limit: 500
-        , even: true
-        , page: false
-        , data: []
-    });
+    if (formType == 'add') {
+        //执行渲染
+        table.render({
+            elem: '#itemOptionTable' //指定原始表格元素选择器（推荐id选择器）
+            , id: 'itemOptionTableId'
+            , height: '424' //容器高度
+            , cols: [[
+                {checkbox: true},
+                {field: 'cdIte', width: 88, edit: 'text', title: '选项编码'},
+                {field: 'naOption', minWidth: 100, edit: 'text', title: '选项内容'},
+                {field: 'fgRight', width: 92, title: '正确答案', templet: '#fgRightTpl'}
+            ]] //设置表头
+            , limit: 500
+            , even: true
+            , page: false
+            , data: []
+        });
+    }
+
 
     //监听删除操作
     form.on('switch(fgRightCheckFilter)', function (obj) {
@@ -227,8 +230,21 @@ layui.config({
                     common.errorMsg(data.msg);
                     return false;
                 } else {
-                    table.reload('itemOptionTableId', {
-                        data: data.data
+                    //执行渲染
+                    table.render({
+                        elem: '#itemOptionTable' //指定原始表格元素选择器（推荐id选择器）
+                        , id: 'itemOptionTableId'
+                        , height: '424' //容器高度
+                        , cols: [[
+                            {checkbox: true},
+                            {field: 'cdIte', width: 88, edit: 'text', title: '选项编码'},
+                            {field: 'naOption', minWidth: 100, edit: 'text', title: '选项内容'},
+                            {field: 'fgRight', width: 92, title: '正确答案', templet: '#fgRightTpl'}
+                        ]] //设置表头
+                        , limit: 500
+                        , even: true
+                        , page: false
+                        , data: data.data
                     });
                     return true;
                 }
@@ -271,9 +287,24 @@ function fullForm(data) {
                         common.errorMsg(data.msg);
                         return false;
                     } else {
-                        table.reload('itemOptionTableId', {
-                            data: data.data
-                        });
+                        //执行渲染
+                        if (formType == 'edit') {
+                            table.render({
+                                elem: '#itemOptionTable' //指定原始表格元素选择器（推荐id选择器）
+                                , id: 'itemOptionTableId'
+                                , height: '424' //容器高度
+                                , cols: [[
+                                    {checkbox: true},
+                                    {field: 'cdIte', width: 88, edit: 'text', title: '选项编码'},
+                                    {field: 'naOption', minWidth: 100, edit: 'text', title: '选项内容'},
+                                    {field: 'fgRight', width: 92, title: '正确答案', templet: '#fgRightTpl'}
+                                ]] //设置表头
+                                , limit: 500
+                                , even: true
+                                , page: false
+                                , data: data.data
+                            });
+                        }
                         return true;
                     }
                 },

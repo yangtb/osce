@@ -1,6 +1,6 @@
 package com.osce.server.rest.mobile;
 
-import com.osce.api.biz.mobile.PfMobileService;
+import com.osce.api.mobile.PfMobileService;
 import com.osce.dto.biz.execute.ExecAuthDto;
 import com.osce.dto.biz.mobile.*;
 import com.osce.entity.SysParam;

@@ -1,6 +1,6 @@
-package com.osce.service.biz.mobile;
+package com.osce.service.mobile;
 
-import com.osce.api.biz.mobile.PfMobileService;
+import com.osce.api.mobile.PfMobileService;
 import com.osce.dto.biz.execute.ExecAuthDto;
 import com.osce.dto.biz.mobile.MobileDto;
 import com.osce.dto.biz.mobile.MobileScoreAddDto;
@@ -13,7 +13,6 @@ import com.osce.exception.RestException;
 import com.osce.orm.biz.execute.PfExecDao;
 import com.osce.orm.biz.mobile.PfMobileDao;
 import com.osce.orm.biz.plan.template.PfTemplateDao;
-import com.osce.orm.biz.training.caseku.PfCaseDao;
 import com.osce.vo.biz.mobile.MobileMainVo;
 import com.osce.vo.biz.mobile.MobileQueueVo;
 import com.osce.vo.biz.mobile.MobileStudentInfoVo;
@@ -48,21 +47,21 @@ public class PfMobileServiceImpl implements PfMobileService {
     @Resource
     private PfTemplateDao pfTemplateDao;
 
-    @Resource
-    private PfCaseDao pfCaseDao;
-
     @Override
     public MobileMainVo mobileMain(MobileDto dto) {
+        logger.info("[移动端]首页, param:{}", dto.toString());
         return pfMobileDao.mobileMain(dto);
     }
 
     @Override
     public MobileStudentInfoVo selectCurrentStudentInfo(MobileDto dto) {
+        logger.info("[移动端]当前学员信息, param:{}", dto.toString());
         return pfMobileDao.selectCurrentStudentInfo(dto);
     }
 
     @Override
     public MobileQueueVo listWaitingStudentInfo(MobileDto dto) {
+        logger.info("[移动端]待考学员信息, param:{}", dto.toString());
         MobileQueueVo mobileQueueVo = new MobileQueueVo();
         mobileQueueVo.setWaitingNum(pfMobileDao.countWaitingStudent(dto));
         mobileQueueVo.setStudentQueues(pfMobileDao.listWaitingStudentInfo(dto));
@@ -71,6 +70,7 @@ public class PfMobileServiceImpl implements PfMobileService {
 
     @Override
     public boolean handleExamStatus(ExecAuthDto dto) {
+        logger.info("[移动端]叫号、开考、缺考登记, param:{}", dto.toString());
         pfExecDao.execAuth(dto);
         if (dto.getParCode() != 0) {
             logger.error("调用存储过程[P_QUEUE_UPDATE]出错, param : {} ", dto.toString());
@@ -81,6 +81,7 @@ public class PfMobileServiceImpl implements PfMobileService {
 
     @Override
     public MobileScoreHeaderVo selectScoreHeader(MobileScoreDto dto) {
+        logger.info("[移动端]获取评分页面头部信息, param: {}", dto.toString());
         if (dto.getIdExecQueue() == null) {
             MobileStudentInfoVo mobileStudentInfoVo = pfMobileDao.selectCurrentStudentInfo(dto);
             if (mobileStudentInfoVo != null) {
@@ -106,11 +107,13 @@ public class PfMobileServiceImpl implements PfMobileService {
 
     @Override
     public List<MobileScoreSheetVo> listScoreSheet(MobileScoreDto dto) {
+        logger.info("[移动端]主考官评分表（第一个sheet页）, param: {}", dto.toString());
         return pfMobileDao.listScoreSheet(dto);
     }
 
     @Override
     public Long saveSheetScore(MobileScoreAddDto dto) {
+        logger.info("[移动端]评分（第一个sheet页）, param: {}", dto.toString());
         MobileExecVo mobileExecVo = pfMobileDao.selectExecInfo(dto.getIdExec(), dto.getCdAssistantCa());
         WeScore weScore = new WeScore();
         weScore.setIdWeScore(dto.getIdWeScore());
@@ -131,6 +134,7 @@ public class PfMobileServiceImpl implements PfMobileService {
 
     @Override
     public List<MobileEvaluateVo> listCobEvaluate(Long idExec) {
+        logger.info("[移动端]查询评量表, idExec: {}", idExec);
         String sdSkillCa = pfMobileDao.selectSdSkillCa(idExec);
         if (StringUtils.isBlank(sdSkillCa)) {
             throw new RestException(RestErrorCode.MOBILE_SCORE_EXEC_QUEUE_NOT_EXIST);
@@ -142,11 +146,13 @@ public class PfMobileServiceImpl implements PfMobileService {
 
     @Override
     public List<MobileEvaluateDetail> listEvaluateDetail(Long idExec, Long idCobEvaluate) {
+        logger.info("[移动端]查询评量表明细, idExec: {}, idCobEvaluate: {}", idExec, idCobEvaluate);
         return pfMobileDao.listEvaluateDetail(idExec, idCobEvaluate);
     }
 
     @Override
     public Long saveEvaluate(WeEvaluate dto) {
+        logger.info("[移动端]保存评量表, param: {}", dto.toString());
         if (dto.getIdWeEvaluate() == null) {
             pfMobileDao.addEvaluate(dto);
         } else {
@@ -157,6 +163,7 @@ public class PfMobileServiceImpl implements PfMobileService {
 
     @Override
     public Long saveEvaluateDetail(WeEvaluateDetail dto) {
+        logger.info("[移动端]保存评量表明细, param: {}", dto.toString());
         if (dto.getIdWeEvaluateDetail() == null) {
             pfMobileDao.addEvaluateDetail(dto);
         } else {

@@ -36,12 +36,21 @@ layui.config({
     }
 
     function addStepEventListener(stepNum) {
-        document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
         $("#stepNum" + stepNum).addClass("box-num");
+        document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
     }
 
     function stepSkipClickListener() {
-        stepSkip(this.getAttribute('data-index'))
+        stepSkip(this.getAttribute('data-index'));
+        addBoxNumStyle();
+        this.style.backgroundColor = "#5FB878";
+    }
+
+    function addBoxNumStyle() {
+        var boxNum = document.querySelectorAll(".box-num");
+        for (var i = 0; i < boxNum.length; i++) {
+            boxNum[i].style.backgroundColor = "#39f";
+        }
     }
 
     // 步骤跳转
@@ -55,6 +64,8 @@ layui.config({
         $("#stepDiv" + stepNum).show();
         $("#stepDiv" + stepNum).siblings(".stepDiv").hide();
 
+        addBoxNumStyle();
+        $("#stepNum" + stepNum).css("background-color", "#5FB878");
         loadStepData(stepNum);
     }
 
@@ -95,6 +106,7 @@ layui.config({
                     return false;
                 } else {
                     bachAddStepEventListener(data.data ? data.data : 1);
+                    $("#stepNum1").css("background-color", "#5FB878");
                     return true;
                 }
             },

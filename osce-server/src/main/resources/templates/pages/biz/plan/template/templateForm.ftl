@@ -122,8 +122,7 @@
                                                 </div>
                                             </div>
                                             <div class="layui-col-md4">
-                                                <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">中控考官权重<i class="iconfont icon-required"
-                                                                                                                                        style="color: #f03f2d"></i></label>
+                                                <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">中控考官权重<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
                                                     <input type="number" class="layui-input" id="weightRemote" name="weightRemote" min="0"
                                                            lay-verify="required" lay-vertype="tips" min="1" autocomplete="off" />
@@ -133,8 +132,7 @@
                                         </div>
                                         <div class="layui-row form-item-my5">
                                             <div class="layui-col-md4">
-                                                <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">考试时隔时间<i class="iconfont icon-required"
-                                                                                                                                        style="color: #f03f2d"></i></label>
+                                                <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">考试时隔时间<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
                                                     <input type="number" class="layui-input" id="minInterval" name="minInterval"
                                                            lay-verify="required" lay-vertype="tips" min="1" autocomplete="off"/>
@@ -142,18 +140,17 @@
                                                 </div>
                                             </div>
                                             <div class="layui-col-md4">
-                                                <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">排站策略<i class="iconfont icon-required"
-                                                                                                                                      style="color: #f03f2d"></i></label>
+                                                <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">排站策略<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
-                                                    <select name="sdModelStrategy" lay-verify="required" lay-vertype="tips" autocomplete="off">
-                                                        <option value="1">普考</option>
-                                                        <option value="2">补考</option>
+                                                    <select name="sdModelStrategy" id="sdModelStrategy" lay-verify="required" lay-vertype="tips" autocomplete="off"
+                                                            lay-filter="sdModelStrategyFilter">
+                                                        <option value="1" selected>人员优先</option>
+                                                        <option value="2">设备优先</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="layui-col-md4">
-                                                <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">考试类型<i class="iconfont icon-required"
-                                                                                                                                      style="color: #f03f2d"></i></label>
+                                                <label class="layui-form-label" style="width: 100px; padding: 9px 5px 0px 0px">考试类型<i class="iconfont icon-required" style="color: #f03f2d"></i></label>
                                                 <div class="layui-input-inline">
                                                     <select name="sdModelCa" lay-verify="required" lay-vertype="tips" autocomplete="off">
                                                         <option value="1">出课考</option>
@@ -213,6 +210,13 @@
                                                 <input type="text" class="layui-input time-box" id="afternoonEnd" name="afternoonEnd"
                                                        lay-verify="required" lay-vertype="tips" autocomplete="off">
                                             </div>
+
+
+                                            <div class="layui-input-block" style="text-align: right; margin-top: 90px; margin-right: 10px;">
+                                                <button id="step1" class="layui-btn" lay-submit lay-filter="formStep">
+                                                    &emsp;下一步：排站&emsp;
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <!-- 考场信息 -->
@@ -220,11 +224,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="layui-input-block" style="text-align: right; margin-top: 30px; margin-right: 100px;">
-                                        <button id="step1" class="layui-btn" lay-submit lay-filter="formStep">
-                                            &emsp;下一步：排站&emsp;
-                                        </button>
-                                    </div>
+
                                 </div>
                             </div>
 
