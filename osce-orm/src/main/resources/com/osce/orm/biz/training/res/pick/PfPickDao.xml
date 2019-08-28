@@ -55,7 +55,8 @@
         <if test="fgPicking != null and fgPicking != ''">
             AND a.fg_picking = #{fgPicking}
         </if>
-        order by a.plan_day desc
+        ORDER BY
+            a.plan_day DESC, a.plan_section, b.na_room, a.na_skill_case
         limit #{offset}, #{limit}
     </select>
 

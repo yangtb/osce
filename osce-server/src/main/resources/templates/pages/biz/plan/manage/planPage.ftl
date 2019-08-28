@@ -74,11 +74,8 @@
     {{#  if(d.sdPlanStatus == 1){ }}
     <button type="button" class="layui-btn layui-btn-xs" style="background-color: #FFB800">未发布</button>
     {{#  } }}
-    {{#  if(d.sdPlanStatus == 2){ }}
-    <button type="button" class="layui-btn layui-btn-xs" style="background-color: #1E9FFF">已发布-待领料</button>
-    {{#  } }}
-    {{#  if(d.sdPlanStatus == 3){ }}
-    <button type="button" class="layui-btn layui-btn-xs" style="background-color: #009688">已领料-待考</button>
+    {{#  if(d.sdPlanStatus == 2 || d.sdPlanStatus == 3){ }}
+    <button type="button" class="layui-btn layui-btn-xs" style="background-color: #1E9FFF">已发布-待考</button>
     {{#  } }}
     {{#  if(d.sdPlanStatus == 4){ }}
     <button type="button" class="layui-btn layui-btn-xs" style="background-color: #5FB878">正在考试</button>

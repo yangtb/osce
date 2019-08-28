@@ -72,6 +72,16 @@ public interface PfPaperDao {
     TdItemStore selectTdItemStore(PfPaperDto dto);
 
     /**
+     * 更新目录状态
+     *
+     * @param list   目录ID
+     * @param status 状态
+     * @return
+     */
+    int activeTdItemSections(@Param("list") List<Long> list,
+                             @Param("status") String status);
+
+    /**
      * 编辑目录
      *
      * @param list
@@ -154,9 +164,11 @@ public interface PfPaperDao {
      * 题目总数
      *
      * @param idItemStore 题集id
+     * @param idModel     模板id
      * @return
      */
-    List<PaperItemTotalVo> listItemTotal(@Param("idItemStore") Long idItemStore);
+    List<PaperItemTotalVo> listItemTotal(@Param("idItemStore") Long idItemStore,
+                                         @Param("idModel") Long idModel);
 
     /**
      * 题目总数

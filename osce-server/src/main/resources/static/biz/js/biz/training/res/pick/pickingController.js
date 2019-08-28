@@ -21,7 +21,7 @@ layui.config({
         , title: '领料计划'
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
-            {field: 'naPlan', merge: true, width: 170, title: '考试名称', fixed: true},
+            //{field: 'naPlan', merge: true, width: 170, title: '考试名称', fixed: true},
             {field: 'planDay', merge: true, width: 110, title: '日期', fixed: true},
             {field: 'planSection', merge: ['naPlan', 'planDay', 'planSection'], width: 200, title: '时段'},
             {field: 'naRoom', width: 100, title: '房间'},

@@ -10,6 +10,7 @@ import com.osce.orm.biz.plan.template.PfPaperStepDao;
 import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
+import com.osce.vo.biz.plan.template.PaperItemTotalVo;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
 import com.osce.vo.biz.plan.template.PfExamPaperSheetVo;
 import com.sm.open.care.core.utils.CommonUtil;
@@ -97,6 +98,11 @@ public class PfPaperServiceImpl implements PfPaperService {
         return stepNum;
     }
 
+    @Override
+    public int activeTdItemSections(List<Long> list, String status) {
+        return pfPaperDao.activeTdItemSections(list, status);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public PfPaperParam addPaperParam(PfPaperParam dto) {
@@ -121,13 +127,24 @@ public class PfPaperServiceImpl implements PfPaperService {
             }
         }
         Long idItemStore = tdItemArgTypes.get(0).getIdItemStore();
-        return selectPaperParam(idItemStore);
+        PfPaperDto pfPaperDto = new PfPaperDto();
+        pfPaperDto.setIdItemStore(idItemStore);
+        pfPaperDto.setIdModel(dto.getIdModel());
+        return selectPaperParam(pfPaperDto);
     }
 
     @Override
-    public PfPaperParam selectPaperParam(Long idItemStore) {
+    public List<PaperItemTotalVo> selectItemTotal(PfPaperDto dto) {
+        return pfPaperDao.listItemTotal(dto.getIdItemStore(), dto.getIdModel());
+    }
+
+    @Override
+    public PfPaperParam selectPaperParam(PfPaperDto dto) {
+        Long idItemStore = dto.getIdItemStore();
         PfPaperParam pfPaperParam = new PfPaperParam();
-        pfPaperParam.setItemTotals(pfPaperDao.listItemTotal(idItemStore));
+        if (dto.getIdModel() != null) {
+            pfPaperParam.setItemTotals(pfPaperDao.listItemTotal(idItemStore, dto.getIdModel()));
+        }
         pfPaperParam.setTdItemSections(pfPaperDao.selectTdItemSection(idItemStore));
         pfPaperParam.setTdItemArgTypes(pfPaperDao.listTdItemArgType(idItemStore));
         pfPaperParam.setSdItemLevels(pfPaperDao.listSdItemLevel(idItemStore));

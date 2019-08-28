@@ -6,6 +6,7 @@ import com.osce.entity.TdItemStore;
 import com.osce.entity.TdSkillCase;
 import com.osce.entity.TdSpCase;
 import com.osce.result.PageResult;
+import com.osce.vo.biz.plan.template.PaperItemTotalVo;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
 import com.osce.vo.biz.plan.template.PfExamPaperSheetVo;
 
@@ -59,6 +60,15 @@ public interface PfPaperService {
     Integer selectCurrentStep(PfPaperDto dto);
 
     /**
+     * 更新目录状态
+     *
+     * @param list   目录ID
+     * @param status 状态
+     * @return
+     */
+    int activeTdItemSections(List<Long> list, String status);
+
+    /**
      * add试卷参数
      *
      * @param dto
@@ -67,12 +77,20 @@ public interface PfPaperService {
     PfPaperParam addPaperParam(PfPaperParam dto);
 
     /**
-     * 获取试卷参数
+     * 获取题目总数
      *
-     * @param idItemStore 题集ID
+     * @param dto
      * @return
      */
-    PfPaperParam selectPaperParam(Long idItemStore);
+    List<PaperItemTotalVo> selectItemTotal(PfPaperDto dto);
+
+    /**
+     * 获取试卷参数
+     *
+     * @param dto
+     * @return
+     */
+    PfPaperParam selectPaperParam(PfPaperDto dto);
 
     /**
      * 考题list

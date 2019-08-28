@@ -137,6 +137,23 @@ public class PfExamPaperRestController {
                 pfPaperService.selectCurrentStep(dto));
     }
 
+
+    /**
+     * 更新目录状态
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/p/plan/paper/active/section")
+    public ResultObject activeTdItemSections(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        Assert.isTrue(StringUtils.isNotBlank(dto.getStatus()), "status");
+        return ResultObject.createSuccess("addPaperParam", ResultObject.DATA_TYPE_OBJECT,
+                pfPaperService.activeTdItemSections(dto.getList(), dto.getStatus()));
+    }
+
     /**
      * add试卷参数
      *
@@ -147,10 +164,27 @@ public class PfExamPaperRestController {
     @PostMapping(value = "/pf/p/plan/paper/add/param")
     public ResultObject addPaperParam(@RequestBody PfPaperParam dto) {
         /* 参数校验 */
+        Assert.isTrue(dto.getIdModel() != null, "idModel");
         Assert.isTrue(CollectionUtils.isNotEmpty(dto.getTdItemArgTypes()), "题型参数");
         Assert.isTrue(CollectionUtils.isNotEmpty(dto.getSdItemLevels()), "难易程度比例");
         return ResultObject.createSuccess("addPaperParam", ResultObject.DATA_TYPE_OBJECT,
                 pfPaperService.addPaperParam(dto));
+    }
+
+    /**
+     * 获取题目总数
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/p/plan/paper/select/item/total")
+    public ResultObject selectItemTotal(@RequestBody PfPaperDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdItemStore() != null, "题集ID");
+        Assert.isTrue(dto.getIdModel() != null, "idModel");
+        return ResultObject.createSuccess("selectItemTotal", ResultObject.DATA_TYPE_OBJECT,
+                pfPaperService.selectItemTotal(dto));
     }
 
     /**
@@ -165,7 +199,7 @@ public class PfExamPaperRestController {
         /* 参数校验 */
         Assert.isTrue(dto.getIdItemStore() != null, "题集ID");
         return ResultObject.createSuccess("selectPaperParam", ResultObject.DATA_TYPE_OBJECT,
-                pfPaperService.selectPaperParam(dto.getIdItemStore()));
+                pfPaperService.selectPaperParam(dto));
     }
 
     /**

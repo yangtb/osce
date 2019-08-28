@@ -315,7 +315,7 @@
                         <form class="layui-form" lay-filter="step2FormFilter">
                             <hr>
                             <div class="layui-form-item" style="margin-bottom: -5px;">
-                                <div class="layui-inline" style="width: 450px;">
+                                <div class="layui-inline" style="width: 650px;">
                                     <label class="layui-form-label">选择目录</label>
                                     <div class="layui-input-block" id="idItemSectionTips">
                                         <select name="idItemSection" id="idItemSection" xm-select="select1">

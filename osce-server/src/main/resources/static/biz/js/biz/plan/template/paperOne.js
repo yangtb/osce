@@ -177,7 +177,8 @@ layui.config({
     // 第2步 ： 试卷参数
     function selectPaperParam() {
         var bizData = {
-            idItemStore: $('#idItemStore').val()
+            idItemStore: $('#idItemStore').val(),
+            idModel : idModel
         };
         $.ajax({
             url: basePath + '/pf/p/plan/paper/select/param',
@@ -196,20 +197,48 @@ layui.config({
                 }
             },
             error: function () {
-                common.errorMsg("查询失败");
+                common.errorMsg("查询试卷参数失败");
                 return false;
             }
         });
     }
 
-    function fillPaperParamForm(data) {
+    // 题目总数
+    function fullItemTotal(itemTotals) {
         // 题目总数
-        var itemTotals = data.itemTotals;
         if (itemTotals.length > 0) {
+            var a1TotalFlag = false,
+                a2TotalFlag = false,
+                b1TotalFlag = false;
             $.each(itemTotals, function (index, content) {
+                if (content.sdItemCa == '1') {
+                    a1TotalFlag = true;
+                } else if (content.sdItemCa == '2') {
+                    a2TotalFlag = true;
+                } else if (content.sdItemCa == '3') {
+                    b1TotalFlag = true;
+                }
                 $('#total_' + content.sdItemCa).html(content.total);
             });
+            if (!a1TotalFlag) {
+                $('#total_1').html('');
+            }
+            if (!a2TotalFlag) {
+                $('#total_2').html('');
+            }
+            if (!b1TotalFlag) {
+                $('#total_3').html('');
+            }
+        } else {
+            $('#total_1').html('');
+            $('#total_2').html('');
+            $('#total_3').html('');
         }
+    }
+
+    function fillPaperParamForm(data) {
+        // 题目总数
+        fullItemTotal(data.itemTotals);
 
         // 目录
         var tdItemSections = data.tdItemSections;
@@ -232,10 +261,14 @@ layui.config({
         var paramData = {};
         // 题型参数
         var tdItemArgTypeList = data.tdItemArgTypes;
+        var a1Flag = false,
+            a2Flag = false,
+            b1Flag = false;
         if (tdItemArgTypeList.length > 0) {
             $.each(tdItemArgTypeList, function (index, content) {
                 var key;
                 if (content.sdItemCa == '1') {
+                    a1Flag = true;
                     key = 'A1';
                     setFormStatus(true, ['numType_A1', 'scoreType_A1']);
                 } else if (content.sdItemCa == '2') {
@@ -246,10 +279,22 @@ layui.config({
                     setFormStatus(true, ['numType_B1', 'scoreType_B1']);
                 }
                 paramData['idItemArgType_' + key] = content.idItemArgType;
-                paramData['sdItemCa_' + key] = content.sdItemCa;
+                paramData['sdItemCa_' + key] = content.sdItemCa ? true : false;
                 paramData['numType_' + key] = content.numType;
                 paramData['scoreType_' + key] = content.scoreType;
             });
+            if (!a1Flag) {
+                paramData['sdItemCa_A1'] = false;
+                setFormStatus(false, ['numType_A1', 'scoreType_A1']);
+            }
+            if (!a2Flag) {
+                paramData['sdItemCa_A2'] = false;
+                setFormStatus(false, ['numType_A2', 'scoreType_A2']);
+            }
+            if (!b1Flag) {
+                paramData['sdItemCa_B1'] = false;
+                setFormStatus(false, ['numType_B1', 'scoreType_B1']);
+            }
         }
         // 初始化比例尺
         var sdItemLevels = data.sdItemLevels, v_1, v_2, v_3, v_4;
@@ -272,6 +317,7 @@ layui.config({
             });
         }
         if (paramData) {
+            //console.log(paramData)
             form.val("step2FormFilter", paramData);
         }
         initPer();
@@ -405,7 +451,8 @@ layui.config({
         var bizData = {
             idItemSections: idItemSectionList,
             tdItemArgTypes: tdItemArgTypeList,
-            sdItemLevels: sdItemLevelList
+            sdItemLevels: sdItemLevelList,
+            idModel : idModel
         }
 
         return common.commonPost(basePath + '/pf/p/plan/paper/add/param', bizData, null, 'addPaperParam',
@@ -958,4 +1005,43 @@ layui.config({
 
         }
     }
+
+    // 监听选择
+    formSelects.on('select1', function(id, vals, val, isAdd, isDisabled){
+        //id:           点击select的id
+        //vals:         当前select已选中的值
+        //val:          当前select点击的值
+        //isAdd:        当前操作选中or取消
+        //isDisabled:   当前选项是否是disabled
+        //console.log(val);
+        var sectionList = new Array();
+        sectionList.push(val.value);
+        var bizData = {
+            list : sectionList ,
+            status : isAdd ? '1' : '0'
+        }
+        // console.log(bizData)
+        common.commonPost(basePath + '/pf/p/plan/paper/active/section', bizData, null);
+    });
+
+    // 监听下拉关闭
+    formSelects.closed('select1', function(id){
+        var idItemSectionList = formSelects.value('select1', 'val');
+        if (idItemSectionList.length == 0) {
+            // 传空数组
+            fullItemTotal(idItemSectionList);
+            return;
+        }
+        // 获取题目数
+        var bizData = {
+            idItemStore: $('#idItemStore').val(),
+            idModel : idModel
+        };
+        return common.commonPost(basePath + '/pf/p/plan/paper/select/item/total', bizData, null, null,
+            function (data) {
+                console.log(data.data)
+                fullItemTotal(data.data);
+            }, true);
+    });
+
 });

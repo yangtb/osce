@@ -13,7 +13,6 @@
 
     <script>
         var basePath = '${basePath}';
-        var idPlan = '6';
     </script>
 </head>
 

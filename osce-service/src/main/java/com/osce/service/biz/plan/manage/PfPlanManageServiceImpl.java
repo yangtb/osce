@@ -83,7 +83,7 @@ public class PfPlanManageServiceImpl implements PfPlanManageService {
 
     @Override
     public boolean delPlan(PfBachChangeStatusDto dto) {
-        return false;
+        return pfPlanManageDao.delPlan(dto) >= 1 ? true : false;
     }
 
     @Override

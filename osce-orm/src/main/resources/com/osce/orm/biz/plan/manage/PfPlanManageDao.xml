@@ -231,6 +231,20 @@
         )
         and id_plan = #{extId}
     </delete>
+    <delete id="delPlan">
+        UPDATE tp_plan
+        SET
+            fg_valid = '1' ,
+            fg_active = '0' ,
+            operator = #{operator} ,
+            gmt_modify = now()
+        WHERE
+            id_plan in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
 
 
     <select id="countPlanManage" resultType="java.lang.Long">

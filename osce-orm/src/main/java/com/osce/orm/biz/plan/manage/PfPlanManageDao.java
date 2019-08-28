@@ -70,6 +70,14 @@ public interface PfPlanManageDao {
     int editPlan(TpPlan dto);
 
     /**
+     * 删除计划
+     *
+     * @param dto
+     * @return
+     */
+    int delPlan(PfBachChangeStatusDto dto);
+
+    /**
      * 另存模板
      *
      * @param dto

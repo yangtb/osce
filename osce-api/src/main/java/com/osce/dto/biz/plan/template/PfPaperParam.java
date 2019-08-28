@@ -25,6 +25,11 @@ public class PfPaperParam implements Serializable {
     private static final long serialVersionUID = 1559975708033L;
 
     /**
+     * 模板ID
+     */
+    private Long idModel;
+
+    /**
      * 目录信息
      */
     private List<TdItemSection> tdItemSections;

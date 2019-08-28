@@ -53,7 +53,7 @@
                                 </div>
                             </li>
                             <li class="ml45">
-                                排考预览
+                                分配考卷
                                 <div class="outside0ab" id="step3">
                                     <div class="box-num2 num2ab" id="stepNum3" data-index="3">
                                         3
