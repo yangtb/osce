@@ -155,8 +155,8 @@ layui.config({
             }
             var idPaperText = content.idPaperText ? content.idPaperText : '请选择试卷';
             html += '    >\n' +
-                '        <img class="edit-btn edit-btn-paper" id="stable-' + content.idInsStation +'" data-id="' + content.idInsStation + '-' + sdSkillCa + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
-                '        <p class="item-text item-text-paper" id="paper-' + content.idInsStation +'" data-id="' + content.idInsStation  + '-' + sdSkillCa + '">'+ idPaperText +'</p>\n' +
+                '        <img class="edit-btn edit-btn-paper" id="stable-' + content.idInsStation +'" data-id="' + content.idInsStation + '-' + sdSkillCa + '-' + content.idPaper + '-' + content.idScoreSheet + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
+                '        <p class="item-text item-text-paper" id="paper-' + content.idInsStation +'" data-id="' + content.idInsStation  + '-' + sdSkillCa + '-' + content.idPaper +'-' + content.idScoreSheet + '">'+ idPaperText +'</p>\n' +
                 '      </div>\n';
         });
 
@@ -194,6 +194,9 @@ layui.config({
         var arr = data.split("-");
         var idInsStation = arr[0];
         var sdSkillCa = arr[1];
+        var idPaper = arr[2];
+        var idScoreSheet = arr[3];
+
 
         var bizData = {
             sdSkillCa: sdSkillCa ,
@@ -211,7 +214,7 @@ layui.config({
                     layer.msg(data.msg, {icon: 5});
                     return false;
                 } else {
-                    popSelectPaper(data.data, idInsStation, sdSkillCa);
+                    popSelectPaper(data.data, idInsStation, sdSkillCa, idPaper, idScoreSheet);
                     return false;
                 }
             },
@@ -222,7 +225,7 @@ layui.config({
         });
     }
 
-    function popSelectPaper(paperData, idInsStation, sdSkillCa) {
+    function popSelectPaper(paperData, idInsStation, sdSkillCa, idPaper, idScoreSheet) {
         var elem = $('#stable-' + idInsStation);
         var t = elem.offset().top + elem.outerHeight() + "px";
         var l = elem.offset().left + "px";
@@ -271,7 +274,11 @@ layui.config({
 
         formBox = $(html);
         $('body').append(formBox);
-        form.render();
+        if (idPaper) {
+            $('#idPaper').val(idPaper);
+            form.render();
+            loadScoreSheet(sdSkillCa, idPaper, idScoreSheet);
+        }
 
         // 取消
         $('#closeWin').on("click",function(e) {
@@ -285,42 +292,7 @@ layui.config({
                 form.render();
                 return;
             }
-            if (sdSkillCa != '1') {
-                var bizData = {
-                    sdSkillCa: sdSkillCa ,
-                    idPaper : data.value
-                }
-                $.ajax({
-                    url: basePath + '/pf/r/plan/exam/paper/sheet/list',
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: "application/json",
-                    data: JSON.stringify(bizData),
-                    success: function (data) {
-                        layer.closeAll('loading');
-                        if (data.code != 0) {
-                            layer.msg(data.msg);
-                            return false;
-                        } else {
-                            //console.log(data.data)
-                            var sheetHtml = '<option value="">请选择</option>';
-                            if (data.data && data.data.length >= 1) {
-                                $.each(data.data, function (index, context) {
-                                    sheetHtml += '<option value="' + context.idScoreSheet + '">' + context.naScoreSheet + '</option>\n';
-                                });
-                            }
-                            $('#idScoreSheet').empty();
-                            $('#idScoreSheet').append(sheetHtml);
-                            form.render();
-                            return false;
-                        }
-                    },
-                    error: function () {
-                        layer.msg("网络异常");
-                        return false;
-                    }
-                });
-            }
+            loadScoreSheet(sdSkillCa, data.value, null);
         });
 
         form.on('submit(addPaper)', function (data) {
@@ -348,6 +320,48 @@ layui.config({
             });
             return false;
         });
+    }
+
+    function loadScoreSheet(sdSkillCa, idPaper, idScoreSheet) {
+        if (sdSkillCa != '1') {
+            var bizData = {
+                sdSkillCa: sdSkillCa ,
+                idPaper : idPaper
+            }
+            $.ajax({
+                url: basePath + '/pf/r/plan/exam/paper/sheet/list',
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(bizData),
+                success: function (data) {
+                    layer.closeAll('loading');
+                    if (data.code != 0) {
+                        layer.msg(data.msg);
+                        return false;
+                    } else {
+                        //console.log(data.data)
+                        var sheetHtml = '<option value="">请选择</option>';
+                        if (data.data && data.data.length >= 1) {
+                            $.each(data.data, function (index, context) {
+                                sheetHtml += '<option value="' + context.idScoreSheet + '">' + context.naScoreSheet + '</option>\n';
+                            });
+                        }
+                        $('#idScoreSheet').empty();
+                        $('#idScoreSheet').append(sheetHtml);
+                        if (idScoreSheet) {
+                            $('#idScoreSheet').val(idScoreSheet);
+                        }
+                        form.render();
+                        return false;
+                    }
+                },
+                error: function () {
+                    layer.msg("网络异常");
+                    return false;
+                }
+            });
+        }
     }
 
     //点击其他区域关闭

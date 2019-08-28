@@ -112,6 +112,7 @@
                         <result property="idRoom" column="id_room" />
                         <result property="idRoomText" column="idRoomText" />
                         <result property="idPaper" column="id_paper" />
+                        <result property="idScoreSheet" column="id_score_sheet" />
                         <result property="idPaperText" column="idPaperText"/>
                         <result property="sq" column="sq"/>
                     </collection>
@@ -135,6 +136,7 @@
             a.id_room ,
             d.na_room as idRoomText ,
             a.id_paper,
+            a.id_score_sheet,
             concat(if((a.time_section mod 1) = 0, 1, 2), '-', floor(a.time_section), '-', a.id_area, '-', a.id_station) as sq
         FROM
             tp_ins_station a

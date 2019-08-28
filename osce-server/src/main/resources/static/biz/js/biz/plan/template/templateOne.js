@@ -764,9 +764,9 @@ function addSite(event, areaIndex, stationIndex) {
                     return '';
                 } else {
                     var sucData = data.data;
-                    roomOption = '';
+                    roomOption = '<option value="">请选择</option>\n';
                     for (var i = 0; i < sucData.length; i++) {
-                        roomOption += '<option value="' + sucData[i].idRoom + '">' + sucData[i].naRoom + '</option>\\n'
+                        roomOption += '<option value="' + sucData[i].idRoom + '">' + sucData[i].naRoom + '</option>\n';
                     }
                     openSite();
                     return true;

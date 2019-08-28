@@ -38,6 +38,11 @@ public class TdRoomInfo implements Serializable {
     private String idPaperText;
 
     /**
+     * 评分表ID
+     */
+    private Long idScoreSheet;
+
+    /**
      * 房间ID
      */
     private Long idRoom;
