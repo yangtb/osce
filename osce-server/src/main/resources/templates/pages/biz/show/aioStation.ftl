@@ -22,6 +22,7 @@
         <span class="test-num" id="naStation"></span>
         <p class="test-room">${naRoom!}</p>
         <div class="header-main">
+            <input id="idOrg" hidden>
             <p class='text' id="naOrg"></p>
             <p class='details' id="headInfo"></p>
             <span class="cur-time" id="nowtime"></span>

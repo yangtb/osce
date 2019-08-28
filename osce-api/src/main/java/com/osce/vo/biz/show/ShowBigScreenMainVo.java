@@ -20,6 +20,11 @@ public class ShowBigScreenMainVo implements Serializable {
     private static final long serialVersionUID = -6026943475970981541L;
 
     /**
+     * 机构id
+     */
+    private Long idOrg;
+
+    /**
      * 机构
      */
     private String naOrg;

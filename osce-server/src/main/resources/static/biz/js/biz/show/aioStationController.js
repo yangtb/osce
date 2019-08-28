@@ -39,6 +39,7 @@ layui.config({
     var idPlan, idArea, timeSection
 
     function fullPageHead(data) {
+        $("#idOrg").val(data.idOrg);
         $("#naOrg").text(data.naOrg);
        /* data.idPlan = 1;
         data.idArea = 10;
@@ -241,7 +242,33 @@ layui.config({
             layer.msg("当前无学员");
             return;
         }
-        // todo 认证
+        // 认证
+        var bizData = {
+            idOrg: $("#idOrg").val(),
+            idRoom: idRoom,
+            idCard: $('#currStudentIdCard').text()
+        }
+        $.ajax({
+            url: basePath + '/r/exec/auth',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg);
+                    return false;
+                } else {
+                    $("#currStudentStatus").text('叫号已认证');
+                    return false;
+                }
+            },
+            error: function () {
+                layer.msg("网络异常");
+                return false;
+            }
+        });
     });
 
 
