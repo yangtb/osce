@@ -26,8 +26,9 @@ public class SessionTimoutConfiguration implements WebMvcConfigurer {
         InterceptorRegistration registration = registry.addInterceptor(loginInterceptor());
         registration.addPathPatterns("/**/**");
         registration.excludePathPatterns("/login**");
-        registration.excludePathPatterns("/mobile**");
         registration.excludePathPatterns("/login/**");
+        registration.excludePathPatterns("/mobile/**");
+        registration.excludePathPatterns("/mobile**");
         registration.excludePathPatterns("/logout/**");
         registration.excludePathPatterns("/error**");
         registration.excludePathPatterns("/amazeui/**");
