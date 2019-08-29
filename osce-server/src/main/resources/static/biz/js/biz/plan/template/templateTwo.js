@@ -155,8 +155,8 @@ layui.config({
             }
             var idPaperText = content.idPaperText ? content.idPaperText : '请选择试卷';
             html += '    >\n' +
-                '        <img class="edit-btn edit-btn-paper" id="stable-' + content.idInsStation +'" data-id="' + content.idInsStation + '-' + sdSkillCa + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
-                '        <p class="item-text item-text-paper" id="paper-' + content.idInsStation +'" data-id="' + content.idInsStation  + '-' + sdSkillCa + '">'+ idPaperText +'</p>\n' +
+                '        <img class="edit-btn edit-btn-paper" id="stable-' + content.idInsStation +'" data-id="' + content.idInsStation + '-' + sdSkillCa + '" ts-selected="' + content.idPaper + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
+                '        <p class="item-text item-text-paper" id="paper-' + content.idInsStation +'" data-id="' + content.idInsStation  + '-' + sdSkillCa + '" ts-selected="' + content.idPaper + '">'+ idPaperText +'</p>\n' +
                 '      </div>\n';
         });
 
