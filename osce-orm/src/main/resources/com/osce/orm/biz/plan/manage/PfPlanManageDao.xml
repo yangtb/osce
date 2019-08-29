@@ -410,7 +410,7 @@
         LEFT JOIN erp_room b ON a.id_room = b.id_room
         WHERE
             a.id_plan = #{idPlan}
-        order by a.plan_day
+        order by a.plan_day , a.plan_section, b.na_room, a.na_skill_case
         limit #{offset}, #{limit}
     </select>
     <select id="isExistStep7" resultType="java.lang.Boolean">
