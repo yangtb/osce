@@ -85,7 +85,7 @@
         )
     </insert>
     <insert id="addItem" useGeneratedKeys="true" keyProperty="idScoreItem">
-        INSERT INTOtd_score_item
+        INSERT INTO td_score_item
         (
         <trim suffixOverrides=",">
             <if test="idScoreItem!=null">
