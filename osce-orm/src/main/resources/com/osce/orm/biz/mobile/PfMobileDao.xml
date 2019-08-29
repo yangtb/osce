@@ -294,7 +294,7 @@
             a.na_score_item ,
             a.des_score_item ,
             a.score ,
-            a.sd_score_item_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_SCORE_ITEM_CA' and dict_code = a.sd_score_item_ca) AS sd_score_item_ca ,
             a.score_item_analysis ,
             a.ref_question ,
             c.id_we_score ,
