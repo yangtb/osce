@@ -69,4 +69,9 @@ public class PlanPublishItemVo implements Serializable {
      */
     private String timeEnd;
 
+    /**
+     * 考官类别
+     */
+    private String manageType;
+
 }

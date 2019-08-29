@@ -166,7 +166,9 @@ layui.config({
                     '           <span class="">SP</span>\n' +
                     '        </p>\n';
                 $.each(content.planSp, function (index, content) {
-                    html += '<p class="right-item">' + content.realName + '</p>\n';
+                    if (content) {
+                        html += '<p class="right-item">' + content.realName + '</p>\n';
+                    }
                 });
                 html += ' </div>';
             }

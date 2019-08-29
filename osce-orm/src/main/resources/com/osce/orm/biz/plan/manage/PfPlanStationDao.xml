@@ -296,74 +296,94 @@
             (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = b.sd_station_ca) AS sdStationCaText ,
             (case  b.sd_skill_ca when '1' then '理论试题' when '2' then '技能操作' when '3' then '病史采集' end) as sdSkillCaText,
             g.na_room,
-            concat(date_format(h.gmt_plan_begin , '%Y-%m-%d'),(CASE WHEN((b.`time_section` - floor(b.`time_section`)) = 0 ) THEN ' 上午' ELSE ' 下午' END)) planTime,
+            concat(cast((h.gmt_plan_begin + INTERVAL(floor(b.time_section) - 1) DAY) AS date),(CASE WHEN((b.time_section - floor(b.time_section)) = 0 ) THEN ' 上午' ELSE ' 下午' END)) planTime,
             date_format(a.time_begin , '%H:%i') AS time_begin ,
-                date_format(a.time_end , '%H:%i') AS time_end
+            date_format(a.time_end , '%H:%i') AS time_end
         FROM
             tp_ins_station_detail a
         LEFT JOIN tp_ins_station b ON a.id_ins_station = b.id_ins_station
         LEFT JOIN org_student_depart m on a.id_user = m.id_student_depart
 	    LEFT JOIN user_info d ON m.id_user = d.user_id
         LEFT JOIN td_area e ON b.id_area = e.id_area
-        LEFT JOIN td_station f ON b.id_area = f.id_area
+        LEFT JOIN td_station f ON b.id_station = f.id_station
         LEFT JOIN erp_room g ON b.id_room = g.id_room
         LEFT JOIN tp_plan h ON b.id_plan = h.id_plan
         WHERE
             b.id_plan = #{idPlan}
+        ORDER BY
+            cast((h.gmt_plan_begin + INTERVAL(floor(b.time_section) - 1) DAY) AS date) ,
+            b.id_area ,
+            b.id_station ,
+            b.time_section ,
+            b.id_room,
+            a.time_begin
     </select>
     <select id="listSpItem" resultType="com.osce.vo.biz.plan.manage.PlanPublishItemVo">
         SELECT
-            d.real_name ,
-            d.phone_no ,
+            b.real_name ,
+            b.phone_no ,
             e.na_area ,
             f.na_station ,
-            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = b.sd_station_ca) AS sdStationCaText ,
-            (case  b.sd_skill_ca when '1' then '理论试题' when '2' then '技能操作' when '3' then '病史采集' end) as sdSkillCaText,
-            g.na_room,
-            concat(date_format(h.gmt_plan_begin , '%Y-%m-%d'),(CASE WHEN((b.`time_section` - floor(b.`time_section`)) = 0 ) THEN ' 上午' ELSE ' 下午' END)) planTime
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = g.sd_station_ca) AS sdStationCaText ,
+            (case  g.sd_skill_ca when '1' then '理论试题' when '2' then '技能操作' when '3' then '病史采集' end) as sdSkillCaText,
+            m.na_room,
+            concat(cast(( h.gmt_plan_begin + INTERVAL(floor(a.time_section) - 1) DAY) AS date),(CASE WHEN((g.time_section - floor(g.time_section)) = 0 ) THEN ' 上午' ELSE ' 下午' END)) planTime
         FROM
-            tp_ins_station_detail a
-        LEFT JOIN tp_ins_station b ON a.id_ins_station = b.id_ins_station
-        LEFT JOIN tp_sp c ON b.id_plan = c.id_plan
-        AND b.id_area = c.id_area
-        AND b.id_station = c.id_station
-        AND b.time_section = c.time_section
-        AND b.id_room = c.id_room
-        LEFT JOIN user_info d ON c.id_user = d.user_id
-        LEFT JOIN td_area e ON b.id_area = e.id_area
-        LEFT JOIN td_station f ON b.id_area = f.id_area
-        LEFT JOIN erp_room g ON b.id_room = g.id_room
-        LEFT JOIN tp_plan h ON b.id_plan = h.id_plan
+            tp_sp a
+        LEFT JOIN user_info b ON a.id_user = b.user_id
+        LEFT JOIN td_area e ON a.id_area = e.id_area
+        LEFT JOIN td_station f ON a.id_station = f.id_station
+        LEFT JOIN tp_ins_station g ON g.id_plan = a.id_plan
+        AND g.id_area = a.id_area
+        AND g.id_station = a.id_station
+        AND g.time_section = a.time_section
+        AND g.id_room = a.id_room
+        LEFT JOIN erp_room m ON g.id_room = m.id_room
+        LEFT JOIN tp_plan h ON a.id_plan = h.id_plan
         WHERE
-            b.id_plan = #{idPlan}
-        AND c.id_user IS NOT NULL
+            a.id_plan = #{idPlan}
+        ORDER BY
+            cast((h.gmt_plan_begin + INTERVAL(floor(a.time_section) - 1) DAY) AS date) ,
+            a.id_area ,
+            a.id_station ,
+            a.time_section ,
+            a.id_room
     </select>
     <select id="listAssistantItem" resultType="com.osce.vo.biz.plan.manage.PlanPublishItemVo">
-        SELECT
-            d.real_name ,
-            d.phone_no ,
+        SELECT 
+            b.real_name ,
+            b.phone_no ,
             e.na_area ,
             f.na_station ,
-            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = b.sd_station_ca) AS sdStationCaText ,
-            (case  b.sd_skill_ca when '1' then '理论试题' when '2' then '技能操作' when '3' then '病史采集' end) as sdSkillCaText,
-            g.na_room,
-            concat(date_format(h.gmt_plan_begin , '%Y-%m-%d'),(CASE WHEN((b.`time_section` - floor(b.`time_section`)) = 0 ) THEN ' 上午' ELSE ' 下午' END)) planTime
-        FROM
-            tp_ins_station_detail a
-        LEFT JOIN tp_ins_station b ON a.id_ins_station = b.id_ins_station
-        LEFT JOIN tp_assistant c ON b.id_plan = c.id_plan
-        AND b.id_area = c.id_area
-        AND b.id_station = c.id_station
-        AND b.time_section = c.time_section
-        AND b.id_room = c.id_room
-        LEFT JOIN user_info d ON c.id_user_manager = d.user_id
-        LEFT JOIN td_area e ON b.id_area = e.id_area
-        LEFT JOIN td_station f ON b.id_area = f.id_area
-        LEFT JOIN erp_room g ON b.id_room = g.id_room
-        LEFT JOIN tp_plan h ON b.id_plan = h.id_plan
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = g.sd_station_ca) AS sdStationCaText ,
+                (case g.sd_skill_ca when '1' then '理论试题' when '2' then '技能操作' when '3' then '病史采集' end) as sdSkillCaText,
+            m.na_room,
+            (case a.a.manageType when 1 then '主考官' when 2 then '考官' when 3 then '中控考官' end) as manageType, 
+            concat(cast(( h.gmt_plan_begin + INTERVAL(floor(a.time_section) - 1) DAY) AS date),(CASE WHEN((g.time_section - floor(g.time_section)) = 0 ) THEN ' 上午' ELSE ' 下午' END)) planTime
+        FROM (select id_plan, id_area, id_station, time_section, id_room , id_user_manager as id_user, 1 as manageType from tp_assistant
+            union select id_plan, id_area, id_station, time_section, id_room , id_user_assistant, 2 as manageType from tp_assistant
+            union select id_plan, id_area, id_station, time_section, id_room , id_user_remote, 3 as manageType from tp_assistant
+        ) a
+        LEFT JOIN user_info b ON a.id_user = b.user_id
+        LEFT JOIN td_area e ON a.id_area = e.id_area
+        LEFT JOIN td_station f ON a.id_station = f.id_station
+        LEFT JOIN tp_ins_station g ON g.id_plan = a.id_plan
+        AND g.id_area = a.id_area
+        AND g.id_station = a.id_station
+        AND g.time_section = a.time_section
+        AND g.id_room = a.id_room
+        LEFT JOIN erp_room m ON g.id_room = m.id_room
+        LEFT JOIN tp_plan h ON a.id_plan = h.id_plan
         WHERE
-            b.id_plan = #{idPlan}
-        AND c.id_user_manager IS NOT NULL
+            a.id_plan = #{idPlan}
+        AND a.id_user IS NOT NULL
+        ORDER BY
+            cast((h.gmt_plan_begin + INTERVAL(floor(a.time_section) - 1) DAY) AS date) ,
+            a.id_area ,
+            a.id_station ,
+            a.time_section ,
+            a.id_room, 
+            a.manageType
     </select>
 
 </mapper>
