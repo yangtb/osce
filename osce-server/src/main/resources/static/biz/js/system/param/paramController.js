@@ -103,9 +103,9 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            common.open('新增参数', 'form?formType=' + formType, 340, 505);
+            common.open('新增参数', 'form?formType=' + formType, 365, 505);
         } else {
-            common.open('编辑参数', 'form?formType=' + formType, 350, 505, _successDicFunction(currentEditData));
+            common.open('编辑参数', 'form?formType=' + formType, 365, 505, _successDicFunction(currentEditData));
         }
     };
 
