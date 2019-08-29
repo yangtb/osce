@@ -212,7 +212,7 @@
          SELECT
             queue.id_exec_queue ,
             queue.id_user_student ,
-            queue.cd_student ,
+            LPAD(queue.cd_student, 2, 0) as cd_student ,
             queue.sd_exec_queue ,
             queue.plan_begin ,
             user_info.real_name ,
@@ -234,7 +234,7 @@
         SELECT
             queue.id_exec_queue ,
             queue.id_user_student ,
-            queue.cd_student ,
+            LPAD(queue.cd_student, 2, 0) as cd_student ,
             queue.sd_exec_queue ,
             queue.plan_begin ,
             user_info.real_name ,
