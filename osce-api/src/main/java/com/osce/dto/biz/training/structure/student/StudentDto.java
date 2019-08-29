@@ -35,5 +35,9 @@ public class StudentDto extends PageParam implements Serializable {
      */
     private Long idDepart;
 
+    /**
+     * 是否当前学届
+     */
+    private boolean currentGrade;
 
 }

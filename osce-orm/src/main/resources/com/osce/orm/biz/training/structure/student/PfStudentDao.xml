@@ -121,6 +121,7 @@
             org_student_depart a
         LEFT JOIN user_info b ON a.id_user = b.user_id
         LEFT JOIN org_depart c ON a.id_depart = c.id_depart
+        LEFT JOIN org_grade d ON a.id_grade = d.id_grade
         WHERE
             b.id_org = #{idOrg}
         AND b.is_deleted = 'N'
@@ -130,6 +131,9 @@
         <if test="keywords != null and keywords != '' ">
             and (phone_no like concat('%',#{keywords},'%')
             or real_name like concat('%',#{keywords},'%'))
+        </if>
+        <if test="currentGrade">
+            and d.fg_active = '1'
         </if>
         limit #{offset}, #{limit}
     </select>
@@ -150,6 +154,9 @@
         <if test="keywords != null and keywords != '' ">
             and (phone_no like concat('%',#{keywords},'%')
             or real_name like concat('%',#{keywords},'%'))
+        </if>
+        <if test="currentGrade">
+            and c.fg_active = '1'
         </if>
     </select>
     <select id="listStudentByIdGrade" resultType="com.osce.vo.biz.training.structure.student.StudentVo">

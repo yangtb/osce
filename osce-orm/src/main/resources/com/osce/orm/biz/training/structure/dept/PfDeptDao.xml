@@ -214,20 +214,26 @@
                     select="selectChildDept" ofType="com.osce.vo.PfTreeSelectVo" />
     </resultMap>
 
-    <cache eviction="LRU" flushInterval="600000" readOnly="true" size="1024"/>
+    <!--<cache eviction="LRU" flushInterval="600000" readOnly="true" size="1024"/>-->
 
-    <select id="selectDeptTreeSelect" resultMap="orgTreeResultMap" useCache="true">
+    <select id="selectDeptTreeSelect" resultMap="orgTreeResultMap">
         SELECT
-            id_depart ,
-            na_depart ,
+            a.id_depart ,
+            a.na_depart ,
             true as open
         FROM
-            org_depart
+            org_depart a
+        <if test="currentGrade">
+            left join org_grade b on a.id_grade = b.id_grade
+        </if>
         WHERE
-            fg_active = '1'
-        and id_depart_par is null
+            a.fg_active = '1'
+        and a.id_depart_par is null
         <if test="idOrg != null">
-            and id_org = #{idOrg}
+            and a.id_org = #{idOrg}
+        </if>
+        <if test="currentGrade">
+            and b.fg_active = '1'
         </if>
     </select>
     <select id="selectChildDept" resultMap="orgTreeResultMap">

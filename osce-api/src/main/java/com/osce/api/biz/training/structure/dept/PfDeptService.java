@@ -1,6 +1,7 @@
 package com.osce.api.biz.training.structure.dept;
 
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.dto.system.org.PfDeptDto;
 import com.osce.entity.OrgDepart;
 import com.osce.vo.PfTreeSelectVo;
 import com.osce.vo.biz.training.structure.dept.PfDeptZtreeVo;
@@ -59,9 +60,9 @@ public interface PfDeptService {
     /**
      * treeSelect
      *
-     * @param idOrg 机构id
+     * @param dto
      * @return
      */
-    List<PfTreeSelectVo> selectDeptTreeSelect(Long idOrg);
+    List<PfTreeSelectVo> selectDeptTreeSelect(PfDeptDto dto);
 
 }

@@ -2,6 +2,7 @@ package com.osce.service.biz.training.structure.dept;
 
 import com.osce.api.biz.training.structure.dept.PfDeptService;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.dto.system.org.PfDeptDto;
 import com.osce.entity.OrgDepart;
 import com.osce.exception.RestErrorCode;
 import com.osce.exception.RestException;
@@ -60,8 +61,8 @@ public class PfDeptServiceImpl implements PfDeptService {
     }
 
     @Override
-    public List<PfTreeSelectVo> selectDeptTreeSelect(Long idOrg) {
-        return pfDeptDao.selectDeptTreeSelect(idOrg);
+    public List<PfTreeSelectVo> selectDeptTreeSelect(PfDeptDto dto) {
+        return pfDeptDao.selectDeptTreeSelect(dto);
     }
 
 }

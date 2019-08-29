@@ -8,7 +8,7 @@ layui.config({
 
     treeSelect.render({
         elem: '#idDepart',
-        data: basePath + '/pf/r/dept/tree/select',
+        data: basePath + '/pf/r/dept/tree/select?currentGrade=true',
         type: 'post',
         placeholder: '请选择班级',
         click: function (d) {
@@ -35,10 +35,10 @@ layui.config({
             {field: 'phoneNo', minWidth: 130, title: '手机号'},
             {field: 'idcard', minWidth: 190, title: '身份证号'},
         ]] //设置表头
-        , url: basePath + '/pf/p/student/list'
-        , limit: 50
+        , url: basePath + '/pf/p/student/list?currentGrade=true'
+        , limit: 30
         , even: true
-        , limits: [50, 100]
+        , limits: [30, 50 ,100]
         , page: true
         , size: 'sm'
     });
