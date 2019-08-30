@@ -201,11 +201,11 @@ layui.config({
 
     function spClick() {
         $(".right-item-sp").on('click', function () {
-            tpSp($(this).attr("data-sq"));
+            assignedAssistant($(this).attr("data-sq"));
         })
     }
 
-    function tpSp(sq) {
+    function assignedAssistant(sq) {
         var index = layui.layer.open({
             title: false,
             //skin: 'layui-layer-molv', //样式类名

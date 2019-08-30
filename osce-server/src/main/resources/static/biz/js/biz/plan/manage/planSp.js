@@ -164,13 +164,14 @@ layui.config({
                     '        <p class="right-item right-item-sp" data-sq="' + content.sq  + '-' + content.idRoom + '">\n' +
                     '           <img class="edit-btn edit" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
                     '           <span class="">SP</span>\n' +
-                    '        </p>\n';
+                    '        </p>\n' +
+                    '        <div id="asSp-' + content.sq  + '-' + content.idRoom + '">\n';
                 $.each(content.planSp, function (index, content) {
                     if (content) {
                         html += '<p class="right-item">' + content.realName + '</p>\n';
                     }
                 });
-                html += ' </div>';
+                html += '</div> </div>';
             }
             html += '</div>';
         });
@@ -222,21 +223,24 @@ layui.config({
                     common.errorMsg('请先选中一行记录');
                     return;
                 }
-                var idUsers = new Array();
+                var idUsers = new Array(), idUserNames = new Array();
                 for (var i = 0; i < sp.length; i++) {
                     idUsers.push(sp[i].getAttribute('data-id'))
+                    var d_spRealNameText = iframeWindow.document.getElementById('spRealName-' + sp[i].getAttribute('data-id'));
+                    var v_spRealNameText = d_spRealNameText ? d_spRealNameText.innerText : null;
+                    idUserNames.push(v_spRealNameText);
                 }
                 if (idUsers.length == 0) {
                     common.errorMsg('请先选中一行记录');
                     return;
                 }
-                saveSp(idUsers, sq)
+                saveSp(idUsers, sq, idUserNames)
                 //layer.close(index); //如果设定了yes回调，需进行手工关闭
             }
         });
     }
 
-    function saveSp(idUsers, sq) {
+    function saveSp(idUsers, sq, idUserNames) {
         //console.log(sq)
         var arr = sq.split("-");
         var bizData = {
@@ -249,9 +253,19 @@ layui.config({
         }
         common.commonPost(basePath + '/pf/r/plan/station/save/sp',
             bizData, null, null, function () {
-                window.location.reload();
+                //window.location.reload();
+                full(sq, idUserNames);
                 layer.closeAll();
             }, true);
+    }
+
+    function full(sq, idUserNames) {
+        $('#asSp-' + sq).empty();
+        var html = '';
+        $.each(idUserNames, function (index, content) {
+            html += '<p class="right-item">' + content + '</p>';
+        });
+        $('#asSp-' + sq).append(html);
     }
 
 });
