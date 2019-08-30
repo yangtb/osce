@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <link href="${basePath!}/static/biz/img/mobile/favicon.ico" rel="shortcut icon">
     <meta content="webkit" name="renderer">
     <meta name="format-detection" content="telephone=no">
     <meta content="email=no" name="format-detection">

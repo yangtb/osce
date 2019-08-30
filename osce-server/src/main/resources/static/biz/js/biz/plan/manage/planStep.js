@@ -270,41 +270,43 @@ layui.config({
 
     function fullProgress(data){
         if (data.gmtRelease) {
-            $("#gmtRelease").text(data.gmtRelease);
+            $("#p_gmtRelease").text(data.gmtRelease);
         } else {
             $("#examPublish").addClass("unfinished");
         }
 
 
-        if (data.gmyPicking) {
+        /*if (data.gmyPicking) {
             $("#gmyPicking").text(data.gmyPicking);
             $("#percentPicking").text(data.percentPicking + '%');
         }
         if (data.percentPicking != 100) {
             $("#pickingCircle").addClass("cur-circle");
+        }*/
+
+
+        if (data.gmtPlanBegin) {
+            $("#p_gmtPlanBegin").text(data.gmtPlanBegin);
         }
-
-
         if (data.gmtActBegin) {
-            $("#gmtActBegin").text(data.gmtActBegin);
+            $("#p_gmtActBegin").text(data.gmtActBegin);
         }
-        if (data.gmtActEnd) {
-            $("#gmtActEnd").text(data.gmtActEnd);
-        }
-        if (data.gmtActBegin && !data.gmtActEnd) {
+        if (data.gmtActBegin) {
             $("#gmtAct").addClass("cur-circle");
-        } else if (!data.gmtActBegin && !data.gmtActEnd) {
+        } else if (!data.gmtActBegin) {
             $("#gmtAct").addClass("unfinished");
         }
 
 
-        if (data.gmtPlanBegin) {
-            $("#gmtPlanBeginBar").text(data.gmtPlanBegin);
+        if (data.gmtActEnd) {
+            $("#p_gmtActEnd").text(data.gmtActEnd);
         }
         if (data.gmtPlanEnd) {
-            $("#gmtPlanEndBar").text(data.gmtPlanEnd);
+            $("#p_gmtPlanEnd").text(data.gmtPlanEnd);
         }
-        if (!data.gmtPlanEnd) {
+        if (data.gmtActEnd) {
+            $("#gmtPlan").addClass("cur-circle");
+        } else if (!data.gmtActEnd) {
             $("#gmtPlan").addClass("unfinished");
         }
     }
