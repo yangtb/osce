@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <link href="${basePath!}/biz/img/logo/favicon.ico" rel="shortcut icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>${websiteName!}</title>
     <meta name="keywords" content="登录">
