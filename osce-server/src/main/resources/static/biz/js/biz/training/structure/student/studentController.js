@@ -375,7 +375,7 @@ layui.config({
             contentType: "application/json",
             data: JSON.stringify(reqData),
             success: function (data) {
-                layer.closeAll('loading');
+                layer.closeAll();
                 if (data.code != 0) {
                     common.errorMsg(data.msg);
                     return false;
@@ -385,13 +385,46 @@ layui.config({
                         layer.msg("导入成功");
                     } else {
                         var msg = '';
+                        var contentTable = '<table class="layui-table">\n' +
+                            '    <colgroup>\n' +
+                            '      <col width="150">\n' +
+                            '      <col>\n' +
+                            '    </colgroup>\n' +
+                            '    <thead>\n' +
+                            '      <tr>\n' +
+                            '        <th>姓名</th>\n' +
+                            '        <th>错误信息</th>\n' +
+                            '      </tr> \n' +
+                            '    </thead>\n' +
+                            '    <tbody>\n';
                         $.each(sucData, function (index, content) {
+                            contentTable +=
+                                '      <tr>\n' +
+                                '        <td>' + content.realName + '</td>\n' +
+                                '        <td>' + content.importErrorMsg + '</td>\n' +
+                                '      </tr>\n';
+                        });
+                        contentTable +=  '    </tbody>\n' +
+                            '  </table>';
+
+
+                        layer.open({
+                            title: '导入学员数据失败',
+                            type: 1,
+                            anim: 5,
+                            resize: false,
+                            area: ['500px', '350px'],
+                            content: '<div style="margin: 10px">\n' + contentTable + '</div>'
+                        });
+
+
+                        /*$.each(sucData, function (index, content) {
                             if (msg) {
                                 msg += ', ';
                             }
                             msg += content.realName;
                         });
-                        layer.alert('导入学员【' + msg + '】数据失败');
+                        layer.alert('导入学员【' + msg + '】数据失败');*/
                     }
                     _studentReload();
                     return true;
@@ -404,6 +437,9 @@ layui.config({
             }
         });
     }
+
+
+
 
     $('#moveStudent').on('click', function () {
 

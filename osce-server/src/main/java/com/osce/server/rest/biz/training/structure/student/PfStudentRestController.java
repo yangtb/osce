@@ -79,6 +79,7 @@ public class PfStudentRestController extends BaseController {
             try {
                 pfStudentService.addStudent(departDto);
             } catch (Exception e) {
+                registerDto.setImportErrorMsg(e.getMessage());
                 errorData.add(registerDto);
             }
         }

@@ -127,15 +127,20 @@ layui.config({
             }
             nodeList.push(node);
         });
+        // console.log(deptData)
         $.each(deptData, function (index, content) {
-            if (!content.pId) {
-                $.each(gradeData, function (index1, content1) {
-                    if (content1.idGrade == content.idGrade) {
+            var isExistGrade = false;
+            $.each(gradeData, function (index1, content1) {
+                if (content1.idGrade == content.idGrade) {
+                    isExistGrade = true;
+                    if (!content.pId) {
                         content.pId = 'g-' + content1.idGrade;
                     }
-                });
+                }
+            });
+            if (isExistGrade) {
+                nodeList.push(content);
             }
-            nodeList.push(content);
         });
         return nodeList;
     }
@@ -170,7 +175,7 @@ layui.config({
                             var sexStr = content.sex == '1' ? '男' : '女';
                             var stuData = {
                                 "value": content.userId,
-                                "title": content.realName + '（' + sexStr + '）'  + content.phoneNo
+                                "title": content.realName + '（' + sexStr + '）' + content.phoneNo
                             }
                             data1.push(stuData)
                         });
@@ -241,8 +246,8 @@ layui.config({
 
             layer.load(2);
             var bizData = {
-                idUsers : idUsers ,
-                idDeparts : idDeparts
+                idUsers: idUsers,
+                idDeparts: idDeparts
             }
             $.ajax({
                 url: basePath + '/pf/r/student/move',
@@ -267,7 +272,6 @@ layui.config({
             });
         });
     });
-
 
 
 });

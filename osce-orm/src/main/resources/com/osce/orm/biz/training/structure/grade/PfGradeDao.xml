@@ -212,9 +212,7 @@
                     select="selectDeptTreeSelect" ofType="com.osce.vo.PfTreeSelectTableVo" />
     </resultMap>
 
-    <cache eviction="LRU" flushInterval="600000" readOnly="true" size="1024"/>
-
-    <select id="listAllGradeTree" resultMap="gradeTreeResultMap" useCache="true">
+    <select id="listAllGradeTree" resultMap="gradeTreeResultMap">
         SELECT
             CONCAT('g-', id_grade) as idGradeStr,
             id_grade ,

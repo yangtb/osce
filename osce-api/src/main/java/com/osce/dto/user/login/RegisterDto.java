@@ -110,4 +110,9 @@ public class RegisterDto implements Serializable {
      */
     private boolean platOrSuper;
 
+    /**
+     * 批量导入错误
+     */
+    private String importErrorMsg;
+
 }
