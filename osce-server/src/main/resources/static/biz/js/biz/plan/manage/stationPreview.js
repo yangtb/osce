@@ -194,8 +194,8 @@ layui.config({
         var arr = data.split("-");
         var idInsStation = arr[0];
         var sdSkillCa = arr[1];
-        var idPaper = arr[2];
-        var idScoreSheet = arr[3];
+        var idPaper = arr[2] ? arr[2] : null;
+        var idScoreSheet = arr[3] ? arr[3] : null;
 
 
         var bizData = {
@@ -323,6 +323,10 @@ layui.config({
     }
 
     function loadScoreSheet(sdSkillCa, idPaper, idScoreSheet) {
+        console.log(idPaper)
+        if (idPaper == "undefined") {
+            return;
+        }
         if (sdSkillCa != '1') {
             var bizData = {
                 sdSkillCa: sdSkillCa ,

@@ -279,7 +279,8 @@
             CONCAT(LEFT(b.idcard,2), '************', RIGHT(b.idcard,4)) as idCard ,
             b.user_cd ,
             a.id_paper ,
-            c.na_plan
+            c.na_plan ,
+            b.photo_addr as headPhotoUrl
         FROM
             we_exec a
         LEFT JOIN user_info b ON a.id_user_student = b.user_id
@@ -302,7 +303,7 @@
         FROM
             td_score_item a
         LEFT JOIN we_exec b ON a.id_score_sheet = b.id_score_sheet
-        left join we_score c on b.id_exec = c.id_exec and a.id_score_sheet = b.id_score_sheet
+        left join we_score c on b.id_exec = c.id_exec and a.id_score_item = c.id_score_item and c.cd_assistant_ca = #{cdAssistantCa}
         WHERE
             b.id_exec = #{idExec}
     </select>
@@ -338,13 +339,22 @@
     <select id="listEvaluateDetail" resultType="com.osce.vo.biz.mobile.score.MobileEvaluateDetail">
         SELECT
             a.id_cob_evaluate_detail ,
-            b.id_we_evaluate_detail ,
+            temp.id_we_evaluate_detail ,
             a.na_cob_evaluate_detail ,
-            b.score
+            temp.score
         FROM
             cob_evaluate_detail a
-        LEFT JOIN we_evaluate_detail b ON a.id_cob_evaluate_detail = b.id_cob_evaluate_detail
-        LEFT JOIN we_evaluate c ON b.id_we_evaluate = c.id_we_evaluate AND c.id_exec = #{idExec}
+        LEFT JOIN(
+            SELECT
+                b.id_we_evaluate_detail ,
+                b.id_cob_evaluate_detail ,
+                b.score
+            FROM
+                we_evaluate_detail b
+            LEFT JOIN we_evaluate c ON b.id_we_evaluate = c.id_we_evaluate
+            WHERE
+                c.id_exec = #{idExec}
+        ) temp ON a.id_cob_evaluate_detail = temp.id_cob_evaluate_detail
         WHERE
             a.id_cob_evaluate = #{idCobEvaluate}
         ORDER BY

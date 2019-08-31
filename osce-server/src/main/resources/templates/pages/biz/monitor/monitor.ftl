@@ -28,7 +28,7 @@
 
 <body>
 
-<div class="wrapper-content" style="margin-top: -10px;">
+<div class="wrapper-content">
 
     <div class="layui-tab layui-tab-brief" lay-filter="monitorFilter">
         <ul class="layui-tab-title">

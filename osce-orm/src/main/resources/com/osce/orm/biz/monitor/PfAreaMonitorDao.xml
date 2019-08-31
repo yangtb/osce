@@ -120,10 +120,19 @@
         WHERE
             id_org = #{idOrg}
         AND plan_day = DATE(NOW())
-        AND time_begin &lt;= TIME(now()) and time_end >= TIME(now())
+        <if test="amPmFlag == 0">
+            AND time_begin &lt;= '12:00:00'
+        </if>
+        <if test="amPmFlag == 1">
+            AND time_begin > '12:00:00'
+        </if>
     </select>
     <select id="selectMonitorAreaDetail" resultType="com.osce.vo.biz.monitor.MonitorAreaDetailVo">
         SELECT
+            a.id_plan ,
+            a.id_area ,
+            a.time_section ,
+            a.id_room ,
             b.id_case ,
             a.id_score_sheet ,
             b.na_score_sheet

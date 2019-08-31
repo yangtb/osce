@@ -6,6 +6,7 @@ import com.osce.dto.biz.mobile.*;
 import com.osce.entity.SysParam;
 import com.osce.entity.WeEvaluate;
 import com.osce.entity.WeEvaluateDetail;
+import com.osce.enums.CdAssistantCaEnum;
 import com.osce.enums.SysParamEnum;
 import com.osce.exception.RestErrorCode;
 import com.osce.exception.RestException;
@@ -181,6 +182,8 @@ public class PfMobileRestController {
     public ResultObject listScoreSheet(@RequestBody MobileScoreDto dto) {
         /* 参数校验 */
         Assert.isTrue(dto.getIdExec() != null, "idExec");
+        Assert.isTrue(StringUtils.isNotBlank(dto.getCdAssistantCa()), "cdAssistantCa");
+        Assert.isTrue(CdAssistantCaEnum.contains(dto.getCdAssistantCa()), "cdAssistantCa不正确");
         return ResultObject.createSuccess("listScoreSheet", ResultObject.DATA_TYPE_LIST,
                 pfMobileService.listScoreSheet(dto));
     }
@@ -198,10 +201,7 @@ public class PfMobileRestController {
         Assert.isTrue(dto.getIdScoreItem() != null, "idScoreItem");
         Assert.isTrue(dto.getScoreResult() != null, "scoreResult");
         Assert.isTrue(StringUtils.isNotBlank(dto.getCdAssistantCa()), "cdAssistantCa");
-        if (!("1".equals(dto.getCdAssistantCa()) || "2".equals(dto.getCdAssistantCa())
-                || "3".equals(dto.getCdAssistantCa()))) {
-            throw new BizRuntimeException(ErrorCode.ERROR_GENERAL_110001, "cdAssistantCa不正确");
-        }
+        Assert.isTrue(CdAssistantCaEnum.contains(dto.getCdAssistantCa()), "cdAssistantCa不正确");
         return ResultObject.createSuccess("saveSheetScore", ResultObject.DATA_TYPE_OBJECT,
                 pfMobileService.saveSheetScore(dto));
     }

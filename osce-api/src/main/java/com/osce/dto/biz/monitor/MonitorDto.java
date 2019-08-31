@@ -41,6 +41,11 @@ public class MonitorDto extends PageParam implements Serializable {
     private float timeSection;
 
     /**
+     * 房间ID
+     */
+    private Long idRoom;
+
+    /**
      * 学生id
      */
     private Long idUserStudent;
@@ -49,6 +54,12 @@ public class MonitorDto extends PageParam implements Serializable {
      * 排站ID
      */
     private Long idInsStation;
+
+    /**
+     * 上午下午标识
+     */
+    private int amPmFlag;
+
 
 
 }

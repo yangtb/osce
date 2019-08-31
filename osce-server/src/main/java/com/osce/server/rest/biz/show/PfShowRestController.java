@@ -196,10 +196,10 @@ public class PfShowRestController {
                 }
             }
             if (StringUtils.isNotBlank(qrCodeUrl)) {
-                qrCodeUrl += "?id_plan=" + dto.getIdPlan()
-                        + "&id_area=" + dto.getIdArea()
-                        + "&time_section=" + dto.getTimeSection()
-                        + "&id_room=" + dto.getIdRoom();
+                qrCodeUrl += "?idPlan=" + dto.getIdPlan()
+                        + "&idArea=" + dto.getIdArea()
+                        + "&timeSection=" + dto.getTimeSection()
+                        + "&idRoom=" + dto.getIdRoom();
             }
             showStationVo.setQrCodeUrl(qrCodeUrl);
         }

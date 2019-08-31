@@ -84,4 +84,9 @@ public class MobileScoreHeaderVo implements Serializable {
      */
     private Long countdownSecond;
 
+    /**
+     * 头像url
+     */
+    private String headPhotoUrl;
+
 }

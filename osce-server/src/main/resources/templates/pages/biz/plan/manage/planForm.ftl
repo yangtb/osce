@@ -119,14 +119,6 @@
                                                 <p class="modal-item">发布时间&emsp;<span class="item-time" id="p_gmtRelease"></span></p>
                                             </div>
                                         </li>
-                                        <#--<li class="list-item space wait-finish">
-                                            <span class="circle" id="pickingCircle"></span>
-                                            <p class="text">物料准备</p>
-                                            <div class="modal">
-                                                <p class="modal-item">领料完成时间&emsp;<span class="item-time" id="gmyPicking"></span></p>
-                                                <p class="modal-item">领料完成度 &emsp;&emsp;<span class="item-time" id="percentPicking"></span></p>
-                                            </div>
-                                        </li>-->
                                         <li class="list-item space wait-finish">
                                             <span class="circle" id="gmtAct"></span>
                                             <p class="text">开始考试</p>

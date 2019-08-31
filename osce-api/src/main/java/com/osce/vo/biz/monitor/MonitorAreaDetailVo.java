@@ -39,4 +39,24 @@ public class MonitorAreaDetailVo implements Serializable {
      */
     private String stationQrCodeUrl;
 
+    /**
+     * 计划id
+     */
+    private Long idPlan;
+
+    /**
+     * 考场
+     */
+    private Long idArea;
+
+    /**
+     * 时间：上午、下午
+     */
+    private float timeSection;
+
+    /**
+     * 房间ID
+     */
+    private Long idRoom;
+
 }

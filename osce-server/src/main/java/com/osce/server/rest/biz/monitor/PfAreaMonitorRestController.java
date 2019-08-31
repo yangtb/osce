@@ -3,6 +3,7 @@ package com.osce.server.rest.biz.monitor;
 import com.osce.api.biz.monitor.PfAreaMonitorService;
 import com.osce.dto.biz.monitor.MonitorDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.entity.SysParam;
 import com.osce.enums.SysParamEnum;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -13,6 +14,7 @@ import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.ResultObject;
 import com.sm.open.care.core.utils.Assert;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,11 +65,25 @@ public class PfAreaMonitorRestController extends BaseController {
         /* 参数校验 */
         Assert.isTrue(dto.getIdInsStation() != null, "idInsStation");
         MonitorAreaDetailVo monitorAreaDetailVo = pfAreaMonitorService.selectMonitorAreaDetail(dto);
-        if (monitorAreaDetailVo == null) {
-            monitorAreaDetailVo = new MonitorAreaDetailVo();
+        if (monitorAreaDetailVo != null) {
+            // 二维码链接参数
+            SysParam sysParam = paramUtil.getParamInfo(SysParamEnum.STATION_QR_CODE_URL.getCode());
+            String qrCodeUrl = null;
+            if (sysParam != null) {
+                qrCodeUrl = sysParam.getParamValue();
+                if (StringUtils.isBlank(qrCodeUrl)) {
+                    qrCodeUrl = sysParam.getDefaultValue();
+                }
+            }
+            if (StringUtils.isNotBlank(qrCodeUrl)) {
+                qrCodeUrl += "?idPlan=" + monitorAreaDetailVo.getIdPlan()
+                        + "&idArea=" + monitorAreaDetailVo.getIdArea()
+                        + "&timeSection=" + monitorAreaDetailVo.getTimeSection()
+                        + "&idRoom=" + monitorAreaDetailVo.getIdRoom();
+            }
+            monitorAreaDetailVo.setStationQrCodeUrl(qrCodeUrl);
         }
-        String stationRoomUrl = paramUtil.getParamValue(SysParamEnum.STATION_ROOM_URL.getCode());
-        monitorAreaDetailVo.setStationQrCodeUrl(stationRoomUrl);
+
         return ResultObject.createSuccess("selectMonitorAreaDetail", ResultObject.DATA_TYPE_OBJECT, monitorAreaDetailVo);
     }
 

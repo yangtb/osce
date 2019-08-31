@@ -15,6 +15,6 @@
 <body>
 <div id="app"></div>
 <script src="${mobileUrl!}/vendor.d779f38e84a985c518f9.js"></script>
-<script src="${mobileUrl!}/app.d388d06f47edd68d8b9a.js"></script>
+<script src="${mobileUrl!}/app.641d05905c6e0fcb100e.js"></script>
 </body>
 </html>

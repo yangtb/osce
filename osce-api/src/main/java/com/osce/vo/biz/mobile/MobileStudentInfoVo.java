@@ -64,5 +64,10 @@ public class MobileStudentInfoVo implements Serializable {
      */
     private String userCd;
 
+    /**
+     * 头像url
+     */
+    private String headPhotoUrl;
+
 
 }

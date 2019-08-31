@@ -34,4 +34,8 @@ public class MobileScoreDto extends MobileDto implements Serializable {
      */
     private Long idCobEvaluate;
 
+    /**
+     * 1 主考官 2 考官 3 中控考官
+     */
+    private String cdAssistantCa;
 }

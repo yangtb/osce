@@ -93,16 +93,13 @@
 
     <select id="listSpTag" resultType="com.osce.entity.OrgSpDefine">
         SELECT
-            count(1)
+            id_sp_tag ,
+            id_org ,
+            descript
         FROM
-            user_info b
-        LEFT JOIN user_role c ON b.user_id = c.user_id
-        LEFT JOIN sys_role d ON d.role_id = c.role_id
-        WHERE
-            b.id_org = #{idOrg}
-        AND b.is_deleted = 'N'
-        AND c.is_deleted = 'N'
-        AND d.code = 'SP'
+            org_sp_define
+        where
+            id_org = #{idOrg}
     </select>
 
     <select id="listSp" resultType="com.osce.vo.biz.training.structure.sp.SpVo">
@@ -128,18 +125,15 @@
     <select id="countSp" resultType="java.lang.Long">
         SELECT
             count(1)
-        FROM (
-                SELECT
-                    id_user
-                FROM
-                    org_user_sp
-                GROUP BY
-                    id_user
-                ) a
-        LEFT JOIN user_info b ON a.id_user = b.user_id
+        FROM
+            user_info b
+        LEFT JOIN user_role c ON b.user_id = c.user_id
+        LEFT JOIN sys_role d ON d.role_id = c.role_id
         WHERE
             b.id_org = #{idOrg}
         AND b.is_deleted = 'N'
+        AND c.is_deleted = 'N'
+        AND d.code = 'SP'
         <if test="keywords != null and keywords != '' ">
             and (b.phone_no like concat('%',#{keywords},'%')
             or b.real_name like concat('%',#{keywords},'%'))

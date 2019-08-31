@@ -196,6 +196,9 @@ layui.config({
                 // 默认考试模板
                 defaultModel();
             }
+            $("#examPublish").addClass("unfinished");
+            $("#gmtAct").addClass("unfinished");
+            $("#gmtPlan").addClass("unfinished");
         }
     });
 
@@ -269,20 +272,12 @@ layui.config({
     }
 
     function fullProgress(data){
+
         if (data.gmtRelease) {
             $("#p_gmtRelease").text(data.gmtRelease);
         } else {
             $("#examPublish").addClass("unfinished");
         }
-
-
-        /*if (data.gmyPicking) {
-            $("#gmyPicking").text(data.gmyPicking);
-            $("#percentPicking").text(data.percentPicking + '%');
-        }
-        if (data.percentPicking != 100) {
-            $("#pickingCircle").addClass("cur-circle");
-        }*/
 
 
         if (data.gmtPlanBegin) {
@@ -293,7 +288,7 @@ layui.config({
         }
         if (data.gmtActBegin) {
             $("#gmtAct").addClass("cur-circle");
-        } else if (!data.gmtActBegin) {
+        } else  {
             $("#gmtAct").addClass("unfinished");
         }
 
@@ -306,7 +301,7 @@ layui.config({
         }
         if (data.gmtActEnd) {
             $("#gmtPlan").addClass("cur-circle");
-        } else if (!data.gmtActEnd) {
+        } else  {
             $("#gmtPlan").addClass("unfinished");
         }
     }
