@@ -10,11 +10,11 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <meta content="width=device-width,initial-scale=1,user-scalable=no,shrink-to-fit=no" name="viewport">
     <title>考站管理</title>
-    <link rel="stylesheet" href="${mobileUrl!}/app.7a83cfd840f55cf83e8c.css">
+    <link rel="stylesheet" href="${mobileUrl!}/app.c566c1861204b2252689.css">
 </head>
 <body>
 <div id="app"></div>
 <script src="${mobileUrl!}/vendor.d779f38e84a985c518f9.js"></script>
-<script src="${mobileUrl!}/app.641d05905c6e0fcb100e.js"></script>
+<script src="${mobileUrl!}/app.087d8ec5e6d4a31c6637.js"></script>
 </body>
 </html>

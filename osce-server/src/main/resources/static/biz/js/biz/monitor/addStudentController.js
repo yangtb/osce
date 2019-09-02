@@ -8,7 +8,7 @@ layui.config({
 
     treeSelect.render({
         elem: '#idDepart',
-        data: basePath + '/pf/r/dept/tree/select',
+        data: basePath + '/pf/r/dept/tree/select?currentGrade=true',
         type: 'post',
         placeholder: '请选择班级',
         click: function (d) {

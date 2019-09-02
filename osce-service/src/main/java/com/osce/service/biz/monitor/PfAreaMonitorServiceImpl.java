@@ -55,10 +55,14 @@ public class PfAreaMonitorServiceImpl implements PfAreaMonitorService {
         return pfAreaMonitorDao.selectMonitorAreaDetail(dto);
     }
 
+    private int getAmPmFlag() {
+        GregorianCalendar ca = new GregorianCalendar();
+        return ca.get(GregorianCalendar.AM_PM);
+    }
+
     @Override
     public List<MonitorStuVo> listToBeExaminedStu(MonitorDto dto) {
-        GregorianCalendar ca = new GregorianCalendar();
-        dto.setAmPmFlag(ca.get(GregorianCalendar.AM_PM));
+        dto.setAmPmFlag(getAmPmFlag());
         List<ShowAioMainVo> planList = pfAreaMonitorDao.listCurrentPlan(dto);
         if (CollectionUtils.isEmpty(planList)) {
             return null;
@@ -76,8 +80,7 @@ public class PfAreaMonitorServiceImpl implements PfAreaMonitorService {
 
     @Override
     public List<MonitorStuVo> listOnSiteStu(MonitorDto dto) {
-        GregorianCalendar ca = new GregorianCalendar();
-        dto.setAmPmFlag(ca.get(GregorianCalendar.AM_PM));
+        dto.setAmPmFlag(getAmPmFlag());
         List<ShowAioMainVo> planList = pfAreaMonitorDao.listCurrentPlan(dto);
         if (CollectionUtils.isEmpty(planList)) {
             return null;
@@ -95,8 +98,7 @@ public class PfAreaMonitorServiceImpl implements PfAreaMonitorService {
 
     @Override
     public List<MonitorStuVo> listEndStu(MonitorDto dto) {
-        GregorianCalendar ca = new GregorianCalendar();
-        dto.setAmPmFlag(ca.get(GregorianCalendar.AM_PM));
+        dto.setAmPmFlag(getAmPmFlag());
         List<ShowAioMainVo> planList = pfAreaMonitorDao.listCurrentPlan(dto);
         if (CollectionUtils.isEmpty(planList)) {
             return null;

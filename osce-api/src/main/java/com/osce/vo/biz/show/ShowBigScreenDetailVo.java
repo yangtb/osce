@@ -40,6 +40,11 @@ public class ShowBigScreenDetailVo implements Serializable {
     private String siteName;
 
     /**
+     * 状态数字
+     */
+    private Integer statusNum;
+
+    /**
      * 状态
      */
     private String status;

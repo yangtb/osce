@@ -69,7 +69,7 @@
             </div>
 
 
-            <div class="layui-tab-item" style="margin-top: -20px;">
+            <div class="layui-tab-item" style="margin-top: -10px;">
                 <div class="layui-tab layui-tab-brief" lay-filter="stuTabFilter">
                     <ul class="layui-tab-title">
                         <li class="layui-this">待考学员</li>
@@ -78,17 +78,17 @@
                     </ul>
                     <div class="layui-tab-content">
                         <div class="layui-tab-item layui-show">
-                            <table class="layui-hide" id="toBeExaminedTable" lay-filter="toBeExaminedTableFilter"></table>
+                            <table id="toBeExaminedTable" lay-filter="toBeExaminedTableFilter"></table>
 
                             </table>
                         </div>
                         <div class="layui-tab-item">
-                            <table class="layui-hide" id="onSiteTable" lay-filter="onSiteTableFilter"></table>
+                            <table id="onSiteTable" lay-filter="onSiteTableFilter"></table>
 
                             </table>
                         </div>
                         <div class="layui-tab-item">
-                            <table class="layui-hide" id="endTable" lay-filter="endTableFilter"></table>
+                            <table id="endTable" lay-filter="endTableFilter"></table>
 
                             </table>
                         </div>

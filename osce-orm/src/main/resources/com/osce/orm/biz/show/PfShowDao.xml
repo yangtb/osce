@@ -32,6 +32,7 @@
             v.user_cd ,
             v.real_name ,
             concat(c.na_station , '（' ,b.na_room, '）') AS siteName ,
+            v.statusNum ,
             v.status
         FROM
             (SELECT @rownum := 0) r ,

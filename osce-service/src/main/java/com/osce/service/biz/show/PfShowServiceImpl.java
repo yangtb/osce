@@ -49,6 +49,9 @@ public class PfShowServiceImpl implements PfShowService {
         dto.setIdPlan(showBigScreenMainVo.getIdPlan());
         dto.setIdArea(showBigScreenMainVo.getIdArea());
         dto.setTimeSection(showBigScreenMainVo.getTimeSection());
+        if (showBigScreenMainVo != null) {
+            showBigScreenMainVo.setItemNum(pfShowDao.countBigScreenDetail(dto));
+        }
         return showBigScreenMainVo;
     }
 

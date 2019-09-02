@@ -37,7 +37,7 @@ layui.config({
         });
     }
 
-    var idPlan, idArea, timeSection, limit;
+    var idPlan, idArea, timeSection, limit, itemNum;
 
     function fullPageHead(data) {
         $("#naOrg").text(data.naOrg);
@@ -51,6 +51,7 @@ layui.config({
             idArea = data.idArea;
             timeSection = data.timeSection;
             limit = data.limit;
+            itemNum = data.itemNum;
             data.page = 1;
             loadStudentInfo(data);
         }
@@ -108,21 +109,24 @@ layui.config({
             '          <th>状态</th>\n' +
             '       </tr>';
         $.each(data, function (index, content) {
+            var siteName = content.siteName ? content.siteName : "";
             html += '<tr>\n' +
                 '     <td>S' + content.rownum + '</td>\n' +
                 '     <td>' + content.userCd + '</td>\n' +
                 '     <td>' + content.realName + '</td>\n' +
-                '     <td>' + content.siteName + '</td>\n';
+                '     <td>' + siteName + '</td>\n';
             var styleCss = '';
-            if (content.status === '学案进场待确认') {
+            if (content.statusNum === 1) {
                 styleCss = 'sure-text';
-            } else if (content.status === '考试考核') {
+            } else if (content.statusNum === 2 || content.statusNum === 3) {
+                styleCss = 'auth-text';
+            } else if (content.statusNum === 4) {
                 styleCss = 'test-text';
-            } else if (content.status === '本场提交，下场未开始') {
+            } else if (content.statusNum === 5) {
                 styleCss = 'await-text';
-            } else if (content.status === '考试结束') {
+            } else if (content.statusNum === -1) {
                 styleCss = 'end-text';
-            } else if (content.status === '故障') {
+            } else if (content.statusNum === 6) {
                 styleCss = 'fault-text';
             }
             html += '<td class="' + styleCss + '">' + content.status + '</td>\n';
@@ -131,11 +135,20 @@ layui.config({
         return html;
     }
 
+    var currentPage = 1;
     setInterval(function () {
-        timeoutPage(1);
+        var totalNum = Math.ceil(itemNum / limit);
+        if (currentPage >= totalNum) {
+            currentPage = 1;
+        } else {
+            currentPage = currentPage + 1;
+        }
+        //console.log("第" + currentPage + "页")
+        timeoutPage(currentPage);
     }, 10000);
 
-    function timeoutPage(pageNum) {
+    function timeoutPage(currentPage) {
+        var pageNum = currentPage;
         var nowTime = nowTimeStr(2);
         if (nowTime === "00:00" || nowTime === "13:00") {
             queryHeader();

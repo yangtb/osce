@@ -1,14 +1,16 @@
 layui.config({
     base: basePath + '/layui/plugins/'
 }).extend({
-    index: 'lib/index' //主入口模块
-}).use(['layer', 'index', 'table', 'carousel', 'form', 'jquery', 'common', 'element'], function () {
+    index: 'lib/index', //主入口模块
+    tableMerge: 'tableMerge'
+}).use(['layer', 'index', 'table', 'carousel', 'form', 'jquery', 'common', 'element', 'tableMerge'], function () {
     var $ = layui.$
         , table = layui.table
         , carousel = layui.carousel
         , form = layui.form
         , element = layui.element
-        , common = layui.common;
+        , common = layui.common
+        , tableMerge = layui.tableMerge;
 
     $(document).ready(function () {
         // 其实和非理论考试一体机类似，只是一体机查的是考场下某站点的信息；这里是考场下所有站点的信息
@@ -171,48 +173,40 @@ layui.config({
         table.render({
             elem: '#toBeExaminedTable'
             , id: 'toBeExaminedTableId'
-            , toolbar: '#toolbarDemo'
-            , size: 'sm'
-            , url: basePath + '/pf/p/monitor/area/list/toBeExamined'
-            , height: 'full-100'
-            , skin: 'line'
+            , height: 'full-100' //容器高度
+            //, skin: 'line'
             , cols: [[
-                {type: 'radio'}
-                , {title: '', width: 90, align: 'center', toolbar: '#toBeExaminedBar'}
-                , {field: 'realName', minWidth: 150, title: '姓名'}
-                , {field: 'noReg', minWidth: 100, title: '入场序号'}
-                , {field: 'phoneNo', minWidth: 140, title: '手机号'}
-                , {field: 'idCard', minWidth: 180, title: '身份证号'}
-                , {field: 'gmtReg', minWidth: 140, title: '入场时间'}
-            ]]
-            , where: {
-                idPlan: 1,
-                idArea: 1,
-                timeSection: 1
-            }
+                {type: 'numbers', fixed: true, title: '序号'},
+                {field: 'realName', width: 150, title: '姓名', align: 'center'},
+                {field: 'phoneNo', width: 180, title: '手机号', align: 'center'},
+                {field: 'idCard', width: 300, title: '身份证号', align: 'center'}
+            ]] //设置表头
+            , url: basePath + '/pf/p/monitor/area/list/toBeExamined'
         });
+
+
     }
 
     function loadTab2() {
         table.render({
-            elem: '#onSiteTable'
-            , id: 'onSiteTableId'
-            , size: 'sm'
-            , url: basePath + '/pf/p/monitor/area/list/onSite'
-            , height: 'full-100'
-            , skin: 'line'
+            elem: '#onSiteTable' //指定原始表格元素选择器（推荐id选择器）
+            // , id: 'tpPickingTableId'
+            , height: 'full-100' //容器高度
             , cols: [[
-                {type: 'radio'}
-                , {field: 'realName', minWidth: 150, title: '姓名'}
-                , {field: 'noReg', minWidth: 100, title: '入场序号'}
-                , {field: 'phoneNo', minWidth: 140, title: '手机号'}
-                , {field: 'idCard', minWidth: 180, title: '身份证号'}
-                , {field: 'gmtReg', minWidth: 140, title: '入场时间'}
-            ]]
-            , where: {
-                idPlan: 1,
-                idArea: 1,
-                timeSection: 1
+                {type: 'numbers', fixed: true, title: 'R'},
+                //{checkbox: true, fixed: true},
+                {field: 'realName', merge: true, width: 120, title: '姓名', align: 'center'},
+                {field: 'phoneNo', merge: ['realName', 'phoneNo'], width: 150, title: '手机号', align: 'center'},
+                {field: 'idCard', merge: ['realName', 'phoneNo', 'idCard'], width: 180, title: '身份证号', align: 'center'}
+                , {field: 'naArea', width: 100, title: '考场', align: 'center'}
+                , {field: 'naStation', width: 100, title: '考站', align: 'center'}
+                , {field: 'naRoom', width: 100, title: '房间', align: 'center'}
+                , {field: 'noReg', width: 100, title: '入场序号', align: 'center'}
+                , {field: 'actBegin', width: 140, title: '实际开始时间', align: 'center'}
+            ]] //设置表头
+            , url: basePath + '/pf/p/monitor/area/list/onSite'
+            ,done: function(){
+                tableMerge.render(this)
             }
         });
     }
@@ -221,25 +215,23 @@ layui.config({
         table.render({
             elem: '#endTable'
             , id: 'endTableId'
-            , size: 'sm'
+            , height: 'full-100' //容器高度
+            //, skin: 'line'
+            //, size: 'sm'
             , toolbar: '#endBar'
-            , url: basePath + '/pf/p/monitor/area/list/end'
-            , height: 'full-100'
-            , skin: 'line'
             , cols: [[
-                {type: 'radio'}
-                , {field: 'endStatus', width: 150, title: '', templet: '#endStatusTpl'}
-                , {field: 'realName', minWidth: 150, title: '姓名'}
-                , {field: 'noReg', minWidth: 100, title: '入场序号'}
-                , {field: 'phoneNo', minWidth: 140, title: '手机号'}
-                , {field: 'idCard', minWidth: 180, title: '身份证号'}
-                , {field: 'gmtReg', minWidth: 140, title: '入场时间'}
-            ]]
-            , where: {
-                idPlan: 1,
-                idArea: 1,
-                timeSection: 1
-            }
+                {type: 'checkbox'}
+                , {field: 'endStatus', width: 120, title: '状态', templet: '#endStatusTpl', align: 'center'}
+                , {field: 'realName', width: 120, title: '姓名', align: 'center'}
+                , {field: 'phoneNo', width: 140, title: '手机号', align: 'center'}
+                , {field: 'idCard', width: 180, title: '身份证号', align: 'center'}
+                , {field: 'naArea', width: 100, title: '考场', align: 'center'}
+                , {field: 'naStation', width: 100, title: '考站', align: 'center'}
+                , {field: 'naRoom', width: 100, title: '房间', align: 'center'}
+                , {field: 'noReg', width: 100, title: '入场序号', align: 'center'}
+                , {field: 'actBegin', width: 120, title: '实际开始时间', align: 'center'}
+            ]] //设置表头
+            , url: basePath + '/pf/p/monitor/area/list/end'
         });
     }
 
@@ -282,7 +274,7 @@ layui.config({
         console.log(data)
         var url = basePath + '/pf/r/monitor/area/student/del';
         var reqData = new Array();
-        reqData.push(data[0].userId);
+        reqData.push(data[0].idInsStationDetail);
 
         if (!reqData || reqData.length == 0) {
             return false;
@@ -332,17 +324,15 @@ layui.config({
 
     function recoveryTest(data) {
         var reqData = new Array();
-        reqData.push(data[0].userId);
-
-        if (!reqData || reqData.length == 0) {
-            return false;
-        }
+        $.each(data, function (index, content) {
+            reqData.push(content.idExecQueue);
+        });
 
         var bizData = {
             list: reqData
         };
 
-        layer.confirm('确认恢复学员【' + data[0].realName + '】考试么？', {
+        layer.confirm('确认恢复学员考试么？', {
             title: '恢复学员考试提示',
             resize: false,
             btn: ['确定', '取消'],
