@@ -221,7 +221,8 @@
             user_info.user_cd
         FROM
             es_exec_queue queue
-        JOIN user_info ON queue.id_user_student = user_info.user_id
+        LEFT JOIN org_student_depart depart ON queue.id_user_student = depart.id_student_depart
+        LEFT JOIN user_info ON depart.id_user = user_info.user_id
         WHERE
             queue.id_plan = #{idPlan}
         AND queue.id_area = #{idArea}
@@ -243,7 +244,8 @@
             user_info.user_cd
         FROM
             es_exec_queue queue
-        JOIN user_info ON queue.id_user_student = user_info.user_id
+        LEFT JOIN org_student_depart depart ON queue.id_user_student = depart.id_student_depart
+        LEFT JOIN user_info ON depart.id_user = user_info.user_id
         WHERE
             queue.id_plan = #{idPlan}
         AND queue.id_area = #{idArea}
@@ -283,7 +285,8 @@
             b.photo_addr as headPhotoUrl
         FROM
             we_exec a
-        LEFT JOIN user_info b ON a.id_user_student = b.user_id
+        LEFT JOIN org_student_depart depart ON a.id_user_student = depart.id_student_depart
+        LEFT JOIN user_info b ON depart.id_user = b.user_id
         LEFT JOIN tp_plan c ON c.id_plan = a.id_plan
         WHERE
             a.id_exec_queue = #{idExecQueue}
