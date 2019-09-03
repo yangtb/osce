@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>分配SP</title>
+    <link rel="stylesheet" href="${contextPath}/layui/plugins/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" href="${contextPath}/biz/css/template/preview.css">
     <script>
         var basePath = '${basePath!}';
@@ -23,8 +25,8 @@
         </thead>
         <tbody>
         <tr id="area-am" style="height: 300px;">
-            <td class="font-title">
-                <p>&emsp;上&emsp;</p>
+            <td class="font-title" style="padding-left: 10px; padding-right: 10px">
+                <p>上</p>
                 <p style="margin-top: 20px;">午</p>
             </td>
         </tr>
