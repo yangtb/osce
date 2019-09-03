@@ -693,7 +693,7 @@ function addSdStationCa(event, areaIndex, stationIndex) {
                     layer.closeAll();
                 }, success: function(layero, index){
                     var v = $('#sdStationCa_' + areaIndex + '_' + stationIndex).val();
-                    $("#sdStationCaWin option[value='"+ v +"']").attr("selected",true);
+                    $("#sdStationCaWin option[value='"+ v +"']").prop("selected",true);
                 }
             });
         }
@@ -737,7 +737,7 @@ function addSdSkillCa(event, areaIndex, stationIndex) {
             }, success: function(layero, index){
                 var v = $('#sdSkillCa_' + areaIndex + '_' + stationIndex).val();
                 //console.log($("#sdStationCaWin").find("option[value='"+ v +"']"))
-                $("#sdSkillCaWin option[value='"+ v +"']").attr("selected",true)
+                $("#sdSkillCaWin option[value='"+ v +"']").prop("selected",true)
                 $('#minCostWin').val($('#minCost_' + areaIndex + '_' + stationIndex).val())
             }
         });
@@ -841,7 +841,7 @@ function addSite(event, areaIndex, stationIndex) {
                             if (i != 0) {
                                 addTr();
                             }
-                            $("#idRoom_" + (i + 1) + " option[value='"+ roomArr[0] +"']").attr("selected",true)
+                            $("#idRoom_" + (i + 1) + " option[value='"+ roomArr[0] +"']").prop("selected",true)
                             $('#numConcur_' + (i + 1)).val(roomArr[1]);
                         }
                     } else {
@@ -946,8 +946,8 @@ function setAreaLoop(event, areaIndex) {
                 $('#sdAreaLoopEnd_' + areaIndex).val($('#sdAreaLoopEnd').val());
                 layer.closeAll();
             }, success: function(layero, index){
-                $("#sdAreaLoopBegin option[value='"+ $('#sdAreaLoopBegin_' + areaIndex).val() +"']").attr("selected",true)
-                $("#sdAreaLoopEnd option[value='"+ $('#sdAreaLoopEnd_' + areaIndex).val() +"']").attr("selected",true)
+                $("#sdAreaLoopBegin option[value='"+ $('#sdAreaLoopBegin_' + areaIndex).val() +"']").prop("selected",true)
+                $("#sdAreaLoopEnd option[value='"+ $('#sdAreaLoopEnd_' + areaIndex).val() +"']").prop("selected",true)
             }
         });
     })

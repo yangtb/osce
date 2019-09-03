@@ -73,7 +73,7 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    if (!$('#idItemStore').val()) {
+                    if (!$('#idCase').val()) {
                         element.tabAdd('tagTabFilter', {
                             title: '评分表'
                             , content: '<iframe id="scoreSheetTag" class=\'layui-col-xs12\' frameborder="0" ' +
@@ -86,7 +86,7 @@ layui.config({
                     if (formType == 'edit') {
                         parent.layui.common.refreshCurrentPage();
                     } else {
-                        $('#idItemStore').val(data.data);
+                        $('#idCase').val(data.data);
                         parent.layui.table.reload(tableId, {
                             height: 'full-68'
                         });

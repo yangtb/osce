@@ -78,7 +78,7 @@ layui.config({
                     return false;
                 } else {
                     common.sucMsg(msg + "成功");
-                    if (!$('#idItemStore').val()) {
+                    if (!$('#idSkillCase').val()) {
                         element.tabAdd('tagTabFilter', {
                             title: '站点配置'
                             , content: '<iframe id="deviceTag" class=\'layui-col-xs12\' frameborder="0" ' +
@@ -97,7 +97,7 @@ layui.config({
                     if (formType == 'edit') {
                         parent.layui.common.refreshCurrentPage();
                     } else {
-                        $('#idItemStore').val(data.data);
+                        $('#idSkillCase').val(data.data);
                         parent.layui.table.reload(tableId, {
                             height: 'full-68'
                         });
