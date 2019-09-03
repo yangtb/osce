@@ -18,10 +18,12 @@ layui.config({
             },
             success: function (d) {
                 if (formType == 'add') {
+                    $("#idOrg").val(idOrg);
                     treeSelect.checkNode('orgTree', idOrg);
                 }
             }
         });
+        form.render();
     }
 
     $("#addTag").on('click', function () {
@@ -30,14 +32,13 @@ layui.config({
 
     //监听提交
     form.on('submit(addUser)', function (data) {
+        data.field.idOrg = $("#idOrg").val();
         if (!data.field.idOrg) {
             $('#idOrg').focus();
             common.errorMsg("请选择机构");
             return false;
         }
-
         console.log(data.field)
-
         var reqData = new Array(),
             userSpObj = data.field;
 

@@ -10,6 +10,7 @@ import com.osce.orm.biz.training.structure.dept.PfDeptDao;
 import com.osce.vo.PfTreeSelectVo;
 import com.osce.vo.biz.training.structure.dept.PfDeptZtreeVo;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -46,6 +47,10 @@ public class PfDeptServiceImpl implements PfDeptService {
         if (dto.getIdDepart() == null) {
             pfDeptDao.addDept(dto);
         } else {
+            // 学届是否有变化
+            if (!pfDeptDao.changeGrade(dto.getIdDepart(), dto.getIdGrade())) {
+                dto.setIdDepartPar(null);
+            }
             pfDeptDao.editDept(dto);
         }
         return dto.getIdDepart();
@@ -55,7 +60,7 @@ public class PfDeptServiceImpl implements PfDeptService {
     public boolean delDept(PfBachChangeStatusDto dto) {
         //部门下如果有学员，则不允许删除
         if (pfDeptDao.countDeptByIds(dto) > 0) {
-           throw new RestException(RestErrorCode.DEPT_DEL_LIMIT);
+            throw new RestException(RestErrorCode.DEPT_DEL_LIMIT);
         }
         return pfDeptDao.delDept(dto) >= 1 ? true : false;
     }

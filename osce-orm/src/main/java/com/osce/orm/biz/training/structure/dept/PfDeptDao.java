@@ -60,6 +60,16 @@ public interface PfDeptDao {
     int editDept(OrgDepart dto);
 
     /**
+     * 学届是否有变化
+     *
+     * @param idDepart 部门id
+     * @param idGrade  学届
+     * @return
+     */
+    boolean changeGrade(@Param("idDepart") Long idDepart,
+                        @Param("idGrade") Long idGrade);
+
+    /**
      * 删除部门
      *
      * @param dto

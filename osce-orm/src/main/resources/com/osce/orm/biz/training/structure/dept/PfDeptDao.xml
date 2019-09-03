@@ -100,9 +100,7 @@
             <if test="sdDepartCa != null and sdDepartCa!=''">
                 sd_depart_ca = #{sdDepartCa},
             </if>
-            <if test="idDepartPar != null">
                 id_depart_par = #{idDepartPar},
-            </if>
             <if test="fgActive != null and fgActive!=''">
                 fg_active = #{fgActive},
             </if>
@@ -246,5 +244,8 @@
         WHERE
             id_depart_par = #{id}
         and fg_active = '1'
+    </select>
+    <select id="changeGrade" resultType="java.lang.Boolean">
+        select count(1) from org_depart where id_depart =#{idDepart} and id_grade = #{idGrade}
     </select>
 </mapper>

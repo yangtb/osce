@@ -142,6 +142,7 @@ layui.config({
                 nodeList.push(content);
             }
         });
+        console.log(nodeList)
         return nodeList;
     }
 

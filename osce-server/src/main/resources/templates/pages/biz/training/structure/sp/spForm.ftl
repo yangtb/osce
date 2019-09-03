@@ -166,7 +166,6 @@
         $(document).ready(function () {
             $("#spForm").autofill(data);
             layui.use(['form', 'jquery', 'treeSelect'], function () {
-                layui.form.render();
                 var treeSelect= layui.treeSelect
                 treeSelect.render({
                     elem: '#idOrg',
@@ -178,6 +177,7 @@
                         treeSelect.checkNode('orgTree', data.idOrg);
                     }
                 });
+                layui.form.render();
             });
         });
     };

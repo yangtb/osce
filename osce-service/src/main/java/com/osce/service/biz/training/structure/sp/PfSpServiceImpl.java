@@ -80,8 +80,10 @@ public class PfSpServiceImpl implements PfSpService {
             pfUserService.updateUser(registerDto);
             pfSpDao.delSpByusId(usId);
         }
-        // 增加学员部门关系
-        pfSpDao.addSp(userSpList, usId);
+        // SP标签记录
+        if (!CollectionUtils.isEmpty(userSpList)) {
+            pfSpDao.addSp(userSpList, usId);
+        }
         return registerDto.getUserId();
     }
 
