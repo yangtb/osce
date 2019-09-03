@@ -11,6 +11,7 @@ import com.osce.orm.biz.show.PfShowDao;
 import com.osce.orm.user.login.PfUserDao;
 import com.osce.vo.biz.show.*;
 import com.sm.open.care.core.utils.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +85,7 @@ public class PfShowServiceImpl implements PfShowService {
         }
         // 查询入场序号
         dto.setUserId(showStuVo.getIdStudentDepart());
-        Integer noReg = pfShowDao.selectNoReg(dto);
+        String noReg = pfShowDao.selectNoReg(dto);
         if (noReg == null) {
             pfShowDao.aioStudentRegister(dto);
             if (dto.getParCode() != 0) {
@@ -92,7 +93,8 @@ public class PfShowServiceImpl implements PfShowService {
                 throw new RestException(String.valueOf(dto.getParCode()), dto.getParMsg());
             }
         }
-        showStuVo.setNoReg(noReg == null ? pfShowDao.selectNoReg(dto) : noReg);
+        noReg = StringUtils.isBlank(noReg) ? pfShowDao.selectNoReg(dto) : noReg;
+        showStuVo.setNoReg(StringUtils.leftPad(noReg, 2, '0'));
         return showStuVo;
     }
 

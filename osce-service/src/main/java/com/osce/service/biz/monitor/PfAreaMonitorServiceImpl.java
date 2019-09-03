@@ -12,6 +12,7 @@ import com.osce.vo.biz.monitor.MonitorStuVo;
 import com.osce.vo.biz.show.ShowAioMainVo;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.dubbo.config.annotation.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -119,9 +120,14 @@ public class PfAreaMonitorServiceImpl implements PfAreaMonitorService {
         return pfAreaMonitorDao.delAreaStu(dto) >= 1 ? true : false;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean recoveryTest(PfBachChangeStatusDto dto) {
-        return pfAreaMonitorDao.recoveryTest(dto) >= 1 ? true : false;
+        // 检查已有执行记录、删除
+        pfAreaMonitorDao.delExecRecord(dto);
+        // 恢复考试
+        pfAreaMonitorDao.recoveryTest(dto);
+        return true;
     }
 
     @Override

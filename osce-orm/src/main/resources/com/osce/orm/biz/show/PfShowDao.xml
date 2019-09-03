@@ -93,7 +93,7 @@
         SELECT
             a.id_waiting_reg ,
             b.real_name ,
-            a.no_reg ,
+            LPAD(a.no_reg, 2, 0) as no_reg ,
             b.phone_no ,
             CONCAT(LEFT(b.idcard,2), '**************', RIGHT(b.idcard,2)) as idcard ,
             date_format(a.gmt_reg , '%H:%i:%s') as gmt_reg,
@@ -162,7 +162,8 @@
             queue.act_end
         FROM
             es_exec_queue queue
-        JOIN user_info user ON queue.id_user_student = user.user_id
+        LEFT JOIN org_student_depart depart ON queue.id_user_student = depart.id_student_depart
+        JOIN user_info user ON depart.id_user = user.user_id
         WHERE
             queue.id_plan = #{idPlan}
         AND queue.id_area =  #{idArea}
@@ -183,7 +184,7 @@
         AND queue.id_room = #{idRoom}
         AND queue.sd_exec_queue = 1
     </select>
-    <select id="selectNoReg" resultType="java.lang.Integer">
+    <select id="selectNoReg" resultType="java.lang.String">
         SELECT
             a.no_reg
         FROM

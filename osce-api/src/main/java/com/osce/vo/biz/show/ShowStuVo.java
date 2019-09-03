@@ -52,7 +52,7 @@ public class ShowStuVo implements Serializable {
     /**
      * 入场序号
      */
-    private Integer noReg;
+    private String noReg;
 
     /**
      * 已登记数

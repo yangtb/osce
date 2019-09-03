@@ -189,7 +189,7 @@
         SELECT
             a.na_area ,
             a.na_station ,
-            a.sd_skill_ca ,
+            (case a.sd_skill_ca when '1' then '理论试题' when '2' then '技能操作' when '3' then '病史采集' end) as sd_skill_ca,
             (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = a.sd_station_ca) AS sdStationCaText ,
             a.na_paper ,
             a.des_paper ,

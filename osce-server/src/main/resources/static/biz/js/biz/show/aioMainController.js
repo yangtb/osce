@@ -291,16 +291,16 @@ layui.config({
         table.render({
             elem: '#registerTable'
             , id: 'registerTableId'
-            , url: basePath + '/pf/p/aio/student/registered'
             , height: 'full-250'
             , skin: 'line'
             , cols: [[
-                {field: 'realName', minWidth: 150, title: '姓名'}
-                , {field: 'noReg', minWidth: 100, title: '入场序号'}
-                , {field: 'phoneNo', minWidth: 140, title: '手机号'}
-                , {field: 'idcard', minWidth: 180, title: '身份证号'}
-                , {field: 'gmtReg', minWidth: 140, title: '入场时间'}
+                {field: 'realName', minWidth: 150, title: '姓名', align: 'center'}
+                , {field: 'noReg', minWidth: 100, title: '入场序号', align: 'center'}
+                , {field: 'phoneNo', minWidth: 140, title: '手机号', align: 'center'}
+                , {field: 'idcard', minWidth: 180, title: '身份证号', align: 'center'}
+                , {field: 'gmtReg', minWidth: 140, title: '入场时间', align: 'center'}
             ]]
+            , url: basePath + '/pf/p/aio/student/registered'
             , where : {
                 idPlan: idPlan,
                 idArea: idArea,

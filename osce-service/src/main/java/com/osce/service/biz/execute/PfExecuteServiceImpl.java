@@ -45,7 +45,7 @@ public class PfExecuteServiceImpl implements PfExecuteService {
         if (execAuthVo == null) {
             throw new RestException(RestErrorCode.EXEC_AUTH_STU_NOT_EXIST);
         }
-        if (execAuthVo.getSdExecQueue() == 1) {
+        if (execAuthVo.getSdExecQueue() == 1 || execAuthVo.getSdExecQueue() == 2) {
             // 2.认证
             ExecAuthDto execAuthDto = new ExecAuthDto();
             execAuthDto.setParIdExecQueue(execAuthVo.getIdExecQueue());

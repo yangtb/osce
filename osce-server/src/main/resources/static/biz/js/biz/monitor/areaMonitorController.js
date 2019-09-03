@@ -223,13 +223,9 @@ layui.config({
                 {type: 'checkbox'}
                 , {field: 'endStatus', width: 120, title: '状态', templet: '#endStatusTpl', align: 'center'}
                 , {field: 'realName', width: 120, title: '姓名', align: 'center'}
+                , {field: 'noReg', width: 100, title: '入场序号', align: 'center'}
                 , {field: 'phoneNo', width: 140, title: '手机号', align: 'center'}
                 , {field: 'idCard', width: 180, title: '身份证号', align: 'center'}
-                , {field: 'naArea', width: 100, title: '考场', align: 'center'}
-                , {field: 'naStation', width: 100, title: '考站', align: 'center'}
-                , {field: 'naRoom', width: 100, title: '房间', align: 'center'}
-                , {field: 'noReg', width: 100, title: '入场序号', align: 'center'}
-                , {field: 'actBegin', width: 120, title: '实际开始时间', align: 'center'}
             ]] //设置表头
             , url: basePath + '/pf/p/monitor/area/list/end'
         });
@@ -325,7 +321,7 @@ layui.config({
     function recoveryTest(data) {
         var reqData = new Array();
         $.each(data, function (index, content) {
-            reqData.push(content.idExecQueue);
+            reqData.push(content.idWaitingReg);
         });
 
         var bizData = {

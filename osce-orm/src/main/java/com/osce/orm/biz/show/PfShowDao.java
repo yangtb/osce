@@ -117,6 +117,6 @@ public interface PfShowDao {
      * @param dto
      * @return
      */
-    Integer selectNoReg(PfAioStuRegisterDto dto);
+    String selectNoReg(PfAioStuRegisterDto dto);
 
 }

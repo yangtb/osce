@@ -102,6 +102,14 @@ public interface PfAreaMonitorDao {
     int recoveryTest(PfBachChangeStatusDto dto);
 
     /**
+     * 删除执行记录
+     *
+     * @param dto
+     * @return
+     */
+    int delExecRecord(PfBachChangeStatusDto dto);
+
+    /**
      * 评分项列表
      *
      * @param dto

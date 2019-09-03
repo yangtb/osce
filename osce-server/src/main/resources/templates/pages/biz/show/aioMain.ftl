@@ -145,7 +145,7 @@
             </div>
             <div class="has-register" id='hasRegister'>
                 <div class="has-register-main">
-                    <table class="layui-hide" id="registerTable" lay-filter="registerTableFilter"></table>
+                    <table id="registerTable" lay-filter="registerTableFilter"></table>
 
                     </table>
 
