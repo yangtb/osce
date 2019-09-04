@@ -131,4 +131,15 @@ public interface PfPlanManageService {
      */
     boolean publishPlan(PlanDto dto);
 
+    /**
+     * 计划步骤校验
+     * <p>
+     * 1.考卷是否全部分配
+     * 2.SP是否全部分配
+     * 3.主考官是否全部分配
+     *
+     * @param dto
+     * @return
+     */
+    String checkPlanStep(PlanDto dto);
 }

@@ -7,6 +7,7 @@ import com.osce.dto.biz.plan.manage.TpStudentDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpPlan;
 import com.osce.vo.biz.plan.manage.AssignedStudentVo;
+import com.osce.vo.biz.plan.manage.TdPlanStepCheckVo;
 import com.osce.vo.biz.plan.manage.TpPickingVo;
 import com.osce.vo.biz.plan.manage.TpPlanVo;
 import org.apache.ibatis.annotations.Param;
@@ -210,5 +211,29 @@ public interface PfPlanManageDao {
      * @return
      */
     boolean isExistStep2(@Param("idPlan") Long idPlan);
+
+    /**
+     * 查询分配考卷页面未填信息
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<TdPlanStepCheckVo> selectUnfilledPlanStep3(@Param("idPlan") Long idPlan);
+
+    /**
+     * 查询分配SP页面未填信息
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<TdPlanStepCheckVo> selectUnfilledPlanStep4(@Param("idPlan") Long idPlan);
+
+    /**
+     * 查询分配考官页面未填信息
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<TdPlanStepCheckVo> selectUnfilledPlanStep5(@Param("idPlan") Long idPlan);
 
 }

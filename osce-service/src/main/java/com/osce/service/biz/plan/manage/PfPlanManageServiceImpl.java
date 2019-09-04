@@ -13,6 +13,7 @@ import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.vo.biz.plan.manage.AssignedStudentVo;
+import com.osce.vo.biz.plan.manage.TdPlanStepCheckVo;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,6 +149,55 @@ public class PfPlanManageServiceImpl implements PfPlanManageService {
     public boolean publishPlan(PlanDto dto) {
         int num = pfPlanManageDao.publishPlan(dto.getIdPlan());
         return num == 1 ? true : false;
+    }
+
+    @Override
+    public String checkPlanStep(PlanDto dto) {
+        String msg = "";
+        if (dto.getCheckStep() == 3) {
+            // 查询分配考卷页面未填信息
+            List<TdPlanStepCheckVo> list = pfPlanManageDao.selectUnfilledPlanStep3(dto.getIdPlan());
+            for (TdPlanStepCheckVo tdPlanStepCheckVo : list) {
+                String checkMsg = "";
+                if (tdPlanStepCheckVo.getSdSkillCa().equals("1")) {
+                    checkMsg = "请填写试卷";
+                } else {
+                    if (tdPlanStepCheckVo.getIdPaper() == null && tdPlanStepCheckVo.getIdPaper() == null) {
+                        checkMsg = "请填写试卷、评分表";
+                    } else if (tdPlanStepCheckVo.getIdPaper() == null) {
+                        checkMsg = "请填写试卷";
+                    } else if (tdPlanStepCheckVo.getIdPaper() == null) {
+                        checkMsg = "请填写评分表";
+                    }
+                }
+                msg += tdPlanStepCheckVo.getPlanTime() + " "
+                        + tdPlanStepCheckVo.getNaArea() + " "
+                        + tdPlanStepCheckVo.getNaStation() + " "
+                        + tdPlanStepCheckVo.getNaRoom() + " "
+                        + " <span style='color: red; font-weight: bold'>" + checkMsg + "</span>" + "<br>";
+            }
+        } else if (dto.getCheckStep() == 4) {
+            // 查询分配SP页面未填信息
+            List<TdPlanStepCheckVo> list = pfPlanManageDao.selectUnfilledPlanStep4(dto.getIdPlan());
+            for (TdPlanStepCheckVo tdPlanStepCheckVo : list) {
+                msg += tdPlanStepCheckVo.getPlanTime() + " "
+                        + tdPlanStepCheckVo.getNaArea() + " "
+                        + tdPlanStepCheckVo.getNaStation() + " "
+                        + tdPlanStepCheckVo.getNaRoom()
+                        + " <span style='color: red; font-weight: bold'>请选择SP</span>" + "<br>";
+            }
+        } else if (dto.getCheckStep() == 5) {
+            // 查询分配考官页面未填信息
+            List<TdPlanStepCheckVo> list = pfPlanManageDao.selectUnfilledPlanStep5(dto.getIdPlan());
+            for (TdPlanStepCheckVo tdPlanStepCheckVo : list) {
+                msg += tdPlanStepCheckVo.getPlanTime() + " "
+                        + tdPlanStepCheckVo.getNaArea() + " "
+                        + tdPlanStepCheckVo.getNaStation() + " "
+                        + tdPlanStepCheckVo.getNaRoom()
+                        + " <span style='color: red; font-weight: bold'>至少有一个主考官</span>" + "<br>";
+            }
+        }
+        return msg;
     }
 
 }

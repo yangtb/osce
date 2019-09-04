@@ -46,4 +46,9 @@ public class PlanDto extends PageParam implements Serializable {
      */
     private String spFlag;
 
+    /**
+     * 校验步骤
+     */
+    private Integer checkStep;
+
 }

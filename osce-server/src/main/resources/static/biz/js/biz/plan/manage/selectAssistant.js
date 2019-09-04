@@ -23,9 +23,9 @@ layui.config({
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
         ]] //设置表头
         , url: basePath + '/pf/p/assistant/list'
-        , limit: 50
+        , limit: 15
         , even: true
-        , limits: [50, 100]
+        , limits: [15, 30, 50, 100]
         , page: true
         , size: 'sm'
     });

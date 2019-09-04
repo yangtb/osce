@@ -363,7 +363,18 @@ layui.config({
     });
 
     form.on('submit(formStep2)', function (data) {
-        //step.next('#stepForm');
+        // 校验所有考站-考卷是否全部分配
+        var msg = checkPlanStep(3);
+        if (msg) {
+            layer.alert('【<span style="color: red; font-weight: bold">请完善考站信息</span>】<br>' + msg, {
+                title: '提示',
+                resize: false,
+                btn: ['确定']
+                , maxWidth : 450
+                , icon: 5
+            });
+            return false;
+        }
         stepSkip(4);
         addStepEventListener(4);
         $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val())
@@ -371,7 +382,18 @@ layui.config({
     });
 
     form.on('submit(formStep3)', function (data) {
-        //step.next('#stepForm');
+        // 校验考站-SP是否全部分配
+        var msg = checkPlanStep(4);
+        if (msg) {
+            layer.alert('【<span style="color: red; font-weight: bold">请完善考站信息</span>】<br>' + msg, {
+                title: '提示',
+                resize: false,
+                btn: ['确定']
+                , maxWidth : 450
+                , icon: 5
+            });
+            return false;
+        }
         stepSkip(5);
         addStepEventListener(5);
         $('#assistantIframe').attr("src", basePath + "/pf/p/plan/station/assistant?idPlan=" + $('#idPlan').val())
@@ -379,6 +401,18 @@ layui.config({
     });
 
     form.on('submit(formStep4)', function (data) {
+        // 校验所有考站-主考官是否全部分配
+        var msg = checkPlanStep(5);
+        if (msg) {
+            layer.alert('【<span style="color: red; font-weight: bold">请完善考站信息</span>】<br>' + msg, {
+                title: '提示',
+                resize: false,
+                btn: ['确定']
+                , maxWidth : 450
+                , icon: 5
+            });
+            return false;
+        }
         var bizData = {
             parIdPlan : idPlan
         }
@@ -403,6 +437,39 @@ layui.config({
     /*$('.next').click(function () {
         //step.next('#stepForm');
     });*/
+
+
+    // 同步请求
+    function checkPlanStep(step) {
+        var msg = "";
+        var bizData = {
+            idPlan: idPlan,
+            checkStep : step
+        }
+        $.ajax({
+            url: basePath + '/pf/r/plan/check/step',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            async : false,
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg, {icon: 5});
+                    return false;
+                } else {
+                    msg = data.data;
+                }
+            },
+            error: function () {
+                layer.msg("获取检验信息失败", {icon: 5});
+                return false;
+            }
+        });
+
+        return msg
+    }
 
 
     function savePlanCallback(data){

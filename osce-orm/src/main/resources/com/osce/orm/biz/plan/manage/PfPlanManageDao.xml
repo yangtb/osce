@@ -431,4 +431,85 @@
     <select id="isExistStep2" resultType="java.lang.Boolean">
         SELECT count(1) FROM tp_student a WHERE a.id_plan = #{idPlan}
     </select>
+
+    <select id="selectUnfilledPlanStep3" resultType="com.osce.vo.biz.plan.manage.TdPlanStepCheckVo">
+        SELECT
+            CONCAT('第',floor(a.time_section),'天',(CASE WHEN((a.time_section - floor(a.time_section)) = 0 ) THEN '上午' ELSE '下午' END)) AS planTime,
+            b.na_area ,
+            c.na_station ,
+            d.na_room ,
+            a.sd_skill_ca ,
+            a.id_paper ,
+            a.id_score_sheet
+        FROM
+            tp_ins_station a
+        LEFT JOIN td_area b ON a.id_area = b.id_area
+        LEFT JOIN td_station c ON a.id_station = c.id_station
+        LEFT JOIN erp_room d ON a.id_room = d.id_room
+        WHERE
+            a.id_plan = #{idPlan}
+        AND(
+            (a.sd_skill_ca = '1' AND a.id_paper IS NULL) or
+            (a.sd_skill_ca IN('2' , '3') AND( a.id_paper IS NULL OR id_score_sheet IS NULL))
+        )
+    </select>
+    <select id="selectUnfilledPlanStep4" resultType="com.osce.vo.biz.plan.manage.TdPlanStepCheckVo">
+        SELECT
+            CONCAT('第',floor(a.time_section),'天',(CASE WHEN((a.time_section - floor(a.time_section)) = 0 ) THEN '上午' ELSE '下午' END)) AS planTime,
+            b.na_area ,
+            c.na_station ,
+            d.na_room
+        FROM
+            tp_ins_station a
+        LEFT JOIN td_area b ON a.id_area = b.id_area
+        LEFT JOIN td_station c ON a.id_station = c.id_station
+        LEFT JOIN erp_room d ON a.id_room = d.id_room
+        WHERE
+            a.id_plan = #{idPlan}
+        AND a.sd_skill_ca = '3'
+        AND NOT EXISTS(
+            SELECT
+                1
+            FROM
+                tp_sp sp
+            WHERE
+                sp.id_plan = a.id_plan
+            AND sp.id_area = a.id_area
+            AND sp.id_station = a.id_station
+            AND sp.time_section = a.time_section
+            AND sp.id_room = a.id_room
+        )
+    </select>
+    <select id="selectUnfilledPlanStep5" resultType="com.osce.vo.biz.plan.manage.TdPlanStepCheckVo">
+        SELECT
+            CONCAT('第',floor(a.time_section),'天',(CASE WHEN((a.time_section - floor(a.time_section)) = 0 ) THEN '上午' ELSE '下午' END)) AS planTime,
+            b.na_area ,
+            c.na_station ,
+            d.na_room
+        FROM
+            tp_ins_station a
+        LEFT JOIN td_area b ON a.id_area = b.id_area
+        LEFT JOIN td_station c ON a.id_station = c.id_station
+        LEFT JOIN erp_room d ON a.id_room = d.id_room
+        WHERE
+            a.id_plan = #{idPlan}
+        AND NOT EXISTS(
+            SELECT
+                IF(ta.id_user_manager IS NULL , 0 , 1)
+            FROM
+                tp_assistant ta
+            WHERE
+                ta.id_plan = a.id_plan
+            AND ta.id_area = a.id_area
+            AND ta.id_station = a.id_station
+            AND ta.time_section = a.time_section
+            AND ta.id_room = a.id_room
+        )
+        ORDER BY
+            a.time_section ,
+            a.time_section ,
+            a.id_area ,
+            a.id_station ,
+            a.id_room
+    </select>
 </mapper>

@@ -186,4 +186,25 @@ public class PfPlanRestController {
                 pfPlanManageService.publishPlan(dto));
     }
 
+    /**
+     * 计划步骤校验
+     * <p>
+     * 1.考卷是否全部分配
+     * 2.SP是否全部分配
+     * 3.主考官是否全部分配
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/check/step")
+    public ResultObject checkPlanStep(@RequestBody PlanDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdPlan() != null, "idPlan");
+        Assert.isTrue(dto.getCheckStep() != null, "checkStep");
+
+        return ResultObject.createSuccess("checkPlanStep", ResultObject.DATA_TYPE_OBJECT,
+                pfPlanManageService.checkPlanStep(dto));
+    }
+
 }
