@@ -62,7 +62,7 @@ layui.config({
             $("#totalScore").text(data.totalScore + '分');
         }
 
-        queryItemInfo(data.idPaper, endFlag);
+        queryItemInfo(data.idPaper, data.idExec, endFlag);
         // 倒计时
         if (data.sdExecQueue == 4) {
             $("#countdown").css("display", "block");
@@ -70,7 +70,7 @@ layui.config({
         }
     }
 
-    function queryItemInfo(idPaper, endFlag) {
+    function queryItemInfo(idPaper, idExec, endFlag) {
         /*var msg = endFlag ? '加载考试结果中' : '加载中';
         layer.msg(msg, {
             icon: 16
@@ -78,7 +78,8 @@ layui.config({
         });*/
         var bizData = {
             idExecQueue: idExecQueue,
-            idPaper: idPaper
+            idPaper: idPaper,
+            idExec : idExec
         }
         $.ajax({
             url: basePath + '/r/exec/item/info',

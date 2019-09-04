@@ -29,4 +29,9 @@ public class TestDto implements Serializable {
      */
     private Long idPaper;
 
+    /**
+     * 执行id
+     */
+    private Long idExec;
+
 }

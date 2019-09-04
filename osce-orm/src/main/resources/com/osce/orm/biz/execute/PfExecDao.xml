@@ -83,7 +83,7 @@
             b.idcard AS idCard ,
             a.plan_begin ,
             a.plan_end ,
-            c.no_reg
+            LPAD(c.no_reg, 2, 0) as no_reg
         FROM
             es_exec_queue a
 	    LEFT JOIN org_student_depart d ON a.id_user_student = d.id_student_depart
@@ -131,13 +131,12 @@
             a.sd_skill_ca ,
             (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = b.sd_station_ca) AS sdStationCaText ,
             na_item_store AS naPaper ,
-            d.min_cost ,
+            a.min_cost ,
             1 status
         FROM
             es_exec_queue a
         LEFT JOIN td_station b ON a.id_station = b.id_station
         LEFT JOIN td_item_store c ON c.id_item_store = a.id_paper
-        LEFT JOIN es_exec_queue d ON a.id_exec_queue = d.id_exec_queue
         WHERE
             a.sd_skill_ca = '1'
         AND a.id_user_student = #{userId}
@@ -145,7 +144,7 @@
         AND a.id_org = #{idOrg}
         AND a.id_area = #{idArea}
         AND a.time_section = #{timeSection}
-        AND d.sd_exec_queue in ('3', '4')
+        AND a.sd_exec_queue in ('3', '4')
     </select>
     <select id="selectsStuTestInfo" resultType="com.osce.vo.biz.execute.TestStuVo">
         SELECT
@@ -200,7 +199,7 @@
         FROM
             td_item a
         LEFT JOIN td_item_option b ON a.id_item = b.id_item
-        LEFT JOIN we_item c ON a.id_item = c.id_item
+        LEFT JOIN we_item c ON a.id_item = c.id_item and id_exec = #{dto.idExec}
         WHERE
             a.id_item_store = #{dto.idPaper}
         AND a.fg_active = '1'

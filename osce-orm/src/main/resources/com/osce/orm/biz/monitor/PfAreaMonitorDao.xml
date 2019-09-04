@@ -156,6 +156,7 @@
         <if test="amPmFlag == 1">
             AND time_begin > '12:00:00'
         </if>
+        and fg_active = '1'
     </select>
     <select id="selectMonitorAreaDetail" resultType="com.osce.vo.biz.monitor.MonitorAreaDetailVo">
         SELECT
