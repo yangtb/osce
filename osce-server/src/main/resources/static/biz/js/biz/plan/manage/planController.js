@@ -165,6 +165,41 @@ layui.config({
         });
     }
 
+    $('#endExam').on('click', function () {
+        var checkStatus = table.checkStatus('planTableId')
+            , data = checkStatus.data;
+        if (data.length == 0) {
+            layer.tips('请先选中一行记录', '#endExam', {tips: 1});
+            return;
+        }
+
+        var url = basePath + '/pf/r/plan/manage/end';
+        var reqData = new Array();
+        var messageTitle = '';
+        $.each(data, function (index, content) {
+            if (messageTitle) {
+                messageTitle += ', ';
+            }
+            messageTitle += '【' + content.naPlan + '】';
+            reqData.push(content.idPlan);
+        });
+
+
+        var data = {};
+        data.list = reqData;
+        data.status = '1';
+        layer.confirm('确定结束考试' + messageTitle + '么？', {
+            title: '结束考试提示',
+            resize: false,
+            btn: ['确定', '取消'],
+            btnAlign: 'c',
+            icon: 3
+        }, function (index) {
+            _commonAjax(index, url, data, "结束考试");
+        })
+
+    });
+
 });
 
 

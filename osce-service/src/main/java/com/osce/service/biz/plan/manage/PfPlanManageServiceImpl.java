@@ -17,6 +17,7 @@ import com.osce.vo.biz.plan.manage.TdPlanStepCheckVo;
 import org.apache.dubbo.config.annotation.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -198,6 +199,17 @@ public class PfPlanManageServiceImpl implements PfPlanManageService {
             }
         }
         return msg;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean endPlan(PfBachChangeStatusDto dto) {
+        // 1.更新计划状态
+        // 2.更新实际完成时间
+        pfPlanManageDao.updatePlanStatus(dto);
+        // 3.清空该计划下的队列
+        pfPlanManageDao.clearEsExecQueue(dto);
+        return true;
     }
 
 }

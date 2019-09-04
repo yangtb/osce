@@ -142,4 +142,16 @@ public interface PfPlanManageService {
      * @return
      */
     String checkPlanStep(PlanDto dto);
+
+    /**
+     * 结束计划
+     * <p>
+     * 1.更新计划状态
+     * 2.更新实际完成时间
+     * 3.清空该计划下的队列
+     *
+     * @param dto
+     * @return
+     */
+    boolean endPlan(PfBachChangeStatusDto dto);
 }

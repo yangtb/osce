@@ -236,4 +236,21 @@ public interface PfPlanManageDao {
      */
     List<TdPlanStepCheckVo> selectUnfilledPlanStep5(@Param("idPlan") Long idPlan);
 
+    /**
+     * 1.更新计划状态
+     * 2.更新实际完成时间
+     *
+     * @param dto
+     * @return
+     */
+    int updatePlanStatus(PfBachChangeStatusDto dto);
+
+    /**
+     * 清空该计划下的队列
+     *
+     * @param dto
+     * @return
+     */
+    int clearEsExecQueue(PfBachChangeStatusDto dto);
+
 }

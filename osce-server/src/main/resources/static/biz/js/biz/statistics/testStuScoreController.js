@@ -42,10 +42,10 @@ layui.config({
 
     function openScoreDetail(data) {
         if (data.sdSkillCa == '1') {
-            common.open('学员【张三】成绩（<span style="color: #1E9FFF">' + data.scoreSum + '</span> 分）',
+            common.open('学员【' + data.realName + '】成绩（<span style="color: #1E9FFF">' + data.scoreSum + '</span> 分）',
                 basePath + '/pf/p/statistics/test/score/detail1/page?idExec=' + data.idExec, 800, 500)
         } else {
-            var index = common.open('学员【张三】成绩（<span style="color: #1E9FFF">' + data.scoreSum + '</span> 分）',
+            var index = common.open('学员【' + data.realName + '】成绩（<span style="color: #1E9FFF">' + data.scoreSum + '</span> 分）',
                 basePath + '/pf/p/statistics/test/score/detail/page?idExec=' + data.idExec, 800, 500);
         }
         //layer.full(index)

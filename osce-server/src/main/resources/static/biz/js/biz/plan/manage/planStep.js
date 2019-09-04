@@ -286,12 +286,12 @@ layui.config({
         if (data.gmtActBegin) {
             $("#p_gmtActBegin").text(data.gmtActBegin);
         }
-        if (data.gmtActBegin) {
-            $("#gmtAct").addClass("cur-circle");
-        } else  {
+        if (!data.gmtActBegin) {
             $("#gmtAct").addClass("unfinished");
         }
-
+        if (data.gmtActBegin && !data.gmtActEnd) {
+            $("#gmtAct").addClass("cur-circle");
+        }
 
         if (data.gmtActEnd) {
             $("#p_gmtActEnd").text(data.gmtActEnd);
@@ -300,7 +300,7 @@ layui.config({
             $("#p_gmtPlanEnd").text(data.gmtPlanEnd);
         }
         if (data.gmtActEnd) {
-            $("#gmtPlan").addClass("cur-circle");
+            //$("#gmtPlan").addClass("cur-circle");
         } else  {
             $("#gmtPlan").addClass("unfinished");
         }

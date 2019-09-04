@@ -45,8 +45,12 @@
                 <button type="reset" class="layui-btn layui-btn-sm layui-btn-danger">
                     <i class="iconfont icon-reset"></i> 重置
                 </button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" id="endExam">
+                    <i class="layui-icon">&#x1005;</i> 结束考试
+                </button>
             </div>
         </div>
+
         <div>
             <button id="editPlan" type="button" class="layui-btn layui-btn-normal"
                     lay-href="" style="display: none">实训计划编辑

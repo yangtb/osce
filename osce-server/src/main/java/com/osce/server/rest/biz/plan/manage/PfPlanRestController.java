@@ -207,4 +207,24 @@ public class PfPlanRestController {
                 pfPlanManageService.checkPlanStep(dto));
     }
 
+    /**
+     * 结束计划
+     * <p>
+     * 1.更新计划状态
+     * 2.更新实际完成时间
+     * 3.清空该计划下的队列
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/r/plan/manage/end")
+    public ResultObject endPlan(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        return pfPlanManageService.endPlan(dto) ? ResultObject.createSuccess("delPlan", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("endPlan", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
 }

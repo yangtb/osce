@@ -221,6 +221,14 @@
     <update id="publishPlan">
         update tp_plan set gmt_release = now(), sd_plan_status = '2' where id_plan = #{idPlan}
     </update>
+    <update id="updatePlanStatus">
+        update tp_plan set gmt_act_end = now(), sd_plan_status = '5'
+        where id_plan in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
     <delete id="delStudent">
         delete from tp_student
         WHERE
@@ -238,6 +246,16 @@
             fg_active = '0' ,
             operator = #{operator} ,
             gmt_modify = now()
+        WHERE
+            id_plan in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </delete>
+    <delete id="clearEsExecQueue">
+        delete from
+            es_exec_queue
         WHERE
             id_plan in (
         <foreach collection="list" item="item" separator="," >
