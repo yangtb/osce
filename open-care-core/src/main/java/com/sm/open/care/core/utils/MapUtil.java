@@ -1,6 +1,5 @@
 package com.sm.open.care.core.utils;
 
-import net.sf.cglib.beans.BeanMap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -362,7 +361,7 @@ public class MapUtil {
 	 * @param bean
 	 * @return
 	 */
-    public static <T> Map<String, String> beanToStringMap(T bean) {  
+/*    public static <T> Map<String, String> beanToStringMap(T bean) {
 		Map<String, String> map = new HashMap<String, String>(); 
 	    if (bean != null) {  
 	        BeanMap beanMap = BeanMap.create(bean);  
@@ -373,11 +372,11 @@ public class MapUtil {
 	    return map;  
 	} 
 
-	/**
+	*//**
 	 * @Description: java bean 转换成 Map<String, Object>
 	 * @param bean
 	 * @return
-	 */
+	 *//*
 	public static <T> Map<String, Object> beanToObjectMap(T bean) {  
 		Map<String, Object> map = new HashMap<String, Object>(); 
 	    if (bean != null) {  
@@ -387,6 +386,6 @@ public class MapUtil {
 	        }             
 	    }  
 	    return map;  
-	} 
+	} */
     
 }

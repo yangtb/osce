@@ -4,14 +4,12 @@ import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Map;
-import java.util.UUID;
 
 
 public class CommonUtil {
@@ -42,16 +40,6 @@ public class CommonUtil {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    /**
-     * 获取uuid
-     *
-     * @return
-     */
-    public static String uuid() {
-        return StringUtils.replace(UUID.randomUUID().toString(), "-", "");
     }
 
 }

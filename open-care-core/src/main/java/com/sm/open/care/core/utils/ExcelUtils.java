@@ -207,8 +207,8 @@ public class ExcelUtils {
                     jxl.format.Colour.BLACK);// 定义格式 字体 下划线 斜体 粗体 颜色
             WritableCellFormat wcf_header = new WritableCellFormat(wf_header); // 单元格定义
             wcf_header.setBackground(jxl.format.Colour.GRAY_50); // 设置单元格的背景颜色
-            wcf_header.setAlignment(jxl.format.Alignment.CENTRE); // 设置对齐方式
-            wcf_header.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE); //设置垂直对齐
+            wcf_header.setAlignment(Alignment.CENTRE); // 设置对齐方式
+            wcf_header.setVerticalAlignment(VerticalAlignment.CENTRE); //设置垂直对齐
             wcf_header.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN, jxl.format.Colour.BLACK);
             sheet.addCell(new Label(0, 0, header, wcf_header));
 
@@ -218,8 +218,8 @@ public class ExcelUtils {
                     jxl.format.Colour.BLACK);
             WritableCellFormat wcf_title = new WritableCellFormat(wf_title); // 单元格定义
             wcf_title.setBackground(jxl.format.Colour.WHITE); // 设置单元格的背景颜色
-            wcf_title.setAlignment(jxl.format.Alignment.CENTRE); // 设置对齐方式
-            wcf_title.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE); //设置垂直对齐
+            wcf_title.setAlignment(Alignment.CENTRE); // 设置对齐方式
+            wcf_title.setVerticalAlignment(VerticalAlignment.CENTRE); //设置垂直对齐
             wcf_title.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN, jxl.format.Colour.BLACK);
             wcf_title.setWrap(true);
             /** 写入内容 */
@@ -336,8 +336,8 @@ public class ExcelUtils {
                     jxl.format.Colour.BLACK);
             WritableCellFormat wcf_title = new WritableCellFormat(wf_title); // 单元格定义
             wcf_title.setBackground(jxl.format.Colour.WHITE); // 设置单元格的背景颜色
-            wcf_title.setAlignment(jxl.format.Alignment.CENTRE); // 设置对齐方式
-            wcf_title.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE); //设置垂直对齐
+            wcf_title.setAlignment(Alignment.CENTRE); // 设置对齐方式
+            wcf_title.setVerticalAlignment(VerticalAlignment.CENTRE); //设置垂直对齐
             wcf_title.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN, jxl.format.Colour.BLACK);
             wcf_title.setWrap(true);
 //            字体
@@ -347,8 +347,8 @@ public class ExcelUtils {
 //            单元格
             WritableCellFormat red_title = new WritableCellFormat(rd_title); // 单元格定义
             red_title.setBackground(jxl.format.Colour.WHITE); // 设置单元格的背景颜色
-            red_title.setAlignment(jxl.format.Alignment.CENTRE); // 设置对齐方式
-            red_title.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE); //设置垂直对齐
+            red_title.setAlignment(Alignment.CENTRE); // 设置对齐方式
+            red_title.setVerticalAlignment(VerticalAlignment.CENTRE); //设置垂直对齐
             red_title.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN, jxl.format.Colour.BLACK);
             red_title.setWrap(true);
 
@@ -434,8 +434,8 @@ public class ExcelUtils {
                     jxl.format.Colour.BLACK);
             WritableCellFormat wcf_title = new WritableCellFormat(wf_title); // 单元格定义
             wcf_title.setBackground(jxl.format.Colour.WHITE); // 设置单元格的背景颜色
-            wcf_title.setAlignment(jxl.format.Alignment.CENTRE); // 设置对齐方式
-            wcf_title.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE); //设置垂直对齐
+            wcf_title.setAlignment(Alignment.CENTRE); // 设置对齐方式
+            wcf_title.setVerticalAlignment(VerticalAlignment.CENTRE); //设置垂直对齐
             wcf_title.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN, jxl.format.Colour.BLACK);
             wcf_title.setWrap(true);
             sheet.setRowView(0, 650, false); //设置行高
@@ -445,16 +445,16 @@ public class ExcelUtils {
                     jxl.format.Colour.BLACK);// 定义格式 字体 下划线 斜体 粗体 颜色
             WritableCellFormat wcf_header = new WritableCellFormat(wf_header); // 单元格定义
             wcf_header.setBackground(jxl.format.Colour.GRAY_50); // 设置单元格的背景颜色
-            wcf_header.setAlignment(jxl.format.Alignment.CENTRE); // 设置对齐方式
-            wcf_header.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE); //设置垂直对齐
+            wcf_header.setAlignment(Alignment.CENTRE); // 设置对齐方式
+            wcf_header.setVerticalAlignment(VerticalAlignment.CENTRE); //设置垂直对齐
             wcf_header.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN, jxl.format.Colour.BLACK);
             sheet.addCell(new Label(0, 0, header, wcf_header));
 
 
             WritableCellFormat head_title = new WritableCellFormat(wf_title); // 单元格定义
             head_title.setBackground(jxl.format.Colour.GRAY_25); // 设置单元格的背景颜色
-            head_title.setAlignment(jxl.format.Alignment.CENTRE); // 设置对齐方式
-            head_title.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE); //设置垂直对齐
+            head_title.setAlignment(Alignment.CENTRE); // 设置对齐方式
+            head_title.setVerticalAlignment(VerticalAlignment.CENTRE); //设置垂直对齐
             head_title.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN, jxl.format.Colour.BLACK);
             head_title.setWrap(true);
             sheet.setRowView(0, 800, false); //设置行高

@@ -4,7 +4,6 @@
  */
 package com.sm.open.care.core.log;
 
-import com.alipay.common.tracer.util.TracerContextUtil;
 import com.sm.open.care.core.dubbo.TraceIdUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
