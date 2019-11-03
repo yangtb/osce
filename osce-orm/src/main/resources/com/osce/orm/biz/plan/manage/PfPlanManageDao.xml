@@ -229,6 +229,14 @@
         </foreach>
         )
     </update>
+    <update id="updatePlanStatusByIds">
+        update tp_plan set gmt_modify = now(), sd_plan_status = '4'
+        where id_plan in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+    </update>
     <delete id="delStudent">
         delete from tp_student
         WHERE
@@ -278,7 +286,8 @@
         SELECT
             a.id_plan ,
             a.na_plan ,
-            a.gmt_plan_begin ,
+            date_format(a.gmt_plan_begin , '%Y-%m-%d') as gmt_plan_begin ,
+            (datediff(a.gmt_plan_end,a.gmt_plan_begin) + 1) as planDayNum ,
             a.gmt_plan_end ,
             a.fg_replan ,
             a.sd_plan_status ,
@@ -375,7 +384,7 @@
             a.sd_plan_status ,
             a.fg_replan ,
             a.id_replan_from ,
-            a.gmt_plan_begin ,
+            date_format(a.gmt_plan_begin , '%Y-%m-%d') as gmt_plan_begin ,
             a.gmt_plan_end ,
             a.gmt_release ,
             a.gmy_picking ,
@@ -532,5 +541,15 @@
     </select>
     <select id="selectPlanStatus" resultType="java.lang.String">
         select sd_plan_status from tp_plan where id_plan = #{idPlan}
+    </select>
+    <select id="listPlanStart" resultType="java.lang.Long">
+        SELECT
+            id_plan
+        FROM
+            tp_plan
+        WHERE
+            sd_plan_status IN(1 , 2 , 3)
+        AND fg_active = '1'
+        AND gmt_plan_begin &lt; NOW()
     </select>
 </mapper>

@@ -261,4 +261,19 @@ public interface PfPlanManageDao {
      */
     String selectPlanStatus(@Param("idPlan") Long idPlan);
 
+    /**
+     * 需开始的计划
+     *
+     * @return
+     */
+    List<Long> listPlanStart();
+
+    /**
+     * 更改计划为开始状态
+     *
+     * @param list
+     * @return
+     */
+    int updatePlanStatusByIds(@Param("list") List<Long> list);
+
 }
