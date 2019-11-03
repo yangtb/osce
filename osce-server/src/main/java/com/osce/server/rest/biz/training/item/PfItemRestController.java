@@ -224,4 +224,16 @@ public class PfItemRestController extends BaseController {
     }
 
 
+    /**
+     * 分组编码list
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_03_001', 'ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/item/cd/group/list")
+    public ResultObject listCdGroup(@RequestBody ItemDto dto) {
+        return ResultObject.createSuccess("listCdGroup", ResultObject.DATA_TYPE_LIST,
+                pfItemService.listCdGroup(dto));
+    }
 }

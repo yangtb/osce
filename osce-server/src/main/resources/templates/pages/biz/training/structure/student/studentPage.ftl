@@ -35,7 +35,7 @@
     <form class="layui-form" style="margin: 5px 0px 5px 0px; padding-bottom: 5px; border-bottom: 1px solid #d2d2d2">
         <div class="layui-inline">
             <div class="layui-input-inline">
-                <select id="idGrade" name="idGrade" lay-verify="required">
+                <select id="idGrade" name="idGrade" lay-verify="required" lay-filter="idGradeCurrentFilter">
                     <#if allGrade?? && (allGrade?size > 0)>
                         <#list allGrade as grade >
                             <option value="${grade.idGrade!}" <#if grade.fgActive='1'>selected</#if>>${grade.naGrade!}</option>
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="layui-inline">
-            <div class="layui-input-inline">
+            <div hidden>
                 <button id="queryDept" type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="deptSearchFilter">
                     <i class="iconfont icon-query"></i> 查询
                 </button>

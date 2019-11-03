@@ -71,11 +71,11 @@ layui.config({
 
     function loadStepData(stepNum) {
         if (stepNum == 2) {
-            $('#assignedStudentIframe').attr("src", basePath + "/pf/p/plan/manage/assigned/student/page?idPlan=" + $('#idPlan').val());
+            $('#assignedStudentIframe').attr("src", basePath + "/pf/p/plan/manage/assigned/student/page?idPlan=" + $('#idPlan').val() + "&sdPlanStatus=" + $('#sdPlanStatus').val());
         } else if (stepNum == 3) {
             $('#stationPreviewIframe').attr("src",
                 basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val()
-                + '&idModel=' + $('#idModel').val()+ '&idModelFrom=' + $('#idModelFrom').val());
+                + '&idModel=' + $('#idModel').val() + '&idModelFrom=' + $('#idModelFrom').val());
         } else if (stepNum == 4) {
             $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val());
         } else if (stepNum == 5) {
@@ -156,7 +156,7 @@ layui.config({
         },
     });
 
-    form.on('select(fgReplanFilter)', function(data){
+    form.on('select(fgReplanFilter)', function (data) {
         if (data.value == 0) {
             $('#idReplanFromText').addClass("layui-disabled");
             $('#idReplanFromText').attr("disabled", "true");
@@ -180,7 +180,7 @@ layui.config({
     $(document).ready(function () {
         var ul = document.querySelectorAll(".list-item");
         for (var i = 0; i < ul.length; i++) {
-            if ( i >= 1) {
+            if (i >= 1) {
                 ul[i].addEventListener('click', function () {
                     $("ul li").find(".modal").hide()
                     $(this).find(".modal").show()
@@ -234,7 +234,7 @@ layui.config({
         });
     }
 
-    function loadPlanInfo(){
+    function loadPlanInfo() {
         var bizData = {
             idPlan: idPlan
         };
@@ -251,6 +251,7 @@ layui.config({
                     return false;
                 } else {
                     var sucData = data.data;
+                    $('#sdPlanStatus').val(sucData.sdPlanStatus)
                     fullProgress(sucData);
                     // 表单值
                     form.val("step1FormFilter", sucData);
@@ -260,6 +261,11 @@ layui.config({
                         $("#editTemplate").css("display", "block");
                     } else {
                         $("#editTemplate").css("display", "none");
+                    }
+                    // 按钮控制
+                    if (sucData.sdPlanStatus == '5') {
+                        var btns = ["editTemplate", "savePlan", "planOrder", "saveSp", "saveAssistant", "pickStep", "publishItem", "publishPlan"]
+                        setBtn(btns);
                     }
                     return true;
                 }
@@ -271,7 +277,14 @@ layui.config({
         });
     }
 
-    function fullProgress(data){
+    function setBtn(btns) {
+        for (var i = 0; i < btns.length; i++) {
+            $("#" + btns[i]).addClass("layui-btn-disabled");
+            $("#" + btns[i]).attr("disabled", "true");
+        }
+    }
+
+    function fullProgress(data) {
 
         if (data.gmtRelease) {
             $("#p_gmtRelease").text(data.gmtRelease);
@@ -301,7 +314,7 @@ layui.config({
         }
         if (data.gmtActEnd) {
             //$("#gmtPlan").addClass("cur-circle");
-        } else  {
+        } else {
             $("#gmtPlan").addClass("unfinished");
         }
     }
@@ -314,7 +327,7 @@ layui.config({
         table: {
             url: basePath + '/pf/p/plan/template/list',
             height: 260,
-            size:'sm',
+            size: 'sm',
             cols: [[
                 {type: 'radio'},
                 {field: 'naModel', minWidth: 170, title: '模板名称'},
@@ -355,7 +368,7 @@ layui.config({
 
     form.on('submit(formStep1)', function (data) {
         var bizData = {
-            parIdPlan : idPlan
+            parIdPlan: idPlan
         }
         common.commonPost(basePath + '/pf/r/plan/call/station/order',
             bizData, null, 'planOrder', callStationPlanOrderCallback, true);
@@ -370,7 +383,7 @@ layui.config({
                 title: '提示',
                 resize: false,
                 btn: ['确定']
-                , maxWidth : 450
+                , maxWidth: 450
                 , icon: 5
             });
             return false;
@@ -389,7 +402,7 @@ layui.config({
                 title: '提示',
                 resize: false,
                 btn: ['确定']
-                , maxWidth : 450
+                , maxWidth: 450
                 , icon: 5
             });
             return false;
@@ -408,13 +421,13 @@ layui.config({
                 title: '提示',
                 resize: false,
                 btn: ['确定']
-                , maxWidth : 450
+                , maxWidth: 450
                 , icon: 5
             });
             return false;
         }
         var bizData = {
-            parIdPlan : idPlan
+            parIdPlan: idPlan
         }
         common.commonPost(basePath + '/pf/r/plan/call/station/pick',
             bizData, null, 'pickStep', callStationPickCallback, true);
@@ -444,14 +457,14 @@ layui.config({
         var msg = "";
         var bizData = {
             idPlan: idPlan,
-            checkStep : step
+            checkStep: step
         }
         $.ajax({
             url: basePath + '/pf/r/plan/check/step',
             type: 'post',
             dataType: 'json',
             contentType: "application/json",
-            async : false,
+            async: false,
             data: JSON.stringify(bizData),
             success: function (data) {
                 layer.closeAll('loading');
@@ -472,7 +485,7 @@ layui.config({
     }
 
 
-    function savePlanCallback(data){
+    function savePlanCallback(data) {
         var sucData = data.data;
         //console.log(sucData)
         if (sucData) {
@@ -482,7 +495,8 @@ layui.config({
             if ($("#idModel").val()) {
                 $("#editTemplate").css("display", "block");
             }
-            $('#assignedStudentIframe').attr("src", basePath + "/pf/p/plan/manage/assigned/student/page?idPlan=" + sucData.idPlan)
+            $('#assignedStudentIframe').attr("src", basePath + "/pf/p/plan/manage/assigned/student/page?idPlan="
+                + sucData.idPlan + "&sdPlanStatus=" + $('#sdPlanStatus').val())
         }
         //step.next('#stepForm');
         stepSkip(2);
@@ -496,7 +510,7 @@ layui.config({
         addStepEventListener(3);
         $('#stationPreviewIframe').attr("src",
             basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val()
-            + '&idModel=' + $('#idModel').val()+ '&idModelFrom=' + $('#idModelFrom').val())
+            + '&idModel=' + $('#idModel').val() + '&idModelFrom=' + $('#idModelFrom').val())
     }
 
     function callStationPickCallback() {
@@ -509,7 +523,7 @@ layui.config({
     // 计划发布
     $('#publishPlan').on('click', function () {
         var bizData = {
-            idPlan : idPlan
+            idPlan: idPlan
         }
         common.commonPost(basePath + '/pf/r/plan/publish', bizData, '发布', 'publishPlan', null, true);
     });

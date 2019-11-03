@@ -29,4 +29,9 @@ public class PfDeptDto implements Serializable {
      */
     private Long idOrg;
 
+    /**
+     * 学届
+     */
+    private Long idGrade;
+
 }

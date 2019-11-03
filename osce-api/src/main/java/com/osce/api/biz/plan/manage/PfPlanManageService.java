@@ -154,4 +154,13 @@ public interface PfPlanManageService {
      * @return
      */
     boolean endPlan(PfBachChangeStatusDto dto);
+
+    /**
+     * 获取计划状态
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    String selectPlanStatus(Long idPlan);
+
 }

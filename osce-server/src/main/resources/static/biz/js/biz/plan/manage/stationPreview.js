@@ -106,7 +106,7 @@ layui.config({
             html += '<td class="td-my">\n' +
                 '       <div class="main-wrapper">\n' +
                 '          <div class=\'header\' id="area-' + content.idArea + '">' + content.naArea + '</div>\n' +
-                           buildStationDataHtml(content.stationData) +
+                buildStationDataHtml(content.stationData) +
                 '       </div>\n' +
                 '    </td>';
         });
@@ -126,7 +126,7 @@ layui.config({
             }
             html += '<div class="main-content" id="idStation-' + content.idStation + '">\n' +
                 '       <p class="header-text" id="sdSkillCa-' + content.sdSkillCa + '">' + content.naStation + ' ' + content.sdStationCaText + ' ' + sdSkillCaText + '</p>\n' +
-                            buildRoomDataHtml(content.roomData, content.sdSkillCa) +
+                buildRoomDataHtml(content.roomData, content.sdSkillCa) +
                 '       </div>\n' +
                 '    </div>\n';
         });
@@ -135,7 +135,7 @@ layui.config({
 
     function buildRoomDataHtml(roomData, sdSkillCa) {
         var html = '<div class="content">\n' +
-            '        <div class="nav">\n' ;
+            '        <div class="nav">\n';
 
         $.each(roomData, function (index, content) {
             var activeCss = index == 0 ? 'active' : '';
@@ -148,15 +148,15 @@ layui.config({
         $.each(roomData, function (index, content) {
             html += '  <div class="content-item content-item' + content.sq
                 + '" id="tab-' + content.sq + '-' + content.idRoom + '-main"';
-            if (index == 0){
-                html +=' style="display: flex;"';
+            if (index == 0) {
+                html += ' style="display: flex;"';
             } else {
-                html +=' style="display: none;"';
+                html += ' style="display: none;"';
             }
             var idPaperText = content.idPaperText ? content.idPaperText : '请选择试卷';
             html += '    >\n' +
-                '        <img class="edit-btn edit-btn-paper" id="stable-' + content.idInsStation +'" data-id="' + content.idInsStation + '-' + sdSkillCa + '-' + content.idPaper + '-' + content.idScoreSheet + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
-                '        <p class="item-text item-text-paper" id="paper-' + content.idInsStation +'" data-id="' + content.idInsStation  + '-' + sdSkillCa + '-' + content.idPaper +'-' + content.idScoreSheet + '">'+ idPaperText +'</p>\n' +
+                '        <img class="edit-btn edit-btn-paper" id="stable-' + content.idInsStation + '" data-id="' + content.idInsStation + '-' + sdSkillCa + '-' + content.idPaper + '-' + content.idScoreSheet + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
+                '        <p class="item-text item-text-paper" id="paper-' + content.idInsStation + '" data-id="' + content.idInsStation + '-' + sdSkillCa + '-' + content.idPaper + '-' + content.idScoreSheet + '">' + idPaperText + '</p>\n' +
                 '      </div>\n';
         });
 
@@ -190,6 +190,7 @@ layui.config({
     }
 
     var formBox;
+
     function clickPaper(data) {
         var arr = data.split("-");
         var idInsStation = arr[0];
@@ -199,8 +200,8 @@ layui.config({
 
 
         var bizData = {
-            sdSkillCa: sdSkillCa ,
-            idModel : idModelFrom
+            sdSkillCa: sdSkillCa,
+            idModel: idModelFrom
         }
         $.ajax({
             url: basePath + '/pf/r/plan/exam/paper/list',
@@ -231,10 +232,10 @@ layui.config({
         var l = elem.offset().left + "px";
 
         var html =
-            '<div id="div-add-paper" class="layui-anim layui-anim-upbit" style="left:'+l+';top:'+t+';border: 1px solid #d2d2d2;background-color: #fff;box-shadow: 0 2px 4px rgba(0,0,0,.12);padding:10px 10px 0 0px;position: absolute;z-index:666;margin: 5px 0;border-radius: 2px;min-width:200px;">'+
+            '<div id="div-add-paper" class="layui-anim layui-anim-upbit" style="left:' + l + ';top:' + t + ';border: 1px solid #d2d2d2;background-color: #fff;box-shadow: 0 2px 4px rgba(0,0,0,.12);padding:10px 10px 0 0px;position: absolute;z-index:666;margin: 5px 0;border-radius: 2px;min-width:200px;">' +
             '   <form class="layui-form" id="addPaperForm">\n' +
             '        <div hidden>\n' +
-            '            <input name="idInsStation" value="'+ idInsStation +'" hidden>\n' +
+            '            <input name="idInsStation" value="' + idInsStation + '" hidden>\n' +
             '        </div>\n' +
             '\n' +
             '        <div class="layui-form-item form-item-my">\n' +
@@ -246,7 +247,7 @@ layui.config({
             html += '<option value="' + context.id + '">' + context.paperName + '</option>\n';
         });
 
-        html +='               </select>\n' +
+        html += '               </select>\n' +
             '           </div>\n' +
             '        </div>\n' +
             '\n' +
@@ -281,11 +282,11 @@ layui.config({
         }
 
         // 取消
-        $('#closeWin').on("click",function(e) {
+        $('#closeWin').on("click", function (e) {
             $('#div-add-paper').remove();
         });
 
-        form.on('select(idPaperFilter)', function(data){
+        form.on('select(idPaperFilter)', function (data) {
             if (!data.value) {
                 $('#idScoreSheet').empty();
                 $('#idScoreSheet').append('<option value="">请选择</option>');
@@ -303,7 +304,7 @@ layui.config({
                 return false;
             }
             if (sdSkillCa != '1' && !bizData.idScoreSheet) {
-                layer.tips('请选择评分表', '#addPaper', {zIndex:1000});
+                layer.tips('请选择评分表', '#addPaper', {zIndex: 1000});
                 return false;
             }
 
@@ -312,10 +313,10 @@ layui.config({
             $('#div-add-paper').remove();
             layer.confirm('是否应用到该考站的所有时段？', {
                 btn: ['是', '否']
-            }, function(index, layero){
+            }, function (index, layero) {
                 layer.close(index);
                 addPaper(bizData, true);
-            }, function(index){
+            }, function (index) {
                 addPaper(bizData, false);
             });
             return false;
@@ -329,8 +330,8 @@ layui.config({
         }
         if (sdSkillCa != '1') {
             var bizData = {
-                sdSkillCa: sdSkillCa ,
-                idPaper : idPaper
+                sdSkillCa: sdSkillCa,
+                idPaper: idPaper
             }
             $.ajax({
                 url: basePath + '/pf/r/plan/exam/paper/sheet/list',
@@ -369,9 +370,9 @@ layui.config({
     }
 
     //点击其他区域关闭
-    $(document).mouseup(function(e){
+    $(document).mouseup(function (e) {
         var userSet_con = $('#div-add-paper');
-        if(!userSet_con.is(e.target) && userSet_con.has(e.target).length === 0){
+        if (!userSet_con.is(e.target) && userSet_con.has(e.target).length === 0) {
             $('#div-add-paper').remove();
         }
     });
@@ -383,16 +384,34 @@ layui.config({
             idInsStation: data.idInsStation,
             idPaper: data.idPaper,
             idScoreSheet: data.idScoreSheet,
-            allFlag : flag
+            allFlag: flag
         }
-        common.commonPost(basePath + '/pf/r/plan/paper/save/paper',
-            bizData, '保存', 'stable-' + idInsStation, null, true);
 
-        if (flag) {
-            window.location.reload();
-        } else {
-            $('#paper-' + idInsStation).text(data.paperName);
-        }
+        $.ajax({
+            url: basePath + '/pf/r/plan/paper/save/paper',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg);
+                    return false;
+                } else {
+                    if (flag) {
+                        window.location.reload();
+                    } else {
+                        $('#paper-' + idInsStation).text(data.paperName);
+                    }
+                    return false;
+                }
+            },
+            error: function () {
+                layer.msg("网络异常");
+                return false;
+            }
+        });
     }
 
 });

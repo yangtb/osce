@@ -32,7 +32,7 @@
                     <div hidden>
                         <input id="idRoom" name="idRoom" hidden>
                     </div>
-                    <div class="layui-form-item form-item-my">
+                    <div class="layui-form-item form-item-my5">
                         <div class="layui-inline">
                             <label class="layui-form-label">房间<i class="iconfont icon-required"
                                                                    style="color: #f03f2d"></i></label>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
 
-                    <div class="layui-form-item form-item-my">
+                    <div class="layui-form-item form-item-my5">
                         <div class="layui-inline">
                             <label class="layui-form-label">部门描述</label>
                             <div class="layui-input-inline" style="width: 514px;">
@@ -70,7 +70,7 @@
                         </button>
                     </div>-->
 
-                    <div class="layui-form-item form-item-my">
+                    <div class="layui-form-item form-item-my5">
                         <div class="layui-inline">
                             <label class="layui-form-label">激活状态</label>
                             <div class="layui-input-inline">
@@ -87,7 +87,17 @@
                         </div>
                     </div>
 
-                    <div class="layui-form-item form-item-my">
+                    <div class="layui-form-item form-item-my5">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">理论站点</label>
+                            <div class="layui-input-inline">
+                                <input type="checkbox" checked="" name="roomFlag" lay-skin="switch"
+                                       lay-filter="fgActiveSwitch" value="1" lay-text="是|否">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item form-item-my5">
                         <div class="layui-inline">
                             <label class="layui-form-label">创建人</label>
                             <div class="layui-input-inline">
@@ -103,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="layui-form-item form-item-my">
+                    <div class="layui-form-item form-item-my5">
                         <div class="layui-inline">
                             <label class="layui-form-label">修改人</label>
                             <div class="layui-input-inline">

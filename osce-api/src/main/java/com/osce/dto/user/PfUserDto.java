@@ -24,6 +24,11 @@ public class PfUserDto extends PageParam implements Serializable {
     private Long userId;
 
     /**
+     * 用户角色id
+     */
+    private Long roleId;
+
+    /**
      * 超级管理员
      */
     private boolean isSuper;

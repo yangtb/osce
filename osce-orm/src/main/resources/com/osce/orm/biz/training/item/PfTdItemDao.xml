@@ -148,6 +148,9 @@
             <if test="sdItemFrom!=null">
                 sd_item_from,
             </if>
+            <if test="cdGroup!=null">
+                cd_group,
+            </if>
         </trim>
         )
         VALUES
@@ -185,6 +188,9 @@
             </if>
             <if test="sdItemFrom!=null">
                 #{sdItemFrom} ,
+            </if>
+            <if test="cdGroup!=null">
+                #{cdGroup} ,
             </if>
         </trim>
         )
@@ -312,6 +318,9 @@
             <if test="sdItemFrom != null and sdItemFrom!=''">
                 sd_item_from = #{sdItemFrom},
             </if>
+            <if test="cdGroup!=null">
+                cd_group = #{cdGroup} ,
+            </if>
         </trim>
         WHERE
         id_item = #{idItem}
@@ -365,6 +374,15 @@
         </foreach>
         )
     </delete>
+    <delete id="delTdItemBySection">
+        delete from td_item
+        where id_item_section in (
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+
     <delete id="delOption">
         delete from td_item_option
         where id_item_option in (
@@ -451,13 +469,17 @@
             item_analysis ,
             score_default ,
             fg_active ,
-            sd_item_from
+            sd_item_from,
+            cd_group
         FROM
             td_item
         WHERE
             id_item_store = #{idItemStore}
         <if test="idItemSection != null">
             and id_item_section = #{idItemSection}
+        </if>
+        <if test="cdGroup != null and cdGroup != ''">
+            and cd_group = #{cdGroup}
         </if>
         limit #{offset}, #{limit}
     </select>
@@ -470,6 +492,9 @@
             id_item_store = #{idItemStore}
         <if test="idItemSection != null">
             and id_item_section = #{idItemSection}
+        </if>
+        <if test="cdGroup != null and cdGroup != ''">
+            and cd_group = #{cdGroup}
         </if>
     </select>
 
@@ -521,6 +546,20 @@
         WHERE
             cd_ite_str = #{cdIteStr}
         AND id_item = #{idItem}
+    </select>
+    <select id="listCdGroup" resultType="java.lang.String">
+        SELECT
+            cd_group
+        FROM
+            td_item
+        WHERE
+            id_item_store = #{idItemStore}
+        AND id_item_section = #{idItemSection}
+        AND cd_group != ''
+        GROUP BY
+            id_item_store ,
+            id_item_section ,
+            cd_group
     </select>
 
 

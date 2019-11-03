@@ -46,7 +46,7 @@ layui.config({
             {field: 'desRoom', minWidth: 200, title: '描述'},
             {field: 'deviceNum', minWidth: 100, title: '设备数量', align: "right"},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
-            {fixed: 'right', width: 300, title: '操作', align: 'center', toolbar: '#roomBar'}
+            {fixed: 'right', width: 250, title: '操作', align: 'left', toolbar: '#roomBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/room/list'
         , limit: 15

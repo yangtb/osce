@@ -88,6 +88,14 @@ public interface PfTdItemDao {
     int delSection(PfBachChangeStatusDto dto);
 
     /**
+     * 删除目录下题目
+     *
+     * @param list
+     * @return
+     */
+    int delTdItemBySection(@Param("list") List<Long> list);
+
+    /**
      * 获取题目列表
      *
      * @param dto
@@ -209,4 +217,11 @@ public interface PfTdItemDao {
     Long selectTdItemOptionId(@Param("cdIteStr") String cdIteStr,
                               @Param("idItem") Long idItem);
 
+    /**
+     * 分组编码list
+     *
+     * @param dto
+     * @return
+     */
+    List<String> listCdGroup(ItemDto dto);
 }

@@ -139,6 +139,9 @@
                                 </div>
                             </div>
                         </div>
+
+                        <input id="sdPlanStatus" name="sdPlanStatus" hidden>
+
                         <form class="layui-form" lay-filter="step1FormFilter">
                             <input id="idPlan" name="idPlan" hidden>
                             <hr>
@@ -238,7 +241,7 @@
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
                                     <button type="button" class="layui-btn layui-btn-primary pre" data-index="2">上一步</button>
-                                    <button class="layui-btn" lay-submit lay-filter="formStep2">
+                                    <button id="saveSp" class="layui-btn" lay-submit lay-filter="formStep2">
                                         下一步 ：分配SP
                                     </button>
                                 </div>
@@ -253,7 +256,7 @@
                             <div class="layui-form-item">
                                 <div class="layui-input-block" style="padding-top: 15px;">
                                     <button type="button" class="layui-btn layui-btn-primary pre" data-index="3">上一步</button>
-                                    <button class="layui-btn" lay-submit lay-filter="formStep3">
+                                    <button id="saveAssistant" class="layui-btn" lay-submit lay-filter="formStep3">
                                         下一步 ：分配考官
                                     </button>
                                 </div>
@@ -282,7 +285,7 @@
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
                                     <button type="button" class="layui-btn layui-btn-primary pre" data-index="5">上一步</button>
-                                    <button class="layui-btn" lay-submit lay-filter="formStep5">
+                                    <button id="publishItem" class="layui-btn" lay-submit lay-filter="formStep5">
                                         下一步 ：发布清单
                                     </button>
                                 </div>

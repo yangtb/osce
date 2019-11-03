@@ -212,4 +212,9 @@ public class PfPlanManageServiceImpl implements PfPlanManageService {
         return true;
     }
 
+    @Override
+    public String selectPlanStatus(Long idPlan) {
+        return pfPlanManageDao.selectPlanStatus(idPlan);
+    }
+
 }

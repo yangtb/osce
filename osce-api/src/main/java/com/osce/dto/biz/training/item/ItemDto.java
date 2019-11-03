@@ -45,4 +45,9 @@ public class ItemDto extends PageParam implements Serializable {
      */
     private Long idItemSection;
 
+    /**
+     * 分组编码
+     */
+    private String cdGroup;
+
 }

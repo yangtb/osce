@@ -63,6 +63,7 @@ public class PfStudentServiceImpl implements PfStudentService {
             roles.add(pfRoleVo != null ? pfRoleVo.getRoleId() : null);
             registerDto.setRoles(roles);
         }
+        registerDto.setCheckFlag(false);
         if (dto.getIdStudentDepart() == null) {
             // 密码为空，默认身份证后4位
             if (StringUtils.isBlank(registerDto.getPassword()) && StringUtils.isNotBlank(registerDto.getIdcard())) {

@@ -125,12 +125,12 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">学号<i class="iconfont icon-required"
+               <#-- <label class="layui-form-label">学号<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
                     <input type="text" name="userCd" lay-verify="required" lay-vertype="tips"
                            placeholder="" autocomplete="off" class="layui-input">
-                </div>
+                </div>-->
             </div>
         </div>
 
@@ -164,7 +164,7 @@
             <div class="layui-input-block">
                 <#if roles?? && (roles?size > 0)>
                     <#list roles as element>
-                         <input type="checkbox" name="role" value="${element.roleId}"
+                         <input type="radio" name="role" value="${element.roleId}"
                                lay-skin="primary" title="${element.name}"
                                <#if (element.checked == true)>checked</#if>/>
                     </#list>

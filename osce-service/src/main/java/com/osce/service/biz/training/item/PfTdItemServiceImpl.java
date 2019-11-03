@@ -97,10 +97,12 @@ public class PfTdItemServiceImpl implements PfTdItemService {
         return dto.getIdItemSection();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean delSection(PfBachChangeStatusDto dto) {
-        int num = pfTdItemDao.delSection(dto);
-        return num >= 1 ? true : false;
+        pfTdItemDao.delSection(dto);
+        pfTdItemDao.delTdItemBySection(dto.getList());
+        return true;
     }
 
     @Override
@@ -238,6 +240,11 @@ public class PfTdItemServiceImpl implements PfTdItemService {
             }
         }
         return errorItems;
+    }
+
+    @Override
+    public List<String> listCdGroup(ItemDto dto) {
+        return pfTdItemDao.listCdGroup(dto);
     }
 
 }

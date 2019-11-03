@@ -17,9 +17,11 @@ layui.config({
             //{checkbox: true, fixed: true},
             {field: 'fgActive', width: 100, title: '状态',fixed: true, templet: '#fgActiveTpl'},
             {field: 'naScoreItem', minWidth:150, title: '评分项'},
-            {field: 'sdScoreItemCaText', width: 100, title: '分类'},
+            {field: 'sdScoreItemCaText', width: 130, title: '指标类型', templet: function (d) {
+                    return d.sdScoreItemCaText? d.sdScoreItemCaText : d.sdScoreItemCa;
+                }},
             {field: 'desScoreItem', minWidth: 230, title: '内容'},
-            {field: 'gmtCreate', width: 170, title: '创建时间'},
+            {field: 'score', width: 130, title: '分值'},
             {fixed: 'right', width: 140, title: '操作', align: 'center', toolbar: '#sheetBar'}
         ]] //设置表头
         // , url: basePath + '/pf/p/case/item/list'
@@ -131,7 +133,7 @@ layui.config({
                 + formType + '&idCase=' + idCase + '&idScoreSheet=' + idScoreSheet, 500, 350);
             layer.full(index)
         } else {
-            var index = common.open('新增题目', basePath + '/pf/p/case/item/form?formType='
+            var index = common.open('编辑题目', basePath + '/pf/p/case/item/form?formType='
                 + formType + '&idCase=' + idCase + '&idScoreSheet=' + idScoreSheet, 500, 350, _successFunction(currentEditData));
             layer.full(index)
         }

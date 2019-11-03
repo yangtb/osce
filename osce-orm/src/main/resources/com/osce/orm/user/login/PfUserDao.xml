@@ -182,9 +182,12 @@
             ui.id_org,
             ui.idcard,
             ui.user_cd,
-            ui.photo_addr
+            ui.photo_addr,
+            sr.name as roleName
         FROM
           user_info ui
+        left join user_role ur on ui.user_id = ur.user_id and ur.is_deleted = 'N'
+        inner join sys_role sr on ur.role_id = sr.role_id and sr.code != 'MCST'
         <if test='isSuper == false'>
             LEFT JOIN(
                 SELECT
@@ -201,7 +204,7 @@
             ) temp ON ui.user_id = temp.user_id
         </if>
         WHERE
-          is_deleted = 'N'
+            ui.is_deleted = 'N'
         <if test='isSuper == false'>
             <!--AND temp.level > #{level}-->
         </if>
@@ -221,6 +224,9 @@
         <if test="idOrg != null">
             and ui.id_org = #{idOrg}
         </if>
+        <if test="roleId != null">
+            and ur.role_id = #{roleId}
+        </if>
         and ui.username != 'super'
         limit #{offset}, #{limit}
     </select>
@@ -231,6 +237,8 @@
             count(1)
         FROM
             user_info ui
+        left join user_role ur on ui.user_id = ur.user_id and ur.is_deleted = 'N'
+        inner join sys_role sr on ur.role_id = sr.role_id and sr.code != 'MCST'
         <if test='isSuper == false'>
         LEFT JOIN(
             SELECT
@@ -247,32 +255,49 @@
         ) temp ON ui.user_id = temp.user_id
         </if>
         WHERE
-            is_deleted = 'N'
+            ui.is_deleted = 'N'
         <if test='isSuper == false'>
             <!--AND temp.level > #{level}-->
         </if>
-    <if test="conditionValue != null and conditionValue !=''">
-        <choose>
-            <when test="type != null and type == '1'.toString()">
-                and ui.username like concat(#{conditionValue},'%')
-            </when>
-            <when test="type != null and type == '2'.toString()">
-                and ui.real_name like concat(#{conditionValue},'%')
-            </when>
-            <when test="type != null and type == '3'.toString()">
-                and ui.phone_no like concat(#{conditionValue},'%')
-            </when>
-        </choose>
-    </if>
-    <if test="idOrg != null">
-        and ui.id_org = #{idOrg}
-    </if>
-    and ui.username != 'super'
-</select>
+        <if test="conditionValue != null and conditionValue !=''">
+            <choose>
+                <when test="type != null and type == '1'.toString()">
+                    and ui.username like concat(#{conditionValue},'%')
+                </when>
+                <when test="type != null and type == '2'.toString()">
+                    and ui.real_name like concat(#{conditionValue},'%')
+                </when>
+                <when test="type != null and type == '3'.toString()">
+                    and ui.phone_no like concat(#{conditionValue},'%')
+                </when>
+            </choose>
+        </if>
+        <if test="idOrg != null">
+            and ui.id_org = #{idOrg}
+        </if>
+        <if test="roleId != null">
+            and ur.role_id = #{roleId}
+        </if>
+        and ui.username != 'super'
+    </select>
 
-<!-- 判断是否存在相同的用户名 -->
+    <!-- 判断是否存在相同的用户名 -->
     <select id="isExistUser" resultType="java.lang.Boolean">
          SELECT COUNT(1) FROM user_info WHERE username = #{userName} and is_deleted = 'N'
+    </select>
+    <select id="isExistUserByCondition" resultType="java.lang.Boolean">
+        SELECT
+            count(1)
+        FROM
+            user_info ui
+        INNER JOIN user_role ur ON ui.user_id = ur.user_id and ur.is_deleted = 'N' AND ur.role_id = #{roleId}
+        WHERE
+             ui.phone_no = #{phoneNo}
+        AND ui.idcard = #{idCard}
+        and ui.is_deleted = 'N'
+        <if test="username != null and username != ''">
+            and ui.username != #{username}
+        </if>
     </select>
 
     <!-- 查询学生信息 -->

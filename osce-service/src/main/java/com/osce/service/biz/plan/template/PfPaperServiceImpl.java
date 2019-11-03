@@ -4,7 +4,9 @@ import com.osce.api.biz.plan.template.PfPaperService;
 import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.*;
+import com.osce.exception.RestErrorCode;
 import com.osce.exception.RestException;
+import com.osce.orm.biz.plan.manage.PfPlanManageDao;
 import com.osce.orm.biz.plan.template.PfPaperDao;
 import com.osce.orm.biz.plan.template.PfPaperStepDao;
 import com.osce.param.PageParam;
@@ -13,6 +15,7 @@ import com.osce.result.ResultFactory;
 import com.osce.vo.biz.plan.template.PaperItemTotalVo;
 import com.osce.vo.biz.plan.template.PaperLeftVo;
 import com.osce.vo.biz.plan.template.PfExamPaperSheetVo;
+import com.sm.open.care.core.exception.BizRuntimeException;
 import com.sm.open.care.core.utils.CommonUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +43,9 @@ public class PfPaperServiceImpl implements PfPaperService {
 
     @Resource
     private PfPaperStepDao pfPaperStepDao;
+
+    @Resource
+    private PfPlanManageDao pfPlanManageDao;
 
     @Override
     public List<PaperLeftVo> listLeft(Long idModel) {
@@ -275,9 +281,13 @@ public class PfPaperServiceImpl implements PfPaperService {
 
     @Override
     public boolean saveTdPaper(PfAddTpPaperDto dto) {
+        TpInsStation tpInsStation = pfPaperDao.selectTpInsStation(dto.getIdInsStation());
+        String sdPlanStatus = pfPlanManageDao.selectPlanStatus(tpInsStation.getIdPlan());
+        if ("5".equals(sdPlanStatus)) {
+            throw new RestException(RestErrorCode.PLAN_END);
+        }
         int num;
         if (dto.isAllFlag()) {
-            TpInsStation tpInsStation = pfPaperDao.selectTpInsStation(dto.getIdInsStation());
             num = pfPaperDao.saveTdAllPaper(tpInsStation.getIdPlan(), tpInsStation.getSdSkillCa(),
                     dto.getIdPaper(), dto.getIdScoreSheet());
         } else {

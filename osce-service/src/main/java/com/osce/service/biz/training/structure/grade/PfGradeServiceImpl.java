@@ -11,6 +11,7 @@ import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.vo.PfTreeSelectTableVo;
 import com.osce.vo.biz.training.structure.grade.GradeVo;
+import com.sm.open.care.core.enums.YesOrNo;
 import com.sm.open.care.core.enums.YesOrNoNum;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,8 +38,13 @@ public class PfGradeServiceImpl implements PfGradeService {
                 pfGradeDao.listGrades(dto));
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Long addGrade(OrgGrade dto) {
+        // 如果设置问当前学届，其他学届设置为未激活状态
+        if (YesOrNoNum.YES.getCode().equals(dto.getFgActive())) {
+            pfGradeDao.updateOtherGrade(dto.getIdOrg(), null);
+        }
         if (dto.getIdGrade() == null) {
             pfGradeDao.addGrade(dto);
         } else {

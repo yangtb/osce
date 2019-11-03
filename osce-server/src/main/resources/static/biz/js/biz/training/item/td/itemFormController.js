@@ -10,6 +10,98 @@ layui.config({
         , element = layui.element
         , numinp = layui.numinput;
 
+
+    $(document).ready(function(){
+        if (formType == 'edit') {
+            queryCdGroup();
+        }
+    });
+
+    form.on('select(cdGroupFilter)', function (data) {   //选择 赋值给input框
+        $("#cdGroupText").val($("#cdGroup").find("option:selected").text());
+        $("#cdGroup").next().find("dl").css({ "display": "none" });
+        form.render();
+    });
+
+    $("#cdGroupText").on('keyup', function () {
+        search()
+    });
+
+    window.search = function () {
+        var value = $("#cdGroupText").val();
+        $("#cdGroup").val(value);
+        form.render();
+        $("#cdGroup").next().find("dl").css({ "display": "block" });
+        var dl = $("#cdGroup").next().find("dl").children();
+        var j = -1;
+        for (var i = 0; i < dl.length; i++) {
+            if (dl[i].innerHTML.indexOf(value) <= -1) {
+                dl[i].style.display = "none";
+                j++;
+            }
+            if (j == dl.length-1) {
+                $("#hc_select").next().find("dl").css({ "display": "none" });
+            }
+        }
+    }
+
+    form.on('select(sdItemCaFilter)', function (data) {
+        if (data.value == 3) {
+            $("#queryCommonItem").removeClass("layui-btn-disabled");
+            $('#queryCommonItem').removeAttr("disabled", "true");
+            $('#cdGroup').removeAttr("disabled", "true");
+            $('#cdGroup').removeClass("layui-disabled");
+            $('#cdGroupText').removeAttr("disabled", "true");
+            $('#cdGroupText').removeClass("layui-disabled");
+            queryCdGroup();
+        } else {
+            $("#queryCommonItem").addClass("layui-btn-disabled");
+            $('#queryCommonItem').attr("disabled", "true");
+            $('#cdGroup').attr("disabled", "true");
+            $('#cdGroup').addClass("layui-disabled");
+            $('#cdGroupText').attr("disabled", "true");
+            $('#cdGroupText').addClass("layui-disabled");
+            $('#cdGroup').val("");
+            $('#cdGroupText').val("");
+        }
+        form.render();
+    });
+
+    function queryCdGroup() {
+        var bizData = {
+            "idItemStore": idItemStore,
+            "idItemSection": idItemSection
+        };
+        $.ajax({
+            url: basePath + '/pf/r/td/item/cd/group/list',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    common.errorMsg(data.msg);
+                    return false;
+                } else {
+                    var listData = data.data;
+                    $("#cdGroup").empty();
+                    $('#cdGroup').append("<option value=''></option>");
+                    $.each(listData, function (index, content) {
+                        $('#cdGroup').append("<option value='" + content + "'>" + content + "</option>");
+                    });
+                    form.render();
+                    return true;
+                }
+            },
+            error: function () {
+                layer.closeAll('loading');
+                layer.msg("网络异常");
+                return false;
+            }
+        });
+    }
+
     numinp.init({
         rightBtns: true
     });
@@ -33,6 +125,8 @@ layui.config({
         data.field.idItemSection = idItemSection;
         var oldData = table.cache["itemOptionTableId"];
         data.field.itemOptions = oldData;
+
+        data.field.cdGroup = data.field.cdGroupText;
         if (!oldData || oldData.length == 0) {
             layer.confirm('题目选项未填写，点击【确定】将继续保存', {
                 title: '提示',
@@ -136,22 +230,24 @@ layui.config({
         return false;
     }
 
-    //执行渲染
-    table.render({
-        elem: '#itemOptionTable' //指定原始表格元素选择器（推荐id选择器）
-        , id: 'itemOptionTableId'
-        , height: '330' //容器高度
-        , cols: [[
-            {checkbox: true},
-            {field: 'cdIte', width: 88, edit: 'text', title: '选项编码'},
-            {field: 'naOption', minWidth: 100, edit: 'text', title: '选项内容'},
-            {field: 'fgRight', width: 92, title: '正确答案', templet: '#fgRightTpl'}
-        ]] //设置表头
-        , limit: 500
-        , even: true
-        , page: false
-        , data: []
-    });
+    if (formType == 'add') {
+        //执行渲染
+        table.render({
+            elem: '#itemOptionTable' //指定原始表格元素选择器（推荐id选择器）
+            , id: 'itemOptionTableId'
+            , height: '340' //容器高度
+            , cols: [[
+                {checkbox: true},
+                {field: 'cdIte', width: 88, edit: 'text', title: '选项编码', align: 'center'},
+                {field: 'naOption', minWidth: 100, edit: 'text', title: '选项内容'},
+                {field: 'fgRight', width: 92, title: '正确答案', templet: '#fgRightTpl', align: 'center'}
+            ]] //设置表头
+            , limit: 500
+            , even: true
+            , page: false
+            , data: []
+        });
+    }
 
     //监听删除操作
     form.on('switch(fgRightCheckFilter)', function (obj) {
@@ -240,11 +336,58 @@ layui.config({
             }
         });
     }
+    $('#queryCommonItem').on('click', function () {
+        if (!$("#cdGroupText").val()) {
+            layer.tips('请先填写或选择分组编码', '#cdGroupText', {tips: 1});
+            return;
+        }
+        layer.open({
+            type: 1,
+            title: '【' + $("#cdGroupText").val() + '】同组题目',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['860px', '450px'],
+            content: '<div style="padding: 0px 10px 0px 10px"><table id="itemManageTable1">\n' +
+                '     </table></div>',
+            success: function(layero, index){
+                table.render({
+                    elem: '#itemManageTable1' //指定原始表格元素选择器（推荐id选择器）
+                    , id: 'itemManageTable1Id'
+                    , height: '385' //容器高度
+                    , cols: [[
+                        {type: 'numbers', fixed: true, title: 'R'},
+                        {field: 'mainItem', minWidth: 250, title: '题干'},
+                        {field: 'sdItemCa', width: 100, title: '题目类型', templet: '#sdItemCaTpl'},
+                        {field: 'sdItemLevel', width: 100, title: '难度', templet: '#sdItemLevelTpl'}
+                    ]] //设置表头
+                    , url: basePath + '/pf/p/td/item/manage/list'
+                    , limit: 15
+                    , even: true
+                    , limits: [15, 30, 100]
+                    , page: true
+                    , where: {
+                        idItemStore: idItemStore,
+                        idItemSection: idItemSection,
+                        cdGroup : $("#cdGroupText").val()
+                    }
+                });
+            }
+        });
+    });
 
 });
 
 function fullForm(data) {
     $(document).ready(function(){
+        if (data.sdItemCa == 3) {
+            $("#queryCommonItem").removeClass("layui-btn-disabled");
+            $('#queryCommonItem').removeAttr("disabled", "true");
+            $('#cdGroup').removeAttr("disabled", "true");
+            $('#cdGroup').removeClass("layui-disabled");
+            $('#cdGroupText').removeAttr("disabled", "true");
+            $('#cdGroupText').removeClass("layui-disabled");
+            data.cdGroupText =  data.cdGroup;
+        }
         $("#itemForm").autofill(data);
         layui.use(['table', 'form', 'common'],function(){
             var $ = layui.$
@@ -271,9 +414,23 @@ function fullForm(data) {
                         common.errorMsg(data.msg);
                         return false;
                     } else {
-                        table.reload('itemOptionTableId', {
-                            data: data.data
-                        });
+                        if (formType == 'edit') {
+                            table.render({
+                                elem: '#itemOptionTable' //指定原始表格元素选择器（推荐id选择器）
+                                , id: 'itemOptionTableId'
+                                , height: '340' //容器高度
+                                , cols: [[
+                                    {checkbox: true},
+                                    {field: 'cdIte', width: 88, edit: 'text', title: '选项编码', align: 'center'},
+                                    {field: 'naOption', minWidth: 100, edit: 'text', title: '选项内容'},
+                                    {field: 'fgRight', width: 120, title: '正确答案', templet: '#fgRightTpl', align: 'center'}
+                                ]] //设置表头
+                                , limit: 500
+                                , even: true
+                                , page: false
+                                , data: data.data
+                            });
+                        }
                         return true;
                     }
                 },

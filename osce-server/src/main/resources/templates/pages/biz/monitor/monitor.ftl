@@ -118,7 +118,7 @@
 </script>
 
 <script type="text/html" id="endStatusTpl">
-    {{#  if(d.endStatus == 1){ }}
+    {{#  if(d.endStatus == 6 || d.endStatus == -1){ }}
     <button type="button" class="layui-btn layui-btn-xs" style="background-color: #5FB878">正常结束</button>
     {{#  } else { }}
     <button type="button" class="layui-btn layui-btn-xs layui-btn-danger">缺考</button>

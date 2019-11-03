@@ -5,6 +5,9 @@ import com.osce.dto.biz.plan.manage.AssistantDto;
 import com.osce.dto.biz.plan.manage.PlanDto;
 import com.osce.entity.TpAssistant;
 import com.osce.entity.TpSp;
+import com.osce.exception.RestErrorCode;
+import com.osce.exception.RestException;
+import com.osce.orm.biz.plan.manage.PfPlanManageDao;
 import com.osce.orm.biz.plan.manage.PfPlanStationDao;
 import com.osce.orm.biz.plan.template.PfTemplateDao;
 import com.osce.param.PageParam;
@@ -28,6 +31,9 @@ public class PfPlanStationServiceImpl implements PfPlanStationService {
 
     @Resource
     private PfTemplateDao pfTemplateDao;
+
+    @Resource
+    private PfPlanManageDao pfPlanManageDao;
 
     @Override
     public List<TdStationInfoVo> selectStationInfo(Long idPlan) {
@@ -86,6 +92,10 @@ public class PfPlanStationServiceImpl implements PfPlanStationService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean saveStationSp(TpSp dto) {
+        String sdPlanStatus = pfPlanManageDao.selectPlanStatus(dto.getIdPlan());
+        if ("5".equals(sdPlanStatus)) {
+            throw new RestException(RestErrorCode.PLAN_END);
+        }
         pfPlanStationDao.delStationSp(dto);
         return pfPlanStationDao.saveStationSp(dto) >= 1 ? true : false;
     }
@@ -93,6 +103,10 @@ public class PfPlanStationServiceImpl implements PfPlanStationService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean saveStationAssistant(TpAssistant dto) {
+        String sdPlanStatus = pfPlanManageDao.selectPlanStatus(dto.getIdPlan());
+        if ("5".equals(sdPlanStatus)) {
+            throw new RestException(RestErrorCode.PLAN_END);
+        }
         pfPlanStationDao.delStationAssistant(dto);
         return pfPlanStationDao.saveStationAssistant(dto) == 1 ? true : false;
     }

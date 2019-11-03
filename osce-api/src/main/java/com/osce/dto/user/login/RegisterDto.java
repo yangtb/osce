@@ -115,4 +115,6 @@ public class RegisterDto implements Serializable {
      */
     private String importErrorMsg;
 
+    private boolean checkFlag = true;
+
 }

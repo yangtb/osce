@@ -39,6 +39,16 @@
             </div>
         </div>
 
+        <div class="layui-form-item form-item-my5">
+            <div class="layui-inline">
+                <label class="layui-form-label">当前学届</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" checked="" name="fgActive" lay-skin="switch"
+                           lay-filter="userEnabledSwitch" value="1" lay-text="是|否">
+                </div>
+            </div>
+        </div>
+
         <div class="layui-form-item">
             <div class="layui-input-block">
                 <button class="layui-btn" lay-submit="" lay-filter="addGrade">

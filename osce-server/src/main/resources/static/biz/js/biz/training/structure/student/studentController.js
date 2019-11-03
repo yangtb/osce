@@ -60,6 +60,17 @@ layui.config({
         $("#departTree").css("max-height", bodyHeight);
     });
 
+
+    form.on('select(idGradeCurrentFilter)', function(data){
+        $('#queryDept').trigger('click');
+        table.reload('studentTableId', {
+            where: {
+                idGrade : $('#idGrade').val(),
+                idDepart : ''
+            }
+        });
+    });
+
     //监听提交
     form.on('submit(deptSearchFilter)', function (data) {
         layer.load(2);
@@ -124,7 +135,7 @@ layui.config({
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
-            {field: 'naDepart', minWidth: 120, title: '班级', fixed: true},
+            {field: 'naDepart', minWidth: 160, title: '班级', fixed: true},
             {field: 'username', minWidth: 130, title: '账号'},
             {field: 'realName', minWidth: 140, title: '姓名'},
             {field: 'sex', minWidth: 80, title: '性别', templet: '#sexTpl'},
@@ -139,6 +150,9 @@ layui.config({
         , even: true
         , limits: [15, 30, 100]
         , page: true
+        , where: {
+            idGrade : $('#idGrade').val()
+        }
     });
 
     //监听工具条
@@ -170,9 +184,9 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            common.open('新增学员', basePath + '/pf/p/student/form?formType=' + formType, 700, 520);
+            common.open('新增学员', basePath + '/pf/p/student/form?formType=' + formType + '&idGrade=' + $('#idGrade').val(), 700, 415);
         } else {
-            common.open('编辑学员', basePath + '/pf/p/student/form?formType=' + formType, 700, 390, _successFunction(currentEditData));
+            common.open('编辑学员', basePath + '/pf/p/student/form?formType=' + formType, 700, 415, _successFunction(currentEditData));
         }
     };
 

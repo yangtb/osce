@@ -22,10 +22,11 @@ layui.config({
             //{field: 'user_id', width: 80, hidden: true, title: 'ID'},
             {field: 'username', width: 130, title: '账号', fixed: true},
             {field: 'realName', width: 140, title: '姓名'},
-            {field: 'sex', width: 70, templet: '#sexTpl', title: '性别'},
-            {field: 'phoneNo', width: 120, title: '手机号'},
+            {field: 'roleName', width: 140, title: '角色'},
+            {field: 'sex', width: 70, templet: '#sexTpl', title: '性别', align: 'center'},
+            {field: 'phoneNo', width: 120, title: '手机号', align: 'center'},
             {field: 'email', width: 160, title: '邮箱'},
-            {field: 'enabled', width: 70, title: '状态', templet: '#enabledTpl'},
+            {field: 'enabled', width: 80, title: '状态', templet: '#enabledTpl', align: 'center'},
             //{field: 'enabled', title:'状态', width:100, templet: '#switchTpl', unresize: true},
             /*{
                 field: 'role_type',
@@ -36,7 +37,7 @@ layui.config({
             },*/
             {field: 'gmtCreate', width: 170, sort: true, title: '创建时间'},
             {field: 'gmtModify', width: 170, sort: true, title: '修改时间'},
-            {field: 'operator', width: 100, title: '操作人员'},
+            {field: 'operator', width: 150, title: '操作人员'},
             {fixed: 'right', width: 180, title: '操作', align: 'center', toolbar: '#userBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/user/list'
@@ -139,7 +140,8 @@ layui.config({
             where: {
                 type: data.field.type,
                 conditionValue: data.field.queryCondition,
-                idOrg: data.field.idOrg
+                idOrg: data.field.idOrg,
+                roleId: data.field.roleId
             }
             , height: 'full-68'
             , page: {
@@ -164,7 +166,7 @@ layui.config({
             var index = common.open('新增用户', 'form?formType=' + formType, 700, 475);
             layer.full(index);
         } else {
-            common.open('编辑用户', 'form?formType=' + formType + "&userId=" + currentEditData.userId, 700, 440, _successFunction(currentEditData));
+            common.open('编辑用户', 'form?formType=' + formType + "&userId=" + currentEditData.userId, 700, 460, _successFunction(currentEditData));
         }
     };
 

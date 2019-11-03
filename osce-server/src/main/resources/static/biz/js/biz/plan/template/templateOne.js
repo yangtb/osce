@@ -24,7 +24,7 @@ layui.config({
         }
     });
 
-    form.on('select(sdModelStrategyFilter)', function(data){
+    /*form.on('select(sdModelStrategyFilter)', function(data){
         if (data.value == 2) {
             layer.alert('该算法正在规划中……', {
                 title: '提示',
@@ -39,7 +39,7 @@ layui.config({
             });
 
         }
-    });
+    });*/
 
 
     // 给step添加click事件

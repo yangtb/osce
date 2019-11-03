@@ -62,6 +62,21 @@ public interface PfUserDao {
     boolean isExistUser(@Param("userName") String userName);
 
     /**
+     * 1.同一个手机号、身份证号，可以创建多个账号
+     * 2.每个账号只能设置一种角色
+     *
+     * @param phoneNo
+     * @param idCard
+     * @param roleId
+     * @param username
+     * @return
+     */
+    boolean isExistUserByCondition(@Param("phoneNo") String phoneNo,
+                                   @Param("idCard") String idCard,
+                                   @Param("roleId") Long roleId,
+                                   @Param("username") String username);
+
+    /**
      * 编辑用户信息
      *
      * @param user

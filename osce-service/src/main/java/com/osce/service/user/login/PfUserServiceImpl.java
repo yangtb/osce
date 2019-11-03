@@ -54,6 +54,14 @@ public class PfUserServiceImpl implements PfUserService {
         if (pfUserDao.isExistUser(dto.getUsername())) {
             throw new RestException(RestErrorCode.USER_NAME_USED);
         }
+        // 1.同一个手机号、身份证号，可以创建多个账号
+        // 2.每个账号只能设置一种角色
+        if (dto.isCheckFlag()) {
+            if (pfUserDao.isExistUserByCondition(dto.getPhoneNo(), dto.getIdcard(), dto.getRoles().get(0), null)) {
+                throw new RestException(RestErrorCode.USER_PHONE_CARD_ROLE_USED);
+            }
+        }
+
         UserInfo user = new UserInfo();
         BeanUtils.copyProperties(dto, user);
         // 密码加密
@@ -73,6 +81,13 @@ public class PfUserServiceImpl implements PfUserService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean updateUser(RegisterDto dto) {
+        // 1.同一个手机号、身份证号，可以创建多个账号
+        // 2.每个账号只能设置一种角色
+        if (dto.isCheckFlag()) {
+            if (pfUserDao.isExistUserByCondition(dto.getPhoneNo(), dto.getIdcard(), dto.getRoles().get(0), dto.getUsername())) {
+                throw new RestException(RestErrorCode.USER_PHONE_CARD_ROLE_USED);
+            }
+        }
         UserInfo user = new UserInfo();
         BeanUtils.copyProperties(dto, user);
         // 修改用户信息

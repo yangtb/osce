@@ -73,9 +73,9 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            common.open('新增学届', basePath + '/pf/p/grade/form?formType=' + formType, 430, 255);
+            common.open('新增学届', basePath + '/pf/p/grade/form?formType=' + formType, 430, 320);
         } else {
-            common.open('编辑学届', basePath + '/pf/p/grade/form?formType=' + formType, 430, 255, _successFunction(currentEditData));
+            common.open('编辑学届', basePath + '/pf/p/grade/form?formType=' + formType, 430, 320, _successFunction(currentEditData));
         }
     };
 

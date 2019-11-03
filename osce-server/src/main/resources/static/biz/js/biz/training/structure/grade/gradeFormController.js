@@ -20,9 +20,9 @@ layui.config({
 
     //监听提交
     form.on('submit(addGrade)', function (data) {
-       /* if (!data.field.fgActive) {
+        if (!data.field.fgActive) {
             data.field.fgActive = '0';
-        }*/
+        }
         var url = basePath + '/pf/r/grade/';
         if (formType == 'add') {
             url += 'add';

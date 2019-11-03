@@ -27,26 +27,28 @@
             </div>
             <div class="layui-form-item form-item-my">
                 <div class="layui-inline">
-                    <label class="layui-form-label">评分项<i class="iconfont icon-required"
-                                                         style="color: #f03f2d"></i></label>
+                    <label class="layui-form-label">指标类型</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="naScoreItem" autocomplete="off" class="layui-input"
-                               lay-verify="required|commonLength64" lay-vertype="tips" style="width: 514px;"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="layui-form-item form-item-my">
-                <div class="layui-inline">
-                    <label class="layui-form-label">分类</label>
-                    <div class="layui-input-inline">
-                        <select name="sdScoreItemCa">
+                        <input type="text" name="sdScoreItemCaText" id="sdScoreItemCaText" class="layui-input"  style="position:absolute;z-index:2;width:80%;" autocomplete="off">
+                        <select type="text" name="sdScoreItemCa" id="sdScoreItemCa" lay-filter="sdScoreItemCaFilter" autocomplete="off" class="layui-select" lay-search>
+                            <option value=""></option>
                             <#if scoreItemCaList?? && (scoreItemCaList?size > 0)>
                                 <#list scoreItemCaList as enum>
                                     <option value="${enum.dictCode!}">${enum.dictName!}</option>
                                 </#list>
                             </#if>
                         </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item form-item-my">
+                <div class="layui-inline">
+                    <label class="layui-form-label">评分项<i class="iconfont icon-required"
+                                                          style="color: #f03f2d"></i></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="naScoreItem" autocomplete="off" class="layui-input"
+                               lay-verify="required|commonLength64" lay-vertype="tips"/>
                     </div>
                 </div>
                 <div class="layui-inline">

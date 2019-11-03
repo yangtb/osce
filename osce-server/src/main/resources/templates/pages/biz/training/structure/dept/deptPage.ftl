@@ -34,8 +34,9 @@
 <div class="wrapper-content">
     <form class="layui-form" style="margin: 5px 0px 5px 0px; padding-bottom: 5px; border-bottom: 1px solid #d2d2d2">
         <div class="layui-inline">
+            <#--<label class="layui-form-label">请选择学届</label>-->
             <div class="layui-input-inline">
-                <select name="idGrade" lay-verify="required">
+                <select id="idGradeCurrent" name="idGrade" lay-filter="idGradeCurrentFilter">
                     <#if allGrade?? && (allGrade?size > 0)>
                         <#list allGrade as grade >
                             <option value="${grade.idGrade!}" <#if grade.fgActive='1'>selected</#if>>${grade.naGrade!}</option>
@@ -45,7 +46,7 @@
             </div>
         </div>
         <div class="layui-inline">
-            <div class="layui-input-inline">
+            <div hidden>
                 <button id="queryDept" type="button" class="layui-btn" lay-submit lay-filter="deptSearchFilter">
                     <i class="iconfont icon-query"></i> 查询
                 </button>
@@ -92,7 +93,7 @@
                     <label class="layui-form-label">学届<i class="iconfont icon-required"
                                                          style="color: #f03f2d"></i></label>
                     <div class="layui-input-block">
-                        <select name="idGrade" lay-verify="required">
+                        <select id="idGrade" name="idGrade" lay-verify="required">
                             <#if allGrade?? && (allGrade?size > 0)>
                                 <#list allGrade as grade >
                                     <option value="${grade.idGrade!}" <#if grade.fgActive='1'>selected</#if>>${grade.naGrade!}</option>

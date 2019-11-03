@@ -58,6 +58,7 @@ public class PfGradeRestController extends BaseController {
     public ResultObject editGrade(@RequestBody OrgGrade dto) {
         /* 参数校验 */
         dto.setOperator(CurrentUserUtils.getCurrentUsername());
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return ResultObject.createSuccess("editGrade", ResultObject.DATA_TYPE_OBJECT, pfGradeService.addGrade(dto));
 
     }

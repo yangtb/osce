@@ -10,6 +10,35 @@ layui.config({
         , numinp = layui.numinput
         , element = layui.element;
 
+    form.on('select(sdScoreItemCaFilter)', function (data) {   //选择 赋值给input框
+        $("#sdScoreItemCaText").val($("#sdScoreItemCa").find("option:selected").text());
+        $("#sdScoreItemCa").next().find("dl").css({ "display": "none" });
+        form.render();
+    });
+
+    $("#sdScoreItemCaText").on('keyup', function () {
+        search()
+    });
+    
+    window.search = function () {
+        var value = $("#sdScoreItemCaText").val();
+        $("#sdScoreItemCa").val(value);
+        form.render();
+        $("#sdScoreItemCa").next().find("dl").css({ "display": "block" });
+        var dl = $("#sdScoreItemCa").next().find("dl").children();
+        var j = -1;
+        for (var i = 0; i < dl.length; i++) {
+            if (dl[i].innerHTML.indexOf(value) <= -1) {
+                dl[i].style.display = "none";
+                j++;
+            }
+            if (j == dl.length-1) {
+                $("#hc_select").next().find("dl").css({ "display": "none" });
+            }
+        }
+
+    }
+
     numinp.init({
         rightBtns: true
     });
@@ -36,6 +65,9 @@ layui.config({
         var url = basePath + '/pf/r/case/item/save';
         data.field.idCase = idCase;
         data.field.idScoreSheet = idScoreSheet;
+        if (!data.field.sdScoreItemCa || data.field.sdScoreItemCa == '') {
+            data.field.sdScoreItemCa = data.field.sdScoreItemCaText;
+        }
         return _addItem(url, data.field, formType, 'sheetTableId', '保存');
     });
 
@@ -81,6 +113,10 @@ layui.config({
 
 function fullForm(data) {
     $(document).ready(function(){
+        if (!data.sdScoreItemCaText || data.sdScoreItemCaText == '') {
+            data.sdScoreItemCaText = data.sdScoreItemCa;
+            data.sdScoreItemCa = '';
+        }
         $("#itemForm").autofill(data);
         layui.use(['form'],function(){
             var form = layui.form;

@@ -530,4 +530,7 @@
             a.id_station ,
             a.id_room
     </select>
+    <select id="selectPlanStatus" resultType="java.lang.String">
+        select sd_plan_status from tp_plan where id_plan = #{idPlan}
+    </select>
 </mapper>

@@ -166,7 +166,7 @@ layui.define(['layer'], function (exports) {
                                 layer.tips(data.msg, selectId);
                             }
                         } else {
-                            common.errorMsg(data.msg);
+                            layer.msg(data.msg);
                         }
                         return false;
                     } else {

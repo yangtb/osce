@@ -91,7 +91,7 @@
             a.score_sum
         FROM
             we_exec a
-        LEFT JOIN org_student_depart b ON a.id_user_student = b.id_user
+        LEFT JOIN org_student_depart b ON a.id_user_student = b.id_student_depart
         LEFT JOIN user_info c ON c.user_id = b.id_user
         LEFT JOIN org_depart d ON d.id_depart = b.id_depart
         LEFT JOIN td_area e ON a.id_area = e.id_area

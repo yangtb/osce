@@ -51,6 +51,11 @@ public class ErpRoom implements Serializable {
     private String fgActive;
 
     /**
+     * 是否理论站点 0 否 1 是
+     */
+    private String roomFlag;
+
+    /**
      * 0 正常 1 删除
      */
     private String fgValid;

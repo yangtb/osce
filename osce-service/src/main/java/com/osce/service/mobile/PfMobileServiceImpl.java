@@ -92,7 +92,9 @@ public class PfMobileServiceImpl implements PfMobileService {
             throw new RestException(RestErrorCode.MOBILE_SCORE_EXEC_QUEUE_NOT_EXIST);
         }
         MobileScoreHeaderVo mobileScoreHeaderVo = pfMobileDao.selectScoreHeader(dto.getIdExecQueue());
-        if (mobileScoreHeaderVo != null) {
+        if (mobileScoreHeaderVo == null) {
+            throw new RestException(RestErrorCode.MOBILE_SCORE_EXEC_QUEUE_NOT_EXIST);
+        } else {
             mobileScoreHeaderVo.setNaPaper(pfTemplateDao.selectSkillName(mobileScoreHeaderVo.getSdSkillCa(),
                     mobileScoreHeaderVo.getIdPaper()));
             // 计算倒计时

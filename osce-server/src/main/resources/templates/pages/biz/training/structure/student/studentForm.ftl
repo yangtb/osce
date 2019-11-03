@@ -17,6 +17,7 @@
         var idOrg = '${idOrg!}';
         var basePath = '${basePath!}';
         var contextPath = '${contextPath!}';
+        var currentSelectIdGrade = '${currentSelectIdGrade!}';
     </script>
 
 </head>
@@ -33,10 +34,10 @@
                 <label class="layui-form-label">学届<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <select name="idGrade" lay-verify="required">
+                    <select id="idGrade" name="idGrade" lay-verify="required" disabled>
                         <#if allGrade?? && (allGrade?size > 0)>
                             <#list allGrade as grade >
-                                <option value="${grade.idGrade!}" <#if grade.fgActive='1'>selected</#if>>${grade.naGrade!}</option>
+                                <option value="${grade.idGrade!}" <#if (formType=='add' && grade.idGrade=currentSelectIdGrade)>selected</#if>>${grade.naGrade!}</option>
                             </#list>
                         </#if>
                     </select>
@@ -63,7 +64,13 @@
                 <label class="layui-form-label">所属机构<i class="iconfont icon-required"
                                                        style="color: #f03f2d"></i></label>
                 <div class="layui-input-inline">
-                    <input type="text" id="idOrg" name="idOrg" lay-filter="orgTree" class="layui-input"/>
+                    <#--<input type="text" id="idOrg" name="idOrg" lay-filter="orgTree" class="layui-input layui-disabled" disabled/>-->
+                    <select name="idOrg" lay-verify="required" lay-vertype="tips" disabled>
+                        <option value="">请选择</option>
+                        <#list allOrg as element>
+                            <option value="${element.idOrg}" <#if (formType=='add' && idOrg==element.idOrg)>selected</#if>>${element.naOrg}</option>
+                        </#list>
+                    </select>
                 </div>
             </div>
         </div>
@@ -135,7 +142,7 @@
         </div>
 
         <#if (formType == 'add')>
-            <div class="layui-form-item form-item-my">
+            <#--<div class="layui-form-item form-item-my">
                 <div class="layui-inline">
                     <label class="layui-form-label">默认密码</label>
                     <div class="layui-input-inline">
@@ -166,7 +173,7 @@
                     </div>
                     <div class="layui-form-mid layui-word-aux">2次输入密码必须一致</div>
                 </div>
-            </div>
+            </div>-->
         </#if>
 
         <div class="layui-form-item" style="padding-top: 5px">
@@ -198,7 +205,7 @@
             layui.use(['form', 'jquery', 'treeSelect'], function () {
                 layui.form.render();
                 var treeSelect= layui.treeSelect
-                treeSelect.render({
+                /*treeSelect.render({
                     elem: '#idOrg',
                     data: basePath + '/pf/r/org/tree/select',
                     type: 'post',
@@ -210,11 +217,11 @@
                         }
 
                     }
-                });
+                });*/
 
                 treeSelect.render({
                     elem: '#idDepart',
-                    data: basePath + '/pf/r/dept/tree/select',
+                    data: basePath + '/pf/r/dept/tree/select?idGrade=' + $('#idGrade').val(),
                     type: 'post',
                     placeholder: '请选择班级',
                     click: function(d){

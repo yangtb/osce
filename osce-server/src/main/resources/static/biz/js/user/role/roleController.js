@@ -22,8 +22,8 @@ layui.config({
             {field: 'name', width: 100, title: '角色名称', fixed: true},
             {field: 'code', width: 100, title: '角色编码'},
             {field: 'resume', width: 200, title: '描述'},
-            {field: 'state', width: 70, sort: true, templet: '#stateTpl', title: '状态'},
-            {field: 'level', width: 70, sort: true, title: '级别'},
+            {field: 'state', width: 90, sort: true, templet: '#stateTpl', title: '状态'},
+            {field: 'level', width: 90, sort: true, title: '级别', align: 'right'},
             {field: 'operator', width: 100, title: '创建人'},
             {field: 'gmtCreate', width: 170, sort: true, title: '创建时间'},
             {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#viewTreeBar'}

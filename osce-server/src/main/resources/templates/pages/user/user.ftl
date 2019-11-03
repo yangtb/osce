@@ -40,7 +40,7 @@
             <div class="layui-input-inline layui-btn-sm" style="width: 90px;">
                 <select name="type">
                     <option value="0">请选择</option>
-                    <option value="1">账号</option>
+                    <option value="1" selected>账号</option>
                     <option value="2">姓名</option>
                     <option value="3">手机号</option>
                 </select>
@@ -49,13 +49,28 @@
                 <input type="text" name="queryCondition" autocomplete="off" class="layui-input  btn-sm-my">
             </div>
         </div>
-        <div class="layui-input-inline">
-            <select name="idOrg">
-                <option value="">请选择</option>
-                <#list allOrg as element>
-                    <option value="${element.idOrg}">${element.naOrg}</option>
-                </#list>
-            </select>
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <select name="idOrg">
+                    <option value="">请选择机构</option>
+                    <#list allOrg as element>
+                        <option value="${element.idOrg}">${element.naOrg}</option>
+                    </#list>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <select name="roleId">
+                    <option value="">请选择角色</option>
+                    <#if roles?? && (roles?size > 0)>
+                        <#list roles as element>
+                            <option value="${element.roleId}">${element.name}</option>
+                        </#list>
+                    </#if>
+
+                </select>
+            </div>
         </div>
         <div class="layui-inline">
             <div class="layui-input-inline">

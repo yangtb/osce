@@ -135,6 +135,9 @@
         <if test="currentGrade">
             and d.fg_active = '1'
         </if>
+        <if test="idGrade != null ">
+            and d.id_grade = #{idGrade}
+        </if>
         limit #{offset}, #{limit}
     </select>
 
@@ -157,6 +160,9 @@
         </if>
         <if test="currentGrade">
             and c.fg_active = '1'
+        </if>
+        <if test="idGrade != null ">
+            and c.id_grade = #{idGrade}
         </if>
     </select>
     <select id="listStudentByIdGrade" resultType="com.osce.vo.biz.training.structure.student.StudentVo">

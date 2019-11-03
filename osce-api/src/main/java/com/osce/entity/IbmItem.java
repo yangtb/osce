@@ -103,6 +103,11 @@ public class IbmItem implements Serializable {
     private Date gmtModify;
 
     /**
+     * 分组编码
+     */
+    private String cdGroup;
+
+    /**
      * 选项
      */
     private List<IbmItemOption> itemOptions;

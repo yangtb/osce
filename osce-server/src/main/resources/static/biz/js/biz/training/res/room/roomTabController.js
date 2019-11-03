@@ -43,6 +43,9 @@ layui.config({
         if (!data.field.fgActive) {
             data.field.fgActive = '0';
         }
+        if (!data.field.roomFlag) {
+            data.field.roomFlag = '0';
+        }
         var url = basePath + '/pf/r/room/';
         if (formType == 'add') {
             url += 'add';

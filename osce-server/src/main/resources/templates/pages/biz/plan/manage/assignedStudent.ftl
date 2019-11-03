@@ -22,10 +22,10 @@
 <div>
     <form class="layui-form">
         <div class="layui-inline">
-            <button type="button" class="layui-btn layui-btn-sm" id="selectStudent">
+            <button type="button" class="layui-btn layui-btn-sm <#if (sdPlanStatus == '5')>layui-btn-disabled</#if>" id="selectStudent" <#if (sdPlanStatus == '5')>disabled</#if>>
                 <i class="iconfont icon-add"></i> 选择学员
             </button>
-            <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
+            <button type="button" class="layui-btn layui-btn-sm layui-btn-danger <#if (sdPlanStatus == '5')>layui-btn-disabled</#if>" id="del" <#if (sdPlanStatus == '5')>disabled</#if>>
                 <i class="iconfont icon-batch-del"></i> 删除
             </button>
         </div>
@@ -44,7 +44,9 @@
 <script src="${contextPath}/biz/js/biz/plan/manage/assignedStudentController.js"></script>
 
 <script type="text/html" id="studentBar">
-    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+    <#if sdPlanStatus != '5'>
+        <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+    </#if>
 </script>
 
 </body>

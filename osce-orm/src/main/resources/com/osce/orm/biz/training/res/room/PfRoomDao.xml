@@ -23,6 +23,9 @@
             <if test="fgActive!=null">
                 fg_active,
             </if>
+            <if test="roomFlag!=null">
+                room_flag,
+            </if>
             <if test="fgValid!=null">
                 fg_valid,
             </if>
@@ -59,6 +62,9 @@
             </if>
             <if test="fgActive!=null">
                 #{fgActive},
+            </if>
+            <if test="roomFlag!=null">
+                #{roomFlag},
             </if>
             <if test="fgValid!=null">
                 #{fgValid},
@@ -178,6 +184,9 @@
             <if test="fgActive != null and fgActive!=''">
                 fg_active = #{fgActive},
             </if>
+            <if test="roomFlag!=null and roomFlag!=''">
+                room_flag = #{roomFlag},
+            </if>
             <if test="fgValid != null and fgValid!=''">
                 fg_valid = #{fgValid},
             </if>
@@ -285,6 +294,7 @@
             a.des_room ,
             a.pic_room ,
             a.fg_active ,
+            a.room_flag ,
             a.fg_valid ,
             a.sort ,
             a.creator ,

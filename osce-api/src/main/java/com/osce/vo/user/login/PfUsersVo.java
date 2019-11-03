@@ -69,4 +69,9 @@ public class PfUsersVo implements Serializable {
      * 学号
      */
     private String userCd;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
 }

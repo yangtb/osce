@@ -82,7 +82,7 @@
 
     <select id="list" resultType="com.osce.vo.user.role.PfRoleVo">
         SELECT
-            sr.role_id, sr.name, sr.level
+            sr.role_id, sr.name, sr.level, sr.code
         FROM
             sys_role sr
         WHERE
@@ -96,7 +96,8 @@
             sr.role_id ,
             sr.name ,
             if(ur.user_id is null, false, true) as checked,
-            sr.level
+            sr.level,
+            sr.code
         FROM
             sys_role sr
         LEFT JOIN user_role ur ON sr.role_id = ur.role_id AND ur.user_id = #{userId} AND ur.is_deleted = 'N'

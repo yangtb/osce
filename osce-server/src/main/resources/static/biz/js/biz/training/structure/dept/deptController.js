@@ -38,6 +38,17 @@ layui.config({
         }
     });
 
+    form.on('select(idGradeCurrentFilter)', function(data){
+        $('#queryDept').trigger('click');
+        $('#reset').trigger('click');
+        // 默认当那学届
+        $('#idGrade').val($('#idGradeCurrent').val());
+        $('#idGrade').attr("disabled", "true");
+        layui.use('form', function () {
+            layui.form.render();
+        });
+    });
+
     // ===============  ztree =========================//
     var setting = {
         view: {
@@ -186,6 +197,7 @@ layui.config({
                 } else {
                     $("#departForm").autofill(data.data);
                     $("#idDepartParName").val(idDepartParName);
+                    $('#idGrade').removeAttr("disabled", "true");
                     layui.use('form', function () {
                         layui.form.render();
                     });
@@ -211,6 +223,12 @@ layui.config({
             $('#idDepartPar').val(selectedTreeNode.id);
             $('#idDepartParName').val(selectedTreeNode.name);
         }
+        // 默认当那学届
+        $('#idGrade').val($('#idGradeCurrent').val());
+        $('#idGrade').attr("disabled", "true");
+        layui.use('form', function () {
+            layui.form.render();
+        });
 
     });
 

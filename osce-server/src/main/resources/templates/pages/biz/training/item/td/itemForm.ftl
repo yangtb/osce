@@ -20,7 +20,7 @@
 
     <style>
         .div-left{ float:left;width:645px;padding-top: 10px;}
-        .div-right{ float:left;width:370px; margin-left: -10px;}
+        .div-right{ float:left;width:400px; margin-left: -10px;}
     </style>
 </head>
 
@@ -64,12 +64,30 @@
                     <label class="layui-form-label">题目类型<i class="iconfont icon-required"
                                                            style="color: #f03f2d"></i></label>
                     <div class="layui-input-inline">
-                        <select name="sdItemCa" lay-verify="required" lay-vertype="tips">
+                        <select name="sdItemCa" lay-verify="required" lay-vertype="tips" lay-filter="sdItemCaFilter">
                             <option value="1">A1</option>
                             <option value="2">A2</option>
                             <option value="3">B1</option>
                         </select>
                     </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item form-item-my">
+                <div class="layui-inline">
+                    <label class="layui-form-label">分组编码</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="cdGroupText" id="cdGroupText" class="layui-input layui-disabled"
+                               style="position:absolute;z-index:2;width:80%;" autocomplete="off" disabled>
+                        <select type="text" name="cdGroup" id="cdGroup" lay-filter="cdGroupFilter"
+                                autocomplete="off" class="layui-select layui-disabled" lay-search disabled>
+                            <option value=""></option>
+                        </select>
+
+                    </div>
+                    <button id="queryCommonItem" type="button" class="layui-btn layui-btn-normal layui-btn-disabled" disabled>
+                        <i class="layui-icon">&#xe615;</i>其它
+                    </button>
                 </div>
             </div>
 
@@ -171,6 +189,36 @@
            lay-skin="switch" lay-text="正确|错误" lay-filter="fgRightCheckFilter" {{ d.fgRight== '1' ? 'checked' : '' }}>
 </script>
 
+
+<script type="text/html" id="sdItemCaTpl">
+    {{#  if(d.sdItemCa == 1){ }}
+    A1
+    {{#  } }}
+    {{#  if(d.sdItemCa == 2){ }}
+    A2
+    {{#  } }}
+    {{#  if(d.sdItemCa == 3){ }}
+    B1
+    {{#  } }}
+</script>
+
+<script type="text/html" id="sdItemLevelTpl">
+    {{#  if(d.sdItemLevel == 1){ }}
+    易
+    {{#  } }}
+    {{#  if(d.sdItemLevel == 2){ }}
+    较易
+    {{#  } }}
+    {{#  if(d.sdItemLevel == 3){ }}
+    中
+    {{#  } }}
+    {{#  if(d.sdItemLevel == 4){ }}
+    难
+    {{#  } }}
+    {{#  if(d.sdItemLevel == 5){ }}
+    较难
+    {{#  } }}
+</script>
 
 </body>
 </html>

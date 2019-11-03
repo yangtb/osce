@@ -116,4 +116,11 @@ public interface PfTdItemService {
      */
     List<ItemBach> addBachItem(ItemBachDto dto);
 
+    /**
+     * 分组编码list
+     *
+     * @param dto
+     * @return
+     */
+    List<String> listCdGroup(ItemDto dto);
 }

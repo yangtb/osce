@@ -9,7 +9,7 @@ layui.config({
         treeSelect = layui.treeSelect;
 
     if (formType == 'add') {
-        treeSelect.render({
+        /*treeSelect.render({
             // 选择器
             elem: '#idOrg',
             // 数据
@@ -29,6 +29,9 @@ layui.config({
                 if (formType == 'add') {
                     treeSelect.checkNode('orgTree', idOrg);
                 }
+                console.log(d)
+                console.log("--------")
+                $("#" + d.treeId).attr("disabled", "true");
                 //console.log(d);
 //                选中节点，根据id筛选
                 //  treeSelect.checkNode('orgTree', 1);
@@ -40,11 +43,11 @@ layui.config({
 //                刷新树结构
 //                treeSelect.refresh();
             }
-        });
+        });*/
 
         treeSelect.render({
             elem: '#idDepart',
-            data: basePath + '/pf/r/dept/tree/select',
+            data: basePath + '/pf/r/dept/tree/select?idGrade=' + currentSelectIdGrade,
             type: 'post',
             placeholder: '请选择班级',
             click: function (d) {
@@ -104,7 +107,7 @@ layui.config({
             return false;
         }
 
-        if (formType =='add' && !data.field.enabled) {
+        /*if (formType =='add' && !data.field.enabled) {
             if (!$("#clearPassword").val()) {
                 $('#clearPassword').focus();
                 layer.tips('请输入登录密码', '#clearPassword', {tips: 1});
@@ -124,7 +127,7 @@ layui.config({
                 common.errorMsg("两次输入密码不一致，请重新输入");
                 return false;
             }
-        }
+        }*/
 
         var bizData = {
             idStudentDepart: data.field.idStudentDepart,

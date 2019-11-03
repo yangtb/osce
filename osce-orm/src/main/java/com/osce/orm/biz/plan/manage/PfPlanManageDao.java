@@ -253,4 +253,12 @@ public interface PfPlanManageDao {
      */
     int clearEsExecQueue(PfBachChangeStatusDto dto);
 
+    /**
+     * 获取计划状态
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    String selectPlanStatus(@Param("idPlan") Long idPlan);
+
 }

@@ -88,10 +88,25 @@ public class PfUserController extends BaseController {
         User user = CurrentUserUtils.getCurrentUser();
         if (SysUserAuthUtils.isPlatOrSuper()) {
             model.addAttribute("allOrg", pfOrgService.listAllOrg());
+
+            List<PfRoleVo> roleVos = pfRoleService.list().stream()
+                    .filter(pfRoleVo -> !"MCST".equals(pfRoleVo.getCode())).collect(Collectors.toList());
+            model.addAttribute("roles", roleVos);
         } else {
             List<SysOrg> myOrgList = pfOrgService.listAllOrg().stream()
                     .filter(sysOrg -> sysOrg.getIdOrg().equals(user.getIdOrg())).collect(Collectors.toList());
             model.addAttribute("allOrg", myOrgList);
+
+            List<PfRoleVo> roleVos;
+            List<PfRoleVo> currentRoleVos = pfRoleService.listUserRole(CurrentUserUtils.getCurrentUserId());
+            // 当前用户拥有最大角色权限
+            int level = currentRoleVos.stream()
+                    .filter(pfRoleVo -> pfRoleVo.isChecked())
+                    .mapToInt(PfRoleVo::getLevel).min().getAsInt();
+
+                roleVos = pfRoleService.listUserRole(user.getUserId()).stream()
+                        .filter(pfRoleVo -> pfRoleVo.getLevel() > level || !"MCST".equals(pfRoleVo.getCode())).collect(Collectors.toList());
+                model.addAttribute("roles", roleVos);
         }
         model.addAttribute("userOrgId", user.getIdOrg());
         return "pages/user/user";
@@ -114,9 +129,13 @@ public class PfUserController extends BaseController {
         // 角色处理
         if (SecurityContext.hasRole("ROLE_SUPER")) {
             if (StringUtils.equals(formType, "edit")) {
-                model.addAttribute("roles", pfRoleService.listUserRole(userId));
+                List<PfRoleVo> roleVos = pfRoleService.listUserRole(userId).stream()
+                        .filter(pfRoleVo -> !"MCST".equals(pfRoleVo.getCode())).collect(Collectors.toList());
+                model.addAttribute("roles", roleVos);
             } else {
-                model.addAttribute("roles", pfRoleService.list());
+                List<PfRoleVo> roleVos = pfRoleService.list().stream()
+                        .filter(pfRoleVo -> !"MCST".equals(pfRoleVo.getCode())).collect(Collectors.toList());
+                model.addAttribute("roles", roleVos);
             }
         } else {
             List<PfRoleVo> roleVos;
@@ -128,11 +147,11 @@ public class PfUserController extends BaseController {
 
             if (StringUtils.equals(formType, "edit")) {
                 roleVos = pfRoleService.listUserRole(userId).stream()
-                        .filter(pfRoleVo -> pfRoleVo.getLevel() > level).collect(Collectors.toList());
+                        .filter(pfRoleVo -> pfRoleVo.getLevel() > level || !"MCST".equals(pfRoleVo.getCode())).collect(Collectors.toList());
                 model.addAttribute("roles", roleVos);
             } else {
                 roleVos = pfRoleService.listUserRole(CurrentUserUtils.getCurrentUserId())
-                        .stream().filter(pfRoleVo -> pfRoleVo.getLevel() > level).collect(Collectors.toList());
+                        .stream().filter(pfRoleVo -> pfRoleVo.getLevel() > level || !"MCST".equals(pfRoleVo.getCode())).collect(Collectors.toList());
                 roleVos.forEach(pfRoleVo -> pfRoleVo.setChecked(false));
                 model.addAttribute("roles", roleVos);
             }

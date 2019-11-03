@@ -233,6 +233,9 @@
         <if test="currentGrade">
             and b.fg_active = '1'
         </if>
+        <if test="idGrade != null">
+            and a.id_grade = #{idGrade}
+        </if>
     </select>
     <select id="selectChildDept" resultMap="orgTreeResultMap">
         SELECT

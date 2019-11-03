@@ -134,7 +134,9 @@
             fg_active = '0'
         WHERE
             id_org = #{idOrg}
-        and id_grade != #{idGrade}
+        <if test="idGrade != null" >
+            and id_grade != #{idGrade}
+        </if>
     </update>
 
 

@@ -27,22 +27,29 @@ layui.config({
     form.on('submit(addUser)', function (data) {
         if (!data.field.sex) {
             $('#sex').focus();
-            common.errorMsg("请选择性别");
+            layer.msg("请选择性别");
             return false;
         }
         var roles = new Array();
-        $("input:checkbox[name='role']:checked").each(function () {
+
+        var role = $('input[name="role"]:checked').val();
+        console.log($('input[name="role"]:checked').val())
+        if (role) {
+            roles.push($('input[name="role"]:checked').val());
+        }
+
+        /*$("input[name='role']:checked").each(function () {
             roles.push($(this).val());
-        });
+        });*/
         if (roles.length == 0) {
-            common.errorMsg("请选择用户角色");
+            layer.msg("请选择用户角色");
             return false;
         }
         data.field.roles = roles;
 
         // 判断2次密码是不是一致
         if ($("#clearPassword").val() != $("#clearPassword2").val()) {
-            common.errorMsg("两次输入密码不一致，请重新输入");
+            layer.msg("两次输入密码不一致，请重新输入");
             return false;
         }
 
@@ -57,10 +64,10 @@ layui.config({
             success: function (data) {
                 layer.closeAll('loading');
                 if (data.code != 0) {
-                    common.errorMsg(data.msg);
+                    layer.msg(data.msg);
                     return false;
                 } else {
-                    common.sucMsg("保存成功");
+                    layer.msg("保存成功");
                     var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                     parent.layer.close(index); //再执行关闭
                     //刷新父页面table
@@ -76,7 +83,7 @@ layui.config({
             },
             error: function () {
                 layer.closeAll('loading');
-                common.errorMsg("保存失败");
+                layer.msg("保存失败");
                 return false;
             }
         });

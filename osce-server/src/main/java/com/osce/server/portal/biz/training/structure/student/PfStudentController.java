@@ -5,6 +5,7 @@ import com.osce.api.biz.training.structure.grade.PfGradeService;
 import com.osce.api.biz.training.structure.student.PfStudentService;
 import com.osce.api.system.org.PfOrgService;
 import com.osce.dto.biz.training.structure.student.StudentDto;
+import com.osce.entity.SysOrg;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -71,20 +72,21 @@ public class PfStudentController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_01_003','ROLE_SUPER')")
     @RequestMapping("/pf/p/student/form")
-    public String form(String formType, Model model, HttpServletRequest request) {
+    public String form(String formType, Long idGrade, Model model, HttpServletRequest request) {
         // 机构处理
         User user = CurrentUserUtils.getCurrentUser();
 
         model.addAttribute("formType", formType);
+        model.addAttribute("currentSelectIdGrade", idGrade);
         model.addAttribute("idOrg", user.getIdOrg());
         model.addAttribute("allGrade", pfGradeService.listAllGrades(user.getIdOrg()));
         model.addAttribute("allStudent", pfDeptService.listAllDept(user.getIdOrg()));
 
         if (SysUserAuthUtils.isPlatOrSuper()) {
-            model.addAttribute("allOrg", pfOrgService.selectOrgTreeSelect(null));
+            model.addAttribute("allOrg", pfOrgService.listAllOrg());
         } else {
-            List<PfTreeSelectVo> myOrgList = pfOrgService.selectOrgTreeSelect(null).stream()
-                    .filter(sysOrg -> sysOrg.getId().equals(user.getIdOrg())).collect(Collectors.toList());
+            List<SysOrg> myOrgList = pfOrgService.listAllOrg().stream()
+                    .filter(sysOrg -> sysOrg.getIdOrg().equals(user.getIdOrg())).collect(Collectors.toList());
             model.addAttribute("allOrg", myOrgList);
         }
         model.addAttribute("userOrgId", user.getIdOrg());

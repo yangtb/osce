@@ -57,8 +57,9 @@ public class PfPlanController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/manage/assigned/student/page")
-    public String assignedStudentPage(Model model, String idPlan) {
+    public String assignedStudentPage(Model model, String idPlan, String sdPlanStatus) {
         model.addAttribute("idPlan", idPlan);
+        model.addAttribute("sdPlanStatus", sdPlanStatus);
         return "pages/biz/plan/manage/assignedStudent";
     }
 
