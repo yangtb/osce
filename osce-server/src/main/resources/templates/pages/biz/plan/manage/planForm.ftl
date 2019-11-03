@@ -178,7 +178,7 @@
                                                                            style="color: #f03f2d"></i></label>
                                     <div class="layui-input-inline">
                                         <input type="text" class="layui-input" id="gmtPlanBegin" name="gmtPlanBegin"
-                                               lay-verify="required" lay-vertype="tips" autocomplete="off" placeholder="请输入开考时间"/>
+                                               lay-verify="required" lay-vertype="tips" autocomplete="off" placeholder="yyyy-MM-dd"/>
 
                                     </div>
                                 </div>

@@ -173,7 +173,7 @@ layui.config({
         elem: '#gmtPlanBegin'
         //,value: new Date()
         , min: 0
-        , type: 'datetime'
+        //, type: 'datetime'
         , trigger: 'click'
     });
 

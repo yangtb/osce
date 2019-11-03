@@ -73,12 +73,17 @@ public class TpPlanVo implements Serializable {
     /**
      * 考场数
      */
-    private Long areaNum;
+    private Integer areaNum;
 
     /**
      * 学生数
      */
-    private Long studentNum;
+    private Integer studentNum;
+
+    /**
+     * 计划天数
+     */
+    private Integer planDayNum;
 
 
 }
