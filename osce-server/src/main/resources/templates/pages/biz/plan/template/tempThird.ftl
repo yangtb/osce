@@ -26,7 +26,7 @@
         </thead>
         <tbody>
         <tr id="area-am" class="tr-my" style="height: 300px;">
-            <td style="padding: 10px">
+            <td style="padding: 10px; width: 60px;">
                 <div class="room-name">
                     <span class="room-num">上午</span>
                 </div>
