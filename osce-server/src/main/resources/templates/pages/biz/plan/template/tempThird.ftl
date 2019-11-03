@@ -7,7 +7,7 @@
     <title>分配SP</title>
     <link rel="stylesheet" href="${contextPath}/layui/plugins/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
-    <link rel="stylesheet" href="${contextPath}/biz/css/template/preview.css">
+    <link rel="stylesheet" href="${contextPath}/biz/css/template/preview1.css">
     <script>
         var basePath = '${basePath!}';
         var idModel = '${idModel!}';
@@ -17,23 +17,27 @@
 <body>
 
 <div class="wrapper" style="height: 670px;">
-    <table cellpadding="10000" style="width: 100%; height: 650px;">
+
+    <table cellpadding="10000" class="table-my" style="width: 100%; height: 650px;">
         <thead>
-        <tr id="days" style="height: 50px;">
-            <th></th>
+        <tr id="days" class="tr-my" style="height: 50px;">
+            <th class="th-my"></th>
         </tr>
         </thead>
         <tbody>
-        <tr id="area-am" style="height: 300px;">
-            <td class="font-title" style="padding-left: 10px; padding-right: 10px">
-                <p>上</p>
-                <p style="margin-top: 20px;">午</p>
+        <tr id="area-am" class="tr-my" style="height: 300px;">
+            <td style="padding: 10px">
+                <div class="room-name">
+                    <span class="room-num">上午</span>
+                </div>
             </td>
         </tr>
-        <tr id="area-pm" style="height: 300px;">
-            <td class="font-title">
-                <p>下</p>
-                <p style="margin-top: 20px;">午</p>
+
+        <tr id="area-pm" class="tr-my" style="height: 300px;">
+            <td style="padding: 10px">
+                <div class="room-name">
+                    <span class="room-num">下午</span>
+                </div>
             </td>
         </tr>
         </tbody>

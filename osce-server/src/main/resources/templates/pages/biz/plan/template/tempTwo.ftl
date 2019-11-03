@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="${contextPath}/layui/plugins/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" href="${contextPath}/biz/css/template/preview1.css">
+
     <script>
         var basePath = '${basePath!}';
         var idModel = '${idModel!}';
@@ -25,16 +26,18 @@
         </thead>
         <tbody>
         <tr id="area-am" class="tr-my" style="height: 300px;">
-            <td class="font-title td-my" style="padding-left: 10px; padding-right: 10px">
-                <p>上</p>
-                <p style="margin-top: 20px;">午</p>
+            <td style="padding: 10px">
+                <div class="room-name">
+                    <span class="room-num">上午</span>
+                </div>
             </td>
         </tr>
 
         <tr id="area-pm" class="tr-my" style="height: 300px;">
-            <td class="font-title td-my">
-                <p>下</p>
-                <p style="margin-top: 20px;">午</p>
+            <td style="padding: 10px">
+                <div class="room-name">
+                    <span class="room-num">下午</span>
+                </div>
             </td>
         </tr>
         </tbody>

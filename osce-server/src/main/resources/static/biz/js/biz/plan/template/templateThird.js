@@ -83,7 +83,7 @@ layui.config({
                 }
             });
             if (!flag) {
-                $('#' + elemId).append('<td></td>');
+                $('#' + elemId).append('<td class="td-my"></td>');
             }
         }
     }
@@ -91,7 +91,7 @@ layui.config({
     function buildAreaHtml(areaData) {
         var html = '';
         $.each(areaData, function (index, content) {
-            html += '<td>\n' +
+            html += '<td class="td-my">\n' +
                 '       <div class="main-wrapper">\n' +
                 '           <div class="header">' + content.naArea + '</div>' +
                             buildStationDataHtml(content.stationData) +

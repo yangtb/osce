@@ -3,6 +3,7 @@ package com.osce.server.rest.biz.plan.template;
 import com.osce.api.biz.plan.template.PfTemplateService;
 import com.osce.dto.biz.plan.template.*;
 import com.osce.dto.common.PfBachChangeStatusDto;
+import com.osce.entity.TdModel;
 import com.osce.enums.OperationTypeEnum;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
@@ -37,7 +38,6 @@ public class PfTemplateRestController extends BaseController {
      *     2、保存考场
      *     3、保存考站
      *     4、保存站点
-     *     5、排站
      * </pre>
      *
      * @param dto
@@ -62,6 +62,22 @@ public class PfTemplateRestController extends BaseController {
         // 5、排站
         pfTemplateService.callStationModelOrder(idModel);
         return ResultObject.createSuccess("addTemplate", ResultObject.DATA_TYPE_OBJECT, idModel);
+    }
+
+    /**
+     * 排站
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/template/call/station")
+    public ResultObject addTemplate(@RequestBody TdModel dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdModel() != null, "模板");
+        // 5、排站
+        pfTemplateService.callStationModelOrder(dto.getIdModel());
+        return ResultObject.createSuccess("addTemplate", ResultObject.DATA_TYPE_OBJECT, true);
     }
 
     /**

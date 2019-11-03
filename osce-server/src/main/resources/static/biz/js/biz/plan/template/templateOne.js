@@ -20,109 +20,8 @@ layui.config({
         if (idModel) {
             // 加载模板所有信息
             loadTemplateInfo();
-            getCurrentStep();
         }
     });
-
-    /*form.on('select(sdModelStrategyFilter)', function(data){
-        if (data.value == 2) {
-            layer.alert('该算法正在规划中……', {
-                title: '提示',
-                resize: false,
-                btn: ['确定']
-                , icon: 5
-                , yes: function(index, layero){
-                    $('#sdModelStrategy').val(1);
-                    form.render('select');
-                    layer.close(index); //如果设定了yes回调，需进行手工关闭
-                }
-            });
-
-        }
-    });*/
-
-
-    // 给step添加click事件
-    function bachAddStepEventListener(currentNum) {
-        // 最大步骤数
-        var maxNum = 3;
-        for (var i = 1; i <= maxNum; i++) {
-            if (maxNum == i) {
-                $("#step" + i).addClass("outside2a");
-            } else {
-                $("#step" + i).addClass("outside0ab");
-            }
-            $("#stepNum" + i).removeClass("box-num");
-            // 先移除点击点击事件
-            document.getElementById("stepNum" + i).removeEventListener('click', stepSkipClickListener);
-        }
-        for (var i = 1; i <= currentNum; i++) {
-            addStepEventListener(i);
-            if (maxNum == i) {
-                $("#step" + i).removeClass("outside2a");
-            } else {
-                $("#step" + i).removeClass("outside0ab");
-            }
-        }
-    }
-
-    function addStepEventListener(stepNum) {
-        $("#stepNum" + stepNum).addClass("box-num");
-        document.getElementById("stepNum" + stepNum).addEventListener('click', stepSkipClickListener);
-    }
-
-
-    function stepSkipClickListener() {
-        stepSkip(this.getAttribute('data-index'));
-        addBoxNumStyle();
-        this.style.backgroundColor = "#5FB878";
-    }
-
-    function addBoxNumStyle() {
-        var boxNum = document.querySelectorAll(".box-num");
-        for (var i = 0; i < boxNum.length; i++) {
-            boxNum[i].style.backgroundColor = "#39f";
-        }
-    }
-
-    // 步骤跳转
-    function stepSkip(stepNum) {
-        if (stepNum <= 2) {
-            document.getElementById("step" + stepNum).classList.remove("outside0ab");
-        } else {
-            document.getElementById("step" + stepNum).classList.remove("outside2a");
-        }
-
-        $("#stepDiv" + stepNum).show();
-        $("#stepDiv" + stepNum).siblings(".stepDiv").hide();
-
-        addBoxNumStyle();
-        $("#stepNum" + stepNum).css("background-color", "#5FB878");
-        loadStepData(stepNum);
-    }
-
-    function loadStepData(stepNum) {
-        if (stepNum == 2) {
-            loadPz();
-        } else if (stepNum == 3) {
-            loadMnpk();
-        }
-    }
-
-    // 获取当前执行步骤
-    function getCurrentStep() {
-        bachAddStepEventListener(3);
-    }
-
-    // *******************日期 begin**************************
-    /*lay('.time-box').each(function(){
-        laydate.render({
-            elem: this
-            , type: 'time'
-            , format: 'HH:mm'
-            ,trigger: 'click'
-        });
-    });*/
 
     laydate.render({
         elem: '#morningBegin'
@@ -177,22 +76,6 @@ layui.config({
     form.on('submit(formStep)', function (data) {
         saveThisPage(data.field);
         return false;
-    });
-
-    form.on('submit(formStep2)', function (data) {
-        stepSkip(3);
-        addStepEventListener(3);
-        // 重新加载iframe
-        loadMnpk();
-        return false;
-    });
-
-    function loadMnpk() {
-        $('#mnpk').attr('src', basePath + '/pf/p/plan/template/third?idModel=' + $('#idModel').val());
-    }
-
-    $('.pre').click(function () {
-        stepSkip(this.getAttribute('data-index'));
     });
 
 
@@ -429,10 +312,7 @@ layui.config({
                     return false;
                 } else {
                     $('#idModel').val(data.data);
-                    stepSkip(2);
-                    addStepEventListener(2);
-                    // 重新加载iframe
-                    loadPz(data.data);
+                    layer.msg('保存成功');
                     return false;
                 }
             },
@@ -444,16 +324,64 @@ layui.config({
         });
     }
 
-    function loadPz(idModel) {
-        var idModel = idModel || $("#idModel").val();
-        $('#pz').attr('src', basePath + '/pf/p/plan/template/two?idModel=' + idModel);
+    $('#createStation').on('click', function () {
+        var bizData = {
+            idModel: idModel || $('#idModel').val()
+        }
+        layer.load(2);
+        $.ajax({
+            url: basePath + '/pf/r/plan/template/call/station',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(bizData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    layer.msg(data.msg, {icon: 5});
+                    return false;
+                } else {
+                    $('#mainLeft').css("display", "none");
+                    $('#createStation').css("display", "none");
+                    $('#cancelStation').css("display", "inline-block");
+                    $('#back').css("display", "inline-block");
+                    $("#mnpkBtn").css("display", "block");
+
+                    $('#area-main').empty();
+                    var pzIframUrl = basePath + '/pf/p/plan/template/two?idModel=' + idModel;
+                    $('#area-main').append('<iframe id="mnpkIframe" src="'+ pzIframUrl +'" class=\'layui-col-xs12\' frameborder="0" style="height: 670px;" scrolling="no"></iframe>');
+
+                    return false;
+                }
+            },
+            error: function () {
+                layer.closeAll('loading');
+                layer.msg("排站失败", {icon: 5});
+                return false;
+            }
+        });
+
+    });
+
+    $("#mnpkBtn").on("click", function() {
+        loadMnpkPage();
+    });
+    function loadMnpkPage() {
+        $('#cancelStation').css("display", "none");
+        $('#cancelMnStation').css("display", "inline-block");
+        $("#mnpkBtn").css("display", "none");
+
+        $('#area-main').empty();
+        var mnpkIframUrl = basePath + '/pf/p/plan/template/third?idModel=' + idModel;
+        $('#area-main').append('<iframe id="mnpk" src="'+ mnpkIframUrl +'" class=\'layui-col-xs12\' frameborder="0" style="height: 670px;" scrolling="no"></iframe>');
+
     }
 
     // *******************保存操作 end**************************
 
     function loadTemplateInfo() {
         var bizData = {
-            idModel : idModel
+            idModel : idModel || $('#idModel').val()
         }
 
         $.ajax({
@@ -556,7 +484,9 @@ layui.config({
                     layer.msg(data.msg, {icon: 5});
                     return false;
                 } else {
-                    stepSkip(1)
+                    layer.msg("撤销排站成功");
+                    cancelStationStyle();
+                    loadTemplateInfo();
                     return false;
                 }
             },
@@ -566,6 +496,40 @@ layui.config({
             }
         });
     });
+
+    $("#back").on('click', function () {
+        if ($('#cancelStation').css("display") == 'block' || $('#cancelStation').css("display") == 'inline-block') {
+            cancelStationStyle()
+
+            loadTemplateInfo();
+        } else if ($('#cancelMnStation').css("display") == 'block' || $('#cancelMnStation').css("display") == 'inline-block') {
+            cancelMnStyle();
+        }
+
+    });
+
+    $("#cancelMnStation").on('click', function () {
+        cancelMnStyle()
+    });
+
+    function cancelStationStyle() {
+        $('#mainLeft').css("display", "block");
+        $('#createStation').css("display", "inline-block");
+        $('#cancelStation').css("display", "none");
+        $("#mnpkBtn").css("display", "none");
+        $('#back').css("display", "none");
+    }
+
+    function cancelMnStyle() {
+        $('#cancelStation').css("display", "inline-block");
+        $('#cancelMnStation').css("display", "none");
+        $("#mnpkBtn").css("display", "block");
+        $('#area-main').empty();
+        var pzIframUrl = basePath + '/pf/p/plan/template/two?idModel=' + idModel;
+        $('#area-main').append('<iframe id="mnpkIframe" src="'+ pzIframUrl +'" class=\'layui-col-xs12\' frameborder="0" style="height: 670px;" scrolling="no"></iframe>');
+
+    }
+
 });
 
 
