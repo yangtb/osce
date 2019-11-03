@@ -36,4 +36,9 @@ public class TdSkillCaseVo extends TdSkillCase implements Serializable {
      */
     private String naSkillCaseFrom;
 
+    /**
+     * 病例类别名称
+     */
+    private String sdSkillCaseCaText;
+
 }

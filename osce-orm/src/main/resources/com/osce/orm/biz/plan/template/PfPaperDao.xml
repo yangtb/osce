@@ -1011,6 +1011,7 @@
             a.na_skill_case ,
             a.score_pass ,
             a.sd_skill_case_ca ,
+            (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = a.sd_skill_case_ca) AS sdSkillCaseCaText ,
             a.des_skill_case ,
             a.fg_active ,
             a.fg_valid ,

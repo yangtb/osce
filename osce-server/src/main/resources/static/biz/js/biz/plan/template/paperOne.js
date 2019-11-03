@@ -611,7 +611,7 @@ layui.config({
             {field: 'itemNum', width: 100, title: '题目数量', align: "right"},
             {field: 'totalScore', width: 100, title: '总分值', align: "right"},
             {field: 'gmtCreate', width: 170, title: '创建时间'},
-            {fixed: 'right', width: 100, title: '操作', align: 'center', toolbar: '#paperBar'}
+            {fixed: 'right', width: 200, title: '操作', align: 'center', toolbar: '#paperBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/plan/paper/list?idModel=' + idModel
         , limit: 20
@@ -625,7 +625,7 @@ layui.config({
     //监听工具条
     table.on('tool(paperTableFilter)', function (obj) {
         var data = obj.data;
-        if (obj.event === 'edit') {
+        if (obj.event === 'preview' || obj.event === 'edit') {
             // 表单跳到第一步
             stepSkip(1);
             // 当前步骤

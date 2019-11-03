@@ -509,8 +509,9 @@
 <script src="${contextPath}/biz/js/biz/plan/template/paperOne.js"></script>
 
 <script type="text/html" id="paperBar">
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit" style="margin-left: 0px;"><i class="layui-icon layui-icon-edit"></i></a>
-    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del" style="margin-left: 0px;"><i class="layui-icon layui-icon-delete"></i></a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="preview" style="margin-left: 0px;"><i class="layui-icon layui-icon-search"></i>预览</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit" style="margin-left: 0px;"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-danger" lay-event="del" style="margin-left: 0px;"><i class="layui-icon layui-icon-delete"></i>删除</a>
 </script>
 
 <script type="text/html" id="toolbarDemo">

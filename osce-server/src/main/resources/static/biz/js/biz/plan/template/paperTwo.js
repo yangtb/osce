@@ -166,12 +166,12 @@ layui.config({
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
             //{field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
-            {field: 'naSkillCase', minWidth: 170, title: '技能操作', fixed: true},
-            {field: 'sdSkillCaseCa', minWidth: 170, title: '病例类别', fixed: true},
+            {field: 'naSkillCase', minWidth: 170, title: '试卷名称', fixed: true},
+            {field: 'sdSkillCaseCaText', minWidth: 170, title: '病例类别', align: 'center'},
             {field: 'sheetNum', minWidth: 100, title: '评分表数量', align: "right"},
             {field: 'sheetTotalScore', minWidth: 100, title: '评分表总分', align: "right"},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
-            {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#skillBar'}
+            {fixed: 'right', width: 200, title: '操作', align: 'center', toolbar: '#skillBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/plan/paper/skill/list'
         , even: true
@@ -189,7 +189,7 @@ layui.config({
     //监听工具条
     table.on('tool(skillTableFilter)', function (obj) {
         var data = obj.data;
-        if (obj.event === 'edit') {
+        if (obj.event === 'preview' || obj.event === 'edit') {
             // 表单跳到第一步
             stepSkip(1);
             // 当前步骤
