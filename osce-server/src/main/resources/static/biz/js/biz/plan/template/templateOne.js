@@ -325,6 +325,11 @@ layui.config({
     }
 
     $('#createStation').on('click', function () {
+        if (!idModel && !$('#idModel').val()) {
+            layer.msg('请先填写并保存模板');
+            $('#naModel').focus();
+            return false;
+        }
         var bizData = {
             idModel: idModel || $('#idModel').val()
         }

@@ -159,7 +159,7 @@
                                         <div id="mainLeft" class="main-left" style="margin-left: 0px; margin-right: 20px;">
                                             <div class="left-header">
                                                 <p class='date-text'>OSCE日期</p>
-                                                <div class="layui-btn save-btn" lay-submit lay-filter="formStep">保存</div>
+                                                <button type="button" class="layui-btn save-btn" lay-submit lay-filter="formStep">保存</button>
                                             </div>
                                             <div class='time-line'>
                                                 <p class='time-header'>开始时间<i class="iconfont icon-required"

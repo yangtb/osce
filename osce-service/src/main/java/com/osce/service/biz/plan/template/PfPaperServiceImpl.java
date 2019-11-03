@@ -280,6 +280,13 @@ public class PfPaperServiceImpl implements PfPaperService {
     }
 
     @Override
+    public PageResult pagePaperSkill(PfPaperDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfPaperDao.countPaperSkill(dto),
+                pfPaperDao.listPaperSkill(dto));
+    }
+
+    @Override
     public boolean saveTdPaper(PfAddTpPaperDto dto) {
         TpInsStation tpInsStation = pfPaperDao.selectTpInsStation(dto.getIdInsStation());
         String sdPlanStatus = pfPlanManageDao.selectPlanStatus(tpInsStation.getIdPlan());

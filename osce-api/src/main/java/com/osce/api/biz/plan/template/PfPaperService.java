@@ -206,6 +206,14 @@ public interface PfPaperService {
     PageResult pagePaper(PfPaperDto dto);
 
     /**
+     * 技能列表
+     *
+     * @param dto
+     * @return
+     */
+    PageResult pagePaperSkill(PfPaperDto dto);
+
+    /**
      * 保存排站试卷
      *
      * @param dto

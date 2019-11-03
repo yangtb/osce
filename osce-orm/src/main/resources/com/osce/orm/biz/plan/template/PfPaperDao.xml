@@ -1138,6 +1138,55 @@
         </choose>
         LIMIT #{offset}, #{limit}
     </select>
+    <select id="countPaperSkill" resultType="java.lang.Long">
+        <choose>
+            <when test='sdSkillCa == "2".toString()'>
+                select count(1) from cob_skill_case where id_org = #{idOrg} and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_skill_case like concat('%',#{keywords},'%')
+                </if>
+            </when>
+            <otherwise>
+                select count(1) from cob_sp_case where id_org = #{idOrg} and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_sp_case like concat('%',#{keywords},'%')
+                </if>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="listPaperSkill" resultType="com.osce.vo.biz.plan.template.PfExamPaperVo">
+        <choose>
+            <when test='sdSkillCa == "2".toString()'>
+                select
+                    id,
+                    na_skill_case as paperName,
+                    des_skill_case as paperDes
+                from
+                    cob_skill_case
+                where
+                    id_org = #{idOrg}
+                and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_skill_case like concat('%',#{keywords},'%')
+                </if>
+            </when>
+            <otherwise>
+                select
+                    id,
+                    na_sp_case as paperName,
+                    des_sp_case as paperDes
+                from
+                    cob_sp_case
+                where
+                    id_org = #{idOrg}
+                and fg_active = '1'
+                <if test="keywords != null and keywords != '' ">
+                    and na_sp_case like concat('%',#{keywords},'%')
+                </if>
+            </otherwise>
+        </choose>
+        LIMIT #{offset}, #{limit}
+    </select>
     <select id="selectTpInsStation" resultType="com.osce.entity.TpInsStation">
         SELECT
             id_plan, sd_skill_ca

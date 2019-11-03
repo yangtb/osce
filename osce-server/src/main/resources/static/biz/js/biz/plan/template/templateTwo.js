@@ -146,18 +146,20 @@ layui.config({
         html += '   </div>\n' +
             '<div class="content-container">\n';
         $.each(roomData, function (index, content) {
-            html += '  <div class="content-item content-item' + content.sq
-                + '" id="tab-' + content.sq + '-' + content.idRoom + '-main"';
-            if (index == 0){
-                html +=' style="display: flex;"';
-            } else {
-                html +=' style="display: none;"';
+            if (sdSkillCa != '1') {
+                html += '  <div class="content-item content-item' + content.sq
+                    + '" id="tab-' + content.sq + '-' + content.idRoom + '-main"';
+                if (index == 0){
+                    html +=' style="display: flex;"';
+                } else {
+                    html +=' style="display: none;"';
+                }
+                var idPaperText = content.idPaperText ? content.idPaperText : '请选择技能';
+                html += '    >\n' +
+                    '        <img class="edit-btn edit-btn-paper" id="stable-' + content.idInsStation +'" data-id="' + content.idInsStation + '-' + sdSkillCa + '" ts-selected="' + content.idPaper + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
+                    '        <p class="item-text item-text-paper" id="paper-' + content.idInsStation +'" data-id="' + content.idInsStation  + '-' + sdSkillCa + '" ts-selected="' + content.idPaper + '">'+ idPaperText +'</p>\n' +
+                    '      </div>\n';
             }
-            var idPaperText = content.idPaperText ? content.idPaperText : '请选择试卷';
-            html += '    >\n' +
-                '        <img class="edit-btn edit-btn-paper" id="stable-' + content.idInsStation +'" data-id="' + content.idInsStation + '-' + sdSkillCa + '" ts-selected="' + content.idPaper + '" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
-                '        <p class="item-text item-text-paper" id="paper-' + content.idInsStation +'" data-id="' + content.idInsStation  + '-' + sdSkillCa + '" ts-selected="' + content.idPaper + '">'+ idPaperText +'</p>\n' +
-                '      </div>\n';
         });
 
         html += '</div>\n';
@@ -210,7 +212,7 @@ layui.config({
             searchKey: 'keywords',
             searchPlaceholder: '请输入' + name + '名称',
             table: {
-                url: basePath + '/pf/p/plan/exam/paper/list?sdSkillCa=' + sdSkillCa + '&idModel=' + idModel,
+                url: basePath + '/pf/p/plan/exam/skill/list?sdSkillCa=' + sdSkillCa + '&idModel=' + idModel,
                 height: 280,
                 size: 'sm',
                 cols: [[

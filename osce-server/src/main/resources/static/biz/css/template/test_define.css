@@ -122,16 +122,11 @@
 }
 
 .save-btn {
-  width: 60px;
-  height: 36px;
-  line-height: 36px;
+
   background-color: rgba(96, 193, 145, 1);
   border-radius: 4px;
-  text-align: center;
-  font-size: 16px;
   color: #ffffff;
   margin-right: 15px;
-  cursor: pointer;
 }
 
 .time-line {

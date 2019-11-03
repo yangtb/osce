@@ -174,6 +174,16 @@ public interface PfTemplateDao {
                            @Param("idPaper") Long idPaper);
 
     /**
+     * 查询技能名称
+     *
+     * @param sdSkillCa
+     * @param idPaper
+     * @return
+     */
+    String selectCobSkillName(@Param("sdSkillCa") String sdSkillCa,
+                              @Param("idPaper") Long idPaper);
+
+    /**
      * 修改技能
      *
      * @param dto

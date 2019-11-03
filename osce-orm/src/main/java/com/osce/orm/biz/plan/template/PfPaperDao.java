@@ -348,6 +348,22 @@ public interface PfPaperDao {
     List<PfExamPaperVo> listExamPaper(PfPaperDto dto);
 
     /**
+     * 技能总数
+     *
+     * @param dto
+     * @return
+     */
+    Long countPaperSkill(PfPaperDto dto);
+
+    /**
+     * exam 技能 list
+     *
+     * @param dto
+     * @return
+     */
+    List<PfExamPaperVo> listPaperSkill(PfPaperDto dto);
+
+    /**
      * 保存排站试卷
      *
      * @param dto

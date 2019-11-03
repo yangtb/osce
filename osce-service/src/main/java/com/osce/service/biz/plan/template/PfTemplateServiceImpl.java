@@ -159,7 +159,7 @@ public class PfTemplateServiceImpl implements PfTemplateService {
             tdDayInfo.getAreaData().forEach(tdAreaInfo -> tdAreaInfo.getStationData().forEach(tdStation -> {
                 tdStation.getRoomData().forEach(tdRoomInfo -> {
                     if (tdRoomInfo.getIdPaper() != null) {
-                        String idPaperText = pfTemplateDao.selectSkillName(tdStation.getSdSkillCa(), tdRoomInfo.getIdPaper());
+                        String idPaperText = pfTemplateDao.selectCobSkillName(tdStation.getSdSkillCa(), tdRoomInfo.getIdPaper());
                         tdRoomInfo.setIdPaperText(idPaperText);
                     }
                 });

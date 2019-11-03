@@ -104,4 +104,12 @@ public class PfExamPaperController extends BaseController {
         dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
         return pfPaperService.pagePaper(dto);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_02_02_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/plan/exam/skill/list")
+    @ResponseBody
+    public PageResult pagePaperSkill(PfPaperDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfPaperService.pagePaperSkill(dto);
+    }
 }

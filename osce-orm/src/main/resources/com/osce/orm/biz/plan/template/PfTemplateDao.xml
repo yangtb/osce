@@ -719,6 +719,17 @@
             </otherwise>
         </choose>
     </select>
+    <select id="selectCobSkillName" resultType="java.lang.String">
+        <choose>
+            <when test='sdSkillCa == "2".toString()'>
+                select na_skill_case from cob_skill_case where id = #{idPaper}
+            </when>
+            <otherwise>
+                select na_sp_case from cob_sp_case where id = #{idPaper}
+            </otherwise>
+        </choose>
+    </select>
+
 
     <resultMap id="stationDetailMap" type="com.osce.vo.biz.plan.template.station.TdStationInfoVo">
         <id property="timeFlag" column="timeFlag" />

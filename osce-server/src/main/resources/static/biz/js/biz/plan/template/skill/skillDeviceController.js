@@ -16,7 +16,7 @@ layui.config({
             {checkbox: true, fixed: true},
             {field: 'naDevice', width: 300, title: '设备', fixed: true},
             {field: 'numDevice', width: 120, title: '数量'},
-            {fixed: 'right', width: 180, title: '操作', align: 'center', toolbar: '#skillDeviceBar'}
+            {fixed: 'right', width: 200, title: '操作', align: 'center', toolbar: '#skillDeviceBar'}
         ]] //设置表头
         , url: basePath + '/pf/p/exam/skill/device/list'
         , limit: 500
