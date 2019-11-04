@@ -103,15 +103,15 @@
 </script>
 
 <script type="text/html" id="idUserManagerTpl">
-    <input type="checkbox" name="idUserManager" lay-skin="primary" value="{{d.userId}}-{{d.realName}}"
+    <input type="radio" name="idUserManager" lay-skin="primary" value="{{d.userId}}-{{d.realName}}"
            lay-filter="idUserManagerCheckFilter">
 </script>
 <script type="text/html" id="idUserAssistantTpl">
-    <input type="checkbox" name="idUserAssistant" lay-skin="primary" value="{{d.userId}}-{{d.realName}}"
+    <input type="radio" name="idUserAssistant" lay-skin="primary" value="{{d.userId}}-{{d.realName}}"
            lay-filter="idUserAssistantCheckFilter">
 </script>
 <script type="text/html" id="idUserRemoteTpl">
-    <input type="checkbox" name="idUserRemote" lay-skin="primary" value="{{d.userId}}-{{d.realName}}"
+    <input type="radio" name="idUserRemote" lay-skin="primary" value="{{d.userId}}-{{d.realName}}"
            lay-filter="idUserRemoteCheckFilter">
 </script>
 

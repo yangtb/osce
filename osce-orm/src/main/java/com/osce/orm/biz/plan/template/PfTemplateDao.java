@@ -265,6 +265,14 @@ public interface PfTemplateDao {
      * @param idModel 模板id
      * @return
      */
-    String selectModelName(Long idModel);
+    String selectModelName(@Param("idModel") Long idModel);
+
+    /**
+     * 是否排站
+     *
+     * @param idModel 模板id
+     * @return
+     */
+    boolean isExistStation(@Param("idModel") Long idModel);
 
 }

@@ -6,6 +6,12 @@
   /*color: #b8b8b8;*/
 }
 
+.conatiner1 {
+  width: 100%;
+  height: 110vh;
+  font-size: 14px;
+}
+
 .header-table {
   width: 100%;
   margin: 0 auto;

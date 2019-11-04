@@ -29,7 +29,10 @@ public class TdModelInfo implements Serializable {
      */
     private List<TdAreaDto> tdAreas;
 
-
+    /**
+     * 排站信息
+     */
+    private boolean stationFlag;
 
 
     /**

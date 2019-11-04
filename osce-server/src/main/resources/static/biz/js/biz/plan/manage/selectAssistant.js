@@ -16,11 +16,11 @@ layui.config({
             {field: 'idUserManagerCheck', width: 70, title: '主考官', align:'center',  fixed: true, templet: '#idUserManagerTpl'},
             {field: 'idUserAssistantCheck', width: 60, title: '考官', align:'center', fixed: true, templet: '#idUserAssistantTpl'},
             {field: 'idUserRemoteCheck', width: 85, title: '中控考官', align:'center', fixed: true, templet: '#idUserRemoteTpl'},
-            {field: 'realName', minWidth: 110, title: '姓名', fixed: true},
-            {field: 'sex', width: 80, title: '性别', templet: '#sexTpl'},
-            {field: 'phoneNo', minWidth: 150, title: '手机号'},
-            {field: 'idcard', minWidth: 200, title: '身份证号'},
-            {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
+            {field: 'realName', minWidth: 110, title: '姓名', fixed: true, align:'center'},
+            {field: 'sex', width: 70, title: '性别', templet: '#sexTpl', align:'center'},
+            {field: 'phoneNo', minWidth: 130, title: '手机号', align:'center'},
+            {field: 'idcard', minWidth: 200, title: '身份证号', align:'center'},
+            {field: 'gmtCreate', minWidth: 170, title: '创建时间', align:'center'},
         ]] //设置表头
         , url: basePath + '/pf/p/assistant/list'
         , limit: 15
@@ -41,7 +41,7 @@ layui.config({
     });
 
     //监听操作
-    form.on('checkbox(idUserManagerCheckFilter)', function (obj) {
+    form.on('radio(idUserManagerCheckFilter)', function (obj) {
         var arr = this.value.split("-");
         var userId = arr[0];
         var realName = arr[1];
@@ -61,7 +61,7 @@ layui.config({
         }
     });
 
-    form.on('checkbox(idUserAssistantCheckFilter)', function (obj) {
+    form.on('radio(idUserAssistantCheckFilter)', function (obj) {
         var arr = this.value.split("-");
         var userId = arr[0];
         var realName = arr[1];
@@ -81,7 +81,7 @@ layui.config({
         }
     });
 
-    form.on('checkbox(idUserRemoteCheckFilter)', function (obj) {
+    form.on('radio(idUserRemoteCheckFilter)', function (obj) {
         var arr = this.value.split("-");
         var userId = arr[0];
         var realName = arr[1];

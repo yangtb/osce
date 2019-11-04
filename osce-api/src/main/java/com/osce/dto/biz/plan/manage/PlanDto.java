@@ -51,4 +51,9 @@ public class PlanDto extends PageParam implements Serializable {
      */
     private Integer checkStep;
 
+    /**
+     * 学届
+     */
+    private Long idGrade;
+
 }

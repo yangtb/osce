@@ -801,5 +801,8 @@
         WHERE
             a.id_ins_station = #{idInsStation}
     </select>
+    <select id="isExistStation" resultType="java.lang.Boolean">
+        select count(1) from td_ins_station where id_model = #{idModel}
+    </select>
 
 </mapper>

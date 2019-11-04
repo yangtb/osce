@@ -44,10 +44,10 @@ layui.config({
 
     //监听提交
     form.on('submit(planSearchFilter)', function (data) {
-        var name = data.field.naPlan;
         table.reload('planTableId', {
             where: {
-                naPlan: name
+                naPlan: data.field.naPlan,
+                idGrade : data.field.idGrade
             }
             , height: 'full-68'
             , page: {

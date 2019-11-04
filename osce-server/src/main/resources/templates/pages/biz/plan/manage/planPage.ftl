@@ -10,7 +10,16 @@
     <link rel="stylesheet" href="${contextPath}/layui/plugins/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
-
+    <style>
+        .layui-input, .layui-select {
+            height: 30px;
+            line-height: 1.3;
+            background-color: rgb(255, 255, 255);
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 2px;
+        }
+    </style>
     <script>
         var basePath = '${basePath}';
     </script>
@@ -31,6 +40,18 @@
                 <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" id="del">
                     <i class="iconfont icon-batch-del"></i> 删除
                 </button>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <select id="idGrade" name="idGrade">
+                        <option value="">请选择学届</option>
+                        <#if allGrade?? && (allGrade?size > 0)>
+                            <#list allGrade as grade >
+                                <option value="${grade.idGrade!}">${grade.naGrade!}</option>
+                            </#list>
+                        </#if>
+                    </select>
+                </div>
             </div>
             <div class="layui-input-inline">
                 <input type="text" name="naModel" class="layui-input btn-sm-my" autocomplete="off"

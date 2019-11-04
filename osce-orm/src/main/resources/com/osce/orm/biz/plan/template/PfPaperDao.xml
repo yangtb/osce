@@ -1063,7 +1063,7 @@
                 </if>
             </when>
             <when test='sdSkillCa == "2".toString()'>
-                select count(1) from td_skill_case where id_org = #{idOrg} and fg_active = '1'
+                select count(1) from td_skill_case where id_org = #{idOrg}
                 <if test="idModel != null">
                     and id_model = #{idModel}
                 </if>
@@ -1072,7 +1072,7 @@
                 </if>
             </when>
             <otherwise>
-                select count(1) from td_sp_case where id_org = #{idOrg} and fg_active = '1'
+                select count(1) from td_sp_case where id_org = #{idOrg}
                 <if test="idModel != null">
                     and id_model = #{idModel}
                 </if>
@@ -1110,7 +1110,6 @@
                     td_skill_case
                 where
                     id_org = #{idOrg}
-                and fg_active = '1'
                 <if test="idModel != null">
                     and id_model = #{idModel}
                 </if>
@@ -1127,7 +1126,6 @@
                     td_sp_case
                 where
                     id_org = #{idOrg}
-                and fg_active = '1'
                 <if test="idModel != null">
                     and id_model = #{idModel}
                 </if>

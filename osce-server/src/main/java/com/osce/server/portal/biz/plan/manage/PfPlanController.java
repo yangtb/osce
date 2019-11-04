@@ -1,10 +1,12 @@
 package com.osce.server.portal.biz.plan.manage;
 
 import com.osce.api.biz.plan.manage.PfPlanManageService;
+import com.osce.api.biz.training.structure.grade.PfGradeService;
 import com.osce.dto.biz.plan.manage.PlanDto;
 import com.osce.result.PageResult;
 import com.osce.server.portal.BaseController;
 import com.osce.server.security.CurrentUserUtils;
+import com.osce.vo.biz.training.structure.grade.GradeVo;
 import com.sm.open.care.core.utils.Assert;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @ClassName: PfPlanController
@@ -23,11 +27,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PfPlanController extends BaseController {
 
     @Reference
+    private PfGradeService pfGradeService;
+
+    @Reference
     private PfPlanManageService pfPlanManageService;
 
     @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/manage/page")
     public String page(Model model) {
+        List<GradeVo> list = pfGradeService.listAllGrades(CurrentUserUtils.getCurrentUserIdOrg());
+        model.addAttribute("allGrade", list);
         return "pages/biz/plan/manage/planPage";
     }
 
@@ -36,6 +45,7 @@ public class PfPlanController extends BaseController {
     public String planForm(Model model, String idPlan, String idModelFrom) {
         model.addAttribute("idPlan", idPlan);
         model.addAttribute("idModelFrom", idModelFrom);
+        model.addAttribute("allGrade", pfGradeService.listAllGrades(CurrentUserUtils.getCurrentUserIdOrg()));
         return "pages/biz/plan/manage/planForm";
     }
 

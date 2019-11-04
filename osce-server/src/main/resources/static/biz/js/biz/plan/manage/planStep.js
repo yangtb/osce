@@ -144,6 +144,11 @@ layui.config({
     });
 
     form.verify({
+        grade :  function (value) {
+            if (!value) {
+                return '当前没有可用学届，请联系管理员';
+            }
+        },
         desPlan: function (value) {
             if (value && value.length > 255) {
                 return '长度不能超过255个字';
@@ -377,7 +382,7 @@ layui.config({
 
     form.on('submit(formStep2)', function (data) {
         // 校验所有考站-考卷是否全部分配
-        var msg = checkPlanStep(3);
+        /*var msg = checkPlanStep(3);
         if (msg) {
             layer.alert('【<span style="color: red; font-weight: bold">请完善考站信息</span>】<br>' + msg, {
                 title: '提示',
@@ -387,7 +392,7 @@ layui.config({
                 , icon: 5
             });
             return false;
-        }
+        }*/
         stepSkip(4);
         addStepEventListener(4);
         $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val())

@@ -62,6 +62,9 @@
             <if test="sort!=null">
                 sort,
             </if>
+            <if test="idGrade!=null">
+                id_grade,
+            </if>
             <if test="creator!=null and creator!=''">
                 creator,
             </if>
@@ -131,6 +134,9 @@
             </if>
             <if test="sort!=null">
                 #{sort},
+            </if>
+            <if test="idGrade!=null">
+                #{idGrade},
             </if>
             <if test="creator!=null and creator!=''">
                 #{creator},
@@ -207,6 +213,9 @@
             <if test="sort != null">
                 sort = #{sort},
             </if>
+            <if test="idGrade!=null">
+                id_grade = #{idGrade},
+            </if>
             <if test="creator != null and creator!=''">
                 creator = #{creator},
             </if>
@@ -281,6 +290,9 @@
         WHERE
             a.id_org = #{idOrg}
         AND a.fg_valid = '0'
+        <if test="idGrade != null">
+            AND a.id_grade = #{idGrade}
+        </if>
     </select>
     <select id="listPlanManage" resultType="com.osce.vo.biz.plan.manage.TpPlanVo">
         SELECT
@@ -301,7 +313,11 @@
         WHERE
             a.id_org = #{idOrg}
         AND a.fg_valid = '0'
+        <if test="idGrade != null">
+            AND a.id_grade = #{idGrade}
+        </if>
         GROUP BY
+            a.id_plan ,
             a.na_plan ,
             a.gmt_plan_begin ,
             a.gmt_plan_end ,
@@ -390,7 +406,8 @@
             a.gmy_picking ,
             a.gmt_act_begin ,
             a.gmt_act_end ,
-            a.percent_picking
+            a.percent_picking ,
+            a.id_grade
         FROM
             tp_plan a
         LEFT JOIN td_model b ON a.id_model = b.id_model
@@ -548,7 +565,7 @@
         FROM
             tp_plan
         WHERE
-            sd_plan_status IN(1 , 2 , 3)
+            sd_plan_status = '2'
         AND fg_active = '1'
         AND gmt_plan_begin &lt; NOW()
     </select>

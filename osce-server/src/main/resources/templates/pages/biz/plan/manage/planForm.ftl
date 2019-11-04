@@ -147,6 +147,22 @@
                             <hr>
                             <div class="layui-form-item">
                                 <div class="layui-inline">
+                                    <label class="layui-form-label">学届<i class="iconfont icon-required"
+                                                                         style="color: #f03f2d"></i></label>
+                                    <div class="layui-input-inline">
+                                        <select id="idGrade" name="idGrade" lay-verify="grade|required" lay-vertype="tips" disabled>
+                                            <option value="">请选择学届</option>
+                                            <#if allGrade?? && (allGrade?size > 0)>
+                                                <#list allGrade as grade >
+                                                    <option value="${grade.idGrade!}" <#if (idPlan=='' && grade.fgActive='1')>selected</#if>>${grade.naGrade!}</option>
+                                                </#list>
+                                            </#if>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
                                     <label class="layui-form-label">考试模板<i class="iconfont icon-required"
                                                                            style="color: #f03f2d"></i></label>
                                     <div class="layui-input-inline">

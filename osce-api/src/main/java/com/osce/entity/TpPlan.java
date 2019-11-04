@@ -144,4 +144,9 @@ public class TpPlan implements Serializable {
      * 修改时间
      */
     private String gmtModify;
+
+    /**
+     * 学届ID
+     */
+    private Long idGrade;
 }

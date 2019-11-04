@@ -141,6 +141,7 @@ public class PfTemplateServiceImpl implements PfTemplateService {
             throw new RuntimeException("模板记录不存在");
         }
         tdModelInfo.setTdModel(tdModel);
+        tdModelInfo.setStationFlag(pfTemplateDao.isExistStation(idModel));
         // 2、考场信息
         List<TdAreaDto> tdAreas = pfTemplateDao.listTdArea(idModel);
         tdModelInfo.setTdAreas(tdAreas);

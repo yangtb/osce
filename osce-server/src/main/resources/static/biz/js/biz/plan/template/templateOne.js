@@ -333,6 +333,26 @@ layui.config({
         var bizData = {
             idModel: idModel || $('#idModel').val()
         }
+        if ($('#previewStation').css("display") == 'block' || $('#previewStation').css("display") == 'inline-block') {
+            var y = $(this).offset().top;
+            var x = $(this).offset().left;
+            layer.confirm('此操作将重新排站，点【确定】继续，预览排站请先取消，点击【排站预览】按钮预览', {
+                title: '提示',
+                offset: [(y + 50) + 'px', (x -300) + 'px'],
+                resize: false,
+                btn: ['确定', '取消'],
+                btnAlign: 'c',
+                icon: 3
+            }, function (index) {
+                layer.close(index);
+                createStationOption(bizData);
+            })
+        } else {
+            createStationOption(bizData);
+        }
+    });
+
+    function createStationOption(bizData) {
         layer.load(2);
         $.ajax({
             url: basePath + '/pf/r/plan/template/call/station',
@@ -346,16 +366,7 @@ layui.config({
                     layer.msg(data.msg, {icon: 5});
                     return false;
                 } else {
-                    $('#mainLeft').css("display", "none");
-                    $('#createStation').css("display", "none");
-                    $('#cancelStation').css("display", "inline-block");
-                    $('#back').css("display", "inline-block");
-                    $("#mnpkBtn").css("display", "block");
-
-                    $('#area-main').empty();
-                    var pzIframUrl = basePath + '/pf/p/plan/template/two?idModel=' + idModel;
-                    $('#area-main').append('<iframe id="mnpkIframe" src="'+ pzIframUrl +'" class=\'layui-col-xs12\' frameborder="0" style="height: 670px;" scrolling="no"></iframe>');
-
+                    previewStationPage();
                     return false;
                 }
             },
@@ -365,12 +376,29 @@ layui.config({
                 return false;
             }
         });
+    }
 
+    $("#previewStation").on("click", function() {
+        previewStationPage();
     });
+
+    function previewStationPage() {
+        $('#mainLeft').css("display", "none");
+        $('#createStation').css("display", "none");
+        $('#previewStation').css("display", "none");
+        $('#cancelStation').css("display", "inline-block");
+        $('#back').css("display", "inline-block");
+        $("#mnpkBtn").css("display", "block");
+
+        $('#area-main').empty();
+        var pzIframUrl = basePath + '/pf/p/plan/template/two?idModel=' + idModel;
+        $('#area-main').append('<iframe id="mnpkIframe" src="'+ pzIframUrl +'" class=\'layui-col-xs12\' frameborder="0" style="height: 670px;" scrolling="no"></iframe>');
+    }
 
     $("#mnpkBtn").on("click", function() {
         loadMnpkPage();
     });
+
     function loadMnpkPage() {
         $('#cancelStation').css("display", "none");
         $('#cancelMnStation').css("display", "inline-block");
@@ -415,6 +443,9 @@ layui.config({
     }
 
     function fullTemplateData(data) {
+        if (data.stationFlag == true) {
+            $('#previewStation').css("display", "inline-block");
+        }
         // 模板表单信息
         form.val("step1FormFilter", data.tdModel);
 
@@ -491,6 +522,7 @@ layui.config({
                 } else {
                     layer.msg("撤销排站成功");
                     cancelStationStyle();
+                    $('#previewStation').css("display", "none");
                     loadTemplateInfo();
                     return false;
                 }
@@ -504,6 +536,7 @@ layui.config({
 
     $("#back").on('click', function () {
         if ($('#cancelStation').css("display") == 'block' || $('#cancelStation').css("display") == 'inline-block') {
+            $('#previewStation').css("display", "inline-block");
             cancelStationStyle()
 
             loadTemplateInfo();

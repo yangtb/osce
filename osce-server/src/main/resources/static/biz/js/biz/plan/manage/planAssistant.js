@@ -210,7 +210,7 @@ layui.config({
             title: false,
             //skin: 'layui-layer-molv', //样式类名
             type: 2,
-            area: ['850px', '480px'],
+            area: ['900px', '480px'],
             //anim: anim,
             fixed: false, //不固定
             //maxmin: true,
@@ -223,7 +223,7 @@ layui.config({
                 var d_idUserManager = iframeWindow.document.getElementById('idUserManager');
                 var v_idUserManager = d_idUserManager ? d_idUserManager.value : null;
                 if (!v_idUserManager) {
-                    common.errorMsg('请先选择主考官');
+                    common.errorMsg('需要分配一位主考官');
                     return;
                 }
                 var d_idUserAssistant = iframeWindow.document.getElementById('idUserAssistant');
