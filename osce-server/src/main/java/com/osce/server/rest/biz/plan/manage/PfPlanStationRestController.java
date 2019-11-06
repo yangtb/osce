@@ -2,8 +2,13 @@ package com.osce.server.rest.biz.plan.manage;
 
 import com.osce.api.biz.plan.manage.PfPlanStationService;
 import com.osce.dto.biz.plan.manage.PlanDto;
+import com.osce.dto.biz.plan.manage.PlanSpDto;
+import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpAssistant;
 import com.osce.entity.TpSp;
+import com.osce.entity.TpSpCache;
+import com.osce.result.PageResult;
+import com.osce.server.security.CurrentUserUtils;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.ResultObject;
@@ -12,9 +17,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ClassName: PfPlanStationRestController
@@ -139,6 +144,49 @@ public class PfPlanStationRestController {
         Assert.isTrue(dto.getTimeSection() != null, "timeSection");
         return ResultObject.createSuccess("selectStationSp", ResultObject.DATA_TYPE_LIST,
                 pfPlanStationService.selectStationSp(dto));
+    }
+
+    /**
+     * 添加计划sp缓存
+     *
+     * @param list
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @PostMapping("/pf/r/plan/sp/cache/add")
+    public ResultObject addPlanSpCache(@RequestBody List<TpSpCache> list) {
+        Assert.isTrue(CollectionUtils.isNotEmpty(list), "list");
+        return ResultObject.createSuccess("addPlanSpCache", ResultObject.DATA_TYPE_OBJECT,
+                pfPlanStationService.addPlanSpCache(list));
+    }
+
+    /**
+     * 删除计划sp缓存
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/plan/sp/cache/del")
+    public ResultObject delPlanSpCache(@RequestBody PfBachChangeStatusDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(CollectionUtils.isNotEmpty(dto.getList()), "list");
+        Assert.isTrue(dto.getExtId() != null, "extId");
+        return pfPlanStationService.delPlanSpCache(dto) ? ResultObject.createSuccess("delPlanSpCache", ResultObject.DATA_TYPE_OBJECT, true)
+                : ResultObject.create("delPlanSpCache", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
+    }
+
+    /**
+     * sp列表
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
+    @PostMapping("/pf/r/plan/sp/list")
+    public PageResult listPlanSp(@RequestBody PlanSpDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfPlanStationService.listPlanSp1(dto);
     }
 
 }

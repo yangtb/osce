@@ -2,10 +2,15 @@ package com.osce.api.biz.plan.manage;
 
 import com.osce.dto.biz.plan.manage.AssistantDto;
 import com.osce.dto.biz.plan.manage.PlanDto;
+import com.osce.dto.biz.plan.manage.PlanSpDto;
+import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpAssistant;
 import com.osce.entity.TpSp;
+import com.osce.entity.TpSpCache;
 import com.osce.result.PageResult;
 import com.osce.vo.biz.plan.manage.PlanPublishItemVo;
+import com.osce.vo.biz.plan.manage.PlanSpStationVo;
+import com.osce.vo.biz.plan.manage.PlanSpVo;
 import com.osce.vo.biz.plan.template.station.PlanAssistant;
 import com.osce.vo.biz.plan.template.station.PlanSp;
 import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
@@ -100,5 +105,45 @@ public interface PfPlanStationService {
      * @return
      */
     List<PlanPublishItemVo> listAssistantItem(String idPlan);
+
+    /**
+     * 获取sp站点
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<PlanSpStationVo> listPlanSpStation(String idPlan);
+
+    /**
+     * 获取sp
+     *
+     * @param dto
+     * @return
+     */
+    PageResult listPlanSp1(PlanSpDto dto);
+
+    /**
+     * 计划SP
+     *
+     * @param dto
+     * @return
+     */
+    List<PlanSpVo> listPlanSpCache(PlanSpDto dto);
+
+    /**
+     * 添加sp缓存
+     *
+     * @param list
+     * @return
+     */
+    boolean addPlanSpCache(List<TpSpCache> list);
+
+    /**
+     * 删除sp缓存
+     *
+     * @param dto
+     * @return
+     */
+    boolean delPlanSpCache(PfBachChangeStatusDto dto);
 
 }

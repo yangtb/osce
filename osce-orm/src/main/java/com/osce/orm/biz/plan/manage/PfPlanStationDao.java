@@ -1,10 +1,15 @@
 package com.osce.orm.biz.plan.manage;
 
 import com.osce.dto.biz.plan.manage.AssistantDto;
+import com.osce.dto.biz.plan.manage.PlanSpDto;
+import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpAssistant;
 import com.osce.entity.TpSp;
+import com.osce.entity.TpSpCache;
 import com.osce.entity.UserInfo;
 import com.osce.vo.biz.plan.manage.PlanPublishItemVo;
+import com.osce.vo.biz.plan.manage.PlanSpStationVo;
+import com.osce.vo.biz.plan.manage.PlanSpVo;
 import com.osce.vo.biz.plan.template.station.PlanAssistant;
 import com.osce.vo.biz.plan.template.station.PlanSp;
 import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
@@ -64,10 +69,10 @@ public interface PfPlanStationDao {
      * @return
      */
     PlanAssistant selectPlanAssistant(@Param("idPlan") Long idPlan,
-                                          @Param("idArea") Long idArea,
-                                          @Param("idStation") Long idStation,
-                                          @Param("timeSection") Float timeSection,
-                                          @Param("idRoom") Long idRoom);
+                                      @Param("idArea") Long idArea,
+                                      @Param("idStation") Long idStation,
+                                      @Param("timeSection") Float timeSection,
+                                      @Param("idRoom") Long idRoom);
 
     /**
      * 保存考站sp
@@ -133,7 +138,6 @@ public interface PfPlanStationDao {
      */
     List<PlanPublishItemVo> listSpItem(@Param("idPlan") String idPlan);
 
-
     /**
      * 发布清单 - 考官
      *
@@ -141,6 +145,72 @@ public interface PfPlanStationDao {
      * @return
      */
     List<PlanPublishItemVo> listAssistantItem(@Param("idPlan") String idPlan);
+
+    /**
+     * 获取sp站点
+     *
+     * @param idPlan 计划id
+     * @return
+     */
+    List<PlanSpStationVo> listPlanSpStation(@Param("idPlan") String idPlan);
+
+    /**
+     * 获取sp总数
+     *
+     * @param dto
+     * @return
+     */
+    Long countPlanSp1(@Param("dto") PlanSpDto dto,
+                      @Param("spSql") String spSql);
+
+    /**
+     * 获取sp
+     *
+     * @param dto
+     * @return
+     */
+    List<PlanSpVo> listPlanSp1(@Param("dto") PlanSpDto dto,
+                               @Param("spSql") String spSql);
+
+    /**
+     * 获取sp sql
+     *
+     * @param idOrg 机构id
+     * @return
+     */
+    String getSpSql(@Param("idOrg") Long idOrg);
+
+    /**
+     * 计划SP
+     *
+     * @param dto
+     * @return
+     */
+    List<PlanSpVo> listPlanSpCache(PlanSpDto dto);
+
+    /**
+     * 添加sp缓存
+     *
+     * @param dto
+     * @return
+     */
+    int addPlanSpCache(TpSpCache dto);
+
+    /**
+     * 是否存在sp缓存
+     *
+     * @param dto
+     * @return
+     */
+    boolean isExistPlanSpCache(TpSpCache dto);
+
+    /**
+     * 删除sp缓存
+     *
+     * @param dto
+     * @return
+     */
+    int delPlanSpCache(PfBachChangeStatusDto dto);
 
 
 }

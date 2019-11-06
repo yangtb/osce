@@ -75,6 +75,11 @@
         </trim>
         )
     </insert>
+    <insert id="addPlanSpCache">
+        INSERT INTO tp_sp_cache(id_plan, id_user)
+        VALUES
+        (#{idPlan}, #{idUser})
+    </insert>
     <delete id="delStationSp">
         delete from tp_sp
         WHERE
@@ -92,6 +97,16 @@
         AND id_station = #{idStation}
         AND time_section = #{timeSection}
         AND id_room = #{idRoom}
+    </delete>
+    <delete id="delPlanSpCache">
+        delete from tp_sp_cache
+        WHERE
+            id_tp_sp_cache in (
+        <foreach collection="list" item="item" separator="," >
+            #{item}
+        </foreach>
+        )
+        and id_plan = #{extId}
     </delete>
 
     <resultMap id="stationResultMap" type="com.osce.vo.biz.plan.template.station.TdStationInfoVo">
@@ -385,5 +400,128 @@
             a.id_room, 
             a.manageType
     </select>
+    <select id="listPlanSpStation" resultType="com.osce.vo.biz.plan.manage.PlanSpStationVo">
+        SELECT
+            cast((plan.gmt_plan_begin + INTERVAL(floor(a.time_section) - 1) DAY) AS date) AS planDay ,
+            IF((a.time_section MOD 1) = 0 , 1 , 2) AS timeFlag ,
+            b.na_area ,
+            c.na_station ,
+            (
+                SELECT
+                    dict_name
+                FROM
+                    sys_dictionary
+                WHERE
+                    group_code = 'SD_STATION_CA'
+                AND dict_code = a.sd_station_ca
+            ) AS sdStationCaText ,
+            f.na_room AS idRoomText,
+            tsc.na_skill_case as idPaperText
+        FROM
+            tp_ins_station a
+        LEFT JOIN tp_plan plan ON a.id_plan = plan.id_plan
+        LEFT JOIN td_area b ON a.id_area = b.id_area
+        LEFT JOIN td_station c ON a.id_station = c.id_station
+        LEFT JOIN erp_room f ON a.id_room = f.id_room
+        left join td_skill_case tsc on a.id_paper = tsc.id
+        WHERE
+            a.id_plan = #{idPlan}
+        AND a.sd_skill_ca = '3'
+    </select>
+    <select id="listPlanSp1" resultType="com.osce.vo.biz.plan.manage.PlanSpVo">
+        select
+            user_id ,
+            idcard ,
+            real_name ,
+            sex ,
+            temp.身高 AS height ,
+            temp.体重 AS weight
+            from
+        (
+             ${spSql}
+        ) temp
+        WHERE
+            id_org = #{dto.idOrg}
+        <if test="dto.conditions != null and dto.conditions.size() > 0 ">
+            <foreach collection="dto.conditions" item="item" separator=" " >
+                <if test="item.value != null and item.value != ''">
+                    <if test="item.type == 1">
+                        AND
+                    </if>
+                    <if test="item.type == 2">
+                        OR
+                    </if>
+                    <if test="item.condition == 1">
+                        temp.${item.tagName} = #{item.value}
+                    </if>
+                    <if test="item.condition == 2">
+                        temp.${item.tagName} like concat('%',#{item.value},'%')
+                    </if>
+                </if>
+            </foreach>
+        </if>
+        limit #{dto.offset}, #{dto.limit}
+    </select>
+    <select id="countPlanSp1" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        from
+        (
+             ${spSql}
+        ) temp
+        WHERE
+            id_org = #{dto.idOrg}
+        <if test="dto.conditions != null and dto.conditions.size() > 0 ">
+            <foreach collection="dto.conditions" item="item" separator=" " >
+                <if test="item.value != null and item.value != ''">
+                    <if test="item.type == 1">
+                        AND
+                    </if>
+                    <if test="item.type == 2">
+                        OR
+                    </if>
+                    <if test="item.condition == 1">
+                        temp.${item.tagName} = #{item.value}
+                    </if>
+                    <if test="item.condition == 2">
+                        temp.${item.tagName} like concat('%',#{item.value},'%')
+                    </if>
+                </if>
+            </foreach>
+        </if>
+    </select>
+    <select id="listPlanSpCache" resultType="com.osce.vo.biz.plan.manage.PlanSpVo">
+        SELECT
+            tsc.id_tp_sp_cache ,
+            b.user_id ,
+            b.idcard ,
+            b.real_name ,
+            b.sex,
+            MAX(CASE osd.descript WHEN '身高' THEN ous.value ELSE 0 END ) as height,
+            MAX(CASE osd.descript WHEN '体重' THEN ous.value ELSE 0 END ) as weight
+        FROM
+            tp_sp_cache tsc
+        left join user_info b on tsc.id_user = b.user_id
+        LEFT JOIN user_role c ON b.user_id = c.user_id
+        LEFT JOIN sys_role d ON d.role_id = c.role_id
+        left join org_user_sp ous on b.user_id = ous.id_user
+        left join org_sp_define osd on ous.id_sp_tag2 = osd.id_sp_tag and osd.id_org =  #{idOrg}
+        WHERE
+            tsc.id_plan = #{idPlan}
+        AND b.is_deleted = 'N'
+        AND c.is_deleted = 'N'
+        AND d.CODE = 'SP'
+        group by
+            b.user_id,
+            b.idcard ,
+            b.real_name ,
+            b.sex
+    </select>
+    <select id="isExistPlanSpCache" resultType="java.lang.Boolean">
+        select count(1) from tp_sp_cache where id_plan = #{idPlan} and id_user = #{idUser}
+    </select>
 
+    <select id="getSpSql" resultType="java.lang.String">
+        SELECT F_GET_SP_SQL(#{idOrg})
+    </select>
 </mapper>

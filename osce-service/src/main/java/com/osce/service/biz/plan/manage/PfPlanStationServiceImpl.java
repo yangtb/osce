@@ -3,8 +3,11 @@ package com.osce.service.biz.plan.manage;
 import com.osce.api.biz.plan.manage.PfPlanStationService;
 import com.osce.dto.biz.plan.manage.AssistantDto;
 import com.osce.dto.biz.plan.manage.PlanDto;
+import com.osce.dto.biz.plan.manage.PlanSpDto;
+import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TpAssistant;
 import com.osce.entity.TpSp;
+import com.osce.entity.TpSpCache;
 import com.osce.exception.RestErrorCode;
 import com.osce.exception.RestException;
 import com.osce.orm.biz.plan.manage.PfPlanManageDao;
@@ -14,6 +17,8 @@ import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.vo.biz.plan.manage.PlanPublishItemVo;
+import com.osce.vo.biz.plan.manage.PlanSpStationVo;
+import com.osce.vo.biz.plan.manage.PlanSpVo;
 import com.osce.vo.biz.plan.template.station.PlanAssistant;
 import com.osce.vo.biz.plan.template.station.PlanSp;
 import com.osce.vo.biz.plan.template.station.TdStationInfoVo;
@@ -150,5 +155,39 @@ public class PfPlanStationServiceImpl implements PfPlanStationService {
     @Override
     public List<PlanPublishItemVo> listAssistantItem(String idPlan) {
         return pfPlanStationDao.listAssistantItem(idPlan);
+    }
+
+    @Override
+    public List<PlanSpStationVo> listPlanSpStation(String idPlan) {
+        return pfPlanStationDao.listPlanSpStation(idPlan);
+    }
+
+    @Override
+    public PageResult listPlanSp1(PlanSpDto dto) {
+        PageParam.initPageDto(dto);
+        // 获取SP动态sql字符串
+        String spSql = pfPlanStationDao.getSpSql(dto.getIdOrg());
+        return ResultFactory.initPageResultWithSuccess(pfPlanStationDao.countPlanSp1(dto, spSql),
+                pfPlanStationDao.listPlanSp1(dto, spSql));
+    }
+
+    @Override
+    public List<PlanSpVo> listPlanSpCache(PlanSpDto dto) {
+        return pfPlanStationDao.listPlanSpCache(dto);
+    }
+
+    @Override
+    public boolean addPlanSpCache(List<TpSpCache> list) {
+        for (TpSpCache tpSpCache : list) {
+            if (!pfPlanStationDao.isExistPlanSpCache(tpSpCache)) {
+                pfPlanStationDao.addPlanSpCache(tpSpCache);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean delPlanSpCache(PfBachChangeStatusDto dto) {
+        return pfPlanStationDao.delPlanSpCache(dto) >= 1 ? true : false;
     }
 }

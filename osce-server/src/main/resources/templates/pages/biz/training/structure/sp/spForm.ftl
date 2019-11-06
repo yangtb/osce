@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div class="layui-form-item form-item-my" style="width: 625px">
+        <div class="layui-form-item form-item-my" style="width: 622px">
             <table class="layui-table" lay-size="sm">
                 <tbody>
                 <#if allSpTag?? && (allSpTag?size > 0)>
