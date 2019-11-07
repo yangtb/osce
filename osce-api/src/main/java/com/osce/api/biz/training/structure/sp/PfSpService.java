@@ -26,6 +26,14 @@ public interface PfSpService {
     PageResult pageSp(SpDto dto);
 
     /**
+     * sp列表
+     *
+     * @param dto
+     * @return
+     */
+    PageResult pageSpCache(SpDto dto);
+
+    /**
      * 新增
      *
      * @param dto

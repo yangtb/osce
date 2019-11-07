@@ -67,26 +67,29 @@ public class PfPlanStationServiceImpl implements PfPlanStationService {
                     tdDayInfo.getAreaData().forEach(tdAreaInfo ->
                             tdAreaInfo.getStationData().forEach(tdStation -> {
                                 tdStation.getRoomData().forEach(tdRoomInfo -> {
-                                    if (dto.getSpFlag().equals("sp")) {
-                                        if (tdStation.getSdSkillCa().equals("3")) {
-                                            // 查询sp
-                                            tdRoomInfo.setPlanSp(pfPlanStationDao.listPlanSp(
-                                                    idPlan,
-                                                    tdAreaInfo.getIdArea(),
-                                                    tdStation.getIdStation(),
-                                                    tdDayInfo.getTimeSection(),
-                                                    tdRoomInfo.getIdRoom()
-                                            ));
-                                        }
-                                    } else {
-                                        // 查询考官
-                                        tdRoomInfo.setPlanAssistant(pfPlanStationDao.selectPlanAssistant(
+                                    if (tdStation.getSdSkillCa().equals("3")) {
+                                        // 查询sp
+                                        tdRoomInfo.setPlanSp(pfPlanStationDao.listPlanSp(
                                                 idPlan,
                                                 tdAreaInfo.getIdArea(),
                                                 tdStation.getIdStation(),
                                                 tdDayInfo.getTimeSection(),
                                                 tdRoomInfo.getIdRoom()
                                         ));
+                                    }
+                                    // 查询考官
+                                    tdRoomInfo.setPlanAssistant(pfPlanStationDao.selectPlanAssistant(
+                                            idPlan,
+                                            tdAreaInfo.getIdArea(),
+                                            tdStation.getIdStation(),
+                                            tdDayInfo.getTimeSection(),
+                                            tdRoomInfo.getIdRoom()
+                                    ));
+
+                                    // 试卷
+                                    if (tdRoomInfo.getIdPaper() != null) {
+                                        String idPaperText = pfTemplateDao.selectSkillName(tdStation.getSdSkillCa(), tdRoomInfo.getIdPaper());
+                                        tdRoomInfo.setIdPaperText(idPaperText);
                                     }
                                 });
                             }));

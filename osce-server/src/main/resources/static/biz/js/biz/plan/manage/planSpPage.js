@@ -11,16 +11,16 @@ layui.config({
         elem: '#test1'
         , cellMinWidth: 80 //时间、上午&下午、站点、考场、房间、试卷名称
         , cols: [[
-            {field: 'planDay', width: 130, title: '时间', align: 'center'}
+            {field: 'planDay', width: 110, title: '时间', align: 'center'}
             , {
-                field: 'timeFlag', width: 100, title: '上午/下午', align: 'center', templet: function (d) {
+                field: 'timeFlag', minwidth: 100, title: '上午/下午', align: 'center', templet: function (d) {
                     return d.timeFlag == 1 ? '上午' : '下午';
                 }
             }
-            , {field: 'naStation', width: 100, title: '站点', align: 'center'}
-            , {field: 'naArea', width: 100, title: '考场', align: 'center'}
-            , {field: 'idRoomText', width: 100, title: '房间', align: 'center'}
-            , {field: 'idPaperText', minwidth: 140, title: '试卷名称', align: 'center'}
+            , {field: 'naStation', minwidth: 75, title: '站点', align: 'center'}
+            , {field: 'naArea', minwidth: 75, title: '考场', align: 'center'}
+            , {field: 'idRoomText', minwidth: 75, title: '房间', align: 'center'}
+            , {field: 'idPaperText', minwidth: 100, title: '试卷名称', align: 'center'}
         ]]
         , url: basePath + '/pf/p/plan/sp/station/list'
         , where: {
@@ -54,7 +54,7 @@ layui.config({
     table.render({
         elem: '#test2'
         , id: 'test2Id'
-        , cellMinWidth: 100 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
+        , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
         , cols: [[
             {type: 'checkbox'}
             , {field: 'idcard', width: 180, title: '身份证号', align: 'center'}
@@ -74,7 +74,7 @@ layui.config({
         , even: true
         , limits: [15, 30, 100]
         , page: true
-        , height: '230' //容器高度
+        , height: '290' //容器高度
         /*, parseData: function(res){ //res 即为原始返回的数据
             return {
                 "code": res.status, //解析接口状态
@@ -123,7 +123,8 @@ layui.config({
             , {field: 'height', width: 100, title: '身高(cm)', align: 'center'}
             , {field: 'weight', width: 100, title: '体重(kg)', align: 'center'}
         ]]
-        , url: basePath + '/pf/p/plan/sp/cache/list?idPlan=' + idPlan,
+        , url: basePath + '/pf/p/plan/sp/cache/list?idPlan=' + idPlan
+        , height: '290' //容器高度
     });
 
     $("#delSpCache").on('click', function () {
@@ -154,6 +155,11 @@ layui.config({
     function _delOptionBack() {
         table.reload('test3Id');
     }
+
+    $('#spManage').on('click', function () {
+        var index = common.openParent('SP管理', basePath + '/pf/p/sp/page', 880, 600);
+        //layer.full(index);
+    });
 
 });
 

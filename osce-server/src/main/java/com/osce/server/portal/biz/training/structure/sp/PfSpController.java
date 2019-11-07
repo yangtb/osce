@@ -55,6 +55,14 @@ public class PfSpController extends BaseController {
         return pfSpService.pageSp(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_02_01_001','ROLE_SUPER')")
+    @RequestMapping(value = "/pf/p/sp/cache/list")
+    @ResponseBody
+    public PageResult listSpCache(SpDto dto) {
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return pfSpService.pageSpCache(dto);
+    }
+
     @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
     @RequestMapping("/pf/p/sp/tag/form")
     public String tagForm() {

@@ -139,6 +139,37 @@
             or b.real_name like concat('%',#{keywords},'%'))
         </if>
     </select>
+
+    <select id="listSpCache" resultType="com.osce.vo.biz.training.structure.sp.SpVo">
+        SELECT
+            b.user_id AS userId ,
+            b.username ,
+            b.real_name ,
+            b.sex ,
+            b.phone_no ,
+            b.idcard ,
+            b.gmt_create
+        FROM
+            tp_sp_cache a
+        INNER JOIN user_info b ON a.id_user = user_id AND a.id_plan = #{idPlan}
+        <if test="keywords != null and keywords != '' ">
+            and (b.phone_no like concat('%',#{keywords},'%')
+            or b.real_name like concat('%',#{keywords},'%'))
+        </if>
+        limit #{offset}, #{limit}
+    </select>
+    <select id="countSpCache" resultType="java.lang.Long">
+        SELECT
+            count(1)
+        FROM
+            tp_sp_cache a
+        INNER JOIN user_info b ON a.id_user = user_id AND a.id_plan = #{idPlan}
+        <if test="keywords != null and keywords != '' ">
+            and (b.phone_no like concat('%',#{keywords},'%')
+            or b.real_name like concat('%',#{keywords},'%'))
+        </if>
+    </select>
+
     <select id="listSpTagValue" resultType="java.util.Map">
         SELECT
             id_sp_tag2 ,

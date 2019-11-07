@@ -34,6 +34,23 @@ public interface PfSpDao {
      */
     Long countSp(SpDto dto);
 
+
+    /**
+     * sp 列表
+     *
+     * @param dto
+     * @return
+     */
+    List<SpVo> listSpCache(SpDto dto);
+
+    /**
+     * 获取总数
+     *
+     * @param dto
+     * @return
+     */
+    Long countSpCache(SpDto dto);
+
     /**
      * 新增
      *

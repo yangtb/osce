@@ -71,6 +71,16 @@ public interface PfPlanManageDao {
     int editPlan(TpPlan dto);
 
     /**
+     * 校验计划是否冲突
+     *
+     * @param idPlan       计划id
+     * @param gmtPlanBegin 计划开始时间
+     * @return
+     */
+    boolean isExistPlan(@Param("idPlan") Long idPlan,
+                        @Param("gmtPlanBegin") String gmtPlanBegin);
+
+    /**
      * 删除计划
      *
      * @param dto

@@ -53,7 +53,7 @@
                                 </div>
                             </li>
                             <li class="ml45">
-                                分配考卷
+                                标准化病人选
                                 <div class="outside0ab" id="step3">
                                     <div class="box-num2 num2ab" id="stepNum3" data-index="3">
                                         3
@@ -61,15 +61,23 @@
                                 </div>
                             </li>
                             <li class="ml45">
-                                分配SP
+                                编辑日程
                                 <div class="outside0ab" id="step4">
                                     <div class="box-num2 num2ab" id="stepNum4" data-index="4">
                                         4
                                     </div>
                                 </div>
                             </li>
-                            <li class="ml45">
+                            <#--<li class="ml45">
                                 分配考官
+                                <div class="outside0ab" id="step5">
+                                    <div class="box-num2 num2ab" id="stepNum5" data-index="5">
+                                        5
+                                    </div>
+                                </div>
+                            </li>-->
+                            <li class="ml45">
+                                领料计划
                                 <div class="outside0ab" id="step5">
                                     <div class="box-num2 num2ab" id="stepNum5" data-index="5">
                                         5
@@ -77,18 +85,10 @@
                                 </div>
                             </li>
                             <li class="ml45">
-                                领料计划
-                                <div class="outside0ab" id="step6">
-                                    <div class="box-num2 num2ab" id="stepNum6" data-index="6">
-                                        6
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="ml45">
                                 发布清单
-                                <div class="outside2a" id="step7">
-                                    <div class="box-num3 num3a" id="stepNum7" data-index="7">
-                                        7
+                                <div class="outside2a" id="step6">
+                                    <div class="box-num3 num3a" id="stepNum6" data-index="6">
+                                        6
                                     </div>
                                 </div>
                             </li>
@@ -243,7 +243,7 @@
                                 <div class="layui-input-block">
                                     <button type="button" class="layui-btn layui-btn-primary pre" data-index="1">上一步</button>
                                     <button id="planOrder" class="layui-btn" lay-submit lay-filter="formStep1">
-                                        &emsp;下一步 ：排考&emsp;
+                                        &emsp;下一步 ：标准化病人选
                                     </button>
                                 </div>
                             </div>
@@ -258,7 +258,7 @@
                                 <div class="layui-input-block">
                                     <button type="button" class="layui-btn layui-btn-primary pre" data-index="2">上一步</button>
                                     <button id="saveSp" class="layui-btn" lay-submit lay-filter="formStep2">
-                                        下一步 ：分配SP
+                                        下一步 ：编辑日程
                                     </button>
                                 </div>
                             </div>
@@ -267,13 +267,13 @@
                     <div id="stepDiv4" class="stepDiv" style="display: none">
                         <form class="layui-form">
                             <hr>
-                            <iframe id="spIframe" class='layui-col-xs12' frameborder="0" style="height: 900px;"
+                            <iframe id="spIframe" class='layui-col-xs12' frameborder="0" style="height: 1000px;"
                                     src="" scrolling="no"></iframe>
                             <div class="layui-form-item">
                                 <div class="layui-input-block" style="padding-top: 15px;">
                                     <button type="button" class="layui-btn layui-btn-primary pre" data-index="3">上一步</button>
-                                    <button id="saveAssistant" class="layui-btn" lay-submit lay-filter="formStep3">
-                                        下一步 ：分配考官
+                                    <button id="pickStep" class="layui-btn" lay-submit lay-filter="formStep3">
+                                        下一步 ：领料计划
                                     </button>
                                 </div>
                             </div>
@@ -281,39 +281,24 @@
                     </div>
                     <div id="stepDiv5" class="stepDiv" style="display: none">
                         <form class="layui-form">
-                            <hr>
-                            <iframe id="assistantIframe" class='layui-col-xs12' frameborder="0" style="height: 670px;"
-                                    src="" scrolling="no"></iframe>
-                            <div class="layui-form-item">
-                                <div class="layui-input-block" style="padding-top: 15px;">
-                                    <button type="button" class="layui-btn layui-btn-primary pre" data-index="4">上一步</button>
-                                    <button id="pickStep" class="layui-btn" lay-submit lay-filter="formStep4">
-                                        下一步 ：领料计划
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div id="stepDiv6" class="stepDiv" style="display: none">
-                        <form class="layui-form">
                             <iframe id="pickIframe" class='layui-col-xs12' frameborder="0" style="height: 700px;"
                                     src=""></iframe>
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <button type="button" class="layui-btn layui-btn-primary pre" data-index="5">上一步</button>
-                                    <button id="publishItem" class="layui-btn" lay-submit lay-filter="formStep5">
+                                    <button type="button" class="layui-btn layui-btn-primary pre" data-index="4">上一步</button>
+                                    <button id="publishItem" class="layui-btn" lay-submit lay-filter="formStep4">
                                         下一步 ：发布清单
                                     </button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div id="stepDiv7" class="stepDiv" style="display: none">
+                    <div id="stepDiv6" class="stepDiv" style="display: none">
                         <hr>
                         <iframe id="publishItemIframe" class='layui-col-xs12' frameborder="0" style="height: 700px;"
                                 src=""></iframe>
                         <div style="text-align: center;margin-top: 50px;">
-                            <button type="button" class="layui-btn layui-btn-primary pre" data-index="6">上一步</button>
+                            <button type="button" class="layui-btn layui-btn-primary pre" data-index="5">上一步</button>
                             <button id="publishPlan" class="layui-btn"><i class="iconfont icon-save"></i> 发布</button>
                             <#--<button class="layui-btn layui-btn-normal"><i class="iconfont icon-daochuExcel"></i> 导出</button>-->
                         </div>

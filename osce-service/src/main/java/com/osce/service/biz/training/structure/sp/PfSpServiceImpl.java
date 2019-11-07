@@ -54,6 +54,13 @@ public class PfSpServiceImpl implements PfSpService {
                 pfSpDao.listSp(dto));
     }
 
+    @Override
+    public PageResult pageSpCache(SpDto dto) {
+        PageParam.initPageDto(dto);
+        return ResultFactory.initPageResultWithSuccess(pfSpDao.countSpCache(dto),
+                pfSpDao.listSpCache(dto));
+    }
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Long addSp(UserSpDto dto) {

@@ -14,7 +14,7 @@ layui.config({
     // 给step添加click事件
     function bachAddStepEventListener(currentNum) {
         // 最大步骤数
-        var maxNum = 7;
+        var maxNum = 6;
         for (var i = 1; i <= maxNum; i++) {
             if (maxNum == i) {
                 $("#step" + i).addClass("outside2a");
@@ -55,7 +55,7 @@ layui.config({
 
     // 步骤跳转
     function stepSkip(stepNum) {
-        if (stepNum <= 6) {
+        if (stepNum <= 5) {
             document.getElementById("step" + stepNum).classList.remove("outside0ab");
         } else {
             document.getElementById("step" + stepNum).classList.remove("outside2a");
@@ -74,15 +74,13 @@ layui.config({
             $('#assignedStudentIframe').attr("src", basePath + "/pf/p/plan/manage/assigned/student/page?idPlan=" + $('#idPlan').val() + "&sdPlanStatus=" + $('#sdPlanStatus').val());
         } else if (stepNum == 3) {
             $('#stationPreviewIframe').attr("src",
-                basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val()
-                + '&idModel=' + $('#idModel').val() + '&idModelFrom=' + $('#idModelFrom').val());
+                basePath + "/pf/p/plan/sp/page?idPlan=" + $('#idPlan').val());
         } else if (stepNum == 4) {
-            $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val());
+            $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val()
+                + '&idModelFrom=' + $('#idModelFrom').val());
         } else if (stepNum == 5) {
-            $('#assistantIframe').attr("src", basePath + "/pf/p/plan/station/assistant?idPlan=" + $('#idPlan').val());
-        } else if (stepNum == 6) {
             $('#pickIframe').attr("src", basePath + "/pf/p/plan/manage/tpPicking/page?idPlan=" + $('#idPlan').val());
-        } else if (stepNum == 7) {
+        } else if (stepNum == 6) {
             $('#publishItemIframe').attr("src", basePath + "/pf/p/plan/station/publish/item/page?idPlan=" + $('#idPlan').val());
         }
 
@@ -395,32 +393,14 @@ layui.config({
         }*/
         stepSkip(4);
         addStepEventListener(4);
-        $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val())
+        $('#spIframe').attr("src", basePath + "/pf/p/plan/station/sp?idPlan=" + $('#idPlan').val()
+            + '&idModelFrom=' + $('#idModelFrom').val())
         return false;
     });
 
     form.on('submit(formStep3)', function (data) {
         // 校验考站-SP是否全部分配
         var msg = checkPlanStep(4);
-        if (msg) {
-            layer.alert('【<span style="color: red; font-weight: bold">请完善考站信息</span>】<br>' + msg, {
-                title: '提示',
-                resize: false,
-                btn: ['确定']
-                , maxWidth: 450
-                , icon: 5
-            });
-            return false;
-        }
-        stepSkip(5);
-        addStepEventListener(5);
-        $('#assistantIframe').attr("src", basePath + "/pf/p/plan/station/assistant?idPlan=" + $('#idPlan').val())
-        return false;
-    });
-
-    form.on('submit(formStep4)', function (data) {
-        // 校验所有考站-主考官是否全部分配
-        var msg = checkPlanStep(5);
         if (msg) {
             layer.alert('【<span style="color: red; font-weight: bold">请完善考站信息</span>】<br>' + msg, {
                 title: '提示',
@@ -439,10 +419,10 @@ layui.config({
         return false;
     });
 
-    form.on('submit(formStep5)', function (data) {
+    form.on('submit(formStep4)', function (data) {
         //step.next('#stepForm');
-        stepSkip(7);
-        addStepEventListener(7);
+        stepSkip(6);
+        addStepEventListener(6);
         $('#publishItemIframe').attr("src", basePath + "/pf/p/plan/station/publish/item/page?idPlan=" + $('#idPlan').val())
         return false;
     });
@@ -514,14 +494,13 @@ layui.config({
         stepSkip(3);
         addStepEventListener(3);
         $('#stationPreviewIframe').attr("src",
-            basePath + "/pf/p/plan/station/order?idPlan=" + $('#idPlan').val()
-            + '&idModel=' + $('#idModel').val() + '&idModelFrom=' + $('#idModelFrom').val())
+            basePath + "/pf/p/plan/sp/page?idPlan=" + $('#idPlan').val())
     }
 
     function callStationPickCallback() {
         //step.next('#stepForm');
-        stepSkip(6);
-        addStepEventListener(6);
+        stepSkip(5);
+        addStepEventListener(5);
         $('#pickIframe').attr("src", basePath + "/pf/p/plan/manage/tpPicking/page?idPlan=" + $('#idPlan').val())
     }
 

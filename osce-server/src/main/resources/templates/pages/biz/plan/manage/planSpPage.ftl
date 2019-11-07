@@ -16,6 +16,14 @@
         var idPlan = '${idPlan!}';
         var tagSize = ${allSpTag?size};
     </script>
+
+    <style>
+        .layui-card-body {
+            position: relative;
+            padding: 0px 5px;
+            line-height: 24px;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,10 +32,11 @@
 
     <div class="layui-row layui-col-space10">
         <div class="layui-col-md6">
-            <div class="layui-card" style="height: 300px; border: 1px solid #e9e9e9">
+            <div class="layui-card" style="height: 350px; border: 1px solid #e9e9e9">
                 <div class="layui-card-header">
                     <span style="float: left; font-weight: bold">考试-上午/下午</span>
-                    <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" style="float: right; margin-top: 5px;">查看标准化重病人</button>
+                    <button id="spManage" type="button" class="layui-btn layui-btn-normal layui-btn-sm"
+                            style="float: right; margin-top: 5px;">查看标准化重病人</button>
                 </div>
                 <div class="layui-card-body">
                     <table id="test1" lay-filter="test1Filter">
@@ -36,14 +45,14 @@
             </div>
         </div>
         <div class="layui-col-md6">
-            <div class="layui-card" style="height: 300px; border: 1px solid #e9e9e9">
+            <div class="layui-card" style="height: 350px; border: 1px solid #e9e9e9">
                 <div class="layui-card-header">
                     <span style="float: left; font-weight: bold">过滤方式</span>
                     <button id="querySp" type="button" class="layui-btn layui-btn-sm"
                             style="float: right; margin-top: 5px;">查询</button>
                 </div>
                 <div class="layui-card-body">
-                    <div style="height: 240px; overflow:scroll; overflow-x: hidden;">
+                    <div style="height: 290px; overflow-y:auto; overflow-x: hidden;">
 
                         <table style="width:100%;background-color:#fff;color:#666;height: auto;border-collapse:separate; border-spacing:2px;">
                             <tbody>
@@ -83,7 +92,7 @@
 
     <div class="layui-row layui-col-space10">
         <div class="layui-col-md6">
-            <div class="layui-card" style="height: 300px; border: 1px solid #e9e9e9">
+            <div class="layui-card" style="height: 350px; border: 1px solid #e9e9e9">
                 <div class="layui-card-header">
                     <span style="float: left; font-weight: bold">查询结果</span>
                     <button id="addSpCache" type="button" class="layui-btn layui-btn-sm"
@@ -96,13 +105,13 @@
             </div>
         </div>
         <div class="layui-col-md6">
-            <div class="layui-card" style="height: 300px; border: 1px solid #e9e9e9">
+            <div class="layui-card" style="height: 350px; border: 1px solid #e9e9e9">
                 <div class="layui-card-header">
                     <span style="float: left; font-weight: bold">计划SP分配</span>
                     <button id="delSpCache" type="button" class="layui-btn layui-btn-danger layui-btn-sm"
                             style="float: right; margin-top: 5px;">删除</button>
                 </div>
-                <div class="layui-card-body">
+                <div class="layui-card-body" style="margin: 0px;">
                     <table id="test3" lay-filter="test3Filter">
                     </table>
                 </div>

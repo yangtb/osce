@@ -30,4 +30,9 @@ public class SpDto extends PageParam implements Serializable {
      */
     private Long idOrg;
 
+    /**
+     * 计划ID
+     */
+    private Long idPlan;
+
 }

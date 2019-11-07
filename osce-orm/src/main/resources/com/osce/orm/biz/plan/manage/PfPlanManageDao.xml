@@ -467,10 +467,10 @@
         SELECT count(1) FROM tp_assistant a WHERE a.id_plan = #{idPlan}
     </select>
     <select id="isExistStep4" resultType="java.lang.Boolean">
-        SELECT count(1) FROM tp_sp a WHERE a.id_plan = #{idPlan}
+        SELECT count(1) FROM tp_ins_station a WHERE a.id_plan = #{idPlan}
     </select>
     <select id="isExistStep3" resultType="java.lang.Boolean">
-        SELECT count(1) FROM tp_ins_station a WHERE a.id_plan = #{idPlan}
+        SELECT count(1) FROM tp_sp_cache a WHERE a.id_plan = #{idPlan}
     </select>
     <select id="isExistStep2" resultType="java.lang.Boolean">
         SELECT count(1) FROM tp_student a WHERE a.id_plan = #{idPlan}
@@ -568,5 +568,14 @@
             sd_plan_status = '2'
         AND fg_active = '1'
         AND gmt_plan_begin &lt; NOW()
+    </select>
+    <select id="isExistPlan" resultType="java.lang.Boolean">
+        SELECT
+            count(1)
+        FROM
+            tp_plan
+        WHERE
+            gmt_plan_end >= #{gmtPlanBegin}
+        and id_plan != #{idPlan}
     </select>
 </mapper>

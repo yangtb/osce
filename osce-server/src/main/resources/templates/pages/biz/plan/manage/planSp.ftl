@@ -11,13 +11,24 @@
     <script>
         var basePath = '${basePath!}';
         var idPlan = '${idPlan!}';
+        var idModelFrom = '${idModelFrom!}';
     </script>
+    <style>
+        .layui-input, .layui-select {
+            height: 30px;
+            line-height: 1.3;
+            background-color: rgb(255, 255, 255);
+            border-width: 1px;
+            border-style: solid;
+            border-radius: 2px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="wrapper" style="height: 900px;">
-    <table cellpadding="10000" style="width: 100%; height: 850px;">
+<div class="wrapper" style="height: 950px;">
+    <table cellpadding="10000" style="width: 100%; height: 900px;">
         <thead>
         <tr id="days" style="height: 50px;">
             <th></th>

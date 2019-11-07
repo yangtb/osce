@@ -35,7 +35,7 @@ layui.config({
             {field: 'idcard', minWidth: 200, title: '身份证号'},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
         ]] //设置表头
-        , url: basePath + '/pf/p/sp/list'
+        , url: basePath + '/pf/p/sp/cache/list?idPlan=' + idPlan
         , limit: 50
         , even: true
         , limits: [50, 100]

@@ -177,8 +177,11 @@
                     <result property="sdStationCaText" column="sdStationCaText" />
                     <result property="sdSkillCa" column="sd_skill_ca" />
                     <collection property="roomData" ofType="com.osce.vo.biz.plan.template.station.TdRoomInfo">
+                        <result property="idInsStation" column="id_ins_station" />
                         <result property="idRoom" column="id_room" />
                         <result property="idRoomText" column="idRoomText" />
+                        <result property="idPaper" column="id_paper" />
+                        <result property="idScoreSheet" column="id_score_sheet" />
                         <result property="sq" column="sq" />
                         <collection property="spList" ofType="com.osce.entity.TdInsStationDetail">
                             <result property="idInsStationDetail" column="id_ins_station_detail" />
@@ -203,8 +206,11 @@
             c.na_station ,
             (SELECT dict_name from sys_dictionary where group_code = 'SD_STATION_CA' and dict_code = a.sd_station_ca) AS sdStationCaText ,
             a.sd_skill_ca ,
+            a.id_ins_station ,
             f.id_room ,
             f.na_room AS idRoomText ,
+            a.id_paper,
+            a.id_score_sheet,
             concat(a.id_area, '-', a.id_station, '-',a.time_section) as sq ,
             d.id_ins_station_detail ,
             g.real_name as cd_invented_student ,
