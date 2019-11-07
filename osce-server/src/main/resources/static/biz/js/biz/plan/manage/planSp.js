@@ -144,22 +144,68 @@ layui.config({
             } else {
                 html += ' style="display: none;">\n';
             }
-            html += '<div class="tab-content ';
+            //html += '<div class="tab-content ';
             if (sdSkillCa == 3) {
-                html += 'tab-content-border ';
+                //html += 'tab-content-border ';
             }
-            html += '">\n';
+            //html += '">\n';
+
+            var test = index == 0 ? '1' : '';
+
+
+            html += '<div class="layui-row" style="width: 305px; border-bottom: 1px solid #e2e2e2; overflow-x: auto;">\n' +
+                '        <div class="card-col">\n' +
+                '           <ul style="font-size: 13px;">\n' +
+                '               <li class="li-sp">咖啡远程'+test+'</li>\n' +
+                '               <li class="li-sp">茶'+test+'</li>\n' +
+                '               <li class="li-sp">牛奶'+test+'</li>\n' +
+                '               <li class="li-sp">牛奶'+test+'</li>\n' +
+                '           </ul>\n'+
+                '        </div>\n' +
+                '        <div class="sp-div">\n' +
+                '           <div class="sp-div-cell">' +
+                '               <img class="edit-btn1" src="' + basePath + '/biz/img/template/edit_btn.png">\n' +
+                '               <div class="item-text1" style="background-color: #5FB878">主考官</div>'+
+                '           </div>' +
+                '        </div>\n' +
+                '        <div class="sp-div">\n' +
+                '           <div class="sp-div-cell">' +
+                '               <img class="edit-btn1" src="' + basePath + '/biz/img/template/edit_btn.png">\n' +
+                '               <div class="item-text1" style="width: 65px; background-color: #FFB800">远程考官</div>'+
+                '           </div>' +
+                '        </div>\n' +
+                '        <div class="sp-div">\n' +
+                '           <div class="sp-div-cell">' +
+                '               <img class="edit-btn1" src="' + basePath + '/biz/img/template/edit_btn.png">\n' +
+                '               <div class="item-text1" style="background-color: #1E9FFF">考官</div>'+
+                '           </div>' +
+                '        </div>\n' +
+                '        <div class="sp-div">\n' +
+                '           <div class="sp-div-cell">' +
+                '               <div class="item-text1" style="margin-top: 3px;">SP'+test+'</div>'+
+                '               <div class="item-text1" style="margin-top: 3px;">SP'+test+'</div>'+
+                '               <div class="item-text1" style="margin-top: 3px;">SP'+test+'</div>'+
+                '               <img class="edit-btn1" src="' + basePath + '/biz/img/template/edit_btn.png">\n' +
+                '               <div class="item-text1" style="margin-top: 3px; background-color: #009688;">SP</div>'+
+                '           </div>' +
+                '        </div>\n' +
+                '    </div>';
+
+            html += '<div style="padding-top: 10px;" class="item-text">\n' +
+                '        <img class="edit-btn" style="margin-top: -3px;" src="' + basePath + '/biz/img/template/edit_btn.png">\n' +
+                '        <span class="item-text">添加试卷</span>\n' +
+                '    </div>';
 
             var itemStyle = 'item-msg';
-            $.each(content.spList, function (indexSp, contentSp) {
+            /*$.each(content.spList, function (indexSp, contentSp) {
                 html += '<p class="item-main">\n' +
                     '       <span class="' + itemStyle + ' item-msg-s">' + contentSp.cdInventedStudent + '</span>\n' +
                     '       <span class="' + itemStyle + '">' + contentSp.timeBegin + '</span>\n' +
                     '       <span class="' + itemStyle + '">' + contentSp.timeEnd + '</span>\n' +
                     '    </p>\n';
-            });
-            html += '</div>';
-            if (sdSkillCa == 3) {
+            });*/
+            //html += '</div>';
+            /*if (sdSkillCa == 3) {
                 html += '<div class="main-right">\n' +
                     '        <p class="right-item right-item-sp" data-sq="' + content.sq  + '-' + content.idRoom + '">\n' +
                     '           <img class="edit-btn edit" src="' + basePath + '/biz/img/template/edit_btn.png" alt="编辑">\n' +
@@ -172,11 +218,13 @@ layui.config({
                     }
                 });
                 html += '</div> </div>';
-            }
+            }*/
             html += '</div>';
         });
 
+
         html += '</div>';
+
         return html;
     }
 
