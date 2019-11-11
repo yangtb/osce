@@ -16,25 +16,28 @@
 </head>
 
 <script>
-    var basePath = '${basePath}';
-    var contextPath = '${contextPath}';
+    var basePath = '${basePath!}';
+    var contextPath = '${contextPath!}';
+    var showFlag = ${showFlag!};
 </script>
 
 <body>
 
-<div class="layui-card layadmin-header" style="display: block;">
-    <div class="layui-breadcrumb-my-title">
-        <span>SP管理</span>
+<#if showFlag == 1>
+    <div class="layui-card layadmin-header" style="display: block;">
+        <div class="layui-breadcrumb-my-title">
+            <span>SP管理</span>
+        </div>
+        <div class="layui-breadcrumb-my">
+            <a lay-href="${basePath!}/main">主页</a><span lay-separator="">/</span>
+            <a>实训配置</a>
+            <span lay-separator="">/</span>
+            <a>组织结构</a>
+            <span lay-separator="">/</span>
+            <a><cite>SP管理</cite></a>
+        </div>
     </div>
-    <div class="layui-breadcrumb-my">
-        <a lay-href="${basePath!}/main">主页</a><span lay-separator="">/</span>
-        <a>实训配置</a>
-        <span lay-separator="">/</span>
-        <a>组织结构</a>
-        <span lay-separator="">/</span>
-        <a><cite>SP管理</cite></a>
-    </div>
-</div>
+</#if>
 
 <div class="wrapper-content">
 

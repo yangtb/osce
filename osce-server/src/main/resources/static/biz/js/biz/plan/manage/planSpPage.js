@@ -157,7 +157,7 @@ layui.config({
     }
 
     $('#spManage').on('click', function () {
-        var index = common.openParent('SP管理', basePath + '/pf/p/sp/page', 880, 600);
+        var index = common.openParent('SP管理', basePath + '/pf/p/sp/page?showFlag=2', 880, 600);
         //layer.full(index);
     });
 

@@ -34,7 +34,11 @@ public class PfSpController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
     @RequestMapping("/pf/p/sp/page")
-    public String page(Model model) {
+    public String page(Model model, Integer showFlag) {
+        if (showFlag == null) {
+            showFlag = 1;
+        }
+        model.addAttribute("showFlag", showFlag);
         return "pages/biz/training/structure/sp/spPage";
     }
 

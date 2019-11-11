@@ -147,11 +147,22 @@ layui.config({
     }
 
     var _addOrEdit = function (formType, currentEditData) {
-        if (formType == 'add') {
-            parent.layui.index.openTabsPage(basePath + '/pf/p/sp/form?formType=' + formType, "新增SP"); //这里要注意的是 parent 的层级关系
+        if (showFlag == 1) {
+            if (formType == 'add') {
+                parent.layui.index.openTabsPage(basePath + '/pf/p/sp/form?formType=' + formType, "新增SP"); //这里要注意的是 parent 的层级关系
+            } else {
+                parent.layui.index.openTabsPage(basePath + '/pf/p/sp/form?formType=' + formType + '&userId=' + currentEditData.userId , "编辑SP"); //这里要注意的是 parent 的层级关系
+            }
         } else {
-            parent.layui.index.openTabsPage(basePath + '/pf/p/sp/form?formType=' + formType + '&userId=' + currentEditData.userId , "编辑SP"); //这里要注意的是 parent 的层级关系
+            if (formType == 'add') {
+                var index = common.open('新增SP', basePath + '/pf/p/sp/form?formType=' + formType, 700, 420);
+                layer.full(index)
+            } else {
+                var index = common.open('编辑SP', basePath + '/pf/p/sp/form?formType=' + formType + '&userId=' + currentEditData.userId, 700, 420);
+                layer.full(index)
+            }
         }
+
     };
 
     //监听行双击事件
