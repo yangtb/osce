@@ -286,6 +286,29 @@
         )
     </update>
 
+
+    <select id="selectRoom" resultType="com.osce.entity.ErpRoom">
+        SELECT
+            a.id_room ,
+            a.id_org ,
+            a.na_room ,
+            a.des_room ,
+            a.pic_room ,
+            a.fg_active ,
+            a.room_flag ,
+            a.fg_valid ,
+            a.sort ,
+            a.creator ,
+            a.gmt_create ,
+            a.operator ,
+            a.gmt_modify
+        FROM
+            erp_room a
+        WHERE
+            a.id_org = #{idOrg}
+        AND a.id_room = #{idRoom}
+    </select>
+
     <select id="listRooms" resultType="com.osce.entity.ErpRoom">
         SELECT
             a.id_room ,

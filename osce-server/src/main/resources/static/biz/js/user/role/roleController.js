@@ -1,10 +1,8 @@
-/**
- * 用户
- * @constructor
- */
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['layer', 'table', 'form', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'layer', 'table', 'form', 'jquery', 'common'], function () {
     var $ = layui.$,
         table = layui.table,
         form = layui.form,
@@ -14,7 +12,7 @@ layui.config({
     table.render({
         elem: '#roleTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'roleTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-110' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -51,7 +49,7 @@ layui.config({
                 state: state,
                 conditionValue: data.field.queryCondition
             },
-            height: 'full-68'
+            height: 'full-110'
         });
     });
 
@@ -228,7 +226,7 @@ layui.config({
             where: {
                 state: state
             },
-            height: 'full-68'
+            height: 'full-110'
         });
     }
 
@@ -373,7 +371,7 @@ layui.config({
                 return false;
             }
         });
-        var bodyHeight = $(this).height() - $("#treeTitle").height() - 34;
+        var bodyHeight = $(this).height() - $("#treeTitle").height() - 76;
         $("#treeDiv").css("max-height", bodyHeight);
 
     });

@@ -12,7 +12,7 @@ layui.config({
     table.render({
         elem: '#templateTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'templateTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-110' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -51,7 +51,7 @@ layui.config({
             where: {
                 naGrade: name
             }
-            , height: 'full-68'
+            , height: 'full-110'
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -79,13 +79,14 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         var idModel = currentEditData ? currentEditData.idModel : '';
+        var modelText;
         if (idModel) {
-            $('#editTemplate').text("编辑[" + currentEditData.naModel + "]模板");
+            modelText = "编辑[" + currentEditData.naModel + "]模板";
         }  else {
-            $('#editTemplate').text("新增实训模板");
+            modelText = "新增实训模板";
         }
-        $('#editTemplate').attr('lay-href', basePath + '/pf/p/plan/template/form?idModel=' + idModel);
-        $('#editTemplate').click();
+        parent.layui.index.openTabsPage(basePath + '/pf/p/plan/template/form?idModel=' + idModel, modelText);
+
     };
 
     //监听行双击事件
@@ -165,7 +166,7 @@ layui.config({
             where: {
                 //type: type
             },
-            height: 'full-68'
+            height: 'full-110'
         });
     }
 
@@ -229,7 +230,7 @@ layui.config({
         var currentEditData = data[0];
         $('#editPlan').text("实训计划编辑[" + currentEditData.naModel + "]");
         $('#editPlan').attr('lay-href',
-            basePath + '/pf/p/plan/manage/form?idModelFrom=' + currentEditData.idModel);
+            basePath + '/pf/p/plan/manage/form?idPlan=&idModelFrom=' + currentEditData.idModel);
         $('#editPlan').click();
     });
 

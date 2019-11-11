@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" href="${contextPath}/biz/css/mouseRight.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
+    <link rel="stylesheet" href="${contextPath!}/layui/plugins/style/admin.css" media="all">
+
     <style>
 
     </style>
@@ -23,6 +25,17 @@
 </script>
 
 <body>
+
+<div class="layui-card layadmin-header" style="display: block;">
+    <div class="layui-breadcrumb-my-title">
+        <span>机构管理</span>
+    </div>
+    <div class="layui-breadcrumb-my">
+        <a lay-href="${basePath}/main">主页</a><span lay-separator="">/</span>
+        <a>系统管理</a><span lay-separator="">/</span>
+        <a><cite>机构管理</cite></a>
+    </div>
+</div>
 
 <#--右键菜单-->
 <div id="rMenu" class="wrap-ms-right">

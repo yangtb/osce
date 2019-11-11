@@ -12,7 +12,7 @@ layui.config({
     table.render({
         elem: '#skillTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'skillTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-120' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -41,7 +41,7 @@ layui.config({
     //监听提交
     form.on('submit(skillSearchFilter)', function (data) {
         table.reload('skillTableId', {
-            height: 'full-68'
+            height: 'full-120'
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -176,7 +176,7 @@ layui.config({
             where: {
                 //type: type
             },
-            height: 'full-68'
+            height: 'full-120'
         });
     }
 

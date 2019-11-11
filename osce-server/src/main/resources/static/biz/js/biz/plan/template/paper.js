@@ -1,8 +1,10 @@
 $(document).ready(function () {
 
     layui.config({
-        base: basePath + '/layui/build/js/'
-    }).use(['jquery', 'common'], function () {
+        base: basePath + '/layui/plugins/'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'jquery', 'common'], function () {
         var $ = layui.$
             , common = layui.common;
 

@@ -10,10 +10,12 @@
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
     <link rel="stylesheet" href="${contextPath}/layui/build/js/treeSelect.js"></script>
+    <link rel="stylesheet" href="${contextPath!}/layui/plugins/style/admin.css" media="all">
 
     <script>
         var formType = '${formType!}';
         var idOrg = '${idOrg!}';
+        var userId = '${userId!}';
         var basePath = '${basePath!}';
         var contextPath = '${contextPath!}';
     </script>
@@ -21,6 +23,25 @@
 </head>
 
 <body>
+
+<div class="layui-card layadmin-header" style="display: block;">
+    <div class="layui-breadcrumb-my-title">
+        <span>SP管理</span>
+    </div>
+    <div class="layui-breadcrumb-my" id="nav-sp">
+        <a lay-href="${basePath!}/main">主页</a><span lay-separator="">/</span>
+        <a>实训配置</a><span lay-separator="">/</span>
+        <a>组织结构</a><span lay-separator="">/</span>
+        <a lay-href="${basePath!}/pf/p/sp/page">SP管理</a><span lay-separator="">/</span>
+        <#if (formType == 'add')>
+            <a><cite>新增SP</cite></a>
+        </#if>
+        <#if (formType == 'edit')>
+            <a><cite>编辑SP</cite></a>
+        </#if>
+    </div>
+</div>
+
 <div class="wrapper-content">
     <form class="layui-form layui-form-pane" id="spForm">
         <div hidden>
@@ -160,29 +181,7 @@
 <script src="${contextPath}/common/js/jquery.min.js"></script>
 <script src="${contextPath}/common/js/jquery.formautofill.js"></script>
 <script src="${contextPath}/biz/js/biz/training/structure/sp/spFormController.js"></script>
-<script>
-    <#if (formType == 'edit')>
-    function fullForm(data) {
-        $(document).ready(function () {
-            $("#spForm").autofill(data);
-            layui.use(['form', 'jquery', 'treeSelect'], function () {
-                var treeSelect= layui.treeSelect
-                treeSelect.render({
-                    elem: '#idOrg',
-                    data: basePath + '/pf/r/org/tree/select',
-                    type: 'post',
-                    placeholder: '请选择机构',
-                    // 加载完成后的回调函数
-                    success: function (d) {
-                        treeSelect.checkNode('orgTree', data.idOrg);
-                    }
-                });
-                layui.form.render();
-            });
-        });
-    };
-    </#if>
-</script>
+
 
 </body>
 </html>

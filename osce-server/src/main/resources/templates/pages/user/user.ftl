@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="${contextPath}/layui/plugins/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
+    <link rel="stylesheet" href="${contextPath!}/layui/plugins/style/admin.css" media="all">
 
     <script>
         var basePath = '${basePath}';
@@ -30,6 +31,17 @@
 </head>
 
 <body>
+
+<div class="layui-card layadmin-header" style="display: block;">
+    <div class="layui-breadcrumb-my-title">
+        <span>用户管理</span>
+    </div>
+    <div class="layui-breadcrumb-my">
+        <a lay-href="${basePath}/main">主页</a><span lay-separator="">/</span>
+        <a>系统管理</a><span lay-separator="">/</span>
+        <a><cite>用户管理</cite></a>
+    </div>
+</div>
 
 <div class="wrapper-content">
     <form id="exportForm" action="${basePath}/pf/p/user/download/userExcel" method="post">

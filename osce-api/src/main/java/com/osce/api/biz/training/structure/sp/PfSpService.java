@@ -5,6 +5,7 @@ import com.osce.dto.biz.training.structure.sp.UserSpDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgSpDefine;
 import com.osce.result.PageResult;
+import com.osce.vo.biz.training.structure.sp.SpVo;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,14 @@ import java.util.Map;
  * @Date 2019-05-07
  */
 public interface PfSpService {
+
+    /**
+     * 获取sp
+     *
+     * @param dto
+     * @return
+     */
+    SpVo selectSp(SpDto dto);
 
     /**
      * sp列表

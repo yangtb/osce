@@ -35,4 +35,9 @@ public class SpDto extends PageParam implements Serializable {
      */
     private Long idPlan;
 
+    /**
+     * 用户id
+     */
+    private Long userId;
+
 }

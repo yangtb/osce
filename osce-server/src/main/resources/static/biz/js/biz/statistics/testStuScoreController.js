@@ -1,6 +1,8 @@
 layui.config({
     base: basePath + '/layui/plugins/'
-}).use(['layer', 'table', 'jquery', 'common'], function () {
+}).extend({
+    index: 'lib/index' //主入口模块
+}).use(['layer', 'index', 'table', 'jquery', 'common'], function () {
     var $ = layui.$
         , table = layui.table
         , common = layui.common;

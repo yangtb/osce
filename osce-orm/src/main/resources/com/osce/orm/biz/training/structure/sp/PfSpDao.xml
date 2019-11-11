@@ -102,6 +102,17 @@
             id_org = #{idOrg}
     </select>
 
+    <select id="selectSp" resultType="com.osce.vo.biz.training.structure.sp.SpVo">
+        SELECT
+            b.user_id as userId,
+            b.username, b.real_name, b.sex, b.phone_no, b.id_org, b.email ,
+            b.idcard, b.enabled, b.operator, b.gmt_create
+        FROM
+            user_info b
+        WHERE
+            b.user_id = #{userId}
+    </select>
+
     <select id="listSp" resultType="com.osce.vo.biz.training.structure.sp.SpVo">
         SELECT
             b.user_id as userId,

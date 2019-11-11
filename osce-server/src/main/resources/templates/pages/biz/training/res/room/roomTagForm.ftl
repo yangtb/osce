@@ -9,15 +9,38 @@
     <link rel="stylesheet" href="${contextPath}/layui/plugins/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
+    <link rel="stylesheet" href="${contextPath!}/layui/plugins/style/admin.css" media="all">
 
     <script>
         var basePath = '${basePath}';
         var contextPath = '${contextPath}';
         var formType = '${formType!}';
+        var idRoom = '${idRoom!}';
     </script>
 </head>
 
-<body class="body-my">
+<body>
+
+<div class="layui-card layadmin-header" style="display: block;">
+    <div class="layui-breadcrumb-my-title">
+        <span>房间管理</span>
+    </div>
+    <div class="layui-breadcrumb-my">
+        <a lay-href="${basePath!}/main">主页</a><span lay-separator="">/</span>
+        <a>实训配置</a>
+        <span lay-separator="">/</span>
+        <a>资源管理</a>
+        <span lay-separator="">/</span>
+        <a lay-href="${basePath!}/pf/p/room/page">房间管理</a><span lay-separator="">/</span>
+        <#if (formType == 'add')>
+            <a><cite>新增房间</cite></a>
+        </#if>
+        <#if (formType == 'edit')>
+            <a><cite>编辑房间</cite></a>
+        </#if>
+    </div>
+</div>
+
 <div>
     <div class="layui-tab layui-col-xs12" lay-filter="tagTabFilter" style="margin: 0px">
         <ul class="layui-tab-title">
@@ -160,17 +183,6 @@
 <script src="${contextPath}/common/js/jquery.min.js"></script>
 <script src="${contextPath}/common/js/jquery.formautofill.js"></script>
 
-<script>
-    function fullForm(data) {
-        $(document).ready(function(){
-            $("#roomForm").autofill(data);
-            layui.use('form',function(){
-                layui.form.render();
-            });
-
-        });
-    }
-</script>
 
 </body>
 </html>

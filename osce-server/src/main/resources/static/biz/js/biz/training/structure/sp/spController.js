@@ -1,6 +1,8 @@
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['layer', 'form', 'table', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'layer', 'form', 'table', 'jquery', 'common'], function () {
     var $ = layui.$,
         form = layui.form,
         table = layui.table,
@@ -12,7 +14,7 @@ layui.config({
             where: {
                 keywords: data.field.keywords
             }
-            , height: 'full-60'
+            , height: 'full-110'
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -23,7 +25,7 @@ layui.config({
     table.render({
         elem: '#spTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'spTableId'
-        , height: 'full-60' //容器高度
+        , height: 'full-110' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -140,54 +142,15 @@ layui.config({
             where: {
                 //type: type
             },
-            height: 'full-68'
+            height: 'full-110'
         });
     }
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            var index = common.open('新增SP', basePath + '/pf/p/sp/form?formType=' + formType, 700, 420);
-            layer.full(index)
+            parent.layui.index.openTabsPage(basePath + '/pf/p/sp/form?formType=' + formType, "新增SP"); //这里要注意的是 parent 的层级关系
         } else {
-            var reqData = {
-                idUser: currentEditData.userId
-            }
-            $.ajax({
-                url: basePath + '/pf/r/sp/tag/value',
-                type: 'post',
-                dataType: 'json',
-                contentType: "application/json",
-                data: JSON.stringify(reqData),
-                success: function (data) {
-                    layer.closeAll('loading');
-                    if (data.code != 0) {
-                        common.errorMsg(data.msg);
-                        return false;
-                    } else {
-                        var spMapList = eval(data.data);
-
-                        for (var i = 0; i < spMapList.length; i++) {
-                            currentEditData['spTag-' + spMapList[i].id_sp_tag2] = spMapList[i].value
-                        }
-                        var index = common.open('编辑SP', basePath + '/pf/p/sp/form?formType=' + formType, 700, 295, _successFunction(currentEditData));
-                        layer.full(index);
-                        return true;
-                    }
-                },
-                error: function () {
-                    common.errorMsg("获取标签值失败");
-                    return false;
-                }
-            });
-
-        }
-    };
-
-    var _successFunction = function (data) {
-        return function (layero, index) {
-            var iframe = window['layui-layer-iframe' + index];
-            //调用子页面的全局函数
-            iframe.fullForm(data);
+            parent.layui.index.openTabsPage(basePath + '/pf/p/sp/form?formType=' + formType + '&userId=' + currentEditData.userId , "编辑SP"); //这里要注意的是 parent 的层级关系
         }
     };
 

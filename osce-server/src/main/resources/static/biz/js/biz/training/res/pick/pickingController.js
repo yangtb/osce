@@ -16,7 +16,7 @@ layui.config({
     var tableIns = table.render({
         elem: '#tpPickingTable' //指定原始表格元素选择器（推荐id选择器）
         //, id: 'tpPickingTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-120' //容器高度
         , toolbar: true
         , title: '领料计划'
         , cols: [[

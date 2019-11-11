@@ -1,6 +1,8 @@
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'table', 'form', 'jquery', 'common'], function () {
     var $ = layui.$
         , table = layui.table
         , form = layui.form
@@ -44,7 +46,7 @@ layui.config({
             {field: 'fgActive', width: 100, title: '状态', fixed: true, templet: '#fgActiveTpl'},
             {field: 'naRoom', minWidth: 120, title: '房号', fixed: true},
             {field: 'desRoom', minWidth: 200, title: '描述'},
-            {field: 'deviceNum', minWidth: 100, title: '设备数量', align: "right"},
+            {field: 'deviceNum', width: 100, title: '设备数量', align: "right"},
             {field: 'gmtCreate', minWidth: 170, title: '创建时间'},
             {fixed: 'right', width: 250, title: '操作', align: 'left', toolbar: '#roomBar'}
         ]] //设置表头
@@ -146,19 +148,9 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            var index = common.open('新增房间信息', basePath + '/pf/p/room/form?formType=' + formType, 500, 400);
-            layer.full(index)
+            parent.layui.index.openTabsPage(basePath + '/pf/p/room/form?formType=' + formType, "新增房间");
         } else {
-            var index = common.open('编辑房间信息', basePath + '/pf/p/room/form?formType=' + formType, 500, 400, _successFunction(currentEditData));
-            layer.full(index)
-        }
-    };
-
-    var _successFunction = function (data) {
-        return function (layero, index) {
-            var iframe = window['layui-layer-iframe' + index];
-            //调用子页面的全局函数
-            iframe.fullForm(data);
+            parent.layui.index.openTabsPage(basePath + '/pf/p/room/form?formType=' + formType + '&idRoom=' + currentEditData.idRoom, "编辑房间");
         }
     };
 

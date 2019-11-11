@@ -13,6 +13,7 @@
     <#--<link rel="stylesheet" type="text/css" href="${contextPath}/layui/build/css/step.css">-->
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/css/template/test_define.css">
     <link rel="stylesheet" href="${contextPath}/layui/expand/css/formSelects-v4.css">
+    <link rel="stylesheet" href="${contextPath!}/layui/plugins/style/admin.css" media="all">
 
     <script>
         var basePath = '${basePath!}';
@@ -33,7 +34,27 @@
 
 <body class="body-bg">
 
-<div style="margin-top: 15px;">
+<div class="layui-card layadmin-header" style="display: block;">
+    <div class="layui-breadcrumb-my-title">
+        <#if (idModel?? && idModel != "")>
+            <span>实训模板编辑</span>
+        <#else>
+            <span>实训模板新增</span>
+        </#if>
+    </div>
+    <div class="layui-breadcrumb-my">
+        <a lay-href="${basePath!}/main">主页</a><span lay-separator="">/</span>
+        <a>实训计划</a><span lay-separator="">/</span>
+        <a lay-href="${basePath!}/pf/p/plan/template/page">实训模板管理</a><span lay-separator="">/</span>
+        <#if (idModel?? && idModel != "")>
+            <a><cite>实训模板编辑</cite></a>
+        <#else>
+            <a><cite>实训模板新增</cite></a>
+        </#if>
+    </div>
+</div>
+
+<div>
     <div class="layui-fluid pageHeight">
 
         <div class="rebinding-box" id="stepForm" >

@@ -17,6 +17,7 @@ import com.osce.vo.user.login.PfUsersVo;
 import com.sm.open.care.core.ErrorCode;
 import com.sm.open.care.core.ErrorMessage;
 import com.sm.open.care.core.exception.BizRuntimeException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -83,6 +84,9 @@ public class PfUserServiceImpl implements PfUserService {
     public boolean updateUser(RegisterDto dto) {
         // 1.同一个手机号、身份证号，可以创建多个账号
         // 2.每个账号只能设置一种角色
+        if (StringUtils.isBlank(dto.getUsername())) {
+            dto.setUsername(dto.getPhoneNo());
+        }
         if (dto.isCheckFlag()) {
             if (pfUserDao.isExistUserByCondition(dto.getPhoneNo(), dto.getIdcard(), dto.getRoles().get(0), dto.getUsername())) {
                 throw new RestException(RestErrorCode.USER_PHONE_CARD_ROLE_USED);

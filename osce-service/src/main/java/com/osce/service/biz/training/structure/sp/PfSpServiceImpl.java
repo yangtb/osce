@@ -15,6 +15,7 @@ import com.osce.param.PageParam;
 import com.osce.result.PageResult;
 import com.osce.result.ResultFactory;
 import com.osce.service.user.login.PfUserServiceImpl;
+import com.osce.vo.biz.training.structure.sp.SpVo;
 import com.osce.vo.user.role.PfRoleVo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Service;
@@ -46,6 +47,11 @@ public class PfSpServiceImpl implements PfSpService {
 
     @Resource
     private PfUserServiceImpl pfUserService;
+
+    @Override
+    public SpVo selectSp(SpDto dto) {
+        return pfSpDao.selectSp(dto);
+    }
 
     @Override
     public PageResult pageSp(SpDto dto) {

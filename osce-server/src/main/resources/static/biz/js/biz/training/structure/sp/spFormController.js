@@ -1,30 +1,107 @@
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['form', 'layer', 'treeSelect', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'form', 'layer', 'treeSelect', 'jquery', 'common'], function () {
     var $ = layui.$,
         form = layui.form,
         common = layui.common,
         layer = layui.layer,
         treeSelect = layui.treeSelect;
 
-    if (formType == 'add') {
-        treeSelect.render({
-            elem: '#idOrg',
-            data: basePath + '/pf/r/org/tree/select',
-            type: 'post',
-            placeholder: '请选择机构',
-            click: function (d) {
-                $("#idOrg").val(d.current.id);
-            },
-            success: function (d) {
-                if (formType == 'add') {
-                    $("#idOrg").val(idOrg);
-                    treeSelect.checkNode('orgTree', idOrg);
+    $(document).ready(function () {
+        if (formType == 'add') {
+            treeSelect.render({
+                elem: '#idOrg',
+                data: basePath + '/pf/r/org/tree/select',
+                type: 'post',
+                placeholder: '请选择机构',
+                click: function (d) {
+                    $("#idOrg").val(d.current.id);
+                },
+                success: function (d) {
+                    if (formType == 'add') {
+                        $("#idOrg").val(idOrg);
+                        treeSelect.checkNode('orgTree', idOrg);
+                    }
                 }
+            });
+            form.render();
+        } else {
+            var spBizData = {
+                userId : userId
+            }
+            $.ajax({
+                url: basePath + '/pf/r/sp/select',
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(spBizData),
+                success: function (data) {
+                    layer.closeAll('loading');
+                    if (data.code != 0) {
+                        layer.msg(data.msg);
+                        return false;
+                    } else {
+                        // 获取sp
+                        getTagValue(data.data);
+                        return true;
+                    }
+                },
+                error: function () {
+                    layer.closeAll('loading');
+                    layer.msg("查询失败");
+                    return false;
+                }
+            });
+        }
+
+    });
+
+    function getTagValue(currentEditData) {
+        var reqData = {
+            idUser: currentEditData.userId
+        }
+        $.ajax({
+            url: basePath + '/pf/r/sp/tag/value',
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(reqData),
+            success: function (data) {
+                layer.closeAll('loading');
+                if (data.code != 0) {
+                    common.errorMsg(data.msg);
+                    return false;
+                } else {
+                    var spMapList = eval(data.data);
+
+                    for (var i = 0; i < spMapList.length; i++) {
+                        currentEditData['spTag-' + spMapList[i].id_sp_tag2] = spMapList[i].value
+                    }
+
+                    $("#spForm").autofill(currentEditData);
+                    treeSelect.render({
+                        elem: '#idOrg',
+                        data: basePath + '/pf/r/org/tree/select',
+                        type: 'post',
+                        placeholder: '请选择机构',
+                        // 加载完成后的回调函数
+                        success: function (d) {
+                            treeSelect.checkNode('orgTree', currentEditData.idOrg);
+                        }
+                    });
+                    form.render();
+                    return true;
+                }
+            },
+            error: function () {
+                common.errorMsg("获取标签值失败");
+                return false;
             }
         });
-        form.render();
     }
+
 
     $("#addTag").on('click', function () {
         common.open('标签管理', basePath + '/pf/p/sp/tag/form', 490, 500);
@@ -70,26 +147,16 @@ layui.config({
             success: function (data) {
                 layer.closeAll('loading');
                 if (data.code != 0) {
-                    common.errorMsg(data.msg);
+                    layer.msg(data.msg);
                     return false;
                 } else {
-                    common.sucMsg("保存成功");
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                    parent.layer.close(index); //再执行关闭
-                    //刷新父页面table
-                    if (formType == 'edit') {
-                        parent.layui.common.refreshCurrentPage();
-                    } else {
-                        parent.layui.table.reload('spTableId', {
-                            height: 'full-60'
-                        });
-                    }
+                    layer.msg("保存成功");
                     return true;
                 }
             },
             error: function () {
                 layer.closeAll('loading');
-                common.errorMsg("保存失败");
+                layer.msg("保存失败");
                 return false;
             }
         });

@@ -1,10 +1,8 @@
-/**
- * 参数管理
- * @constructor
- */
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'table', 'form', 'jquery', 'common'], function () {
     var $ = layui.$,
         table = layui.table,
         form = layui.form,
@@ -14,7 +12,7 @@ layui.config({
     table.render({
         elem: '#paramTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'paramTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-120' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -52,7 +50,7 @@ layui.config({
                 paramName: data.field.paramName,
                 status: data.field.status
             },
-            height: 'full-68'
+            height: 'full-120'
         });
     });
 
@@ -191,7 +189,7 @@ layui.config({
 
     var _paramTableReload = function () {
         table.reload('paramTableId', {
-            height: 'full-68'
+            height: 'full-120'
         });
     };
 

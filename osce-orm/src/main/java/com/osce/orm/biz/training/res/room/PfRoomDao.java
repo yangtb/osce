@@ -17,6 +17,14 @@ import java.util.List;
 public interface PfRoomDao {
 
     /**
+     * 房间信息
+     *
+     * @param dto
+     * @return
+     */
+    ErpRoom selectRoom(ErpRoom dto);
+
+    /**
      * 房间列表
      *
      * @param dto

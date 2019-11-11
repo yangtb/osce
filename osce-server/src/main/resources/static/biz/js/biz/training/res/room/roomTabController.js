@@ -1,6 +1,8 @@
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['element', 'jquery', 'form', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'element', 'jquery', 'form', 'jquery', 'common'], function () {
     var element = layui.element;
     var $ = jQuery = layui.jquery
         , form = layui.form
@@ -22,6 +24,38 @@ layui.config({
             if (!$("#deviceTag").attr("src")) {
                 $('#deviceTag').attr('src', basePath + '/pf/p/room/device/page?idRoom=' + $('#idRoom').val());
             }
+        }
+    });
+
+    $(document).ready(function() {
+        if (formType == 'edit') {
+            var bizData = {
+                idRoom : idRoom
+            }
+            layer.load(2);
+            $.ajax({
+                url:  basePath + '/pf/r/room/select',
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json",
+                data: JSON.stringify(bizData),
+                success: function (data) {
+                    layer.closeAll('loading');
+                    if (data.code != 0) {
+                        common.errorMsg(data.msg);
+                        return false;
+                    } else {
+                        $("#roomForm").autofill(data.data);
+                        form.render();
+                        return false;
+                    }
+                },
+                error: function () {
+                    layer.closeAll('loading');
+                    layer.msg("网络异常");
+                    return false;
+                }
+            });
         }
     });
 

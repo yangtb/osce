@@ -1,10 +1,8 @@
-/**
- * 字典管理
- * @constructor
- */
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'table', 'form', 'jquery', 'common'], function () {
     var $ = layui.$,
         table = layui.table,
         form = layui.form,
@@ -14,7 +12,7 @@ layui.config({
     table.render({
         elem: '#dicTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'dicTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-110' //容器高度
         , cols: [[
             {checkbox: true},
             {field: 'dictName', title: '字典名称'},
@@ -37,7 +35,7 @@ layui.config({
     table.render({
         elem: '#enumTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'enumTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-110' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -64,7 +62,7 @@ layui.config({
             where: {
                 dicName: data.field.dicName
             },
-            height: 'full-68'
+            height: 'full-110'
         });
     });
 
@@ -74,7 +72,7 @@ layui.config({
             where: {
                 enumName: data.field.enumName
             },
-            height: 'full-68'
+            height: 'full-110'
         });
     });
 
@@ -103,7 +101,7 @@ layui.config({
             where: {
                 groupCode: groupCode
             },
-            height: 'full-68'
+            height: 'full-110'
         });
     };
 
@@ -307,13 +305,13 @@ layui.config({
 
     var _dicTableReload = function () {
         table.reload('dicTableId', {
-            height: 'full-68'
+            height: 'full-110'
         });
     }
 
     var _enumTableReload = function () {
         table.reload('enumTableId', {
-            height: 'full-68'
+            height: 'full-110'
         });
     }
 

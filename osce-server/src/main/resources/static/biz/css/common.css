@@ -109,3 +109,38 @@
 .font-title {
     font-weight: bold;
 }
+
+.layui-breadcrumb-my {
+    font-size: 0;
+    padding: 0 15px;
+    float: right;
+}
+
+.layui-breadcrumb-my > * {
+    font-size: 14px
+}
+
+.layui-breadcrumb-my a {
+    color: #999 !important
+}
+
+.layui-breadcrumb-my a:hover {
+    color: #5FB878 !important
+}
+
+.layui-breadcrumb-my a cite {
+    color: #666;
+    font-style: normal
+}
+
+.layui-breadcrumb-my span[lay-separator] {
+    margin: 0 10px;
+    color: #999
+}
+
+.layui-breadcrumb-my-title {
+    float: left;
+    padding-left: 15px;
+    font-weight: bold;
+    font-size: 16px;
+}

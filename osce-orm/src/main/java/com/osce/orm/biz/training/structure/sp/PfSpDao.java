@@ -19,6 +19,14 @@ import java.util.Map;
 public interface PfSpDao {
 
     /**
+     * 获取sp
+     *
+     * @param dto
+     * @return
+     */
+    SpVo selectSp(SpDto dto);
+
+    /**
      * sp 列表
      *
      * @param dto

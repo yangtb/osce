@@ -51,8 +51,9 @@ public class PfRoomController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/room/form")
-    public String form(String formType, Model model) {
+    public String form(String formType, Long idRoom, Model model) {
         model.addAttribute("formType", formType);
+        model.addAttribute("idRoom", idRoom);
         return "pages/biz/training/res/room/roomTagForm";
     }
 

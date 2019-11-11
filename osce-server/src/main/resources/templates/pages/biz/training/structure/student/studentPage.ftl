@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="${contextPath}/ztree/zTreeStyle/zTreeStyle.css">
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
+    <link rel="stylesheet" href="${contextPath!}/layui/plugins/style/admin.css" media="all">
+
     <style>
         .layui-input, .layui-select {
             height: 30px;
@@ -30,6 +32,18 @@
 </script>
 
 <body>
+
+<div class="layui-card layadmin-header" style="display: block;">
+    <div class="layui-breadcrumb-my-title">
+        <span>学员管理</span>
+    </div>
+    <div class="layui-breadcrumb-my">
+        <a lay-href="${basePath}/main">主页</a><span lay-separator="">/</span>
+        <a>实训配置</a><span lay-separator="">/</span>
+        <a>组织结构</a><span lay-separator="">/</span>
+        <a><cite>学员管理</cite></a>
+    </div>
+</div>
 
 <div class="wrapper-content">
     <form class="layui-form" style="margin: 5px 0px 5px 0px; padding-bottom: 5px; border-bottom: 1px solid #d2d2d2">

@@ -1,6 +1,7 @@
 package com.osce.server.rest.biz.training.structure.sp;
 
 import com.osce.api.biz.training.structure.sp.PfSpService;
+import com.osce.dto.biz.training.structure.sp.SpDto;
 import com.osce.dto.biz.training.structure.sp.UserSpDto;
 import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.OrgSpDefine;
@@ -30,6 +31,21 @@ public class PfSpRestController {
 
     @Reference
     private PfSpService pfSpService;
+
+    /**
+     * 获取sp
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/sp/select")
+    public ResultObject selectSp(@RequestBody SpDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getUserId() != null, "userId");
+        return ResultObject.createSuccess("addSp", ResultObject.DATA_TYPE_OBJECT,
+                pfSpService.selectSp(dto));
+    }
 
     /**
      * 新增

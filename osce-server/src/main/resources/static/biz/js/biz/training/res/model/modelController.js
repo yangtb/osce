@@ -1,6 +1,8 @@
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'table', 'form', 'jquery', 'common'], function () {
     var $ = layui.$
         , table = layui.table
         , form = layui.form
@@ -10,7 +12,7 @@ layui.config({
     table.render({
         elem: '#modelTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'modelTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-110' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -42,7 +44,7 @@ layui.config({
     //监听提交
     form.on('submit(modelSearchFilter)', function (data) {
         table.reload('modelTableId', {
-            height: 'full-68'
+            height: 'full-110'
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -164,7 +166,7 @@ layui.config({
             where: {
                 //type: type
             },
-            height: 'full-68'
+            height: 'full-110'
         });
     }
 

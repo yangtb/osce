@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/layui/build/css/step.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/css/template/progress.css" />
+    <link rel="stylesheet" href="${contextPath!}/layui/plugins/style/admin.css" media="all">
 
     <script>
         var basePath = '${basePath}';
@@ -27,6 +28,27 @@
 </head>
 
 <body class="body-bg">
+
+
+<div class="layui-card layadmin-header" style="display: block;">
+    <div class="layui-breadcrumb-my-title">
+        <#if (idPlan?? && idPlan != "")>
+            <span>实训计划编辑</span>
+        <#else>
+            <span>实训计划新增</span>
+        </#if>
+    </div>
+    <div class="layui-breadcrumb-my">
+        <a lay-href="${basePath!}/main">主页</a><span lay-separator="">/</span>
+        <a>实训计划</a><span lay-separator="">/</span>
+        <a lay-href="${basePath!}/pf/p/plan/manage/page">实训模板管理</a><span lay-separator="">/</span>
+        <#if (idPlan?? && idPlan != "")>
+            <a><cite>实训计划编辑</cite></a>
+        <#else>
+            <a><cite>实训计划新增</cite></a>
+        </#if>
+    </div>
+</div>
 
 <div class="wrapper-content-new">
     <div class="layui-fluid pageHeight">

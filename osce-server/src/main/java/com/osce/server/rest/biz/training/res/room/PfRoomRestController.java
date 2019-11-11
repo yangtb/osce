@@ -33,6 +33,22 @@ public class PfRoomRestController extends BaseController {
     private PfRoomService pfRoomService;
 
     /**
+     * 获取房间信息
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_02_001','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/room/select")
+    public ResultObject selectRoom(@RequestBody ErpRoom dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdRoom() != null, "idRoom");
+        dto.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        return ResultObject.createSuccess("selectRoom", ResultObject.DATA_TYPE_OBJECT,
+                pfRoomService.selectRoom(dto));
+    }
+
+    /**
      * 新增
      *
      * @param dto

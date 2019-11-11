@@ -1,10 +1,8 @@
-/**
- * 菜单
- * @constructor
- */
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['table', 'form', 'jquery', 'common'], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'table', 'form', 'jquery', 'common'], function () {
     var $ = layui.$,
         table = layui.table,
         form = layui.form,
@@ -14,7 +12,7 @@ layui.config({
     table.render({
         elem: '#menuTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'menuTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-120' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -22,14 +20,14 @@ layui.config({
             {field: 'name', width: 120, title: '名称', fixed: true},
             {field: 'code', width: 180, title: '编码'},
             {field: 'parentCode', width: 180, title: '父编码'},
-            {field: 'functionUrl', width: 180, title: '权限url'},
-            {field: 'level', width: 70, title: '级别', templet: '#levelTpl'},
-            {field: 'sortNum', width: 70, sort: true, title: '排序'},
+            {field: 'functionUrl', width: 200, title: '权限url'},
+            {field: 'level', width: 80, title: '级别', templet: '#levelTpl'},
+            {field: 'sortNum', width: 80, sort: true, title: '排序', align: 'right'},
             {field: 'functionType', width: 180, title: '资源类别', templet: '#functionTypeTpl'},
             {field: 'platformType', width: 150, title: '所属平台'},
-            {field: 'iconType', width: 150, title: '图标类型', templet: '#iconTypeTpl'},
+            {field: 'iconType', width: 180, title: '图标类型', templet: '#iconTypeTpl'},
             {field: 'iconSource', width: 150, title: '图标', templet: '#imgTpl'},
-            {field: 'status', width: 70, title: '状态', templet: '#statusTpl'},
+            {field: 'status', width: 80, title: '状态', templet: '#statusTpl'},
             {field: 'gmtModify', width: 170, sort: true, title: '最后修改时间'},
             {fixed: 'right', width: 160, title: '操作', align: 'center', toolbar: '#barDemo'}
         ]] //设置表头
@@ -136,7 +134,7 @@ layui.config({
                 level: data.field.menuLevel,
                 status: data.field.status
             }
-            , height: 'full-68'
+            , height: 'full-120'
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -210,7 +208,7 @@ layui.config({
                 level: level,
                 status: status
             },
-            height: 'full-68'
+            height: 'full-120'
         });
     };
 

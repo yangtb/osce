@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="${contextPath}/layui/plugins/layui/css/layui.css" media="all">
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
+    <link rel="stylesheet" href="${contextPath!}/layui/plugins/style/admin.css" media="all">
 
     <script>
         var basePath = '${basePath!}';
@@ -19,14 +20,23 @@
 
 <body>
 
-<div class="wrapper-content">
-    <div class="layui-card">
-        <div class="layui-card-header">学生成绩</div>
-        <div class="layui-card-body">
-            <table id="testScoreTable" lay-filter="testScoreTableFilter">
-            </table>
-        </div>
+<div class="layui-card layadmin-header" style="display: block;">
+    <div class="layui-breadcrumb-my-title">
+        <span>学生成绩</span>
     </div>
+    <div class="layui-breadcrumb-my">
+        <a lay-href="${basePath!}/main">主页</a><span lay-separator="">/</span>
+        <a>成绩管理</a>
+        <span lay-separator="">/</span>
+        <a lay-href="${basePath!}/pf/p/statistics/test/page">实训记录</a>
+        <span lay-separator="">/</span>
+        <a><cite>学生成绩</cite></a>
+    </div>
+</div>
+
+<div style="padding: 0px 10px 0px 10px">
+    <table id="testScoreTable" lay-filter="testScoreTableFilter">
+    </table>
 </div>
 
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>

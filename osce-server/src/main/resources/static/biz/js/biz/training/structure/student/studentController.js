@@ -1,8 +1,9 @@
 layui.config({
-    base: basePath + '/layui/build/js/'
+    base: basePath + '/layui/plugins/'
 }).extend({
-    excel: 'layui_exts/excel.min'
-}).use(['layer', 'form', 'table', 'jquery', 'common', 'excel', 'laytpl', 'element'], function () {
+    index: 'lib/index', //主入口模块
+    excel: 'layui_exts/excel.min',
+}).use(['index', 'layer', 'form', 'table', 'jquery', 'common', 'excel', 'laytpl', 'element'], function () {
     var $ = layui.$,
         form = layui.form
         , table = layui.table
@@ -55,7 +56,7 @@ layui.config({
                 return false;
             }
         });
-        var bodyHeight = $(this).height() - $("#treeTitle").height() - 70;
+        var bodyHeight = $(this).height() - $("#treeTitle").height() - 115;
         $("#departTree").css("min-height", bodyHeight);
         $("#departTree").css("max-height", bodyHeight);
     });
@@ -107,7 +108,7 @@ layui.config({
             where: {
                 idDepart: treeNode.id
             }
-            , height: 'full-150'
+            , height: 'full-195'
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -120,7 +121,7 @@ layui.config({
             where: {
                 keywords: data.field.keywords
             }
-            , height: 'full-150'
+            , height: 'full-195'
             , page: {
                 curr: 1 //重新从第 1 页开始
             }
@@ -131,7 +132,7 @@ layui.config({
     table.render({
         elem: '#studentTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'studentTableId'
-        , height: 'full-150' //容器高度
+        , height: 'full-195' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -273,7 +274,7 @@ layui.config({
             where: {
                 //type: type
             },
-            height: 'full-150'
+            height: 'full-195'
         });
     }
 

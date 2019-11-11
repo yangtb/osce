@@ -1,6 +1,8 @@
 layui.config({
-    base: basePath + '/layui/build/js/'
-}).use(['layer', 'form', 'jquery', 'common', "upload"], function () {
+    base: basePath + '/layui/plugins/'
+}).extend({
+    index: 'lib/index', //主入口模块
+}).use(['index', 'layer', 'form', 'jquery', 'common', "upload"], function () {
     var $ = layui.$
         , form = layui.form
         , common = layui.common
@@ -82,7 +84,7 @@ layui.config({
                 return false;
             }
         });
-        var bodyHeight = $(this).height() - $("#treeTitle").height() - 30;
+        var bodyHeight = $(this).height() - $("#treeTitle").height() - 80;
         $("#orgTree").css("min-height", bodyHeight);
         $("#orgTree").css("max-height", bodyHeight);
     });

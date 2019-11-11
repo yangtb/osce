@@ -12,7 +12,7 @@ layui.config({
     table.render({
         elem: '#testTable' //指定原始表格元素选择器（推荐id选择器）
         , id: 'testTableId'
-        , height: 'full-68' //容器高度
+        , height: 'full-110' //容器高度
         , cols: [[
             {type: 'numbers', fixed: true, title: 'R'},
             {checkbox: true, fixed: true},
@@ -53,7 +53,7 @@ layui.config({
             where: {
                 naPlan: name
             }
-            , height: 'full-68'
+            , height: 'full-110'
             , page: {
                 curr: 1 //重新从第 1 页开始
             }

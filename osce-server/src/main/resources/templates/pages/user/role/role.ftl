@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="${contextPath}/ztree/zTreeStyle/zTreeStyle.css">
     <link rel="stylesheet" href="${contextPath}/biz/css/common.css">
     <link rel="stylesheet" type="text/css" href="${contextPath}/biz/iconfont/iconfont.css">
+    <link rel="stylesheet" href="${contextPath!}/layui/plugins/style/admin.css" media="all">
+
 </head>
 
 <script>
@@ -30,6 +32,17 @@
 </style>
 
 <body>
+
+<div class="layui-card layadmin-header" style="display: block;">
+    <div class="layui-breadcrumb-my-title">
+        <span>角色管理</span>
+    </div>
+    <div class="layui-breadcrumb-my">
+        <a lay-href="${basePath}/main">主页</a><span lay-separator="">/</span>
+        <a>系统管理</a><span lay-separator="">/</span>
+        <a><cite>角色管理</cite></a>
+    </div>
+</div>
 
 <div class="wrapper-content">
     <div class="layui-col-xs8">
