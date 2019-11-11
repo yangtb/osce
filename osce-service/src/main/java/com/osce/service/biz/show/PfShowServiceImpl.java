@@ -47,10 +47,10 @@ public class PfShowServiceImpl implements PfShowService {
         GregorianCalendar ca = new GregorianCalendar();
         dto.setAmPmFlag(ca.get(GregorianCalendar.AM_PM));
         ShowBigScreenMainVo showBigScreenMainVo = pfShowDao.selectBigScreenMain(dto);
-        dto.setIdPlan(showBigScreenMainVo.getIdPlan());
-        dto.setIdArea(showBigScreenMainVo.getIdArea());
-        dto.setTimeSection(showBigScreenMainVo.getTimeSection());
         if (showBigScreenMainVo != null) {
+            dto.setIdPlan(showBigScreenMainVo.getIdPlan());
+            dto.setIdArea(showBigScreenMainVo.getIdArea());
+            dto.setTimeSection(showBigScreenMainVo.getTimeSection());
             showBigScreenMainVo.setItemNum(pfShowDao.countBigScreenDetail(dto));
         }
         return showBigScreenMainVo;
@@ -67,7 +67,9 @@ public class PfShowServiceImpl implements PfShowService {
         dto.setAmPmFlag(ca.get(GregorianCalendar.AM_PM));
         ShowBigScreenMainVo showBigScreenMainVo = pfShowDao.selectBigScreenMain(dto);
         ShowAioMainVo showAioMainVo = new ShowAioMainVo();
-        BeanUtils.copyProperties(showBigScreenMainVo, showAioMainVo);
+        if (showBigScreenMainVo != null) {
+            BeanUtils.copyProperties(showBigScreenMainVo, showAioMainVo);
+        }
         return showAioMainVo;
     }
 

@@ -117,6 +117,14 @@ public class PfMobileServiceImpl implements PfMobileService {
     public Long saveSheetScore(MobileScoreAddDto dto) {
         logger.info("[移动端]评分（第一个sheet页）, param: {}", dto.toString());
         MobileExecVo mobileExecVo = pfMobileDao.selectExecInfo(dto.getIdExec(), dto.getCdAssistantCa());
+        if (mobileExecVo.getIdUser() == null) {
+            if ("2".equals(dto.getCdAssistantCa())) {
+                throw new RestException(RestErrorCode.MOBILE_SCORE_EXEC_ASSISTANT_NOT_EXIST);
+            }
+            if ("3".equals(dto.getCdAssistantCa())) {
+                throw new RestException(RestErrorCode.MOBILE_SCORE_EXEC_REMOTE_NOT_EXIST);
+            }
+        }
         WeScore weScore = new WeScore();
         weScore.setIdWeScore(dto.getIdWeScore());
         weScore.setIdExec(dto.getIdExec());
@@ -140,7 +148,6 @@ public class PfMobileServiceImpl implements PfMobileService {
         String sdSkillCa = pfMobileDao.selectSdSkillCa(idExec);
         if (StringUtils.isBlank(sdSkillCa)) {
             throw new RestException(RestErrorCode.MOBILE_SCORE_EXEC_QUEUE_NOT_EXIST);
-
         }
         String cdCobEvaluate = "2".equals(sdSkillCa) ? "1" : "2";
         return pfMobileDao.listCobEvaluate(idExec, cdCobEvaluate);

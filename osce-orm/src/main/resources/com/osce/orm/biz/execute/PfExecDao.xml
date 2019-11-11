@@ -192,18 +192,23 @@
             b.cd_ite_str ,
             b.na_option ,
             c.id_we_item ,
-            <if test="sdExecQueue!= null and sdExecQueue!= '' and sdExecQueue == '5'.toString()">
+            <if test="sdExecQueue != null and sdExecQueue!= '' and sdExecQueue == '5'.toString()">
                 c.score_result ,
             </if>
             c.cd_ite_str AS answer
         FROM
             td_item a
         LEFT JOIN td_item_option b ON a.id_item = b.id_item
-        LEFT JOIN we_item c ON a.id_item = c.id_item and id_exec = #{dto.idExec}
+        LEFT JOIN we_item c ON a.id_item = c.id_item
+        <if test="dto.idExec != null">
+            and id_exec = #{dto.idExec}
+        </if>
         WHERE
             a.id_item_store = #{dto.idPaper}
         AND a.fg_active = '1'
-        order by id_item
+        order by
+            a.id_item,
+            a.cd_group
     </select>
     <select id="selectScore" resultType="com.osce.vo.biz.execute.TestItemAnswerVo">
         SELECT

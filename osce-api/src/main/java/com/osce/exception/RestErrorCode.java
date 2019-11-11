@@ -51,6 +51,8 @@ public enum RestErrorCode {
 
 	/** 站点评分 */
 	MOBILE_SCORE_EXEC_QUEUE_NOT_EXIST("3000101001", "当前房间无正在考试的学员"),
+	MOBILE_SCORE_EXEC_ASSISTANT_NOT_EXIST("3000101002", "没有维护考官，不能评分"),
+	MOBILE_SCORE_EXEC_REMOTE_NOT_EXIST("3000101003", "没有维护中控考官，不能评分"),
 
 	// ========== end 移动端错误编码 start ==========
 

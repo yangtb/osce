@@ -62,8 +62,10 @@ public class PfShowRestController {
             }
         }
         ShowBigScreenMainVo showBigScreenMainVo = pfShowService.selectBigScreenMain(dto);
-        showBigScreenMainVo.setLimit(bigScreenNum);
-        showBigScreenMainVo.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        if (showBigScreenMainVo != null) {
+            showBigScreenMainVo.setLimit(bigScreenNum);
+            showBigScreenMainVo.setIdOrg(CurrentUserUtils.getCurrentUserIdOrg());
+        }
         return ResultObject.createSuccess("selectBigScreenMain", ResultObject.DATA_TYPE_OBJECT, showBigScreenMainVo);
     }
 

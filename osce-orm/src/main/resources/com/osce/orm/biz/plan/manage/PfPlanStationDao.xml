@@ -518,6 +518,7 @@
         AND c.is_deleted = 'N'
         AND d.CODE = 'SP'
         group by
+            tsc.id_tp_sp_cache ,
             b.user_id,
             b.idcard ,
             b.real_name ,

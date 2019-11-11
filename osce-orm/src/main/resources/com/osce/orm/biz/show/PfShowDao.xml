@@ -21,10 +21,10 @@
         <if test="amPmFlag == 1">
             AND v.time_begin > '12:00:00'
         </if>
+        and v.fg_active = '1'
         LEFT JOIN td_area c ON v.id_area = c.id_area
         WHERE
             b.id_org = #{idOrg}
-        and v.fg_active = '1'
         LIMIT 1
     </select>
     <select id="selectBigScreenDetail" resultType="com.osce.vo.biz.show.ShowBigScreenDetailVo">
