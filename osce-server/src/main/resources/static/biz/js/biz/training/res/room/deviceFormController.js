@@ -6,7 +6,7 @@ layui.config({
         common = layui.common;
 
     form.verify({
-        naDevice: function (value) {
+        cdRoomDevice: function (value) {
             if (value.length > 64) {
                 return '长度不能超过64个字';
             }
@@ -15,7 +15,12 @@ layui.config({
             if (value && value.length > 255) {
                 return '长度不能超过255个字';
             }
-        }
+        },
+        roomDeviceAddress: function (value) {
+            if (value && value.length > 512) {
+                return '长度不能超过512个字';
+            }
+        },
     });
 
     //监听提交

@@ -8,6 +8,7 @@ import com.osce.entity.TdScoreItem;
 import com.osce.orm.biz.monitor.PfAreaMonitorDao;
 import com.osce.vo.biz.monitor.MonitorAreaDetailVo;
 import com.osce.vo.biz.monitor.MonitorAreaVo;
+import com.osce.vo.biz.monitor.MonitorRoomDevice;
 import com.osce.vo.biz.monitor.MonitorStuVo;
 import com.osce.vo.biz.show.ShowAioMainVo;
 import org.apache.commons.collections.CollectionUtils;
@@ -133,6 +134,11 @@ public class PfAreaMonitorServiceImpl implements PfAreaMonitorService {
     @Override
     public List<TdScoreItem> pageItem(CaseDto dto) {
         return pfAreaMonitorDao.listItem(dto);
+    }
+
+    @Override
+    public List<MonitorRoomDevice> listRoomDevice(Long idInsStation) {
+        return pfAreaMonitorDao.listRoomDevice(idInsStation);
     }
 
 }

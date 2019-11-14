@@ -11,7 +11,7 @@ layui.config({
     FrameWH();
 
     function FrameWH() {
-        var h = $(window).height() - 60
+        var h = $(window).height() - 120
         $("iframe").css("height", h + "px");
     }
 
@@ -119,9 +119,7 @@ layui.config({
                         parent.layui.common.refreshCurrentPage();
                     } else {
                         $('#idRoom').val(data.data);
-                        parent.layui.table.reload(tableId, {
-                            height: 'full-68'
-                        });
+                        parent.layui.table.reload(tableId);
                     }
                     return false;
                 }

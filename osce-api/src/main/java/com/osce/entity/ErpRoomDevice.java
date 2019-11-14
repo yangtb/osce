@@ -53,6 +53,11 @@ public class ErpRoomDevice implements Serializable {
     private String desRoomDevice;
 
     /**
+     * 设备地址
+     */
+    private String roomDeviceAddress;
+
+    /**
      * 0 未激活 1 已激活
      */
     private String fgActive;

@@ -7,6 +7,7 @@ import com.osce.entity.CobScoreItem;
 import com.osce.entity.TdScoreItem;
 import com.osce.vo.biz.monitor.MonitorAreaDetailVo;
 import com.osce.vo.biz.monitor.MonitorAreaVo;
+import com.osce.vo.biz.monitor.MonitorRoomDevice;
 import com.osce.vo.biz.monitor.MonitorStuVo;
 import com.osce.vo.biz.show.ShowAioMainVo;
 import org.apache.ibatis.annotations.Param;
@@ -116,5 +117,13 @@ public interface PfAreaMonitorDao {
      * @return
      */
     List<TdScoreItem> listItem(CaseDto dto);
+
+    /**
+     * 考场监控 - 监控设备列表
+     *
+     * @param idInsStation 排站ID
+     * @return
+     */
+    List<MonitorRoomDevice> listRoomDevice(@Param("idInsStation") Long idInsStation);
 
 }

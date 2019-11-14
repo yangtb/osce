@@ -105,6 +105,9 @@
             <if test="desRoomDevice!=null">
                 des_room_device,
             </if>
+            <if test="roomDeviceAddress!=null">
+                room_device_address,
+            </if>
             <if test="fgActive!=null">
                 fg_active,
             </if>
@@ -144,6 +147,9 @@
             </if>
             <if test="desRoomDevice!=null">
                 #{desRoomDevice},
+            </if>
+            <if test="roomDeviceAddress!=null">
+                #{roomDeviceAddress},
             </if>
             <if test="fgActive!=null">
                 #{fgActive},
@@ -235,14 +241,17 @@
             <if test="idOrg != null">
                 id_org = #{idOrg},
             </if>
-            <if test="sdRoomDeviceCa != null and sdRoomDeviceCa!=''">
+            <if test="sdRoomDeviceCa != null">
                 sd_room_device_ca = #{sdRoomDeviceCa},
             </if>
-            <if test="cdRoomDevice != null and cdRoomDevice!=''">
+            <if test="cdRoomDevice != null">
                 cd_room_device = #{cdRoomDevice},
             </if>
-            <if test="desRoomDevice != null and desRoomDevice!=''">
+            <if test="desRoomDevice != null">
                 des_room_device = #{desRoomDevice},
+            </if>
+            <if test="roomDeviceAddress!=null">
+                room_device_address = #{roomDeviceAddress},
             </if>
             <if test="fgActive != null and fgActive!=''">
                 fg_active = #{fgActive},
@@ -252,9 +261,6 @@
             </if>
             <if test="sort != null">
                 sort = #{sort},
-            </if>
-            <if test="creator != null and creator!=''">
-                creator = #{creator},
             </if>
             <if test="operator != null and operator!=''">
                 operator = #{operator},
@@ -374,6 +380,7 @@
             sd_room_device_ca ,
             cd_room_device ,
             des_room_device ,
+            room_device_address,
             fg_active ,
             fg_valid ,
             sort ,

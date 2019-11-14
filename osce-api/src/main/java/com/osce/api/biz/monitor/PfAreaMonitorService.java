@@ -6,6 +6,7 @@ import com.osce.dto.common.PfBachChangeStatusDto;
 import com.osce.entity.TdScoreItem;
 import com.osce.vo.biz.monitor.MonitorAreaDetailVo;
 import com.osce.vo.biz.monitor.MonitorAreaVo;
+import com.osce.vo.biz.monitor.MonitorRoomDevice;
 import com.osce.vo.biz.monitor.MonitorStuVo;
 
 import java.util.List;
@@ -81,4 +82,12 @@ public interface PfAreaMonitorService {
      * @return
      */
     List<TdScoreItem> pageItem(CaseDto dto);
+
+    /**
+     * 考场监控 - 监控设备列表
+     *
+     * @param idInsStation 排站ID
+     * @return
+     */
+    List<MonitorRoomDevice> listRoomDevice(Long idInsStation);
 }

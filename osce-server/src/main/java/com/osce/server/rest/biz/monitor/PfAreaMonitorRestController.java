@@ -119,4 +119,20 @@ public class PfAreaMonitorRestController extends BaseController {
                 : ResultObject.create("recoveryTest", ErrorCode.ERROR_SYS_160002, ErrorMessage.MESSAGE_SYS_160002);
     }
 
+    /**
+     * 考场监控 - 监控设备列表
+     *
+     * @param dto
+     * @return
+     */
+    @PreAuthorize("hasAnyRole('ROLE_01_05','ROLE_SUPER')")
+    @PostMapping(value = "/pf/r/monitor/room/device/list")
+    public ResultObject listRoomDevice(@RequestBody MonitorDto dto) {
+        /* 参数校验 */
+        Assert.isTrue(dto.getIdInsStation() != null, "idInsStation");
+
+        return ResultObject.createSuccess("selectMonitorAreaDetail", ResultObject.DATA_TYPE_LIST,
+                pfAreaMonitorService.listRoomDevice(dto.getIdInsStation()));
+    }
+
 }

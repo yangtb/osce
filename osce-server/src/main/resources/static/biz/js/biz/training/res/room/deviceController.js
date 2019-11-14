@@ -69,9 +69,9 @@ layui.config({
 
     var _addOrEdit = function (formType, currentEditData) {
         if (formType == 'add') {
-            common.open('新增固定设备', basePath + '/pf/p/room/device/form?formType=' + formType + '&idRoom=' + idRoom, 430, 300);
+            common.open('新增固定设备', basePath + '/pf/p/room/device/form?formType=' + formType + '&idRoom=' + idRoom, 450, 420);
         } else {
-            common.open('编辑固定设备', basePath + '/pf/p/room/device/form?formType=' + formType + '&idRoom=' + idRoom, 430, 300, _successFunction(currentEditData));
+            common.open('编辑固定设备', basePath + '/pf/p/room/device/form?formType=' + formType + '&idRoom=' + idRoom, 450, 420, _successFunction(currentEditData));
         }
     };
 

@@ -185,4 +185,16 @@
         AND a.id_org = #{idOrg}
         AND a.fg_active = '1'
     </select>
+    <select id="listRoomDevice" resultType="com.osce.vo.biz.monitor.MonitorRoomDevice">
+        SELECT
+            id_room_device ,
+            cd_room_device ,
+            room_device_address
+        FROM
+            erp_room_device a
+        INNER JOIN tp_ins_station b ON a.id_room = b.id_room
+        WHERE
+            id_ins_station = #{idInsStation}
+        AND sd_room_device_ca = '11'
+    </select>
 </mapper>

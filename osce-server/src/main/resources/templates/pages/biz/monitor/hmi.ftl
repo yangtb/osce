@@ -48,27 +48,15 @@
 
 <body style="overflow-x: hidden">
 
-<div>
+<div style="margin: 10px;">
 
     <div class="layui-row">
-        <div class="layui-col-md6">
+        <div class="layui-col-md6" style="padding-right: 5px;">
             <div class="layui-row">
-                <div class="layui-col-md12">
-                    <div class="layui-card" style="height: 300px;">
-                        <#--<div class="layui-card-header">标题</div>-->
-                        <div class="layui-card-body">
-                            <img width="100%" height="300px" src="http://jy-osce.oss-cn-beijing.aliyuncs.com/u17012.jpg">
-                        </div>
-                    </div>
+                <div id="monitorDevice">
+                    <blockquote class="layui-elem-quote">该房间暂无监控设备</blockquote>
                 </div>
-                <div class="layui-col-md12">
-                    <div class="layui-card" style="height: 300px">
-                        <#--<div class="layui-card-header">标题</div>-->
-                        <div class="layui-card-body">
-                            <img width="100%" height="300px" src="http://jy-osce.oss-cn-beijing.aliyuncs.com/u17014.jpg">
-                        </div>
-                    </div>
-                </div>
+
                 <div class="layui-col-md12">
                     <div class="qr-qrea">
                         <div class='qr-left'>
@@ -84,7 +72,7 @@
         </div>
         <div class="layui-col-md6">
             <div class="layui-row">
-                <form class="layui-form" style="padding-top: 10px">
+                <form class="layui-form">
                     <div class="layui-input-inline" style="width: 300px;">
                         <select id="idScoreSheet">
                         </select>
@@ -104,6 +92,7 @@
 <script src="${contextPath}/common/js/qrcode.min.js"></script>
 <script src="${contextPath}/layui/plugins/layui/layui.js"></script>
 <script src="${contextPath}/biz/js/biz/monitor/hmiController.js"></script>
+
 
 </body>
 

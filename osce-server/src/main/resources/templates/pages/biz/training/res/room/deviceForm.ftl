@@ -52,9 +52,16 @@
         </div>
 
         <div class="layui-form-item layui-form-text form-item-my5">
+            <label class="layui-form-label">设备地址</label>
+            <div class="layui-input-block">
+                <textarea name="roomDeviceAddress" class="layui-textarea" lay-verify="roomDeviceAddress"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">描述</label>
             <div class="layui-input-block">
-                <textarea name="desRoomDevice" class="layui-textarea" lay-verify="desRoomDevice"></textarea>
+                <textarea name="desRoomDevice" class="layui-textarea" lay-verify="desDevice"></textarea>
             </div>
         </div>
 
