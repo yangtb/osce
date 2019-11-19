@@ -129,7 +129,7 @@
                     lay-filter="layadmin-system-side-menu">
                     <#if homeInfo.leftMenus?? && (homeInfo.leftMenus?size > 0)>
                         <#list homeInfo.leftMenus as element>
-                            <li data-name="${element.parentMenuId!}"
+                            <li data-name="${element.parentMenuId?c}"
                                 class="layui-nav-item <#if element_index == 0>layui-nav-itemed</#if>">
                                 <a href="javascript:;" lay-tips="${element.parentMenuName!}" lay-direction="2">
                                     <i class="layui-icon iconfont ${element.parentImg!}"></i>

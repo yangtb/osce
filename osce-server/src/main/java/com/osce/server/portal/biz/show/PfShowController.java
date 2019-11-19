@@ -68,7 +68,7 @@ public class PfShowController extends BaseController {
      */
     @PreAuthorize("hasAnyRole('ROLE_03_01','ROLE_SUPER')")
     @RequestMapping("/pf/p/aio/station/show")
-    public String aioStationPage(Model model, Long idRoom, String naRoom) {
+    public String aioStationPage(Model model, String idRoom, String naRoom) {
         model.addAttribute("idRoom", idRoom);
         model.addAttribute("naRoom", naRoom);
         return "pages/biz/show/aioStation";

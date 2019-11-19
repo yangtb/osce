@@ -30,7 +30,7 @@ public class PfTdItemController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/td/item/page")
-    public String page(Long idItemStore, Model model) {
+    public String page(String idItemStore, Model model) {
         model.addAttribute("idItemStore", idItemStore);
         return "pages/biz/training/item/td/itemPage";
     }
@@ -44,25 +44,25 @@ public class PfTdItemController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/td/item/manage/page")
-    public String pageDevice(Long idItemStore, Model model) {
+    public String pageDevice(String idItemStore, Model model) {
         model.addAttribute("idItemStore", idItemStore);
         return "pages/biz/training/item/td/itemManagePage";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/td/item/section/form")
-    public String formSection(Long idItemStore, Model model) {
+    public String formSection(String idItemStore, Model model) {
         model.addAttribute("idItemStore", idItemStore);
         return "pages/biz/training/item/td/sectionForm";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/td/item/detail/form")
-    public String formItem(String formType, Long idItemStore, Long idItemSection, Model model) {
+    public String formItem(String formType, String idItemStore, String idItemSection, Model model) {
         model.addAttribute("formType", formType);
         model.addAttribute("idItemStore", idItemStore);
         model.addAttribute("idItemSection", idItemSection);
-        model.addAttribute("idItemStoreList", pfTdItemService.listSection(idItemStore));
+        model.addAttribute("idItemStoreList", pfTdItemService.listSection(Long.valueOf(idItemStore)));
         return "pages/biz/training/item/td/itemForm";
     }
 

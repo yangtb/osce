@@ -66,7 +66,7 @@
                 <select name="idOrg">
                     <option value="">请选择机构</option>
                     <#list allOrg as element>
-                        <option value="${element.idOrg}">${element.naOrg}</option>
+                        <option value="${element.idOrg?c}">${element.naOrg}</option>
                     </#list>
                 </select>
             </div>
@@ -77,7 +77,7 @@
                     <option value="">请选择角色</option>
                     <#if roles?? && (roles?size > 0)>
                         <#list roles as element>
-                            <option value="${element.roleId}">${element.name}</option>
+                            <option value="${element.roleId?c}">${element.name}</option>
                         </#list>
                     </#if>
 

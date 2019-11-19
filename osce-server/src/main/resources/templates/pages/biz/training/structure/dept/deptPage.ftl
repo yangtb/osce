@@ -53,7 +53,7 @@
                 <select id="idGradeCurrent" name="idGrade" lay-filter="idGradeCurrentFilter">
                     <#if allGrade?? && (allGrade?size > 0)>
                         <#list allGrade as grade >
-                            <option value="${grade.idGrade!}" <#if grade.fgActive='1'>selected</#if>>${grade.naGrade!}</option>
+                            <option value="${grade.idGrade?c}" <#if grade.fgActive='1'>selected</#if>>${grade.naGrade!}</option>
                         </#list>
                     </#if>
                 </select>
@@ -110,7 +110,7 @@
                         <select id="idGrade" name="idGrade" lay-verify="required">
                             <#if allGrade?? && (allGrade?size > 0)>
                                 <#list allGrade as grade >
-                                    <option value="${grade.idGrade!}" <#if grade.fgActive='1'>selected</#if>>${grade.naGrade!}</option>
+                                    <option value="${grade.idGrade?c}" <#if grade.fgActive='1'>selected</#if>>${grade.naGrade!}</option>
                                 </#list>
                             </#if>
                         </select>

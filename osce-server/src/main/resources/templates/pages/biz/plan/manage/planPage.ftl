@@ -61,7 +61,7 @@
                         <option value="">请选择学届</option>
                         <#if allGrade?? && (allGrade?size > 0)>
                             <#list allGrade as grade >
-                                <option value="${grade.idGrade!}">${grade.naGrade!}</option>
+                                <option value="${grade.idGrade?c}">${grade.naGrade!}</option>
                             </#list>
                         </#if>
                     </select>

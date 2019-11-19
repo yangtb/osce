@@ -48,7 +48,7 @@ public class PfModelController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
     @RequestMapping("/pf/p/model/device/form")
-    public String formDevice(Long idDevice, Model model) {
+    public String formDevice(String idDevice, Model model) {
         model.addAttribute("idDevice", idDevice);
         return "pages/biz/training/res/model/modelDeviceForm";
     }
@@ -71,14 +71,14 @@ public class PfModelController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
     @RequestMapping("/pf/p/model/device/fault/form")
-    public String formDeviceFault(Long idDeviceCase, Model model) {
+    public String formDeviceFault(String idDeviceCase, Model model) {
         model.addAttribute("idDeviceCase", idDeviceCase);
         return "pages/biz/training/res/model/faultForm";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_01_02_002','ROLE_SUPER')")
     @RequestMapping("/pf/p/model/device/repair/form")
-    public String formDeviceRepair(Long idDeviceCase, Model model) {
+    public String formDeviceRepair(String idDeviceCase, Model model) {
         model.addAttribute("idDeviceCase", idDeviceCase);
         return "pages/biz/training/res/model/repairForm";
     }

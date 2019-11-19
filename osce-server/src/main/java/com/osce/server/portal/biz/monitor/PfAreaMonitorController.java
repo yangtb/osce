@@ -32,13 +32,13 @@ public class PfAreaMonitorController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
     @RequestMapping("/pf/p/monitor/area/page")
-    public String page(Model model) {
+    public String page() {
         return "pages/biz/monitor/monitor";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
     @RequestMapping("/pf/p/monitor/area/hmi/page")
-    public String page1(Model model, Long idInsStation) {
+    public String page1(Model model, String idInsStation) {
         model.addAttribute("idInsStation", idInsStation);
         return "pages/biz/monitor/hmi";
     }

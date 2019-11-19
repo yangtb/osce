@@ -43,7 +43,7 @@
                     <select name="idOrg" lay-verify="required" lay-vertype="tips">
                         <option value="">请选择</option>
                         <#list allOrg as element>
-                            <option value="${element.idOrg}" <#if (formType=='add' && userOrgId==element.idOrg)>selected</#if>>${element.naOrg}</option>
+                            <option value="${element.idOrg?c}" <#if (formType=='add' && userOrgId==element.idOrg)>selected</#if>>${element.naOrg}</option>
                         </#list>
                     </select>
                 </div>
@@ -164,7 +164,7 @@
             <div class="layui-input-block">
                 <#if roles?? && (roles?size > 0)>
                     <#list roles as element>
-                         <input type="radio" name="role" value="${element.roleId}"
+                         <input type="radio" name="role" value="${element.roleId?c}"
                                lay-skin="primary" title="${element.name}"
                                <#if (element.checked == true)>checked</#if>/>
                     </#list>

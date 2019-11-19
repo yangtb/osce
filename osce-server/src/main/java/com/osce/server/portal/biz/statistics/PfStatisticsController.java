@@ -35,21 +35,21 @@ public class PfStatisticsController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
     @RequestMapping("/pf/p/statistics/test/score/page")
-    public String pageTestStuScore(Model model, Long idPlan) {
+    public String pageTestStuScore(Model model, String idPlan) {
         model.addAttribute("idPlan", idPlan);
         return "pages/biz/statistics/testStuScore";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
     @RequestMapping("/pf/p/statistics/test/score/detail/page")
-    public String pageTestStuScoreDetail(Model model, Long idExec) {
+    public String pageTestStuScoreDetail(Model model, String idExec) {
         model.addAttribute("idExec", idExec);
         return "pages/biz/statistics/testStuScoreDetail";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_05_01','ROLE_SUPER')")
     @RequestMapping("/pf/p/statistics/test/score/detail1/page")
-    public String pageTestStuScoreDetail1(Model model, Long idExec) {
+    public String pageTestStuScoreDetail1(Model model, String idExec) {
         model.addAttribute("idExec", idExec);
         return "pages/biz/statistics/testStuScoreDetail1";
     }

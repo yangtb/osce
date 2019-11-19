@@ -59,21 +59,21 @@
                             <#if allSpTag?? && (allSpTag?size > 0)>
                                 <#list allSpTag as spTag>
                                     <tr>
-                                        <td>•&nbsp;<span id="tagName-${spTag.idSpTag!}">${spTag.descript!}</span></td>
+                                        <td>•&nbsp;<span id="tagName-${spTag.idSpTag?c}">${spTag.descript!}</span></td>
                                         <td>
-                                            <select id="type-${spTag_index}" data-idSpTag="${spTag.idSpTag!}">
+                                            <select id="type-${spTag_index}" data-idSpTag="${spTag.idSpTag?c}">
                                                 <option value="1">且</option>
                                                 <option value="2">或</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <select id="condition-${spTag.idSpTag!}">
+                                            <select id="condition-${spTag.idSpTag?c}">
                                                 <option value="1">等于</option>
                                                 <option value="2">包含</option>
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="text" id="spTag-${spTag.idSpTag!}" class="layui-input"
+                                            <input type="text" id="spTag-${spTag.idSpTag?c}" class="layui-input"
                                                    style="height: 24px; width: 150px;"
                                                    autocomplete="off">
                                         </td>

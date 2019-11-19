@@ -34,21 +34,21 @@ public class PfExamPaperController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/paper/page")
-    public String page(Model model, Long idModel) {
+    public String page(Model model, String idModel) {
         model.addAttribute("idModel", idModel);
         return "pages/biz/plan/template/paperPage";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/paper/skill/one")
-    public String pageSdSkillCaOne(Model model, Long idModel) {
+    public String pageSdSkillCaOne(Model model, String idModel) {
         model.addAttribute("idModel", idModel);
         return "pages/biz/plan/template/paperPage1";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/paper/skill/two")
-    public String pageSdSkillCaTwo(Model model, Long idModel) {
+    public String pageSdSkillCaTwo(Model model, String idModel) {
         model.addAttribute("idModel", idModel);
         model.addAttribute("sdStationCaList", enumUtil.getEnumList(SysDicGroupEnum.SD_STATION_CA.getCode()));
         return "pages/biz/plan/template/paperPage2";
@@ -63,7 +63,7 @@ public class PfExamPaperController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/paper/skill/third")
-    public String pageSdSkillCaThird(Model model, Long idModel) {
+    public String pageSdSkillCaThird(Model model, String idModel) {
         model.addAttribute("idModel", idModel);
         model.addAttribute("sdStationCaList", enumUtil.getEnumList(SysDicGroupEnum.SD_STATION_CA.getCode()));
         return "pages/biz/plan/template/paperPage3";

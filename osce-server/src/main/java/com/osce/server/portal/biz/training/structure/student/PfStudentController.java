@@ -72,7 +72,7 @@ public class PfStudentController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_01_003','ROLE_SUPER')")
     @RequestMapping("/pf/p/student/form")
-    public String form(String formType, Long idGrade, Model model, HttpServletRequest request) {
+    public String form(String formType, String idGrade, Model model, HttpServletRequest request) {
         // 机构处理
         User user = CurrentUserUtils.getCurrentUser();
 

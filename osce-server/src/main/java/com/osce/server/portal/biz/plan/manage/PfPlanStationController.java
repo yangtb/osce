@@ -32,7 +32,7 @@ public class PfPlanStationController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/station/order")
-    public String planOrder(Model model, String idPlan, Long idModel, Long idModelFrom) {
+    public String planOrder(Model model, String idPlan, String idModel, String idModelFrom) {
         model.addAttribute("idPlan", idPlan);
         model.addAttribute("idModel", idModel);
         model.addAttribute("idModelFrom", idModelFrom);
@@ -41,7 +41,7 @@ public class PfPlanStationController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_02_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/station/sp")
-    public String planSp(Model model, String idPlan, Long idModelFrom) {
+    public String planSp(Model model, String idPlan, String idModelFrom) {
         model.addAttribute("idPlan", idPlan);
         model.addAttribute("idModelFrom", idModelFrom);
         return "pages/biz/plan/manage/planSp";

@@ -90,7 +90,7 @@
                 <div class="layui-input-block">
                     <#list roles as role>
                     <#if (role.level != 0)>
-                       <input type="checkbox" name="role" value="${role.roleId}"
+                       <input type="checkbox" name="role" value="${role.roleId?c}"
                               lay-skin="primary" title="${role.name}"
                               <#if (role.checked == true)>checked</#if>
                     </#if>

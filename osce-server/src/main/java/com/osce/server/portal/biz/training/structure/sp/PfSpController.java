@@ -44,7 +44,7 @@ public class PfSpController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_01_004','ROLE_SUPER')")
     @RequestMapping("/pf/p/sp/form")
-    public String form(String formType, Long userId, Model model, HttpServletRequest request) {
+    public String form(String formType, String userId, Model model, HttpServletRequest request) {
         model.addAttribute("formType", formType);
         model.addAttribute("userId", userId);
         model.addAttribute("idOrg", CurrentUserUtils.getCurrentUserIdOrg());

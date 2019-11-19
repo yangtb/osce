@@ -37,7 +37,7 @@
                     <select id="idGrade" name="idGrade" lay-verify="required" disabled>
                         <#if allGrade?? && (allGrade?size > 0)>
                             <#list allGrade as grade >
-                                <option value="${grade.idGrade!}" <#if (formType=='add' && grade.idGrade=currentSelectIdGrade)>selected</#if>>${grade.naGrade!}</option>
+                                <option value="${grade.idGrade?c}" <#if (formType=='add' && grade.idGrade=currentSelectIdGrade)>selected</#if>>${grade.naGrade!}</option>
                             </#list>
                         </#if>
                     </select>
@@ -68,7 +68,7 @@
                     <select name="idOrg" lay-verify="required" lay-vertype="tips" disabled>
                         <option value="">请选择</option>
                         <#list allOrg as element>
-                            <option value="${element.idOrg}" <#if (formType=='add' && idOrg==element.idOrg)>selected</#if>>${element.naOrg}</option>
+                            <option value="${element.idOrg?c}" <#if (formType=='add' && idOrg==element.idOrg?c)>selected</#if>>${element.naOrg}</option>
                         </#list>
                     </select>
                 </div>

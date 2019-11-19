@@ -115,7 +115,7 @@
                     <#list allSpTag as spTag>
                         <tr>
                             <td>${spTag.descript!}</td>
-                            <td><input type="text" name="spTag-${spTag.idSpTag!}" class="layui-input btn-sm-my1"
+                            <td><input type="text" name="spTag-${spTag.idSpTag?c}" class="layui-input btn-sm-my1"
                                        autocomplete="off"></td>
                         </tr>
                     </#list>

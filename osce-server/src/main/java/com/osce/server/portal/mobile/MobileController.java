@@ -20,10 +20,10 @@ public class MobileController extends BaseController {
 
     @RequestMapping(value = "/mobile")
     public String home(Model model,
-                       Long idPlan,
-                       Long idArea,
+                       String idPlan,
+                       String idArea,
                        String timeSection,
-                       Long idRoom) {
+                       String idRoom) {
         model.addAttribute("mobileUrl", mobileUrl);
         model.addAttribute("idPlan", idPlan);
         model.addAttribute("idArea", idArea);

@@ -42,7 +42,7 @@
     </style>
     <script>
         var basePath = '${basePath!}';
-        var idInsStation = '${idInsStation!}';
+        var idInsStation = ${idInsStation!};
     </script>
 </head>
 
@@ -51,10 +51,11 @@
 <div style="margin: 10px;">
 
     <div class="layui-row">
-        <div class="layui-col-md6" style="padding-right: 5px;">
+        <div class="layui-col-md8" style="padding-right: 5px;">
             <div class="layui-row">
                 <div id="monitorDevice">
-                    <blockquote class="layui-elem-quote">该房间暂无监控设备</blockquote>
+                    <blockquote class="layui-elem-quote">该站点暂无监控设备</blockquote>
+
                 </div>
 
                 <div class="layui-col-md12">
@@ -70,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div class="layui-col-md6">
+        <div class="layui-col-md4">
             <div class="layui-row">
                 <form class="layui-form">
                     <div class="layui-input-inline" style="width: 300px;">

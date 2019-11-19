@@ -324,7 +324,7 @@
             a.fg_replan ,
             a.sd_plan_status ,
             a.gmt_create
-        order by a.id_plan desc
+        order by a.gmt_plan_begin desc
         limit #{offset}, #{limit}
     </select>
     <select id="countPlanManage1" resultType="java.lang.Long">

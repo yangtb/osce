@@ -21,7 +21,7 @@ public class PfExecuteController extends BaseController {
      * @return
      */
     @RequestMapping("/m/exec/main")
-    public String execMain(Model model, Long idRoom, Long idOrg) {
+    public String execMain(Model model, String idRoom, String idOrg) {
         model.addAttribute("idRoom", idRoom);
         model.addAttribute("idOrg", idOrg);
         return "pages/biz/execute/execMain";
@@ -34,7 +34,7 @@ public class PfExecuteController extends BaseController {
      * @return
      */
     @RequestMapping("/m/exec/test")
-    public String execTest(Model model, Long idExecQueue) {
+    public String execTest(Model model, String idExecQueue) {
         model.addAttribute("idExecQueue", idExecQueue);
         return "pages/biz/execute/execTest";
     }

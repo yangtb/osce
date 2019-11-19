@@ -176,7 +176,7 @@
                                             <option value="">请选择学届</option>
                                             <#if allGrade?? && (allGrade?size > 0)>
                                                 <#list allGrade as grade >
-                                                    <option value="${grade.idGrade!}" <#if (idPlan=='' && grade.fgActive='1')>selected</#if>>${grade.naGrade!}</option>
+                                                    <option value="${grade.idGrade?c}" <#if (idPlan=='' && grade.fgActive='1')>selected</#if>>${grade.naGrade!}</option>
                                                 </#list>
                                             </#if>
                                         </select>

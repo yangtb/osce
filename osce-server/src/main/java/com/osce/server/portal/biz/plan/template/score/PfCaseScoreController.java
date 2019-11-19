@@ -47,7 +47,7 @@ public class PfCaseScoreController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_02_01_001','ROLE_SUPER')")
     @RequestMapping("/pf/p/plan/paper/item/form")
-    public String formItem(String formType, String idCase, Long idScoreSheet,  Model model) {
+    public String formItem(String formType, String idCase, String idScoreSheet,  Model model) {
         model.addAttribute("formType", formType);
         model.addAttribute("idCase", idCase);
         model.addAttribute("idScoreSheet", idScoreSheet);

@@ -75,7 +75,7 @@ public class PfCaseController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_04','ROLE_SUPER')")
     @RequestMapping("/pf/p/case/item/form")
-    public String formItem(String formType, String idCase, Long idScoreSheet, Model model) {
+    public String formItem(String formType, String idCase, String idScoreSheet, Model model) {
         model.addAttribute("formType", formType);
         model.addAttribute("idCase", idCase);
         model.addAttribute("idScoreSheet", idScoreSheet);
@@ -115,7 +115,7 @@ public class PfCaseController extends BaseController {
 
     @PreAuthorize("hasAnyRole('ROLE_01_04', 'ROLE_01_05','ROLE_SUPER')")
     @RequestMapping("/pf/p/cob/evaluate/detail/form")
-    public String formCobEvaluateDetail(Long idCobEvaluate, Model model) {
+    public String formCobEvaluateDetail(String idCobEvaluate, Model model) {
         model.addAttribute("idCobEvaluate", idCobEvaluate);
         return "pages/biz/training/case/cobEvaluateDetailForm";
     }

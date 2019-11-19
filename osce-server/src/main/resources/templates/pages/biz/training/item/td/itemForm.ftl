@@ -40,7 +40,7 @@
                             <option value="">请选择</option>
                             <#if idItemStoreList?? && (idItemStoreList?size > 0)>
                                 <#list idItemStoreList as element>
-                                    <option value="${element.idItemSection!}">${element.naItemSection!}</option>
+                                    <option value="${element.idItemSection?c}">${element.naItemSection!}</option>
                                 </#list>
                             </#if>
                         </select>
